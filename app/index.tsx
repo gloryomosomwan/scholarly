@@ -1,8 +1,6 @@
 import { Text, StyleSheet, ScrollView, SafeAreaView, StatusBar, ActivityIndicator } from "react-native";
-import Animated from "react-native-reanimated";
 
 import { Card } from '@/components/Card'
-import { AnimatedView } from "react-native-reanimated/lib/typescript/component/View";
 
 export default function Index() {
   const lecture = {
