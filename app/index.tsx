@@ -33,10 +33,6 @@ export default function Index() {
   return (
     // <SafeAreaView>
     <ScrollView style={styles.container} contentInsetAdjustmentBehavior="automatic">
-      <StatusBar
-        animated={true}
-        backgroundColor="#fff"
-      />
       <Text style={styles.greeting}>Good morning, Glory.</Text>
       <Text style={styles.date}>Friday, November 28</Text>
       <Text style={styles.header}>Currently:</Text>
