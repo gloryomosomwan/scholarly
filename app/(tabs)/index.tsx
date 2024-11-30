@@ -37,6 +37,14 @@ export default function Index() {
     bottomRight: "Priority: Low"
   }
 
+  const overdueTask = {
+    type: 'task',
+    topLeft: "DEV 101",
+    main: "Review Plan",
+    topRight: "Due Yesterday",
+    bottomRight: "Priority: High"
+  }
+
   return (
     // <SafeAreaView>
     <ScrollView style={styles.container} contentInsetAdjustmentBehavior="automatic">
@@ -64,13 +72,13 @@ export default function Index() {
         <Text style={[styles.header, { marginBottom: 3 }]}>Today's Tasks:</Text>
         <Text style={styles.showAllButton}>SHOW ALL</Text>
       </View>
-      <Text style={styles.subheader}>6 tasks due today</Text>
+      <Text style={styles.subheader}>6 tasks due today \1 overdue\</Text>
       <Card
-        type={task.type}
-        topLeft={task.topLeft}
-        main={task.main}
-        topRight={task.topRight}
-        bottomRight={task.bottomRight}
+        type={overdueTask.type}
+        topLeft={overdueTask.topLeft}
+        main={overdueTask.main}
+        topRight={overdueTask.topRight}
+        bottomRight={overdueTask.bottomRight}
       />
       <Card
         type={task.type}
@@ -129,6 +137,7 @@ const styles = StyleSheet.create({
   taskHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center'
   },
   showAllButton: {
     fontWeight: '600',
