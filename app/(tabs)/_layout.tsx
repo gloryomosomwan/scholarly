@@ -7,8 +7,7 @@ export default function TabLayout() {
   return (
     <Tabs screenOptions={{
       tabBarActiveTintColor: 'powderblue',
-      tabBarStyle: { backgroundColor: 'transparent', position: 'absolute' },
-      headerStyle: { backgroundColor: 'transparent', position: 'absolute' },
+      // headerTransparent: true,
       headerBackground: () => (
         <BlurView
           intensity={50}
@@ -16,13 +15,6 @@ export default function TabLayout() {
           style={StyleSheet.absoluteFill}
         />
       ),
-      tabBarBackground: () => (
-        <BlurView
-          intensity={50}
-          tint='light'
-          style={StyleSheet.absoluteFill}
-        />
-      )
     }}>
       <Tabs.Screen
         name="index"

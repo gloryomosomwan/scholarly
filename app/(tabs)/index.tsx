@@ -1,9 +1,9 @@
-import { Text, StyleSheet, ScrollView, SafeAreaView, StatusBar } from "react-native";
+import { Text, StyleSheet, ScrollView, SafeAreaView, StatusBar, View } from "react-native";
 
 import { Card } from '@/components/Card'
 
 export default function Index() {
-  const lecture = {
+  const currentLecture = {
     type: 'event',
     topLeft: 'Lecture',
     main: 'PROD 102',
@@ -12,12 +12,21 @@ export default function Index() {
     bottomRight: '30 minutes left'
   }
 
+  const nextLecture = {
+    type: 'event',
+    topLeft: 'Lecture',
+    main: 'MARK 101',
+    bottomLeft: 'XYZ 2-90',
+    topRight: '10:00 AM - 11:00 AM',
+    bottomRight: 'In 24 minutes'
+  }
+
   const exam = {
     type: 'event',
     topLeft: 'MARK 101',
     main: 'Final Exam',
     bottomLeft: 'ABC 1-234',
-    topRight: '12:00 PM - 3:00PM',
+    topRight: 'Wednesday',
   }
 
   const task = {
@@ -35,23 +44,27 @@ export default function Index() {
       <Text style={styles.date}>Friday, November 28</Text>
       <Text style={styles.header}>Currently:</Text>
       <Card
-        type={lecture.type}
-        topLeft={lecture.topLeft}
-        main={lecture.main}
-        bottomLeft={lecture.bottomLeft}
-        topRight={lecture.topRight}
-        bottomRight={lecture.bottomRight}
+        type={currentLecture.type}
+        topLeft={currentLecture.topLeft}
+        main={currentLecture.main}
+        bottomLeft={currentLecture.bottomLeft}
+        topRight={currentLecture.topRight}
+        bottomRight={currentLecture.bottomRight}
       />
       <Text style={styles.header}>Up Next:</Text>
       <Card
-        type={lecture.type}
-        topLeft={lecture.topLeft}
-        main={lecture.main}
-        bottomLeft={lecture.bottomLeft}
-        topRight={lecture.topRight}
-        bottomRight={lecture.bottomRight}
+        type={nextLecture.type}
+        topLeft={nextLecture.topLeft}
+        main={nextLecture.main}
+        bottomLeft={nextLecture.bottomLeft}
+        topRight={nextLecture.topRight}
+        bottomRight={nextLecture.bottomRight}
       />
-      <Text style={styles.header}>Today's Tasks:</Text>
+      <View style={styles.taskHeader}>
+        <Text style={[styles.header, { marginBottom: 3 }]}>Today's Tasks:</Text>
+        <Text style={styles.showAllButton}>SHOW ALL</Text>
+      </View>
+      <Text style={styles.subheader}>6 tasks due today</Text>
       <Card
         type={task.type}
         topLeft={task.topLeft}
@@ -106,5 +119,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 20,
     fontWeight: '600'
+  },
+  subheader: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 10,
+    color: '#9496A1'
+  },
+  taskHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  showAllButton: {
+    fontWeight: '600',
+    color: '#9496A1'
   }
 });
