@@ -1,4 +1,4 @@
-import { Text, StyleSheet, ScrollView, SafeAreaView, StatusBar, ActivityIndicator } from "react-native";
+import { Text, StyleSheet, ScrollView, SafeAreaView, StatusBar } from "react-native";
 
 import { Card } from '@/components/Card'
 
