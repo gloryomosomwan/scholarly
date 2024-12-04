@@ -17,7 +17,7 @@ const lab = {
 
 export default function Schedule() {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
       <CourseEvent {...lecture} />
       <CourseEvent {...lab} />
     </View>
