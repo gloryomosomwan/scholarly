@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 type ExamItemProps = {
   title: string,
@@ -11,7 +12,10 @@ type ExamItemProps = {
 export function ExamItem(props: ExamItemProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{props.title}</Text>
+      <View style={styles.firstRow}>
+        <Text style={styles.title}>{props.title}</Text>
+        <FontAwesome name="edit" size={14} color="grey" />
+      </View>
       <Text style={[styles.text, styles.day]}>{props.day}</Text>
       <Text style={[styles.text, styles.time]}>{props.time}</Text>
       <Text style={[styles.text, styles.location]}>{props.location}</Text>
@@ -39,5 +43,9 @@ const styles = StyleSheet.create({
   },
   location: {
 
+  },
+  firstRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 })
