@@ -46,64 +46,24 @@ export default function Index() {
   }
 
   return (
-    // <SafeAreaView>
     <ScrollView style={styles.container} contentInsetAdjustmentBehavior="automatic">
       <Text style={styles.greeting}>Good morning, Glory.</Text>
       <Text style={styles.date}>Friday, November 28</Text>
       <Text style={styles.header}>Currently:</Text>
-      <Card
-        type={currentLecture.type}
-        topLeft={currentLecture.topLeft}
-        main={currentLecture.main}
-        bottomLeft={currentLecture.bottomLeft}
-        topRight={currentLecture.topRight}
-        bottomRight={currentLecture.bottomRight}
-      />
+      <Card {...currentLecture} />
       <Text style={styles.header}>Up Next:</Text>
-      <Card
-        type={nextLecture.type}
-        topLeft={nextLecture.topLeft}
-        main={nextLecture.main}
-        bottomLeft={nextLecture.bottomLeft}
-        topRight={nextLecture.topRight}
-        bottomRight={nextLecture.bottomRight}
-      />
+      <Card {...nextLecture} />
       <View style={styles.taskHeader}>
         <Text style={[styles.header, { marginBottom: 3 }]}>Today's Tasks:</Text>
         <Text style={styles.showAllButton}>SHOW ALL</Text>
       </View>
       <Text style={styles.subheader}>6 tasks due today \1 overdue\</Text>
-      <Card
-        type={overdueTask.type}
-        topLeft={overdueTask.topLeft}
-        main={overdueTask.main}
-        topRight={overdueTask.topRight}
-        bottomRight={overdueTask.bottomRight}
-      />
-      <Card
-        type={task.type}
-        topLeft={task.topLeft}
-        main={task.main}
-        topRight={task.topRight}
-        bottomRight={task.bottomRight}
-      />
-      <Card
-        type={task.type}
-        topLeft={task.topLeft}
-        main={task.main}
-        topRight={task.topRight}
-        bottomRight={task.bottomRight}
-      />
+      <Card {...overdueTask} />
+      <Card {...task} />
+      <Card {...task} />
       <Text style={styles.header}>Upcoming Dates:</Text>
-      <Card
-        type={exam.type}
-        topLeft={exam.topLeft}
-        main={exam.main}
-        bottomLeft={exam.bottomLeft}
-        topRight={exam.topRight}
-      />
+      <Card {...exam} />
     </ScrollView>
-    // </SafeAreaView>
   );
 }
 
