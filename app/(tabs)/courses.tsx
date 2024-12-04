@@ -1,21 +1,22 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Link } from 'expo-router';
+import { FontAwesome } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native';
 
 import { CourseCard } from '@/components/CourseCard';
 
-import { FontAwesome } from '@expo/vector-icons';
-
 export default function Tab() {
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Fall 2025</Text>
-        <FontAwesome.Button name="calendar-plus-o"></FontAwesome.Button>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Fall 2025</Text>
+          <FontAwesome.Button name="calendar-plus-o"></FontAwesome.Button>
+        </View>
+        <CourseCard courseName='MARK 101' page='../(course)/schedule' />
+        <CourseCard courseName='DEV 100' page='../(course)/schedule' />
+        <CourseCard courseName='PROD 102' page='../(course)/schedule' />
       </View>
-      <CourseCard courseName='MARK 101' page='../(course)/schedule' />
-      <CourseCard courseName='DEV 100' page='../(course)/schedule' />
-      <CourseCard courseName='PROD 102' page='../(course)/schedule' />
-    </View>
+    </SafeAreaView>
   );
 }
 

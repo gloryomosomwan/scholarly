@@ -26,6 +26,7 @@ export default function TabLayout() {
         name="courses"
         options={{
           title: 'Courses',
+          headerShown: false,
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="book" color={color} />,
         }}
       />
