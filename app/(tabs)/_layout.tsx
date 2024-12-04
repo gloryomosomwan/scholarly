@@ -8,6 +8,8 @@ export default function TabLayout() {
     <Tabs screenOptions={{
       tabBarActiveTintColor: 'powderblue',
       // headerTransparent: true,
+      // tabBarPosition: 'top',
+      // headerShown: false,
       headerBackground: () => (
         <BlurView
           intensity={50}
@@ -30,13 +32,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="book" color={color} />,
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="coursePage"
         options={{
           title: 'Course Page',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="amazon" color={color} />,
         }}
-      />
+      /> */}
       <Tabs.Screen
         name="settings"
         options={{

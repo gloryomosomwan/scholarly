@@ -1,6 +1,8 @@
-
 import { View, Text, StyleSheet } from 'react-native';
+import { Link } from 'expo-router';
+
 import { CourseCard } from '@/components/CourseCard';
+
 import { FontAwesome } from '@expo/vector-icons';
 
 export default function Tab() {
@@ -10,9 +12,9 @@ export default function Tab() {
         <Text style={styles.headerText}>Fall 2025</Text>
         <FontAwesome.Button name="calendar-plus-o"></FontAwesome.Button>
       </View>
-      <CourseCard courseName='MARK 101' />
-      <CourseCard courseName='DEV 100' />
-      <CourseCard courseName='PROD 102' />
+      <CourseCard courseName='MARK 101' page='../(course)/schedule' />
+      <CourseCard courseName='DEV 100' page='../(course)/schedule' />
+      <CourseCard courseName='PROD 102' page='../(course)/schedule' />
     </View>
   );
 }

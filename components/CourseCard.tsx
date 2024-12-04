@@ -1,13 +1,27 @@
+import { useContext, useEffect } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
+import { Link, RelativePathString } from 'expo-router'
+
+import { CurrentCourseContext } from '@/context/CourseContext'
 
 type CourseCardProps = {
-  courseName: string
+  courseName: string,
+  page: RelativePathString
 }
 
 export function CourseCard(props: CourseCardProps) {
+  const context = useContext(CurrentCourseContext)
+  const setCurrentCourse = context?.setCurrentCourse
+
+  const handlePress = () => {
+    if (setCurrentCourse) {
+      setCurrentCourse(props.courseName)
+    }
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{props.courseName}</Text>
+      <Link onPress={handlePress} href={{ pathname: props.page, params: { name: props.courseName } }} style={styles.text}>{props.courseName}</Link>
     </View>
   )
 }
