@@ -3,9 +3,8 @@ import {
   MaterialTopTabNavigationOptions,
   createMaterialTopTabNavigator,
 } from "@react-navigation/material-top-tabs";
-import { useNavigation, withLayoutContext } from "expo-router";
+import { withLayoutContext } from "expo-router";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
-import { navigate } from "expo-router/build/global-state/routing";
 
 const { Navigator } = createMaterialTopTabNavigator();
 

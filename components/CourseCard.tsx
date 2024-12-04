@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { useContext } from 'react'
+import { StyleSheet, View } from 'react-native'
 import { Link, RelativePathString } from 'expo-router'
 
 import { CurrentCourseContext } from '@/context/CourseContext'
