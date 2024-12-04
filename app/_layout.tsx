@@ -1,8 +1,8 @@
-import { Stack } from "expo-router";
 import { useState } from "react";
+import { Button } from "react-native";
+import { Stack } from "expo-router";
 
 import { CurrentCourseContext } from "@/context/CourseContext";
-import { Button } from "react-native";
 
 export default function RootLayout() {
   const [currentCourse, setCurrentCourse] = useState<string | null>(null)

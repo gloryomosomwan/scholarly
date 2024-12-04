@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { ExamItem } from '@/components/ExamItem';
 
 const midterm = {
@@ -17,10 +17,10 @@ const final = {
 
 export default function Exams() {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <ExamItem {...midterm} />
       <ExamItem {...final} />
-    </View>
+    </ScrollView>
   );
 }
 

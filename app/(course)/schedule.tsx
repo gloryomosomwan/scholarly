@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { CourseEvent } from '@/components/CourseEvent';
 
 const lecture = {
@@ -17,10 +17,10 @@ const lab = {
 
 export default function Schedule() {
   return (
-    <View style={styles.container} >
+    <ScrollView style={styles.container} >
       <CourseEvent {...lecture} />
       <CourseEvent {...lab} />
-    </View>
+    </ScrollView>
   );
 }
 

@@ -5,6 +5,7 @@ import {
 } from "@react-navigation/material-top-tabs";
 import { withLayoutContext } from "expo-router";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 const { Navigator } = createMaterialTopTabNavigator();
 
@@ -17,10 +18,18 @@ export const MaterialTopTabs = withLayoutContext<
 
 export default function TabLayout() {
   return (
-    <MaterialTopTabs screenOptions={{ title: 'TopTabsTitle' }}>
-      <MaterialTopTabs.Screen name="schedule" options={{ title: "Schedule" }} />
-      <MaterialTopTabs.Screen name="assignments" options={{ title: "Assignments" }} />
-      <MaterialTopTabs.Screen name="exams" options={{ title: "Exams" }} />
-    </MaterialTopTabs >
+    <SafeAreaView style={styles.container}>
+      <MaterialTopTabs screenOptions={{ title: 'TopTabsTitle' }}>
+        <MaterialTopTabs.Screen name="schedule" options={{ title: "Schedule" }} />
+        <MaterialTopTabs.Screen name="assignments" options={{ title: "Assignments" }} />
+        <MaterialTopTabs.Screen name="exams" options={{ title: "Exams" }} />
+      </MaterialTopTabs >
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

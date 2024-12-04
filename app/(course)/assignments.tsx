@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { AssignmentItem } from '@/components/AssignmentItem';
 
 const assignment1 = {
@@ -21,11 +21,11 @@ const assignment3 = {
 
 export default function Assignments() {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <AssignmentItem {...assignment1} />
       <AssignmentItem {...assignment2} />
       <AssignmentItem {...assignment3} />
-    </View>
+    </ScrollView>
   );
 }
 
