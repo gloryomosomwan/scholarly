@@ -17,7 +17,7 @@ export default function Index() {
   const nextLecture = {
     id: 40000, type: 'Lecture', course: 'MARK 161', icon: 'chart.bar' as SFSymbol,
     start: new Date(2025, 5, 14, 20, 0),
-    end: new Date(2025, 5, 14, 23, 0),
+    end: new Date(2025, 5, 14, 21, 0),
     location: 'GMH 5-18',
   }
 

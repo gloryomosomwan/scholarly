@@ -25,8 +25,8 @@ export function EventCard({ event }: EventCardProps) {
   const theme = useTheme()
   const now = dayjs()
   const isHappening = now.isBetween(event.start, event.end)
-  const timeToNowString = dayjs(event.start).toNow()
-  const capitalizedTimeToNowString = timeToNowString.charAt(0).toUpperCase() + timeToNowString.slice(1)
+  const timeFromNowString = dayjs(event.start).fromNow()
+  const capitalizedTimeToNowString = timeFromNowString.charAt(0).toUpperCase() + timeFromNowString.slice(1)
   const courseColor = courseColors[event.course as keyof typeof courseColors];
 
   return (
