@@ -1,18 +1,17 @@
 import { Text, StyleSheet, ScrollView, View, Platform } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SFSymbol } from 'expo-symbols';
 
 import { useTheme } from "@/utils/useTheme";
-
 import { Card } from '@/components/Card'
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { EventCard } from "@/components/EventCard";
 
 export default function Index() {
   const currentLecture = {
-    type: 'event',
-    topLeft: 'Lecture',
-    main: 'PROD 102',
-    bottomLeft: 'BSJ 3-20',
-    topRight: '9:00 AM - 10:00 AM',
-    bottomRight: '30 minutes left'
+    id: 400000, type: 'Lecture', course: 'HIST 211', icon: 'books.vertical' as SFSymbol,
+    start: new Date(2025, 5, 11, 0, 0),
+    end: new Date(2025, 5, 11, 3, 0),
+    location: 'HIS 2-17',
   }
 
   const nextLecture = {
@@ -58,7 +57,7 @@ export default function Index() {
         <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
         <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
         <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
-        <Card {...currentLecture} />
+        <EventCard event={currentLecture} />
         <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
         <Card {...nextLecture} />
         <View style={styles.tasksHeaderContainer}>
