@@ -21,6 +21,8 @@ type EventCardProps = {
 export function EventCard({ event }: EventCardProps) {
   const now = dayjs()
   const isHappening = now.isBetween(event.start, event.end)
+  const timeToNowString = dayjs(event.start).toNow()
+  const capitalizedtimeToNowString = timeToNowString.charAt(0).toUpperCase() + timeToNowString.slice(1)
 
   return (
     <View style={[styles.container, styles.shadowProp, { backgroundColor: 'white' }]}>
@@ -31,7 +33,7 @@ export function EventCard({ event }: EventCardProps) {
       <View style={styles.rightColumn}>
         <Text style={[styles.text]}>{`${event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} - ${event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}`}</Text>
         {!isHappening &&
-          <Text style={[styles.text]}>{dayjs(event.start).toNow()}</Text>
+          <Text style={[styles.text]}>{capitalizedtimeToNowString}</Text>
         }
         <Text style={[styles.text]}>{event.location}</Text>
       </View>
