@@ -54,24 +54,34 @@ export default function Index() {
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop }}>
       <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
-        <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
-        <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
-        <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
-        <EventCard event={currentLecture} />
-        <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
-        <Card {...nextLecture} />
-        <View style={styles.tasksHeaderContainer}>
-          <View style={styles.tasksHeaderTopRowContainer}>
-            <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
-            <Text style={[styles.showAllButton, { color: theme.tertiary }]}>SHOW ALL</Text>
-          </View>
-          <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today \1 overdue\</Text>
+        <View>
+          <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
+          <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
         </View>
-        <Card {...overdueTask} />
-        <Card {...task} />
-        <Card {...task} />
-        <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
-        <Card {...exam} />
+        <View>
+          <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
+          <EventCard event={currentLecture} />
+        </View>
+        <View>
+          <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
+          <Card {...nextLecture} />
+        </View>
+        <View>
+          <View style={styles.tasksHeaderContainer}>
+            <View style={styles.tasksHeaderTopRowContainer}>
+              <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
+              <Text style={[styles.showAllButton, { color: theme.tertiary }]}>SHOW ALL</Text>
+            </View>
+            <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today \1 overdue\</Text>
+          </View>
+          <Card {...overdueTask} />
+          <Card {...task} />
+          <Card {...task} />
+        </View>
+        <View>
+          <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
+          <Card {...exam} />
+        </View>
       </ScrollView>
     </View>
   );
