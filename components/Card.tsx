@@ -17,7 +17,7 @@ export function Card(props: CardProps) {
   const theme = useTheme()
 
   return (
-    <View style={[styles.container, styles.shadowProp, { backgroundColor: 'grey' }]}>
+    <View style={[styles.container, styles.shadowProp, { backgroundColor: 'white' }]}>
       {/* <ImageBackground source={image} style={styles.image}> */}
       <View style={styles.firstRow}>
         <Text style={[styles.text]}>{props.topLeft}</Text>
