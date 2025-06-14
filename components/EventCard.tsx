@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text } from "react-native"
-import { SFSymbol } from 'expo-symbols';
+import { SFSymbol, SymbolView } from 'expo-symbols';
 
 import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween'
@@ -28,7 +28,10 @@ export function EventCard({ event }: EventCardProps) {
     <View style={[styles.container, styles.shadowProp, { backgroundColor: 'white' }]}>
       <View style={styles.leftColumnContainer}>
         <Text style={[styles.text]}>{event.type}</Text>
-        <Text style={[styles.course]}>{event.course}</Text>
+        <View style={styles.courseContainer}>
+          <SymbolView name={event.icon} size={35} style={styles.icon} />
+          <Text style={[styles.course]}>{event.course}</Text>
+        </View>
       </View>
       <View style={styles.rightColumnContainer}>
         <Text style={[styles.text]}>{`${event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} - ${event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}`}</Text>
@@ -72,5 +75,12 @@ const styles = StyleSheet.create({
   course: {
     fontSize: 33,
     fontWeight: '500'
+  },
+  courseContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  icon: {
+    marginRight: 5
   },
 })
