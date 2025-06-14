@@ -26,11 +26,11 @@ export function EventCard({ event }: EventCardProps) {
 
   return (
     <View style={[styles.container, styles.shadowProp, { backgroundColor: 'white' }]}>
-      <View style={styles.leftColumn}>
+      <View style={styles.leftColumnContainer}>
         <Text style={[styles.text]}>{event.type}</Text>
         <Text style={[styles.course]}>{event.course}</Text>
       </View>
-      <View style={styles.rightColumn}>
+      <View style={styles.rightColumnContainer}>
         <Text style={[styles.text]}>{`${event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} - ${event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}`}</Text>
         {!isHappening &&
           <Text style={[styles.text]}>{capitalizedTimeToNowString}</Text>
@@ -60,9 +60,9 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 15
   },
-  leftColumn: {
+  leftColumnContainer: {
   },
-  rightColumn: {
+  rightColumnContainer: {
     alignItems: 'flex-end'
   },
   task: {
