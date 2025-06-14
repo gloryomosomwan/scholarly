@@ -1,5 +1,10 @@
 import { StyleSheet, View, Text } from "react-native"
 import { SFSymbol } from 'expo-symbols';
+import dayjs from "dayjs";
+import isBetween from 'dayjs/plugin/isBetween'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(isBetween)
+dayjs.extend(relativeTime)
 
 import { useTheme } from "@/utils/useTheme"
 
@@ -17,6 +22,9 @@ type EventCardProps = {
 export function EventCard({ event }: EventCardProps) {
   const theme = useTheme()
 
+  const now = dayjs()
+  const isHappening = now.isBetween(event.start, event.end)
+
   return (
     <View style={[styles.container, styles.shadowProp, { backgroundColor: 'white' }]}>
       <View style={styles.leftColumn}>
@@ -25,7 +33,9 @@ export function EventCard({ event }: EventCardProps) {
       </View>
       <View style={styles.rightColumn}>
         <Text style={[styles.text]}>{`${event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} - ${event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}`}</Text>
-        <Text style={[styles.text]}>lol</Text>
+        {!isHappening &&
+          <Text style={[styles.text]}>{dayjs(event.start).toNow()}</Text>
+        }
         <Text style={[styles.text]}>{event.location}</Text>
       </View>
     </View>

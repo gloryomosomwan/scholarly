@@ -9,8 +9,8 @@ import { EventCard } from "@/components/EventCard";
 export default function Index() {
   const currentLecture = {
     id: 400000, type: 'Lecture', course: 'HIST 211', icon: 'books.vertical' as SFSymbol,
-    start: new Date(2025, 5, 11, 0, 0),
-    end: new Date(2025, 5, 11, 3, 0),
+    start: new Date(2025, 5, 14, 0, 0),
+    end: new Date(2025, 5, 14, 2, 0),
     location: 'HIS 2-17',
   }
 
