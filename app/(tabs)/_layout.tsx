@@ -1,7 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { useTheme } from '@/utils/useTheme';
 
@@ -9,7 +9,8 @@ export default function TabLayout() {
   const theme = useTheme()
   return (
     <Tabs screenOptions={{
-      tabBarActiveTintColor: theme.accent,
+      tabBarActiveTintColor: theme.text,
+      tabBarInactiveTintColor: theme.tertiary,
       headerBackground: () => (
         <BlurView
           intensity={50}
@@ -25,7 +26,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ }) => <FontAwesome size={28} name="home" color={theme.text} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
           headerShown: false,
         }}
       />
@@ -33,7 +34,7 @@ export default function TabLayout() {
         name="calendar"
         options={{
           title: 'Calendar',
-          tabBarIcon: ({ }) => <FontAwesome size={28} name="home" color={theme.text} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="calendar" color={color} />,
           headerShown: false
         }}
       />
@@ -42,14 +43,14 @@ export default function TabLayout() {
         options={{
           title: 'Courses',
           headerShown: false,
-          tabBarIcon: ({ }) => <FontAwesome size={28} name="book" color={theme.text} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="book" color={color} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: 'Settings',
-          tabBarIcon: ({ }) => <FontAwesome size={28} name="cog" color={theme.text} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
         }}
       />
     </Tabs>
