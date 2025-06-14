@@ -20,7 +20,8 @@ export default function TabLayout() {
       ),
       tabBarShowLabel: false,
       tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary, display: 'flex' },
-      tabBarIconStyle: { top: 15 }
+      tabBarIconStyle: { top: 15 },
+      sceneStyle: { backgroundColor: theme.primary }
     }}>
       <Tabs.Screen
         name="index"
