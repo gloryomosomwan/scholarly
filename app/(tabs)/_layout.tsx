@@ -17,21 +17,22 @@ export default function TabLayout() {
           style={[StyleSheet.absoluteFill]}
         />
       ),
-      tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary, display: 'none' }
+      tabBarShowLabel: false,
+      tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary, display: 'flex' }
     }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
-          headerShown: false
+          tabBarIcon: ({ }) => <FontAwesome size={28} name="home" color={theme.text} />,
+          headerShown: false,
         }}
       />
       <Tabs.Screen
         name="calendar"
         options={{
           title: 'Calendar',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+          tabBarIcon: ({ }) => <FontAwesome size={28} name="home" color={theme.text} />,
           headerShown: false
         }}
       />
@@ -40,14 +41,14 @@ export default function TabLayout() {
         options={{
           title: 'Courses',
           headerShown: false,
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="book" color={color} />,
+          tabBarIcon: ({ }) => <FontAwesome size={28} name="book" color={theme.text} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+          tabBarIcon: ({ }) => <FontAwesome size={28} name="cog" color={theme.text} />,
         }}
       />
     </Tabs>
