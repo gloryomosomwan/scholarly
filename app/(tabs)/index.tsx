@@ -1,5 +1,4 @@
-import { Text, StyleSheet, ScrollView, View, Platform, SafeAreaView } from "react-native";
-import { StatusBar } from 'expo-status-bar';
+import { Text, StyleSheet, ScrollView, View, Platform } from "react-native";
 
 import { useTheme } from "@/utils/useTheme";
 
