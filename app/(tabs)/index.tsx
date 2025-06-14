@@ -57,10 +57,12 @@ export default function Index() {
       <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
       <Card {...nextLecture} />
       <View style={styles.tasksHeaderContainer}>
-        <Text style={[styles.headerText, { color: theme.text, marginBottom: 3 }]}>Today's Tasks:</Text>
-        <Text style={[styles.showAllButton, { color: theme.tertiary }]}>SHOW ALL</Text>
+        <View style={styles.tasksHeaderTopRowContainer}>
+          <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
+          <Text style={[styles.showAllButton, { color: theme.tertiary }]}>SHOW ALL</Text>
+        </View>
+        <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today \1 overdue\</Text>
       </View>
-      <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today \1 overdue\</Text>
       <Card {...overdueTask} />
       <Card {...task} />
       <Card {...task} />
@@ -85,16 +87,25 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   headerText: {
-    marginBottom: 10,
+    marginTop: 12,
+    marginBottom: 12,
     fontSize: 20,
+    fontWeight: '600'
+  },
+  taskHeaderText: {
+    fontSize: 20,
+    marginBottom: 3,
     fontWeight: '600'
   },
   subheaderText: {
     fontSize: 16,
     fontWeight: '600',
-    marginBottom: 10,
   },
   tasksHeaderContainer: {
+    marginTop: 12,
+    marginBottom: 12,
+  },
+  tasksHeaderTopRowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'

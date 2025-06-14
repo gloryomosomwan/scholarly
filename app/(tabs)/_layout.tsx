@@ -17,7 +17,7 @@ export default function TabLayout() {
           style={[StyleSheet.absoluteFill]}
         />
       ),
-      tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary }
+      tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary, display: 'none' }
     }}>
       <Tabs.Screen
         name="index"

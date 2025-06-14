@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
   },
   container: {
-    marginBottom: 10,
+    marginBottom: 16,
     padding: 13,
     borderRadius: 10,
   },
