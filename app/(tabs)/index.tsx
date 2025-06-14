@@ -1,7 +1,10 @@
-import { Text, StyleSheet, ScrollView, View } from "react-native";
+import { Text, StyleSheet, ScrollView, View, Platform } from "react-native";
+import { StatusBar } from 'expo-status-bar';
+
 import { useTheme } from "@/utils/useTheme";
 
 import { Card } from '@/components/Card'
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Index() {
   const currentLecture = {
@@ -47,34 +50,38 @@ export default function Index() {
   }
 
   const theme = useTheme()
+  const insets = useSafeAreaInsets();
+  let paddingTop = Platform.OS === "android" ? 0 : insets.top;
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
-      <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
-      <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
-      <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
-      <Card {...currentLecture} />
-      <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
-      <Card {...nextLecture} />
-      <View style={styles.tasksHeaderContainer}>
-        <View style={styles.tasksHeaderTopRowContainer}>
-          <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
-          <Text style={[styles.showAllButton, { color: theme.tertiary }]}>SHOW ALL</Text>
+    <View style={{ overflow: 'hidden', top: paddingTop }}>
+      <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
+        <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
+        <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
+        <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
+        <Card {...currentLecture} />
+        <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
+        <Card {...nextLecture} />
+        <View style={styles.tasksHeaderContainer}>
+          <View style={styles.tasksHeaderTopRowContainer}>
+            <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
+            <Text style={[styles.showAllButton, { color: theme.tertiary }]}>SHOW ALL</Text>
+          </View>
+          <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today \1 overdue\</Text>
         </View>
-        <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today \1 overdue\</Text>
-      </View>
-      <Card {...overdueTask} />
-      <Card {...task} />
-      <Card {...task} />
-      <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
-      <Card {...exam} />
-    </ScrollView>
+        <Card {...overdueTask} />
+        <Card {...task} />
+        <Card {...task} />
+        <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
+        <Card {...exam} />
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    paddingHorizontal: 20,
   },
   greetingText: {
     fontSize: 26,
