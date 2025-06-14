@@ -27,7 +27,6 @@ export default function TabLayout() {
           title: 'Home',
           tabBarIcon: ({ }) => <FontAwesome size={28} name="home" color={theme.text} />,
           headerShown: false,
-          tabBarItemStyle: { justifyContent: 'flex-end' },
         }}
       />
       <Tabs.Screen
