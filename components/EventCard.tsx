@@ -1,12 +1,11 @@
 import { StyleSheet, View, Text } from "react-native"
 import { SFSymbol } from 'expo-symbols';
+
 import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(isBetween)
 dayjs.extend(relativeTime)
-
-import { useTheme } from "@/utils/useTheme"
 
 type EventCardProps = {
   event: {
@@ -20,8 +19,6 @@ type EventCardProps = {
 }
 
 export function EventCard({ event }: EventCardProps) {
-  const theme = useTheme()
-
   const now = dayjs()
   const isHappening = now.isBetween(event.start, event.end)
 
