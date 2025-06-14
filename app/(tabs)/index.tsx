@@ -10,17 +10,15 @@ export default function Index() {
   const currentLecture = {
     id: 400000, type: 'Lecture', course: 'HIST 211', icon: 'books.vertical' as SFSymbol,
     start: new Date(2025, 5, 14, 0, 0),
-    end: new Date(2025, 5, 14, 23, 0),
+    end: new Date(2025, 5, 14, 18, 0),
     location: 'HIS 2-17',
   }
 
   const nextLecture = {
-    type: 'event',
-    topLeft: 'Lecture',
-    main: 'MARK 101',
-    bottomLeft: 'XYZ 2-90',
-    topRight: '10:00 AM - 11:00 AM',
-    bottomRight: 'In 24 minutes'
+    id: 40000, type: 'Lecture', course: 'MARK 161', icon: 'chart.bar' as SFSymbol,
+    start: new Date(2025, 5, 14, 20, 0),
+    end: new Date(2025, 5, 14, 23, 0),
+    location: 'GMH 5-18',
   }
 
   const exam = {
@@ -64,7 +62,7 @@ export default function Index() {
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
-          <Card {...nextLecture} />
+          <EventCard event={nextLecture} />
         </View>
         <View>
           <View style={styles.tasksHeaderContainer}>
