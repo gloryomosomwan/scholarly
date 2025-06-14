@@ -8,10 +8,10 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import Event from "@/components/AgendaCalendar/Event";
 import Activity from "@/components/AgendaCalendar/Activity";
-import { events, assignments, tasks } from '@/utils/data'
+import { events, assignments, tasks } from '@/utils/Calendar/data'
 import { useTheme } from '@/utils/useTheme'
 import { useCalendar } from './CalendarContext';
-import { compareEventTimes, compareActivityTimes } from '@/utils/utils';
+import { compareEventTimes, compareActivityTimes } from '@/utils/Calendar/utils';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>

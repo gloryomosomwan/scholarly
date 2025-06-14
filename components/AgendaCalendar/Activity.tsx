@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import tinycolor from 'tinycolor2'
 
 import { useTheme } from '@/utils/useTheme'
-import { courseColors } from '@/utils/data';
+import { courseColors } from '@/utils/Calendar/data';
 
 type ActivityProps = {
   activity: {
