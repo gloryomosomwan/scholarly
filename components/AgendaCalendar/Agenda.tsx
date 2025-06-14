@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SharedValue } from 'react-native-reanimated';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { isSameDay } from 'date-fns';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import Event from "@/components/AgendaCalendar/Event";
 import Activity from "@/components/AgendaCalendar/Activity";
@@ -21,7 +22,8 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   let paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const initialCalendarBottom = (47 * 6) + paddingTop + 52
   const { height } = useWindowDimensions();
-  const snapPoints = useMemo(() => [height - initialCalendarBottom, height - initialCalendarBottom + 235], []);
+  const bottomTabBarHeight = useBottomTabBarHeight()
+  const snapPoints = useMemo(() => [height - initialCalendarBottom - bottomTabBarHeight, height - initialCalendarBottom + 235 - bottomTabBarHeight], []);
   const theme = useTheme()
   const { calendarState } = useCalendar()
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
