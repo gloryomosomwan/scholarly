@@ -32,7 +32,7 @@ export function EventCard({ event }: EventCardProps) {
   return (
     <View style={[styles.container, styles.shadowProp, { backgroundColor: 'white' }]}>
       <View style={styles.leftColumnContainer}>
-        <Text style={[styles.text]}>{event.type}</Text>
+        <Text style={[styles.text, { color: theme.tertiary }]}>{event.type}</Text>
         <View style={styles.courseContainer}>
           <SymbolView name={event.icon} size={35} style={styles.icon} tintColor={courseColor} />
           <Text style={[styles.course]}>{event.course}</Text>
