@@ -1,4 +1,4 @@
-import { Text, StyleSheet, ScrollView, View, Platform } from "react-native";
+import { Text, StyleSheet, ScrollView, View, Platform, SafeAreaView } from "react-native";
 import { StatusBar } from 'expo-status-bar';
 
 import { useTheme } from "@/utils/useTheme";
@@ -54,7 +54,7 @@ export default function Index() {
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
 
   return (
-    <View style={{ overflow: 'hidden', top: paddingTop }}>
+    <View style={{ overflow: 'hidden', paddingTop: paddingTop }}>
       <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
         <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
         <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
