@@ -1,7 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { useTheme } from '@/utils/useTheme';
 
@@ -18,7 +18,8 @@ export default function TabLayout() {
         />
       ),
       tabBarShowLabel: false,
-      tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary, display: 'flex' }
+      tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary, display: 'flex' },
+      tabBarIconStyle: { top: 15 }
     }}>
       <Tabs.Screen
         name="index"
@@ -26,6 +27,7 @@ export default function TabLayout() {
           title: 'Home',
           tabBarIcon: ({ }) => <FontAwesome size={28} name="home" color={theme.text} />,
           headerShown: false,
+          tabBarItemStyle: { justifyContent: 'flex-end' },
         }}
       />
       <Tabs.Screen
