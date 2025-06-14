@@ -3,17 +3,21 @@ import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import { StyleSheet } from 'react-native';
 
+import { useTheme } from '@/utils/useTheme';
+
 export default function TabLayout() {
+  const theme = useTheme()
   return (
     <Tabs screenOptions={{
-      tabBarActiveTintColor: 'powderblue',
+      tabBarActiveTintColor: theme.accent,
       headerBackground: () => (
         <BlurView
           intensity={50}
           tint='light'
-          style={StyleSheet.absoluteFill}
+          style={[StyleSheet.absoluteFill, { backgroundColor: 'red' }]}
         />
       ),
+      tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary }
     }}>
       <Tabs.Screen
         name="index"
