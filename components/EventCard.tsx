@@ -38,7 +38,10 @@ export function EventCard({ event }: EventCardProps) {
         {!isHappening &&
           <Text style={[styles.text]}>{capitalizedTimeToNowString}</Text>
         }
-        <Text style={[styles.text]}>{event.location}</Text>
+        <View style={styles.locationContainer}>
+          <SymbolView name="mappin.circle.fill" style={styles.locationIcon} size={12} />
+          <Text style={[styles.text]}>{event.location}</Text>
+        </View>
       </View>
     </View>
   )
@@ -81,6 +84,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   icon: {
-    marginRight: 4
+    marginRight: 4,
   },
+  locationIcon: {
+    marginRight: 3,
+  },
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
 })
