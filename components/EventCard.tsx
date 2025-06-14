@@ -7,6 +7,9 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(isBetween)
 dayjs.extend(relativeTime)
 
+import { useTheme } from '@/utils/useTheme';
+import { courseColors } from '@/utils/Calendar/data';
+
 type EventCardProps = {
   event: {
     type: string
@@ -19,17 +22,19 @@ type EventCardProps = {
 }
 
 export function EventCard({ event }: EventCardProps) {
+  const theme = useTheme()
   const now = dayjs()
   const isHappening = now.isBetween(event.start, event.end)
   const timeToNowString = dayjs(event.start).toNow()
   const capitalizedTimeToNowString = timeToNowString.charAt(0).toUpperCase() + timeToNowString.slice(1)
+  const courseColor = courseColors[event.course as keyof typeof courseColors];
 
   return (
     <View style={[styles.container, styles.shadowProp, { backgroundColor: 'white' }]}>
       <View style={styles.leftColumnContainer}>
         <Text style={[styles.text]}>{event.type}</Text>
         <View style={styles.courseContainer}>
-          <SymbolView name={event.icon} size={35} style={styles.icon} />
+          <SymbolView name={event.icon} size={35} style={styles.icon} tintColor={courseColor} />
           <Text style={[styles.course]}>{event.course}</Text>
         </View>
       </View>
@@ -39,7 +44,7 @@ export function EventCard({ event }: EventCardProps) {
           <Text style={[styles.text]}>{capitalizedTimeToNowString}</Text>
         }
         <View style={styles.locationContainer}>
-          <SymbolView name="mappin.circle.fill" style={styles.locationIcon} size={12} />
+          <SymbolView name="mappin.circle.fill" style={styles.locationIcon} size={12} tintColor={theme.tertiary} />
           <Text style={[styles.text]}>{event.location}</Text>
         </View>
       </View>
@@ -88,6 +93,7 @@ const styles = StyleSheet.create({
   },
   locationIcon: {
     marginRight: 3,
+    opacity: 0.6
   },
   locationContainer: {
     flexDirection: 'row',
