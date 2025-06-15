@@ -50,7 +50,7 @@ export default function Index() {
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
 
   return (
-    <View style={{ overflow: 'hidden', paddingTop: paddingTop }}>
+    <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
       <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
         <View>
           <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>

@@ -30,12 +30,12 @@ export function EventCard({ event }: EventCardProps) {
   const courseColor = courseColors[event.course as keyof typeof courseColors];
 
   return (
-    <View style={[styles.container, styles.shadowProp, { backgroundColor: 'white' }]}>
+    <View style={[styles.container, styles.shadowProp, { backgroundColor: courseColor }]}>
       <View style={styles.leftColumnContainer}>
-        <Text style={[styles.text, { color: theme.tertiary }]}>{event.type}</Text>
+        <Text style={[styles.text, { color: 'white' }]}>{event.type}</Text>
         <View style={styles.courseContainer}>
-          <SymbolView name={event.icon} size={35} style={styles.icon} tintColor={courseColor} />
-          <Text style={[styles.course]}>{event.course}</Text>
+          <SymbolView name={event.icon} size={35} style={styles.icon} tintColor="white" />
+          <Text style={[styles.course, { color: 'white' }]}>{event.course}</Text>
         </View>
       </View>
       <View style={styles.rightColumnContainer}>
@@ -68,8 +68,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   text: {
-    color: "black",
-    fontSize: 15
+    color: "white",
+    fontSize: 15,
+    fontWeight: '500'
   },
   leftColumnContainer: {
   },
