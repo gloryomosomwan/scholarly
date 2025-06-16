@@ -3,10 +3,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useTheme } from "@/utils/useTheme";
 import { Card } from '@/components/Card'
-import ActivityCard from "@/components/ActivityCard"
 import ProgressCards from "@/components/Dashboard/ProgressCard";
 import EventCard from "@/components/Dashboard/EventCard";
-import ActivityCard2 from "@/components/ActivityCard2";
+import ActivityCard from "@/components/ActivityCard";
 
 export default function Index() {
   const theme = useTheme()
@@ -38,7 +37,8 @@ export default function Index() {
             <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today \1 overdue\</Text>
           </View>
           <ActivityCard activity={task} />
-          <ActivityCard2 activity={task} />
+          <ActivityCard activity={task2} />
+          <ActivityCard activity={task3} />
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
