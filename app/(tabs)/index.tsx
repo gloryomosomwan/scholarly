@@ -29,6 +29,10 @@ export default function Index() {
           <EventCard event={nextLecture} />
         </View>
         <View>
+          <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
+          <AssessmentCard assessment={exam} />
+        </View>
+        <View>
           <View style={styles.tasksHeaderContainer}>
             <View style={styles.tasksHeaderTopRowContainer}>
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
@@ -39,10 +43,6 @@ export default function Index() {
           <ActivityCard activity={task} />
           <ActivityCard activity={task2} />
           <ActivityCard activity={task3} />
-        </View>
-        <View>
-          <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
-          <AssessmentCard assessment={exam} />
         </View>
       </ScrollView>
     </View>
