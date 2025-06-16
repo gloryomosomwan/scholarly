@@ -61,7 +61,6 @@ export default function EventCard({ event }: EventCardProps) {
               </Text>
             </View>
           </View>
-
           <View style={styles.locationContainer}>
             <View style={styles.locationDot} />
             <Text style={styles.locationText}>{event.location}</Text>
@@ -113,7 +112,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: '#FECACA',
-    marginBottom: 4,
+    marginBottom: 6,
   },
   courseContainer: {
     flexDirection: 'row',
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   courseName: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
