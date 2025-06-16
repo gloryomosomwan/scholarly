@@ -5,6 +5,7 @@ import { SFSymbol } from 'expo-symbols';
 import { useTheme } from "@/utils/useTheme";
 import { Card } from '@/components/Card'
 import { EventCard } from "@/components/EventCard";
+import ActivityCard from "@/components/ActivityCard"
 
 export default function Index() {
   const currentLecture = {
@@ -30,11 +31,29 @@ export default function Index() {
   }
 
   const task = {
-    type: 'task',
-    topLeft: "DEV 101",
-    main: "Review Reading 2",
-    topRight: "Due Today",
-    bottomRight: "Priority: Low"
+    id: 50,
+    title: 'Record a voice memo explaining electromagnetic fields for PHYS 102',
+    course: 'PHYS 102',
+    due: new Date(2025, 5, 12, 12, 0),
+    priority: 'low',
+  }
+  const task2 =
+  {
+    id: 73,
+    title: 'Storyboard a 30-second marketing video for MARK 161',
+    course: 'MARK 161',
+    description: 'Draft key messaging points',
+    due: new Date(2025, 4, 8, 20, 30),
+    priority: 'high',
+  }
+  const task3 =
+  {
+    id: 74,
+    title: 'Compose a summary blog post on series convergence for MATH 119',
+    course: 'MATH 119',
+    description: 'Include references to lecture examples',
+    due: new Date(2025, 5, 10, 9, 30),
+    priority: 'low',
   }
 
   const overdueTask = {
@@ -72,9 +91,9 @@ export default function Index() {
             </View>
             <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today \1 overdue\</Text>
           </View>
-          <Card {...overdueTask} />
-          <Card {...task} />
-          <Card {...task} />
+          <ActivityCard activity={task} />
+          <ActivityCard activity={task2} />
+          <ActivityCard activity={task3} />
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
