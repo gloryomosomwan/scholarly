@@ -6,6 +6,7 @@ import { Card } from '@/components/Card'
 import ActivityCard from "@/components/ActivityCard"
 import ProgressCards from "@/components/Dashboard/ProgressCard";
 import EventCard from "@/components/Dashboard/EventCard";
+import ActivityCard2 from "@/components/ActivityCard2";
 
 export default function Index() {
   const theme = useTheme()
@@ -37,8 +38,7 @@ export default function Index() {
             <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today \1 overdue\</Text>
           </View>
           <ActivityCard activity={task} />
-          <ActivityCard activity={task2} />
-          <ActivityCard activity={task3} />
+          <ActivityCard2 activity={task} />
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
