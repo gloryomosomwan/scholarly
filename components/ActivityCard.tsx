@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import { courseColors } from '@/utils/Calendar/data';
-import dayjs from '@/utils/dayjs'
 
 type ActivityCardProps = {
   activity: {
