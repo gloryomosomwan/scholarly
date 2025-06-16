@@ -30,3 +30,27 @@ export const darkTheme: theme = {
   danger: 'red',
   warning: 'gold',
 }
+
+export const priorityColors = {
+  high: {
+    backgroundColor: '#FEF2F2',
+    borderColor: '#FECACA',
+    color: '#B91C1C',
+  },
+  medium: {
+    backgroundColor: '#FFFBEB',
+    borderColor: '#FDE68A',
+    color: '#B45309',
+  },
+  low: {
+    backgroundColor: '#F0FDF4',
+    borderColor: '#BBF7D0',
+    color: '#166534',
+  },
+  default: {
+    backgroundColor: '#F9FAFB',
+    borderColor: '#E5E7EB',
+    color: '#374151',
+  }
+
+}

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import { courseColors } from '@/utils/Calendar/data';
+import { priorityColors } from '@/utils/themes';
 
 type ActivityCardProps = {
   activity: {
@@ -17,15 +18,6 @@ type ActivityCardProps = {
 export default function ActivityCard({ activity }: ActivityCardProps) {
   const [completed, setCompleted] = useState(false);
   const courseColor = courseColors[activity.course as keyof typeof courseColors];
-
-  const getPriorityColor = (priority?: string) => {
-    switch (priority?.toUpperCase()) {
-      case 'HIGH': return styles.highPriority;
-      case 'MEDIUM': return styles.mediumPriority;
-      case 'LOW': return styles.lowPriority;
-      default: return styles.defaultPriority;
-    }
-  };
 
   const toggleCompleted = () => {
     setCompleted(!completed);
@@ -108,6 +100,15 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
       </View>
     </View>
   );
+};
+
+const getPriorityColor = (priority?: string) => {
+  switch (priority?.toUpperCase()) {
+    case 'HIGH': return priorityColors.high;
+    case 'MEDIUM': return priorityColors.medium;
+    case 'LOW': return priorityColors.low;
+    default: return priorityColors.default;
+  }
 };
 
 const styles = StyleSheet.create({
@@ -221,26 +222,6 @@ const styles = StyleSheet.create({
   priorityText: {
     fontSize: 12,
     fontWeight: '500',
-  },
-  highPriority: {
-    backgroundColor: '#FEF2F2',
-    borderColor: '#FECACA',
-    color: '#B91C1C',
-  },
-  mediumPriority: {
-    backgroundColor: '#FFFBEB',
-    borderColor: '#FDE68A',
-    color: '#B45309',
-  },
-  lowPriority: {
-    backgroundColor: '#F0FDF4',
-    borderColor: '#BBF7D0',
-    color: '#166534',
-  },
-  defaultPriority: {
-    backgroundColor: '#F9FAFB',
-    borderColor: '#E5E7EB',
-    color: '#374151',
   },
   timeTag: {
     flexDirection: 'row',
