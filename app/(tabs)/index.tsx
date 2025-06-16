@@ -4,9 +4,10 @@ import { SFSymbol } from 'expo-symbols';
 
 import { useTheme } from "@/utils/useTheme";
 import { Card } from '@/components/Card'
-import { EventCard } from "@/components/EventCard";
 import ActivityCard from "@/components/ActivityCard"
 import ProgressCard from "@/components/Dashboard/ProgressCard";
+import EventCard from "@/components/Dashboard/EventCard";
+
 
 export default function Index() {
   const currentLecture = {
