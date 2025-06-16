@@ -32,7 +32,7 @@ export default function Index() {
           <View style={styles.tasksHeaderContainer}>
             <View style={styles.tasksHeaderTopRowContainer}>
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
-              <Text style={[styles.showAllButton, { color: theme.tertiary }]}>SHOW ALL</Text>
+              <Text style={[styles.showAllButton, { color: theme.accent }]}>SHOW ALL</Text>
             </View>
             <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today \1 overdue\</Text>
           </View>
