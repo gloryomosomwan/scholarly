@@ -35,6 +35,18 @@ export default function Index() {
         <View>
           <View style={styles.tasksHeaderContainer}>
             <View style={styles.tasksHeaderTopRowContainer}>
+              <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Assignments:</Text>
+              <Text style={[styles.showAllButton, { color: theme.accent }]}>SHOW ALL</Text>
+            </View>
+            <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 assignments due today (1 overdue)</Text>
+          </View>
+          <ActivityCard activity={task} />
+          <ActivityCard activity={task2} />
+          <ActivityCard activity={task3} />
+        </View>
+        <View>
+          <View style={styles.tasksHeaderContainer}>
+            <View style={styles.tasksHeaderTopRowContainer}>
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
               <Text style={[styles.showAllButton, { color: theme.accent }]}>SHOW ALL</Text>
             </View>
