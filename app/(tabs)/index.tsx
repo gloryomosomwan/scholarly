@@ -2,10 +2,10 @@ import { Text, StyleSheet, ScrollView, View, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useTheme } from "@/utils/useTheme";
-import { Card } from '@/components/Card'
 import ProgressCards from "@/components/Dashboard/ProgressCard";
 import EventCard from "@/components/Dashboard/EventCard";
 import ActivityCard from "@/components/ActivityCard";
+import AssessmentCard from "@/components/Dashboard/AssessmentCard";
 
 export default function Index() {
   const theme = useTheme()
@@ -42,7 +42,7 @@ export default function Index() {
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
-          <Card {...exam} />
+          <AssessmentCard assessment={exam} />
         </View>
       </ScrollView>
     </View>
@@ -93,25 +93,32 @@ const styles = StyleSheet.create({
 });
 
 const currentLecture = {
-  id: 400000, type: 'Lecture', course: 'HIST 211', emoji: '📚',
+  id: 400000,
+  type: 'Lecture',
+  course: 'HIST 211',
+  emoji: '📚',
   start: new Date(2025, 5, 16, 0, 0),
   end: new Date(2025, 5, 16, 19, 0),
   location: 'HIS 2-17',
 }
 
 const nextLecture = {
-  id: 40000, type: 'Lecture', course: 'MARK 161', emoji: '📊',
+  id: 40000,
+  type: 'Lecture',
+  course: 'MARK 161',
+  emoji: '📊',
   start: new Date(2025, 5, 16, 20, 0),
   end: new Date(2025, 5, 16, 21, 0),
   location: 'GMH 5-18',
 }
 
 const exam = {
-  type: 'event',
-  topLeft: 'MARK 101',
-  main: 'Final Exam',
-  bottomLeft: 'ABC 1-234',
-  topRight: 'Wednesday',
+  type: 'Final Exam',
+  course: 'MATH 119',
+  emoji: '➕',
+  start: new Date(2025, 5, 16, 20, 0),
+  end: new Date(2025, 5, 16, 21, 0),
+  location: 'GMH 5-18',
 }
 
 const task = {

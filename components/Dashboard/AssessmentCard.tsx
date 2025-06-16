@@ -1,0 +1,149 @@
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+
+import dayjs from '@/utils/dayjs'
+import { courseGradients } from '@/utils/Calendar/data';
+
+type AssessmentCardProps = {
+  assessment: {
+    type: string;
+    course: string;
+    emoji: string;
+    location: string;
+    start: Date;
+    end: Date;
+  };
+};
+
+export default function AssessmentCard({ assessment }: AssessmentCardProps) {
+  const courseGradient = courseGradients[assessment.course as keyof typeof courseGradients];
+  const now = dayjs()
+  const isCurrentEvent = now.isBetween(assessment.start, assessment.end)
+  const isUpNext = now.isBefore(assessment.start)
+  let timeLeftString
+  let timeFromNowString
+  if (isCurrentEvent) {
+    const timeLeft = dayjs(assessment.end).fromNow(true)
+    timeLeftString = timeLeft + ' left'
+  }
+  if (isUpNext) {
+    timeFromNowString = dayjs(assessment.start).fromNow()
+    timeFromNowString = timeFromNowString.charAt(0).toUpperCase() + timeFromNowString.slice(1)
+  }
+
+  return (
+    <View style={styles.container}>
+      <LinearGradient
+        colors={[courseGradient[0], courseGradient[1]]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.card}
+      >
+        <View style={styles.cardContent}>
+          <View style={styles.cardHeader}>
+            <View style={styles.leftContent}>
+              <View style={styles.courseContainer}>
+                <Text style={styles.courseEmoji}>{assessment.emoji}</Text>
+                <Text style={styles.courseName}>{assessment.course}</Text>
+              </View>
+              <Text style={[styles.assessmentType, { color: 'white' }]}>{assessment.type}</Text>
+            </View>
+            <View style={styles.rightContent}>
+              <Text style={[styles.timeRange]}>{`${assessment.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} - ${assessment.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}`}</Text>
+              <Text style={styles.timeAgo}>
+                {isCurrentEvent ? timeLeftString : timeFromNowString}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.locationContainer}>
+            <View style={styles.locationDot} />
+            <Text style={styles.locationText}>{assessment.location}</Text>
+          </View>
+        </View>
+      </LinearGradient>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 24,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#111827',
+    marginBottom: 12,
+  },
+  card: {
+    borderRadius: 16,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  cardContent: {
+    flex: 1,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: 16,
+  },
+  leftContent: {
+    flex: 1,
+  },
+  rightContent: {
+    alignItems: 'flex-end',
+  },
+  assessmentType: {
+    fontSize: 30,
+    fontWeight: '500',
+    marginBottom: 6,
+  },
+  courseContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  courseEmoji: {
+    marginRight: 3,
+    fontSize: 14
+  },
+  courseName: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  timeRange: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#FFFFFF',
+  },
+  timeAgo: {
+    fontSize: 14,
+    color: '#FECACA',
+  },
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  locationDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'white',
+    opacity: 0.5
+  },
+  locationText: {
+    fontSize: 14,
+    color: 'white',
+  },
+});
