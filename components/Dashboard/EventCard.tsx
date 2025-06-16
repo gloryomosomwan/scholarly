@@ -26,10 +26,8 @@ export default function EventCard({ event }: EventCardProps) {
   const now = dayjs()
   const isCurrentEvent = now.isBetween(event.start, event.end)
   const isUpNext = now.isBefore(event.start)
-
   let timeLeftString
   let timeFromNowString
-
   if (isCurrentEvent) {
     const timeLeft = dayjs(event.end).fromNow(true)
     timeLeftString = timeLeft + ' left'
