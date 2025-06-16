@@ -105,12 +105,12 @@ const styles = StyleSheet.create({
   },
   assessmentType: {
     fontSize: 30,
-    fontWeight: '500',
-    marginBottom: 6,
+    fontWeight: 'bold',
   },
   courseContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 6,
   },
   courseEmoji: {
     marginRight: 3,
