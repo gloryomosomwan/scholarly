@@ -5,7 +5,7 @@ import { SFSymbol } from 'expo-symbols';
 import { useTheme } from "@/utils/useTheme";
 import { Card } from '@/components/Card'
 import ActivityCard from "@/components/ActivityCard"
-import ProgressCard from "@/components/Dashboard/ProgressCard";
+import ProgressCards from "@/components/Dashboard/ProgressCard";
 import EventCard from "@/components/Dashboard/EventCard";
 
 
@@ -84,7 +84,7 @@ export default function Index() {
           <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
           <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
         </View>
-        <ProgressCard data={sampleProgressData} />
+        <ProgressCards data={sampleProgressData} />
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
           <EventCard event={currentLecture} />

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { CheckCircle2, Clock, AlertCircle } from 'lucide-react-native';
 
-type ProgressCardProps = {
+type ProgressCardsProps = {
   data: {
     completedToday: number;
     totalTasks: number;
@@ -11,7 +11,7 @@ type ProgressCardProps = {
   }
 }
 
-export default function ProgressCard({ data }: ProgressCardProps) {
+export default function ProgressCards({ data }: ProgressCardsProps) {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
