@@ -2,6 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import dayjs from "dayjs";
+import isBetween from 'dayjs/plugin/isBetween'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(isBetween)
+dayjs.extend(relativeTime)
+
 import { courseGradients } from '@/utils/Calendar/data';
 
 type EventCardProps = {
@@ -17,6 +23,18 @@ type EventCardProps = {
 
 export default function EventCard({ event }: EventCardProps) {
   const courseGradient = courseGradients[event.course as keyof typeof courseGradients];
+  const now = dayjs()
+  const isCurrentEvent = now.isBetween(event.start, event.end)
+  const isUpNext = false;
+
+  let timeLeftString
+  if (isCurrentEvent) {
+    const timeLeft = dayjs(event.end).fromNow(true)
+    timeLeftString = timeLeft + ' left'
+  }
+
+  const timeFromNowString = dayjs(event.start).fromNow()
+  const capitalizedTimeToNowString = timeFromNowString.charAt(0).toUpperCase() + timeFromNowString.slice(1)
 
   return (
     <View style={styles.container}>
@@ -36,12 +54,8 @@ export default function EventCard({ event }: EventCardProps) {
               </View>
             </View>
             <View style={styles.rightContent}>
-              <Text style={styles.timeRange}>
-                {formatTimeRange(event.start, event.end)}
-              </Text>
-              <Text style={styles.timeAgo}>
-                {getTimeAgo(event.start)}
-              </Text>
+              <Text style={[styles.timeRange]}>{`${event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} - ${event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}`}</Text>
+              <Text style={styles.timeAgo}>{timeLeftString}</Text>
             </View>
           </View>
 
