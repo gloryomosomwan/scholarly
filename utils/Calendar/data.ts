@@ -15,10 +15,23 @@ export const courseGradients = {
 };
 
 export interface Event {
-  id: number; type: string; course: string; start: Date; end: Date; location: string; icon: string;
+  id: number;
+  type: string;
+  course: string;
+  start: Date;
+  end: Date;
+  location:
+  string;
+  icon: string;
 }
+
 export interface Activity {
-  id: number; title: string; course?: string; description?: string; due?: Date; priority?: string;
+  id: number;
+  title: string;
+  course?: string;
+  description?: string;
+  due?: Date;
+  priority?: string;
 }
 
 export const events: Event[] = [
