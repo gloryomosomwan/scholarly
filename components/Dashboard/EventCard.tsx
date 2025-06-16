@@ -153,29 +153,3 @@ const styles = StyleSheet.create({
     color: '#FECACA',
   },
 });
-
-const formatTime = (time: Date) => {
-  return time.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true
-  });
-};
-
-const formatTimeRange = (start: Date, end: Date) => {
-  return `${formatTime(start)} - ${formatTime(end)}`;
-};
-
-const getTimeAgo = (date: Date) => {
-  const now = new Date();
-  const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
-
-  if (diffInHours < 1) {
-    return 'Now';
-  } else if (diffInHours < 24) {
-    return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
-  } else {
-    const diffInDays = Math.floor(diffInHours / 24);
-    return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
-  }
-};
