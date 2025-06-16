@@ -2,12 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import dayjs from "dayjs";
-import isBetween from 'dayjs/plugin/isBetween'
-import relativeTime from 'dayjs/plugin/relativeTime'
-dayjs.extend(isBetween)
-dayjs.extend(relativeTime)
-
+import dayjs from '@/utils/dayjs'
 import { courseGradients } from '@/utils/Calendar/data';
 
 type EventCardProps = {
