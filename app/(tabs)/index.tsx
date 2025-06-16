@@ -34,7 +34,7 @@ export default function Index() {
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
               <Text style={[styles.showAllButton, { color: theme.accent }]}>SHOW ALL</Text>
             </View>
-            <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today \1 overdue\</Text>
+            <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today (1 overdue)</Text>
           </View>
           <ActivityCard activity={task} />
           <ActivityCard activity={task2} />
