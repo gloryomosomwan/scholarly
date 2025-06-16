@@ -6,6 +6,7 @@ import { useTheme } from "@/utils/useTheme";
 import { Card } from '@/components/Card'
 import { EventCard } from "@/components/EventCard";
 import ActivityCard from "@/components/ActivityCard"
+import ProgressCard from "@/components/Dashboard/ProgressCard";
 
 export default function Index() {
   const currentLecture = {
@@ -68,6 +69,13 @@ export default function Index() {
   const insets = useSafeAreaInsets();
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
 
+  const sampleProgressData = {
+    completedToday: 3,
+    totalTasks: 7,
+    totalEstimatedTime: 145,
+    overdueCount: 2
+  };
+
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
       <ScrollView style={[styles.container, { backgroundColor: '#F9FAFB' }]} contentInsetAdjustmentBehavior="automatic">
@@ -75,6 +83,7 @@ export default function Index() {
           <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
           <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
         </View>
+        <ProgressCard data={sampleProgressData} />
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
           <EventCard event={currentLecture} />
