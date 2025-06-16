@@ -12,13 +12,6 @@ export default function Index() {
   const insets = useSafeAreaInsets();
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
 
-  const sampleProgressData = {
-    completedToday: 3,
-    totalTasks: 7,
-    totalEstimatedTime: 145,
-    overdueCount: 2
-  };
-
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
       <ScrollView style={[styles.container, { backgroundColor: '#F9FAFB' }]} contentInsetAdjustmentBehavior="automatic">
@@ -154,3 +147,10 @@ const overdueTask = {
   topRight: "Due Yesterday",
   bottomRight: "Priority: High"
 }
+
+const sampleProgressData = {
+  completedToday: 3,
+  totalTasks: 7,
+  totalEstimatedTime: 145,
+  overdueCount: 2
+};
