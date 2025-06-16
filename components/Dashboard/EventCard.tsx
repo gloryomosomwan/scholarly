@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
   eventType: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#FECACA',
+    color: 'white',
+    opacity: 0.7,
     marginBottom: 6,
   },
   courseContainer: {
@@ -129,7 +130,8 @@ const styles = StyleSheet.create({
   },
   timeAgo: {
     fontSize: 14,
-    color: '#FECACA',
+    color: 'white',
+    opacity: 0.7,
   },
   locationContainer: {
     flexDirection: 'row',
@@ -140,10 +142,13 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#F9A8D4',
+    backgroundColor: 'white',
+    opacity: 0.8
   },
   locationText: {
     fontSize: 14,
-    color: '#FECACA',
+    fontWeight: '500',
+    color: 'white',
+    opacity: 0.9,
   },
 });
