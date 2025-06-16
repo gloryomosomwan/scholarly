@@ -25,16 +25,19 @@ export default function EventCard({ event }: EventCardProps) {
   const courseGradient = courseGradients[event.course as keyof typeof courseGradients];
   const now = dayjs()
   const isCurrentEvent = now.isBetween(event.start, event.end)
-  const isUpNext = false;
+  const isUpNext = now.isBefore(event.start)
 
   let timeLeftString
+  let timeFromNowString
+
   if (isCurrentEvent) {
     const timeLeft = dayjs(event.end).fromNow(true)
     timeLeftString = timeLeft + ' left'
   }
-
-  const timeFromNowString = dayjs(event.start).fromNow()
-  const capitalizedTimeToNowString = timeFromNowString.charAt(0).toUpperCase() + timeFromNowString.slice(1)
+  if (isUpNext) {
+    timeFromNowString = dayjs(event.start).fromNow()
+    timeFromNowString = timeFromNowString.charAt(0).toUpperCase() + timeFromNowString.slice(1)
+  }
 
   return (
     <View style={styles.container}>
@@ -55,7 +58,9 @@ export default function EventCard({ event }: EventCardProps) {
             </View>
             <View style={styles.rightContent}>
               <Text style={[styles.timeRange]}>{`${event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} - ${event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}`}</Text>
-              <Text style={styles.timeAgo}>{timeLeftString}</Text>
+              <Text style={styles.timeAgo}>
+                {isCurrentEvent ? timeLeftString : timeFromNowString}
+              </Text>
             </View>
           </View>
 

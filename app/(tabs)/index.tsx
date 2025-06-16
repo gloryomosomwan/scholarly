@@ -101,8 +101,8 @@ const currentLecture = {
 
 const nextLecture = {
   id: 40000, type: 'Lecture', course: 'MARK 161', emoji: '📊',
-  start: new Date(2025, 5, 14, 20, 0),
-  end: new Date(2025, 5, 14, 21, 0),
+  start: new Date(2025, 5, 16, 20, 0),
+  end: new Date(2025, 5, 16, 21, 0),
   location: 'GMH 5-18',
 }
 
