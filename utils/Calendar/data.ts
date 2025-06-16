@@ -7,6 +7,15 @@ export const courseColors = {
   'MARK 161': '#8338EC',
   'CHEM 105': '#3A86FF',
 };
+
+export const courseGradients = {
+  'MATH 119': ['#FFBE0B', '#F59E0B'], // Yellow to amber
+  'PHYS 102': ['#FB5607', '#DC2626'], // Orange to red
+  'HIST 211': ['#FF006E', '#DB2777'], // Pink to rose (your current gradient)
+  'MARK 161': ['#8338EC', '#7C3AED'], // Purple to violet
+  'CHEM 105': ['#3A86FF', '#2563EB'], // Light blue to blue
+};
+
 export interface Event {
   id: number; type: string; course: string; start: Date; end: Date; location: string; icon: SFSymbol;
 }
