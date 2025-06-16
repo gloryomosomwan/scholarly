@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
+import { courseColors } from '@/utils/Calendar/data';
+
 type ActivityCardProps = {
   activity: {
     title: string;
@@ -14,6 +16,7 @@ type ActivityCardProps = {
 
 export default function ActivityCard({ activity }: ActivityCardProps) {
   const [completed, setCompleted] = useState(false);
+  const courseColor = courseColors[activity.course as keyof typeof courseColors];
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('en-US', {
@@ -71,7 +74,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               {/* Course tag */}
               {activity.course && (
                 <View style={styles.courseTag}>
-                  <View style={styles.courseDot} />
+                  <View style={[styles.courseDot, { backgroundColor: courseColor }]} />
                   <Text style={styles.courseText}>{activity.course}</Text>
                 </View>
               )}
@@ -196,7 +199,6 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#F97316',
   },
   courseText: {
     fontSize: 12,
