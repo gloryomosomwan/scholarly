@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { SymbolView } from 'expo-symbols'
 
 import dayjs from '@/utils/dayjs'
 import { courseGradients } from '@/utils/Calendar/data';
@@ -57,7 +58,7 @@ export default function AssessmentCard({ assessment }: AssessmentCardProps) {
             </View>
           </View>
           <View style={styles.locationContainer}>
-            <View style={styles.locationDot} />
+            <SymbolView name={'mappin.circle.fill'} tintColor={'white'} style={styles.locationIcon} size={15} />
             <Text style={styles.locationText}>{assessment.location}</Text>
           </View>
         </View>
@@ -128,7 +129,6 @@ const styles = StyleSheet.create({
   locationContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
   },
   locationDot: {
     width: 8,
@@ -142,5 +142,10 @@ const styles = StyleSheet.create({
     color: 'white',
     opacity: 0.9,
     fontWeight: '500'
+  },
+  locationIcon: {
+    opacity: 0.8,
+    color: 'white',
+    marginRight: 5,
   },
 });
