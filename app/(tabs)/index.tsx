@@ -11,14 +11,14 @@ import EventCard from "@/components/Dashboard/EventCard";
 
 export default function Index() {
   const currentLecture = {
-    id: 400000, type: 'Lecture', course: 'HIST 211', icon: 'books.vertical' as SFSymbol,
+    id: 400000, type: 'Lecture', course: 'HIST 211', emoji: '📚' as SFSymbol,
     start: new Date(2025, 5, 14, 0, 0),
     end: new Date(2025, 5, 14, 18, 0),
     location: 'HIS 2-17',
   }
 
   const nextLecture = {
-    id: 40000, type: 'Lecture', course: 'MARK 161', icon: 'chart.bar' as SFSymbol,
+    id: 40000, type: 'Lecture', course: 'MARK 161', emoji: '📊' as SFSymbol,
     start: new Date(2025, 5, 14, 20, 0),
     end: new Date(2025, 5, 14, 21, 0),
     location: 'GMH 5-18',

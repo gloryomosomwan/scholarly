@@ -1,13 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { SFSymbol, SymbolView } from 'expo-symbols';
 
 type EventCardProps = {
   event: {
     type: string;
     course: string;
-    icon: SFSymbol;
+    emoji: string;
     location: string;
     start: Date;
     end: Date;
@@ -54,12 +53,7 @@ export default function EventCard({ event }: EventCardProps) {
             <View style={styles.leftContent}>
               <Text style={styles.eventType}>{event.type}</Text>
               <View style={styles.courseContainer}>
-                <SymbolView
-                  name={event.icon}
-                  size={24}
-                  tintColor="#FFFFFF"
-                  style={styles.courseIcon}
-                />
+                <Text style={styles.courseEmoji}>{event.emoji}</Text>
                 <Text style={styles.courseName}>{event.course}</Text>
               </View>
             </View>
@@ -129,10 +123,10 @@ const styles = StyleSheet.create({
   courseContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
   },
-  courseIcon: {
-    marginRight: 4,
+  courseEmoji: {
+    marginRight: 3,
+    fontSize: 25
   },
   courseName: {
     fontSize: 24,
@@ -164,15 +158,3 @@ const styles = StyleSheet.create({
     color: '#FECACA',
   },
 });
-
-// Sample props object to pass in
-const sampleEventData: EventCardProps = {
-  event: {
-    type: 'Lecture',
-    course: 'HIST 211',
-    icon: 'book.fill' as SFSymbol,
-    location: 'HIS 2-17',
-    start: new Date(2024, 10, 26, 12, 0), // Nov 26, 2024 12:00 PM
-    end: new Date(2024, 10, 26, 18, 0),   // Nov 26, 2024 6:00 PM
-  }
-};
