@@ -70,12 +70,6 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 24,
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 12,
-  },
   card: {
     borderRadius: 16,
     padding: 16,
@@ -118,7 +112,7 @@ const styles = StyleSheet.create({
   },
   courseName: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: '700',
     color: '#FFFFFF',
   },
   timeRange: {
@@ -128,7 +122,8 @@ const styles = StyleSheet.create({
   },
   timeAgo: {
     fontSize: 14,
-    color: '#FECACA',
+    color: 'white',
+    opacity: 0.7,
   },
   locationContainer: {
     flexDirection: 'row',
@@ -140,10 +135,12 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     backgroundColor: 'white',
-    opacity: 0.5
+    opacity: 0.8
   },
   locationText: {
     fontSize: 14,
     color: 'white',
+    opacity: 0.9,
+    fontWeight: '500'
   },
 });
