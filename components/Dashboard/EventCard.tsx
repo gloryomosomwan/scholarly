@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import { courseGradients } from '@/utils/Calendar/data';
+
 type EventCardProps = {
   event: {
     type: string;
@@ -40,10 +42,12 @@ const getTimeAgo = (date: Date) => {
 };
 
 export default function EventCard({ event }: EventCardProps) {
+  const courseGradient = courseGradients[event.course as keyof typeof courseGradients];
+
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#EC4899', '#DB2777']}
+        colors={[courseGradient[0], courseGradient[1]]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
         style={styles.card}
