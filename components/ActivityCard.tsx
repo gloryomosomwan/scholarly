@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import { courseColors } from '@/utils/Calendar/data';
+import dayjs from '@/utils/dayjs'
 
 type ActivityCardProps = {
   activity: {
@@ -17,14 +18,6 @@ type ActivityCardProps = {
 export default function ActivityCard({ activity }: ActivityCardProps) {
   const [completed, setCompleted] = useState(false);
   const courseColor = courseColors[activity.course as keyof typeof courseColors];
-
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    });
-  };
 
   const getPriorityColor = (priority?: string) => {
     switch (priority?.toUpperCase()) {
@@ -60,7 +53,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               </Text>
               {activity.due && (
                 <Text style={styles.dueTime}>
-                  {formatTime(activity.due)}
+                  {activity.due.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}
                 </Text>
               )}
             </View>
