@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   courseName: {
-    fontSize: 26,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },

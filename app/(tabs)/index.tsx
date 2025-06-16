@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
 const currentLecture = {
   id: 400000, type: 'Lecture', course: 'HIST 211', emoji: '📚',
   start: new Date(2025, 5, 16, 0, 0),
-  end: new Date(2025, 5, 16, 3, 0),
+  end: new Date(2025, 5, 16, 19, 0),
   location: 'HIS 2-17',
 }
 
