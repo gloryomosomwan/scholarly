@@ -8,6 +8,7 @@ import AssessmentCard from "@/components/Dashboard/AssessmentCard";
 import CompletedCard from "@/components/Dashboard/CompletedCard";
 import TimeLeftCard from "@/components/Dashboard/TimeLeftCard";
 import OverdueCard from "@/components/Dashboard/OverdueCard";
+import EventCard2 from "@/components/Dashboard/EventCard2";
 
 export default function Index() {
   const theme = useTheme()
@@ -28,11 +29,11 @@ export default function Index() {
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
-          <EventCard event={currentLecture} />
+          <EventCard2 event={currentLecture} />
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
-          <EventCard event={nextLecture} />
+          <EventCard2 event={nextLecture} />
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
@@ -110,6 +111,7 @@ const styles = StyleSheet.create({
   },
   progressCards: {
     flexDirection: 'row',
+    // height: 90
     // justifyContent: 'space-between',
     // paddingHorizontal: 16,
     // marginBottom: 32,
@@ -121,8 +123,8 @@ const currentLecture = {
   type: 'Lecture',
   course: 'HIST 211',
   emoji: '📚',
-  start: new Date(2025, 5, 16, 0, 0),
-  end: new Date(2025, 5, 16, 19, 0),
+  start: new Date(2025, 5, 16, 17, 0),
+  end: new Date(2025, 5, 16, 21, 0),
   location: 'HIS 2-17',
 }
 
@@ -131,8 +133,8 @@ const nextLecture = {
   type: 'Lecture',
   course: 'MARK 161',
   emoji: '📊',
-  start: new Date(2025, 5, 16, 20, 0),
-  end: new Date(2025, 5, 16, 21, 0),
+  start: new Date(2025, 5, 16, 22, 0),
+  end: new Date(2025, 5, 16, 23, 0),
   location: 'GMH 5-18',
 }
 
