@@ -5,6 +5,7 @@ import { SymbolView } from 'expo-symbols';
 
 import dayjs from '@/utils/dayjs'
 import { courseGradients } from '@/utils/Calendar/data';
+import { formatTime } from '@/utils/utility'
 
 type EventCardProps = {
   event: {
@@ -21,7 +22,6 @@ export default function EventCard({ event }: EventCardProps) {
   const { type, course, emoji, location, start, end } = event;
   const courseGradient = courseGradients[event.course as keyof typeof courseGradients];
 
-  // Calculate progress and time remaining
   const now = new Date();
   const totalDuration = end.getTime() - start.getTime();
   const elapsed = now.getTime() - start.getTime();
@@ -41,19 +41,8 @@ export default function EventCard({ event }: EventCardProps) {
     timeFromNowString = timeFromNowString.charAt(0).toUpperCase() + timeFromNowString.slice(1)
   }
 
-  // Calculate progress percentage
   const progressPercentage = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
 
-  // Format time
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    });
-  };
-
-  // Format remaining time
   const formatRemainingTime = (milliseconds: number) => {
     const minutes = Math.floor(milliseconds / (1000 * 60));
     const hours = Math.floor(minutes / 60);
@@ -65,7 +54,6 @@ export default function EventCard({ event }: EventCardProps) {
     return `${remainingMinutes} minutes left`;
   };
 
-  // Format elapsed time
   const formatElapsedTime = (milliseconds: number) => {
     const minutes = Math.floor(milliseconds / (1000 * 60));
     const hours = Math.floor(minutes / 60);
