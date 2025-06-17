@@ -64,8 +64,7 @@ export default function EventCard({ event }: EventCardProps) {
     <View style={styles.container}>
 
       <LinearGradient
-        colors={['#EC4899', '#E11D48']}
-        // colors={[courseGradient[0], courseGradient[1]]}
+        colors={[courseGradient[0], courseGradient[1]]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
         style={styles.card}

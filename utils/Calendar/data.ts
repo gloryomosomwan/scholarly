@@ -1,3 +1,5 @@
+import { darkenHex } from '@/utils/utility'
+
 export const courseColors = {
   'MATH 119': '#FFBE0B',
   'PHYS 102': '#FB5607',
@@ -7,11 +9,11 @@ export const courseColors = {
 };
 
 export const courseGradients = {
-  'MATH 119': ['#FFBE0B', '#F59E0B'], // Yellow to amber
-  'PHYS 102': ['#FB5607', '#DC2626'], // Orange to red
-  'HIST 211': ['#FF006E', '#DB2777'], // Pink to rose (your current gradient)
-  'MARK 161': ['#8338EC', '#7C3AED'], // Purple to violet
-  'CHEM 105': ['#3A86FF', '#2563EB'], // Light blue to blue
+  'MATH 119': ['#FFBE0B', darkenHex('#FFBE0B')], // Yellow to amber
+  'PHYS 102': ['#FB5607', darkenHex('#FB5607')], // Orange to red
+  'HIST 211': ['#FF006E', darkenHex('#FF006E')], // Pink to rose (your current gradient)
+  'MARK 161': ['#8338EC', darkenHex('#8338EC')], // Purple to violet
+  'CHEM 105': ['#3A86FF', darkenHex('#3A86FF')], // Light blue to blue
 };
 
 export interface Event {
