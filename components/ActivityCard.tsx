@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
+import { isAfter } from 'date-fns';
 
 import { courseColors } from '@/utils/Calendar/data';
 import { priorityColors } from '@/utils/themes';
@@ -17,6 +18,7 @@ type ActivityCardProps = {
 
 export default function ActivityCard({ activity }: ActivityCardProps) {
   const [completed, setCompleted] = useState(false);
+  const [overdue, setOverdue] = useState(activity.due && isAfter(new Date(), activity.due))
   const courseColor = courseColors[activity.course as keyof typeof courseColors];
 
   const toggleCompleted = () => {
@@ -24,7 +26,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
   };
 
   return (
-    <View style={[styles.card, completed && styles.completedCard]}>
+    <View style={[styles.card, overdue && styles.overdueCard, completed && styles.completedCard]}>
       <View style={styles.cardContent}>
         <View style={styles.header}>
           {/* Checkbox */}
@@ -42,11 +44,12 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               <Text style={[styles.title, completed && styles.completedTitle]}>
                 {activity.title}
               </Text>
-              {activity.due && (
-                <Text style={styles.dueTime}>
-                  {activity.due.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}
-                </Text>
-              )}
+              {activity.due &&
+                <View style={styles.dueTimeContainer}>
+                  {overdue && <SymbolView name={'exclamationmark.circle'} tintColor={'red'} size={12} />}
+                  <Text style={styles.dueTime}> {activity.due.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
+                </View>
+              }
             </View>
 
             {activity.description && (
@@ -127,6 +130,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 2,
+  },
+  overdueCard: {
+    borderColor: '#FECACA',
+    backgroundColor: '#FEF2F2',
   },
   completedCard: {
     borderColor: '#D1FAE5',
@@ -249,5 +256,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: '#059669',
+  },
+  dueTimeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
   },
 });

@@ -38,7 +38,7 @@ export default function Index() {
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Assignments:</Text>
               <Text style={[styles.showAllButton, { color: theme.accent }]}>SHOW ALL</Text>
             </View>
-            <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 assignments due today (1 overdue)</Text>
+            <Text style={[styles.subheaderText, { color: theme.tertiary }]}>3 assignments due today (1 overdue)</Text>
           </View>
           <ActivityCard activity={assignment1} />
           <ActivityCard activity={assignment2} />
@@ -50,7 +50,7 @@ export default function Index() {
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
               <Text style={[styles.showAllButton, { color: theme.accent }]}>SHOW ALL</Text>
             </View>
-            <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 tasks due today (1 overdue)</Text>
+            <Text style={[styles.subheaderText, { color: theme.tertiary }]}>3 tasks due today (1 overdue)</Text>
           </View>
           <ActivityCard activity={task} />
           <ActivityCard activity={task2} />
@@ -128,8 +128,8 @@ const exam = {
   type: 'Final Exam',
   course: 'MATH 119',
   emoji: '➕',
-  start: new Date(2025, 5, 16, 20, 0),
-  end: new Date(2025, 5, 16, 21, 0),
+  start: new Date(2025, 5, 20, 13, 0),
+  end: new Date(2025, 5, 20, 15, 0),
   location: 'GMH 5-18',
 }
 
@@ -137,7 +137,7 @@ const task = {
   id: 50,
   title: 'Record a voice memo explaining electromagnetic fields for PHYS 102',
   course: 'PHYS 102',
-  due: new Date(2025, 5, 12, 12, 0),
+  due: new Date(2025, 5, 15, 23, 59),
   priority: 'low',
 }
 const task2 =
@@ -146,7 +146,7 @@ const task2 =
   title: 'Storyboard a 30-second marketing video for MARK 161',
   course: 'MARK 161',
   description: 'Draft key messaging points',
-  due: new Date(2025, 4, 8, 20, 30),
+  due: new Date(2025, 5, 16, 21, 0),
   priority: 'high',
 }
 const task3 =
@@ -155,36 +155,28 @@ const task3 =
   title: 'Compose a summary blog post on series convergence for MATH 119',
   course: 'MATH 119',
   description: 'Include references to lecture examples',
-  due: new Date(2025, 5, 10, 9, 30),
+  due: new Date(2025, 5, 16, 23, 59),
   priority: 'low',
 }
 
 const assignment1 = {
   id: 15, title: 'Problem Set 3: Thermodynamics', course: 'CHEM 105',
   description: 'Show all work clearly',
-  due: new Date(2025, 4, 21, 23, 59),
+  due: new Date(2025, 5, 15, 23, 59),
 }
 
 const assignment2 =
 {
   id: 35, title: 'Reading: Electromagnetism', course: 'PHYS 102',
   description: 'Prepare questions',
-  due: new Date(2025, 5, 22, 23, 59),
+  due: new Date(2025, 5, 16, 19, 0),
 }
 
 const assignment3 =
 {
   id: 50, title: 'Lab Report 12: Pendulum Experiment', course: 'PHYS 102',
   description: 'Attach tables',
-  due: new Date(2025, 6, 20, 23, 59),
-}
-
-const overdueTask = {
-  type: 'task',
-  topLeft: "DEV 101",
-  main: "Review Plan",
-  topRight: "Due Yesterday",
-  bottomRight: "Priority: High"
+  due: new Date(2025, 5, 16, 23, 59),
 }
 
 const sampleProgressData = {
