@@ -5,6 +5,7 @@ import { isAfter } from 'date-fns';
 
 import { courseColors } from '@/utils/Calendar/data';
 import { priorityColors } from '@/utils/themes';
+import { formatTime } from '@/utils/utility'
 
 type ActivityCardProps = {
   activity: {
@@ -47,7 +48,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               {activity.due &&
                 <View style={styles.dueTimeContainer}>
                   {overdue && <SymbolView name={'exclamationmark.circle'} tintColor={'red'} size={12} />}
-                  <Text style={styles.dueTime}> {activity.due.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
+                  <Text style={styles.dueTime}> {formatTime(activity.due)} </Text>
                 </View>
               }
             </View>
