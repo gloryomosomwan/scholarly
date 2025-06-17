@@ -2,8 +2,6 @@ import { Text, StyleSheet, ScrollView, View, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useTheme } from "@/utils/useTheme";
-import ProgressCards from "@/components/Dashboard/ProgressCard";
-import ProgressCard2 from '@/components/Dashboard/ProgressCard2'
 import EventCard from "@/components/Dashboard/EventCard";
 import ActivityCard from "@/components/ActivityCard";
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
