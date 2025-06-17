@@ -88,25 +88,25 @@ export default function EventCard({ event }: EventCardProps) {
         style={styles.card}
       >
         {/* Header */}
-        <View style={styles.header}>
-          <View style={styles.typeContainer}>
-            <Text style={styles.typeText}>{type}</Text>
+        <View style={styles.topRowContainer}>
+          <View style={styles.eventTypeBackground}>
+            <Text style={styles.eventTypeText}>{type}</Text>
           </View>
           <View style={styles.timeContainer}>
-            <Text style={styles.timeText}>
+            <Text style={styles.timeRangeText}>
               {formatTime(start)} - {formatTime(end)}
             </Text>
-            <Text style={styles.timeAgo}>
+            <Text style={styles.timeAgoText}>
               {!isCurrentEvent && timeFromNowString}
             </Text>
           </View>
         </View>
 
         {/* Main Content */}
-        <View style={styles.mainContent}>
+        <View style={styles.mainContentContainer}>
           <Text style={styles.iconText}>{emoji}</Text>
-          <View style={styles.courseInfo}>
-            <Text style={styles.courseTitle}>{course}</Text>
+          <View style={styles.courseInfoContainer}>
+            <Text style={styles.courseTitleText}>{course}</Text>
             <View style={styles.locationContainer}>
               <SymbolView style={styles.locationIcon} name={'mappin.circle.fill'} tintColor={'white'} size={15} />
               <Text style={styles.locationText}>{location}</Text>
@@ -130,11 +130,11 @@ export default function EventCard({ event }: EventCardProps) {
               </View>
             </View>
 
-            <View style={styles.timeLabels}>
-              <Text style={styles.timeLabel}>
+            <View style={styles.progressLabels}>
+              <Text style={styles.progressLabel}>
                 {formatElapsedTime(elapsed)}
               </Text>
-              <Text style={styles.timeLabel}>
+              <Text style={styles.progressLabel}>
                 {remaining > 0 ? formatRemainingTime(remaining) : 'Complete'}
               </Text>
             </View>
@@ -148,13 +148,6 @@ export default function EventCard({ event }: EventCardProps) {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 32,
-    // paddingHorizontal: 16,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1E293B',
-    marginBottom: 16,
   },
   card: {
     borderRadius: 24,
@@ -168,36 +161,42 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 8,
   },
-  header: {
+  topRowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginBottom: 16,
   },
-  typeContainer: {
+  eventTypeBackground: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 20,
   },
-  typeText: {
+  eventTypeText: {
     color: 'white',
     fontSize: 12,
     fontWeight: '500',
   },
+
+  // Time
   timeContainer: {
     alignItems: 'flex-end',
   },
-  timeText: {
+  timeRangeText: {
     color: 'rgba(255, 255, 255, 0.9)',
     fontSize: 14,
     fontWeight: '600',
   },
-  remainingText: {
-    color: 'rgba(255, 255, 255, 0.7)',
-    fontSize: 12,
+  timeAgoText: {
+    fontSize: 13,
+    color: 'white',
+    opacity: 0.7,
+    marginTop: 2,
   },
-  mainContent: {
+
+  // Main Content
+  mainContentContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginBottom: 16,
@@ -206,19 +205,17 @@ const styles = StyleSheet.create({
     fontSize: 40,
     marginRight: 8
   },
-  courseInfo: {
+  courseInfoContainer: {
     flex: 1,
   },
-  courseTitle: {
+  courseTitleText: {
     color: 'white',
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 4,
   },
-  locationText: {
-    color: 'rgba(255, 255, 255, 0.8)',
-    fontSize: 14,
-  },
+
+  // Progress
   progressSection: {
     marginTop: 8,
   },
@@ -242,21 +239,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  progressIndicator: {
-    width: 4,
-    height: 4,
-    backgroundColor: 'rgba(236, 72, 153, 0.7)',
-    borderRadius: 2,
-    marginRight: 4,
-  },
-  timeLabels: {
+  progressLabels: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  timeLabel: {
+  progressLabel: {
     color: 'rgba(255, 255, 255, 0.7)',
     fontSize: 12,
   },
+
+  // Location
   locationContainer: {
     flexDirection: 'row',
     alignItems: 'center'
@@ -265,10 +257,8 @@ const styles = StyleSheet.create({
     marginRight: 4,
     opacity: 0.7
   },
-  timeAgo: {
-    fontSize: 13,
-    color: 'white',
-    opacity: 0.7,
-    marginTop: 2,
+  locationText: {
+    color: 'rgba(255, 255, 255, 0.8)',
+    fontSize: 14,
   },
 });
