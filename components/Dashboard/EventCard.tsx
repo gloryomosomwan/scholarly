@@ -104,9 +104,7 @@ export default function EventCard({ event }: EventCardProps) {
 
         {/* Main Content */}
         <View style={styles.mainContent}>
-          <View style={styles.iconContainer}>
-            <Text style={styles.iconText}>{emoji}</Text>
-          </View>
+          <Text style={styles.iconText}>{emoji}</Text>
           <View style={styles.courseInfo}>
             <Text style={styles.courseTitle}>{course}</Text>
             <View style={styles.locationContainer}>
@@ -130,9 +128,6 @@ export default function EventCard({ event }: EventCardProps) {
                 >
                 </View>
               </View>
-              <Text style={styles.progressPercentage}>
-                {Math.round(progressPercentage)}%
-              </Text>
             </View>
 
             <View style={styles.timeLabels}>
@@ -204,20 +199,12 @@ const styles = StyleSheet.create({
   },
   mainContent: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 16,
   },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
   iconText: {
-    fontSize: 27,
+    fontSize: 40,
+    marginRight: 8
   },
   courseInfo: {
     flex: 1,
@@ -246,7 +233,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderRadius: 4,
     overflow: 'hidden',
-    marginRight: 12,
   },
   progressFill: {
     height: 8,
@@ -262,12 +248,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(236, 72, 153, 0.7)',
     borderRadius: 2,
     marginRight: 4,
-  },
-  progressPercentage: {
-    color: 'rgba(255, 255, 255, 0.9)',
-    fontSize: 14,
-    fontWeight: '500',
-    minWidth: 40,
   },
   timeLabels: {
     flexDirection: 'row',

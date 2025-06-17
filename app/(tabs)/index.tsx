@@ -109,7 +109,7 @@ const currentLecture = {
   course: 'HIST 211',
   emoji: '📚',
   start: new Date(2025, 5, 17, 0, 0),
-  end: new Date(2025, 5, 17, 10, 0),
+  end: new Date(2025, 5, 17, 19, 0),
   location: 'HIS 2-17',
 }
 
