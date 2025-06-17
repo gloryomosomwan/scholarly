@@ -2,22 +2,26 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
+import { useTheme } from '@/utils/useTheme';
+
 type CompletedCardProps = {
   completedToday: number;
   totalTasks: number;
+  type: string
 };
 
-export default function CompletedCard({ completedToday, totalTasks }: CompletedCardProps) {
+export default function CompletedCard({ completedToday, totalTasks, type }: CompletedCardProps) {
   const completionPercentage = totalTasks > 0 ? (completedToday / totalTasks) * 100 : 0;
+  const theme = useTheme()
 
   return (
     <View style={styles.cardContainer}>
       <View style={[styles.cardContent, { backgroundColor: 'white' }]}>
         <View style={styles.headerContainer}>
           <View style={styles.iconContainer}>
-            <SymbolView name={'checkmark.circle'} tintColor={'#10B981'} />
+            <SymbolView name={type === 'tasks' ? 'checklist' : 'doc.text'} tintColor={theme.accent} />
           </View>
-          <Text style={[styles.label, { color: '#9CA3AF' }]}>Tasks</Text>
+          <Text style={[styles.label, { color: '#9CA3AF' }]}>{type === 'tasks' ? 'TASKS' : 'ASSIGNMENTS'}</Text>
         </View>
         <Text style={[styles.value, { color: '#374151' }]}>{completedToday}/{totalTasks}</Text>
         <View style={styles.progressContainer}>
@@ -25,7 +29,7 @@ export default function CompletedCard({ completedToday, totalTasks }: CompletedC
             <View
               style={[
                 styles.progressFill,
-                { backgroundColor: '#10B981', width: `${Math.min(completionPercentage, 100)}%` }
+                { backgroundColor: theme.accent, width: `${Math.min(completionPercentage, 100)}%` }
               ]}
             />
           </View>

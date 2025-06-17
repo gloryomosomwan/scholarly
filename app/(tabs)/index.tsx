@@ -18,8 +18,8 @@ export default function Index() {
         <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
         <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
         <View style={styles.progressCards}>
-          <CompletedCard completedToday={1} totalTasks={3} />
-          <CompletedCard completedToday={1} totalTasks={3} />
+          <CompletedCard type={'assignments'} completedToday={1} totalTasks={2} />
+          <CompletedCard type={'tasks'} completedToday={1} totalTasks={4} />
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
