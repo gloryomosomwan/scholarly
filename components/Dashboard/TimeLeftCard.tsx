@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { SymbolView } from 'expo-symbols';
 
 type TimeLeftCardProps = {
@@ -24,37 +23,28 @@ export default function TimeLeftCard({ totalEstimatedTime, elapsedTime = 0 }: Ti
 
   return (
     <View style={styles.cardContainer}>
-      <LinearGradient
-        colors={['#60A5FA', '#3B82F6', '#2563EB']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.card}
-      >
-        <View style={[styles.floatingElement, styles.floatingTop]} />
-        <View style={[styles.floatingElement, styles.floatingBottom]} />
-
-        <View style={styles.cardContent}>
-          {/* Icon placeholder - you can replace with actual icon */}
+      <View style={styles.cardContent}>
+        <View style={styles.headerContainer}>
           <View style={styles.iconContainer}>
-            <SymbolView name={'clock'} tintColor={'white'} />
+            <SymbolView name={'clock'} tintColor={'#3B82F6'} />
           </View>
-
           <Text style={styles.label}>Time Left</Text>
-          <Text style={styles.value}>{formatTime(totalEstimatedTime - elapsedTime)}</Text>
-
-          <View style={styles.progressContainer}>
-            <View style={styles.progressBackground}>
-              <View
-                style={[
-                  styles.progressFill,
-                  { width: `${Math.min(progressPercentage, 100)}%` }
-                ]}
-              />
-            </View>
-            <Text style={styles.percentage}>{Math.round(progressPercentage)}%</Text>
-          </View>
         </View>
-      </LinearGradient>
+
+        <Text style={styles.value}>{formatTime(totalEstimatedTime - elapsedTime)}</Text>
+
+        <View style={styles.progressContainer}>
+          <View style={styles.progressBackground}>
+            <View
+              style={[
+                styles.progressFill,
+                { width: `${Math.min(progressPercentage, 100)}%` }
+              ]}
+            />
+          </View>
+          <Text style={styles.percentage}>{Math.round(progressPercentage)}%</Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -64,19 +54,20 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 4,
   },
-  card: {
+  cardContent: {
+    position: 'relative',
+    zIndex: 1,
+    backgroundColor: 'white',
     borderRadius: 16,
     padding: 16,
-    position: 'relative',
-    overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 4,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.1,
     shadowRadius: 8,
-    elevation: 8,
+    elevation: 4,
   },
   floatingElement: {
     position: 'absolute',
@@ -96,30 +87,26 @@ const styles = StyleSheet.create({
     left: 8,
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
-  cardContent: {
-    position: 'relative',
-    zIndex: 1,
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
   },
   iconContainer: {
     width: 24,
     height: 24,
-    marginBottom: 8,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  iconText: {
-    fontSize: 18,
-    color: 'white',
+    marginRight: 8,
   },
   label: {
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: '#9CA3AF',
     fontSize: 10,
     fontWeight: '500',
-    marginBottom: 4,
     textTransform: 'uppercase',
   },
   value: {
-    color: 'white',
+    color: '#374151',  // Changed to darker grey
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 8,
@@ -132,17 +119,17 @@ const styles = StyleSheet.create({
   progressBackground: {
     flex: 1,
     height: 4,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#E5E7EB',  // Light grey background for progress bar
     borderRadius: 2,
     overflow: 'hidden',
   },
   progressFill: {
     height: 4,
-    backgroundColor: 'white',
+    backgroundColor: '#3B82F6',  // Changed to blue
     borderRadius: 2,
   },
   percentage: {
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: '#6B7280',  // Changed to medium grey
     fontSize: 12,
     minWidth: 32,
     textAlign: 'right',

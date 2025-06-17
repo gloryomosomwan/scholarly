@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   timeText: {
     color: 'rgba(255, 255, 255, 0.9)',
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '600',
   },
   remainingText: {
     color: 'rgba(255, 255, 255, 0.7)',
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   },
   courseTitle: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 4,
   },

@@ -2,12 +2,9 @@ import { Text, StyleSheet, ScrollView, View, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useTheme } from "@/utils/useTheme";
-import EventCard from "@/components/Dashboard/EventCard";
 import ActivityCard from "@/components/ActivityCard";
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
 import CompletedCard from "@/components/Dashboard/CompletedCard";
-import TimeLeftCard from "@/components/Dashboard/TimeLeftCard";
-import OverdueCard from "@/components/Dashboard/OverdueCard";
 import EventCard2 from "@/components/Dashboard/EventCard2";
 
 export default function Index() {
@@ -18,14 +15,11 @@ export default function Index() {
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
       <ScrollView style={[styles.container, { backgroundColor: '#F9FAFB' }]} contentInsetAdjustmentBehavior="automatic">
-        <View>
-          <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
-          <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
-        </View>
+        <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
+        <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
         <View style={styles.progressCards}>
           <CompletedCard completedToday={1} totalTasks={3} />
-          <TimeLeftCard totalEstimatedTime={20} elapsedTime={10} />
-          <OverdueCard overdueCount={1} />
+          <CompletedCard completedToday={1} totalTasks={3} />
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
@@ -43,7 +37,6 @@ export default function Index() {
           <View style={styles.tasksHeaderContainer}>
             <View style={styles.tasksHeaderTopRowContainer}>
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Assignments:</Text>
-              <Text style={[styles.showAllButton, { color: theme.accent }]}>SHOW ALL</Text>
             </View>
             <Text style={[styles.subheaderText, { color: theme.tertiary }]}>3 assignments due today (1 overdue)</Text>
           </View>
@@ -55,7 +48,6 @@ export default function Index() {
           <View style={styles.tasksHeaderContainer}>
             <View style={styles.tasksHeaderTopRowContainer}>
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
-              <Text style={[styles.showAllButton, { color: theme.accent }]}>SHOW ALL</Text>
             </View>
             <Text style={[styles.subheaderText, { color: theme.tertiary }]}>3 tasks due today (1 overdue)</Text>
           </View>
@@ -79,12 +71,11 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 20,
-    marginBottom: 10,
+    marginBottom: 25,
     fontWeight: '600',
   },
   headerText: {
-    marginTop: 12,
-    marginBottom: 12,
+    marginBottom: 15,
     fontSize: 20,
     fontWeight: '600'
   },
@@ -106,15 +97,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-  showAllButton: {
-    fontWeight: '600',
-  },
   progressCards: {
     flexDirection: 'row',
-    // height: 90
-    // justifyContent: 'space-between',
-    // paddingHorizontal: 16,
-    // marginBottom: 32,
+    marginBottom: 25,
   },
 });
 
@@ -123,8 +108,8 @@ const currentLecture = {
   type: 'Lecture',
   course: 'HIST 211',
   emoji: '📚',
-  start: new Date(2025, 5, 16, 17, 0),
-  end: new Date(2025, 5, 16, 21, 0),
+  start: new Date(2025, 5, 17, 0, 0),
+  end: new Date(2025, 5, 17, 10, 0),
   location: 'HIS 2-17',
 }
 
@@ -133,8 +118,8 @@ const nextLecture = {
   type: 'Lecture',
   course: 'MARK 161',
   emoji: '📊',
-  start: new Date(2025, 5, 16, 22, 0),
-  end: new Date(2025, 5, 16, 23, 0),
+  start: new Date(2025, 5, 17, 22, 0),
+  end: new Date(2025, 5, 17, 23, 0),
   location: 'GMH 5-18',
 }
 
@@ -151,7 +136,7 @@ const task = {
   id: 50,
   title: 'Record a voice memo explaining electromagnetic fields for PHYS 102',
   course: 'PHYS 102',
-  due: new Date(2025, 5, 15, 23, 59),
+  due: new Date(2025, 5, 16, 23, 59),
   priority: 'low',
 }
 const task2 =
@@ -160,7 +145,7 @@ const task2 =
   title: 'Storyboard a 30-second marketing video for MARK 161',
   course: 'MARK 161',
   description: 'Draft key messaging points',
-  due: new Date(2025, 5, 16, 21, 0),
+  due: new Date(2025, 5, 17, 21, 0),
   priority: 'high',
 }
 const task3 =
@@ -169,7 +154,7 @@ const task3 =
   title: 'Compose a summary blog post on series convergence for MATH 119',
   course: 'MATH 119',
   description: 'Include references to lecture examples',
-  due: new Date(2025, 5, 16, 23, 59),
+  due: new Date(2025, 5, 17, 23, 59),
   priority: 'low',
 }
 
@@ -183,14 +168,14 @@ const assignment2 =
 {
   id: 35, title: 'Reading: Electromagnetism', course: 'PHYS 102',
   description: 'Prepare questions',
-  due: new Date(2025, 5, 16, 19, 0),
+  due: new Date(2025, 5, 17, 19, 0),
 }
 
 const assignment3 =
 {
   id: 50, title: 'Lab Report 12: Pendulum Experiment', course: 'PHYS 102',
   description: 'Attach tables',
-  due: new Date(2025, 5, 16, 23, 59),
+  due: new Date(2025, 5, 17, 23, 59),
 }
 
 const sampleProgressData = {
