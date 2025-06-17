@@ -3,9 +3,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useTheme } from "@/utils/useTheme";
 import ProgressCards from "@/components/Dashboard/ProgressCard";
+import ProgressCard2 from '@/components/Dashboard/ProgressCard2'
 import EventCard from "@/components/Dashboard/EventCard";
 import ActivityCard from "@/components/ActivityCard";
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
+import CompletedCard from "@/components/Dashboard/CompletedCard";
+import TimeLeftCard from "@/components/Dashboard/TimeLeftCard";
+import OverdueCard from "@/components/Dashboard/OverdueCard";
 
 export default function Index() {
   const theme = useTheme()
@@ -19,7 +23,11 @@ export default function Index() {
           <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
           <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
         </View>
-        <ProgressCards data={sampleProgressData} />
+        <View style={styles.progressCards}>
+          <CompletedCard completedToday={1} totalTasks={3} />
+          <TimeLeftCard totalEstimatedTime={20} elapsedTime={10} />
+          <OverdueCard overdueCount={1} />
+        </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
           <EventCard event={currentLecture} />
@@ -101,7 +109,13 @@ const styles = StyleSheet.create({
   },
   showAllButton: {
     fontWeight: '600',
-  }
+  },
+  progressCards: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // paddingHorizontal: 16,
+    // marginBottom: 32,
+  },
 });
 
 const currentLecture = {
