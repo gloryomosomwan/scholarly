@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: 'white',
-    opacity: 0.7,
+    opacity: 0.9,
     marginBottom: 6,
   },
   courseContainer: {
