@@ -40,9 +40,9 @@ export default function Index() {
             </View>
             <Text style={[styles.subheaderText, { color: theme.tertiary }]}>6 assignments due today (1 overdue)</Text>
           </View>
-          <ActivityCard activity={task} />
-          <ActivityCard activity={task2} />
-          <ActivityCard activity={task3} />
+          <ActivityCard activity={assignment1} />
+          <ActivityCard activity={assignment2} />
+          <ActivityCard activity={assignment3} />
         </View>
         <View>
           <View style={styles.tasksHeaderContainer}>
@@ -157,6 +157,26 @@ const task3 =
   description: 'Include references to lecture examples',
   due: new Date(2025, 5, 10, 9, 30),
   priority: 'low',
+}
+
+const assignment1 = {
+  id: 15, title: 'Problem Set 3: Thermodynamics', course: 'CHEM 105',
+  description: 'Show all work clearly',
+  due: new Date(2025, 4, 21, 23, 59),
+}
+
+const assignment2 =
+{
+  id: 35, title: 'Reading: Electromagnetism', course: 'PHYS 102',
+  description: 'Prepare questions',
+  due: new Date(2025, 5, 22, 23, 59),
+}
+
+const assignment3 =
+{
+  id: 50, title: 'Lab Report 12: Pendulum Experiment', course: 'PHYS 102',
+  description: 'Attach tables',
+  due: new Date(2025, 6, 20, 23, 59),
 }
 
 const overdueTask = {
