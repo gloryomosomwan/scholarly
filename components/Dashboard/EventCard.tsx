@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { SymbolView } from 'expo-symbols'
+import { SymbolView } from 'expo-symbols';
 
 import dayjs from '@/utils/dayjs'
 import { courseGradients } from '@/utils/Calendar/data';
@@ -18,10 +18,18 @@ type EventCardProps = {
 };
 
 export default function EventCard({ event }: EventCardProps) {
+  const { type, course, emoji, location, start, end } = event;
   const courseGradient = courseGradients[event.course as keyof typeof courseGradients];
-  const now = dayjs()
-  const isCurrentEvent = now.isBetween(event.start, event.end)
-  const isUpNext = now.isBefore(event.start)
+
+  // Calculate progress and time remaining
+  const now = new Date();
+  const totalDuration = end.getTime() - start.getTime();
+  const elapsed = now.getTime() - start.getTime();
+  const remaining = end.getTime() - now.getTime();
+
+  const now2 = dayjs()
+  const isCurrentEvent = now2.isBetween(event.start, event.end)
+  const isUpNext = now2.isBefore(event.start)
   let timeLeftString
   let timeFromNowString
   if (isCurrentEvent) {
@@ -33,36 +41,110 @@ export default function EventCard({ event }: EventCardProps) {
     timeFromNowString = timeFromNowString.charAt(0).toUpperCase() + timeFromNowString.slice(1)
   }
 
+  // Calculate progress percentage
+  const progressPercentage = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
+
+  // Format time
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+
+  // Format remaining time
+  const formatRemainingTime = (milliseconds: number) => {
+    const minutes = Math.floor(milliseconds / (1000 * 60));
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+
+    if (hours > 0) {
+      return `${hours}h ${remainingMinutes}m left`;
+    }
+    return `${remainingMinutes} minutes left`;
+  };
+
+  // Format elapsed time
+  const formatElapsedTime = (milliseconds: number) => {
+    const minutes = Math.floor(milliseconds / (1000 * 60));
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+
+    if (hours > 0) {
+      return `${hours}h ${remainingMinutes}m elapsed`;
+    }
+    return `${remainingMinutes}m elapsed`;
+  };
+
   return (
     <View style={styles.container}>
+
       <LinearGradient
-        // colors={[courseGradient[0], courseGradient[1]]}
         colors={['#EC4899', '#E11D48']}
+        // colors={[courseGradient[0], courseGradient[1]]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
         style={styles.card}
       >
-        <View style={styles.cardContent}>
-          <View style={styles.cardHeader}>
-            <View style={styles.leftContent}>
-              <Text style={styles.eventType}>{event.type}</Text>
-              <View style={styles.courseContainer}>
-                <Text style={styles.courseEmoji}>{event.emoji}</Text>
-                <Text style={styles.courseName}>{event.course}</Text>
-              </View>
+        {/* Header */}
+        <View style={styles.header}>
+          <View style={styles.typeContainer}>
+            <Text style={styles.typeText}>{type}</Text>
+          </View>
+          <View style={styles.timeContainer}>
+            <Text style={styles.timeText}>
+              {formatTime(start)} - {formatTime(end)}
+            </Text>
+            <Text style={styles.timeAgo}>
+              {!isCurrentEvent && timeFromNowString}
+            </Text>
+          </View>
+        </View>
+
+        {/* Main Content */}
+        <View style={styles.mainContent}>
+          <View style={styles.iconContainer}>
+            <Text style={styles.iconText}>{emoji}</Text>
+          </View>
+          <View style={styles.courseInfo}>
+            <Text style={styles.courseTitle}>{course}</Text>
+            <View style={styles.locationContainer}>
+              <SymbolView style={styles.locationIcon} name={'mappin.circle.fill'} tintColor={'white'} size={15} />
+              <Text style={styles.locationText}>{location}</Text>
             </View>
-            <View style={styles.rightContent}>
-              <Text style={[styles.timeRange]}>{`${event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} - ${event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}`}</Text>
-              <Text style={styles.timeAgo}>
-                {isCurrentEvent ? timeLeftString : timeFromNowString}
+          </View>
+        </View>
+
+        {/* Progress Bar */}
+        {
+          isCurrentEvent &&
+          <View style={styles.progressSection}>
+            <View style={styles.progressContainer}>
+              <View style={styles.progressBackground}>
+                <View
+                  style={[
+                    styles.progressFill,
+                    { width: `${progressPercentage}%` }
+                  ]}
+                >
+                </View>
+              </View>
+              <Text style={styles.progressPercentage}>
+                {Math.round(progressPercentage)}%
+              </Text>
+            </View>
+
+            <View style={styles.timeLabels}>
+              <Text style={styles.timeLabel}>
+                {formatElapsedTime(elapsed)}
+              </Text>
+              <Text style={styles.timeLabel}>
+                {remaining > 0 ? formatRemainingTime(remaining) : 'Complete'}
               </Text>
             </View>
           </View>
-          <View style={styles.locationContainer}>
-            <SymbolView name={'mappin.circle.fill'} tintColor={'white'} style={styles.locationIcon} size={15} />
-            <Text style={styles.locationText}>{event.location}</Text>
-          </View>
-        </View>
+        }
       </LinearGradient>
     </View>
   );
@@ -70,17 +152,18 @@ export default function EventCard({ event }: EventCardProps) {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 24,
+    marginBottom: 32,
+    // paddingHorizontal: 16,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#111827',
-    marginBottom: 12,
+    color: '#1E293B',
+    marginBottom: 16,
   },
   card: {
-    borderRadius: 16,
-    padding: 16,
+    borderRadius: 24,
+    padding: 24,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -90,64 +173,122 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 8,
   },
-  cardContent: {
-    flex: 1,
-  },
-  cardHeader: {
+  header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginBottom: 16,
   },
-  leftContent: {
-    flex: 1,
+  typeContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 20,
   },
-  rightContent: {
+  typeText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  timeContainer: {
     alignItems: 'flex-end',
   },
-  eventType: {
+  timeText: {
+    color: 'rgba(255, 255, 255, 0.9)',
     fontSize: 14,
-    fontWeight: '500',
-    color: 'white',
-    opacity: 0.9,
-    marginBottom: 6,
+    fontWeight: '600',
   },
-  courseContainer: {
+  remainingText: {
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontSize: 12,
+  },
+  mainContent: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 16,
   },
-  courseEmoji: {
-    marginRight: 3,
-    fontSize: 25
+  iconContainer: {
+    width: 40,
+    height: 40,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
   },
-  courseName: {
+  iconText: {
+    fontSize: 27,
+  },
+  courseInfo: {
+    flex: 1,
+  },
+  courseTitle: {
+    color: 'white',
     fontSize: 30,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    marginBottom: 4,
   },
-  timeRange: {
+  locationText: {
+    color: 'rgba(255, 255, 255, 0.8)',
+    fontSize: 14,
+  },
+  progressSection: {
+    marginTop: 8,
+  },
+  progressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  progressBackground: {
+    flex: 1,
+    height: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 4,
+    overflow: 'hidden',
+    marginRight: 12,
+  },
+  progressFill: {
+    height: 8,
+    backgroundColor: 'white',
+    borderRadius: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  progressIndicator: {
+    width: 4,
+    height: 4,
+    backgroundColor: 'rgba(236, 72, 153, 0.7)',
+    borderRadius: 2,
+    marginRight: 4,
+  },
+  progressPercentage: {
+    color: 'rgba(255, 255, 255, 0.9)',
     fontSize: 14,
     fontWeight: '500',
-    color: '#FFFFFF',
+    minWidth: 40,
   },
-  timeAgo: {
-    fontSize: 14,
-    color: 'white',
-    opacity: 0.7,
+  timeLabels: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  timeLabel: {
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontSize: 12,
   },
   locationContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   locationIcon: {
-    opacity: 0.8,
-    color: 'white',
-    marginRight: 5,
+    marginRight: 4,
+    opacity: 0.7
   },
-  locationText: {
-    fontSize: 14,
-    fontWeight: '500',
+  timeAgo: {
+    fontSize: 13,
     color: 'white',
-    opacity: 0.8,
+    opacity: 0.7,
+    marginTop: 2,
   },
 });

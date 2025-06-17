@@ -4,8 +4,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/utils/useTheme";
 import ActivityCard from "@/components/ActivityCard";
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
-import CompletedCard from "@/components/Dashboard/CompletedCard";
-import EventCard2 from "@/components/Dashboard/EventCard2";
+import ProgressCard from "@/components/Dashboard/ProgressCard";
+import EventCard from "@/components/Dashboard/EventCard";
 
 export default function Index() {
   const theme = useTheme()
@@ -18,16 +18,16 @@ export default function Index() {
         <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
         <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
         <View style={styles.progressCards}>
-          <CompletedCard type={'assignments'} completedToday={1} totalTasks={2} />
-          <CompletedCard type={'tasks'} completedToday={1} totalTasks={4} />
+          <ProgressCard type={'assignments'} completedToday={1} totalTasks={2} />
+          <ProgressCard type={'tasks'} completedToday={1} totalTasks={4} />
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
-          <EventCard2 event={currentLecture} />
+          <EventCard event={currentLecture} />
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
-          <EventCard2 event={nextLecture} />
+          <EventCard event={nextLecture} />
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
