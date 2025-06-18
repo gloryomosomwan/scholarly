@@ -4,9 +4,8 @@ import { SymbolView } from 'expo-symbols';
 import { isAfter } from 'date-fns';
 
 import { courseColors } from '@/utils/Calendar/data';
-import { priorityColors } from '@/utils/themes';
 import { formatTime } from '@/utils/utility'
-import { useTheme } from '@/utils/useTheme';
+import { useTheme, usePriorityColors } from '@/utils/useTheme';
 
 type ActivityCardProps = {
   activity: {
@@ -23,9 +22,19 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
   const [overdue, setOverdue] = useState(activity.due && isAfter(new Date(), activity.due))
   const courseColor = courseColors[activity.course as keyof typeof courseColors];
   const theme = useTheme()
+  const priorityColors = usePriorityColors()
 
   const toggleCompleted = () => {
     setCompleted(!completed);
+  };
+
+  const getPriorityColor = (priority?: string) => {
+    switch (priority?.toUpperCase()) {
+      case 'HIGH': return priorityColors.high;
+      case 'MEDIUM': return priorityColors.medium;
+      case 'LOW': return priorityColors.low;
+      default: return priorityColors.default;
+    }
   };
 
   return (
@@ -107,14 +116,6 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
   );
 };
 
-const getPriorityColor = (priority?: string) => {
-  switch (priority?.toUpperCase()) {
-    case 'HIGH': return priorityColors.high;
-    case 'MEDIUM': return priorityColors.medium;
-    case 'LOW': return priorityColors.low;
-    default: return priorityColors.default;
-  }
-};
 
 const styles = StyleSheet.create({
   card: {

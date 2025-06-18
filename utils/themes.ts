@@ -64,7 +64,7 @@ export const darkTheme: theme = {
   dangerSofter: '#451A1A',
 }
 
-export const priorityColors2 = {
+export const lightPriorityColors = {
   high: {
     // backgroundColor: '#FEF2F2',
     // borderColor: '#FECACA',
@@ -94,7 +94,7 @@ export const priorityColors2 = {
   }
 
 }
-export const priorityColors = {
+export const darkPriorityColors = {
   high: {
     backgroundColor: darkTheme['dangerSofter'],
     borderColor: darkTheme['dangerSoft'],
