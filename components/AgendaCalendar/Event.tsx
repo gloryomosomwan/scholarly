@@ -1,6 +1,6 @@
 import { DimensionValue, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { SymbolView, SFSymbol } from 'expo-symbols';
+import { SymbolView } from 'expo-symbols';
 import { isBefore, isSameDay } from 'date-fns';
 
 import { useTheme } from '@/utils/useTheme';
@@ -11,7 +11,7 @@ type EventProps = {
   event: {
     type: string,
     course: string,
-    icon: SFSymbol,
+    icon: string,
     location: string,
     start: Date,
     end: Date
@@ -69,7 +69,7 @@ export default function Event({ event }: EventProps) {
       <View style={styles.courseDetailsContainer}>
         <Text style={[isAssessment(event.type) ? styles.assessmentTypeText : styles.instructionalTypeText, { color: isAssessment(event.type) ? courseColor : theme.tertiary }]}>{event.type}</Text>
         <View style={styles.courseTitleContainer}>
-          <SymbolView name={event.icon} style={[styles.eventIcon]} tintColor={eventWasEarlierToday ? theme.tertiary : courseColor} size={25} type="hierarchical" />
+          <Text style={styles.eventIcon}>{event.icon}</Text>
           <Text style={[styles.courseTitleText, { color: eventWasEarlierToday ? theme.tertiary : theme.text }]}>{event.course}</Text>
         </View>
         <View style={styles.courseLocationContainer}>
