@@ -124,8 +124,8 @@ const currentLecture = {
   type: 'Lecture',
   course: 'HIST 211',
   emoji: '📚',
-  start: new Date(2025, 5, 17, 0, 0),
-  end: new Date(2025, 5, 17, 23, 0),
+  start: new Date(2025, 5, 18, 0, 0),
+  end: new Date(2025, 5, 18, 23, 0),
   location: 'HIS 2-17',
 }
 
@@ -134,8 +134,8 @@ const nextLecture = {
   type: 'Lecture',
   course: 'MARK 161',
   emoji: '📊',
-  start: new Date(2025, 5, 18, 22, 0),
-  end: new Date(2025, 5, 18, 23, 0),
+  start: new Date(2025, 5, 19, 22, 0),
+  end: new Date(2025, 5, 19, 23, 0),
   location: 'GMH 5-18',
 }
 
@@ -143,8 +143,8 @@ const exam = {
   type: 'Final Exam',
   course: 'MATH 119',
   emoji: '➕',
-  start: new Date(2025, 5, 20, 13, 0),
-  end: new Date(2025, 5, 20, 15, 0),
+  start: new Date(2025, 5, 21, 13, 0),
+  end: new Date(2025, 5, 21, 15, 0),
   location: 'GMH 5-18',
 }
 
@@ -152,7 +152,7 @@ const task = {
   id: 50,
   title: 'Record a voice memo explaining electromagnetic fields for PHYS 102',
   course: 'PHYS 102',
-  due: new Date(2025, 5, 16, 23, 59),
+  due: new Date(2025, 5, 17, 23, 59),
   priority: 'low',
 }
 const task2 =
@@ -161,7 +161,7 @@ const task2 =
   title: 'Storyboard a 30-second marketing video for MARK 161',
   course: 'MARK 161',
   description: 'Draft key messaging points',
-  due: new Date(2025, 5, 17, 21, 0),
+  due: new Date(2025, 5, 18, 21, 0),
   priority: 'high',
 }
 const task3 =
@@ -170,28 +170,28 @@ const task3 =
   title: 'Compose a summary blog post on series convergence for MATH 119',
   course: 'MATH 119',
   description: 'Include references to lecture examples',
-  due: new Date(2025, 5, 17, 23, 59),
+  due: new Date(2025, 5, 18, 23, 59),
   priority: 'low',
 }
 
 const assignment1 = {
   id: 15, title: 'Problem Set 3: Thermodynamics', course: 'CHEM 105',
   description: 'Show all work clearly',
-  due: new Date(2025, 5, 15, 23, 59),
+  due: new Date(2025, 5, 16, 23, 59),
 }
 
 const assignment2 =
 {
   id: 35, title: 'Reading: Electromagnetism', course: 'PHYS 102',
   description: 'Prepare questions',
-  due: new Date(2025, 5, 17, 20, 0),
+  due: new Date(2025, 5, 18, 20, 0),
 }
 
 const assignment3 =
 {
   id: 50, title: 'Lab Report 12: Pendulum Experiment', course: 'PHYS 102',
   description: 'Attach tables',
-  due: new Date(2025, 5, 17, 23, 59),
+  due: new Date(2025, 5, 18, 23, 59),
 }
 
 const sampleProgressData = {
