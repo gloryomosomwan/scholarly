@@ -6,6 +6,7 @@ import ActivityCard from "@/components/ActivityCard";
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
 import ProgressCard from "@/components/Dashboard/ProgressCard";
 import EventCard from "@/components/Dashboard/EventCard";
+import { SymbolView } from "expo-symbols";
 
 export default function Index() {
   const theme = useTheme()
@@ -15,8 +16,13 @@ export default function Index() {
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
       <ScrollView style={[styles.container, { backgroundColor: '#F9FAFB' }]} contentInsetAdjustmentBehavior="automatic">
-        <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
-        <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
+        <View style={styles.headerContainer}>
+          <View style={styles.greetingDateContainer}>
+            <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
+            <Text style={[styles.dateText, { color: theme.tertiary }]}>Friday, November 28</Text>
+          </View>
+          <SymbolView style={styles.profileIcon} name={'person.crop.circle.fill'} size={45} tintColor={'dimgrey'} />
+        </View>
         <View style={styles.progressCards}>
           <ProgressCard type={'assignments'} completedToday={1} totalTasks={2} />
           <ProgressCard type={'tasks'} completedToday={1} totalTasks={4} />
@@ -101,6 +107,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 25,
   },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  greetingDateContainer: {
+    maxWidth: '80%',
+  },
+  profileIcon: {
+    right: 10,
+  },
 });
 
 const currentLecture = {
@@ -109,7 +125,7 @@ const currentLecture = {
   course: 'HIST 211',
   emoji: '📚',
   start: new Date(2025, 5, 17, 0, 0),
-  end: new Date(2025, 5, 17, 19, 0),
+  end: new Date(2025, 5, 17, 23, 0),
   location: 'HIS 2-17',
 }
 
@@ -118,8 +134,8 @@ const nextLecture = {
   type: 'Lecture',
   course: 'MARK 161',
   emoji: '📊',
-  start: new Date(2025, 5, 17, 22, 0),
-  end: new Date(2025, 5, 17, 23, 0),
+  start: new Date(2025, 5, 18, 22, 0),
+  end: new Date(2025, 5, 18, 23, 0),
   location: 'GMH 5-18',
 }
 
@@ -168,7 +184,7 @@ const assignment2 =
 {
   id: 35, title: 'Reading: Electromagnetism', course: 'PHYS 102',
   description: 'Prepare questions',
-  due: new Date(2025, 5, 17, 19, 0),
+  due: new Date(2025, 5, 17, 20, 0),
 }
 
 const assignment3 =
