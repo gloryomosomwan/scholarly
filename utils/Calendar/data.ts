@@ -9,11 +9,11 @@ export const courseColors = {
 };
 
 export const courseGradients = {
-  'MATH 119': ['#FFBE0B', darkenHex('#FFBE0B')], // Yellow to amber
-  'PHYS 102': ['#FB5607', darkenHex('#FB5607')], // Orange to red
-  'HIST 211': ['#FF006E', darkenHex('#FF006E')], // Pink to rose (your current gradient)
-  'MARK 161': ['#8338EC', darkenHex('#8338EC')], // Purple to violet
-  'CHEM 105': ['#3A86FF', darkenHex('#3A86FF')], // Light blue to blue
+  'MATH 119': [courseColors['MATH 119'], darkenHex(courseColors['MATH 119'])],
+  'PHYS 102': [courseColors['PHYS 102'], darkenHex(courseColors['PHYS 102'])],
+  'HIST 211': [courseColors['HIST 211'], darkenHex(courseColors['HIST 211'])],
+  'MARK 161': [courseColors['MARK 161'], darkenHex(courseColors['MARK 161'])],
+  'CHEM 105': [courseColors['CHEM 105'], darkenHex(courseColors['CHEM 105'])],
 };
 
 export interface Event {
