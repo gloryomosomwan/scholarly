@@ -7,13 +7,13 @@ type theme = {
   inverseText: string,
   danger: string,
   warning: string,
-  symbol: string,
-  highContrastText: string
+  mediumGrey: string,
+  charcoal: string
   subdued: string
-  secondaryText: string
-  divider: string
-  tag: string
-  tag2: string
+  darkGrey: string
+  lightBlue: string
+  lightGrey: string
+  offWhite: string
 }
 
 export const lightTheme: theme = {
@@ -25,13 +25,13 @@ export const lightTheme: theme = {
   inverseText: '#FFFFFF',
   danger: 'red',
   warning: 'gold',
-  symbol: '#9CA3AF',
-  highContrastText: '#111827',
+  mediumGrey: '#9CA3AF',
+  charcoal: '#111827',
   subdued: '#6B7280',
-  secondaryText: '#4B5563',
-  tag: '#EFF6FF',
-  divider: '#E5E7EB',
-  tag2: '#F3F4F6'
+  darkGrey: '#4B5563',
+  lightBlue: '#EFF6FF',
+  lightGrey: '#E5E7EB',
+  offWhite: '#F3F4F6'
 }
 
 export const darkTheme: theme = {

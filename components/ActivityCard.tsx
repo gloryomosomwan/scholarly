@@ -31,7 +31,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
   return (
     <View style={[
       styles.card,
-      { backgroundColor: theme.secondary, borderColor: theme.divider },
+      { backgroundColor: theme.secondary, borderColor: theme.lightGrey },
       overdue && [styles.overdueCard, { backgroundColor: '#FEF2F2' }],
       completed && [styles.completedCard, { backgroundColor: '#F0FDF4' }]
     ]}>
@@ -42,20 +42,20 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
             <SymbolView
               name={completed ? "checkmark.circle.fill" : "circle"}
               size={20}
-              tintColor={completed ? "#10B981" : theme.symbol}
+              tintColor={completed ? "#10B981" : theme.mediumGrey}
             />
           </TouchableOpacity>
 
           {/* Content */}
           <View style={styles.content}>
             <View style={styles.titleRow}>
-              <Text style={[styles.title, { color: theme.highContrastText }, completed && [styles.completedTitle, { color: theme.subdued }]]}>
+              <Text style={[styles.title, { color: theme.charcoal }, completed && [styles.completedTitle, { color: theme.subdued }]]}>
                 {activity.title}
               </Text>
               {activity.due &&
                 <View style={styles.dueTimeContainer}>
                   {overdue && <SymbolView name={'exclamationmark.circle'} tintColor={'red'} size={12} />}
-                  <Text style={[styles.dueTime, { color: theme.secondaryText }]}> {formatTime(activity.due)} </Text>
+                  <Text style={[styles.dueTime, { color: theme.darkGrey }]}> {formatTime(activity.due)} </Text>
                 </View>
               }
             </View>
@@ -68,14 +68,14 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
             <View style={styles.tagsContainer}>
               {/* Course tag */}
               {activity.course && (
-                <View style={[styles.courseTag, { backgroundColor: theme.tag2 }]}>
+                <View style={[styles.courseTag, { backgroundColor: theme.offWhite }]}>
                   <View style={[styles.courseDot, { backgroundColor: courseColor }]} />
                   <Text style={[styles.courseText, { color: theme.text }]}>{activity.course}</Text>
                 </View>
               )}
 
               {/* Task type */}
-              <View style={[styles.taskTypeTag, { backgroundColor: theme.tag }]}>
+              <View style={[styles.taskTypeTag, { backgroundColor: theme.lightBlue }]}>
                 <SymbolView name="target" size={12} tintColor="#2563EB" />
                 <Text style={[styles.taskTypeText, { color: '#1D4ED8' }]}>assignment</Text>
               </View>
@@ -101,7 +101,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
         {/* Completion indicator */}
         {completed && (
           <View style={styles.completionIndicator}>
-            <View style={[styles.completionDivider, { backgroundColor: theme.divider }]} />
+            <View style={[styles.completionDivider, { backgroundColor: theme.lightGrey }]} />
             <View style={styles.completionContent}>
               <SymbolView name="checkmark.circle.fill" size={16} tintColor="#10B981" />
               <Text style={[styles.completionText, { color: '#059669' }]}>Completed</Text>
