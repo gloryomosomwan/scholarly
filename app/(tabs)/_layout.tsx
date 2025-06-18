@@ -9,8 +9,8 @@ export default function TabLayout() {
   const theme = useTheme()
   return (
     <Tabs screenOptions={{
-      tabBarActiveTintColor: theme.text,
-      tabBarInactiveTintColor: theme.primary,
+      tabBarActiveTintColor: theme.accent,
+      tabBarInactiveTintColor: theme.tertiary,
       headerBackground: () => (
         <BlurView
           intensity={50}
@@ -27,7 +27,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <SymbolView size={35} name="square.grid.2x2" tintColor={theme.accent} />,
+          tabBarIcon: ({ color }) => <SymbolView size={35} name="square.grid.2x2" tintColor={color} />,
           headerShown: false,
         }}
       />
@@ -35,7 +35,7 @@ export default function TabLayout() {
         name="calendar"
         options={{
           title: 'Calendar',
-          tabBarIcon: ({ color }) => <SymbolView size={35} name="calendar" tintColor={theme.accent} />,
+          tabBarIcon: ({ color }) => <SymbolView size={35} name="calendar" tintColor={color} />,
           headerShown: false
         }}
       />
@@ -44,14 +44,14 @@ export default function TabLayout() {
         options={{
           title: 'Courses',
           headerShown: false,
-          tabBarIcon: ({ color }) => <SymbolView size={35} name="book" tintColor={theme.accent} />,
+          tabBarIcon: ({ color }) => <SymbolView size={35} name="book" tintColor={color} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color }) => <SymbolView size={35} name="gearshape" tintColor={theme.accent} />,
+          tabBarIcon: ({ color }) => <SymbolView size={35} name="gearshape" tintColor={color} />,
         }}
       />
     </Tabs>
