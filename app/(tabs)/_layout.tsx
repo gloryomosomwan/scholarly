@@ -19,9 +19,9 @@ export default function TabLayout() {
         />
       ),
       tabBarShowLabel: false,
-      tabBarStyle: { backgroundColor: '#F9FAFB', borderColor: theme.primary, display: 'flex' },
+      tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary, display: 'flex' },
       tabBarIconStyle: { top: 15 },
-      sceneStyle: { backgroundColor: '#F9FAFB' }
+      sceneStyle: { backgroundColor: theme.primary }
     }}>
       <Tabs.Screen
         name="index"

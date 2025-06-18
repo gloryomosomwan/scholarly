@@ -21,14 +21,14 @@ export const lightTheme: theme = {
 }
 
 export const darkTheme: theme = {
-  primary: 'black',
-  secondary: '#151616',
-  tertiary: '#505050',
+  primary: '#111827',
+  secondary: '#1F2937',
+  tertiary: '#374151',
   accent: '#007bff',
-  text: 'white',
-  inverseText: 'black',
-  danger: 'red',
-  warning: 'gold',
+  text: '#F9FAFB',
+  inverseText: '#111827',
+  danger: '#EF4444',
+  warning: '#F59E0B',
 }
 
 export const priorityColors = {

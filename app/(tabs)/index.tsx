@@ -15,7 +15,7 @@ export default function Index() {
 
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
-      <ScrollView style={[styles.container, { backgroundColor: '#F9FAFB' }]} contentInsetAdjustmentBehavior="automatic">
+      <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
         <View style={styles.headerContainer}>
           <View style={styles.greetingDateContainer}>
             <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
