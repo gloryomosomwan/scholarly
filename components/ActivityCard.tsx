@@ -74,12 +74,6 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
                 </View>
               )}
 
-              {/* Task type */}
-              <View style={[styles.taskTypeTag, { backgroundColor: theme.lightBlue }]}>
-                <SymbolView name="target" size={12} tintColor={theme.assignmentSoft} />
-                <Text style={[styles.taskTypeText, { color: theme.assignment }]}>assignment</Text>
-              </View>
-
               {/* Priority tag */}
               {activity.priority && (
                 <View style={[styles.priorityTag, getPriorityColor(activity.priority)]}>
@@ -196,19 +190,6 @@ const styles = StyleSheet.create({
   courseText: {
     fontSize: 12,
     fontWeight: '500',
-  },
-  taskTypeTag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    gap: 4,
-  },
-  taskTypeText: {
-    fontSize: 12,
-    fontWeight: '500',
-    textTransform: 'capitalize',
   },
   priorityTag: {
     borderRadius: 12,

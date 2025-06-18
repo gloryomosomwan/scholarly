@@ -18,8 +18,6 @@ type theme = {
   successHard: string
   dangerSoft: string
   dangerSofter: string
-  assignment: string
-  assignmentSoft: string
 }
 
 export const lightTheme: theme = {
@@ -42,8 +40,6 @@ export const lightTheme: theme = {
   successHard: '#059669',
   dangerSoft: '#FECACA',
   dangerSofter: '#FEF2F2',
-  assignmentSoft: '#2563EB',
-  assignment: '#1D4ED8'
 }
 
 export const darkTheme: theme = {
@@ -66,8 +62,6 @@ export const darkTheme: theme = {
   successHard: '#34D399',
   dangerSoft: '#7F1D1D',
   dangerSofter: '#451A1A',
-  assignmentSoft: '#1E40AF',
-  assignment: '#3B82F6'
 }
 
 export const priorityColors2 = {
