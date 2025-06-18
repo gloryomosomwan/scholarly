@@ -32,8 +32,8 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
     <View style={[
       styles.card,
       { backgroundColor: theme.secondary, borderColor: theme.lightGrey },
-      overdue && [styles.overdueCard, { backgroundColor: '#FEF2F2' }],
-      completed && [styles.completedCard, { backgroundColor: '#F0FDF4' }]
+      overdue && [{ backgroundColor: theme.dangerSofter, borderColor: theme.dangerSoft }],
+      completed && [{ backgroundColor: theme.successSofter, borderColor: theme.successSoft }]
     ]}>
       <View style={styles.cardContent}>
         <View style={styles.header}>
@@ -42,7 +42,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
             <SymbolView
               name={completed ? "checkmark.circle.fill" : "circle"}
               size={20}
-              tintColor={completed ? "#10B981" : theme.mediumGrey}
+              tintColor={completed ? theme.success : theme.mediumGrey}
             />
           </TouchableOpacity>
 
@@ -76,8 +76,8 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
 
               {/* Task type */}
               <View style={[styles.taskTypeTag, { backgroundColor: theme.lightBlue }]}>
-                <SymbolView name="target" size={12} tintColor="#2563EB" />
-                <Text style={[styles.taskTypeText, { color: '#1D4ED8' }]}>assignment</Text>
+                <SymbolView name="target" size={12} tintColor={theme.assignmentSoft} />
+                <Text style={[styles.taskTypeText, { color: theme.assignment }]}>assignment</Text>
               </View>
 
               {/* Priority tag */}
@@ -103,8 +103,8 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
           <View style={styles.completionIndicator}>
             <View style={[styles.completionDivider, { backgroundColor: theme.lightGrey }]} />
             <View style={styles.completionContent}>
-              <SymbolView name="checkmark.circle.fill" size={16} tintColor="#10B981" />
-              <Text style={[styles.completionText, { color: '#059669' }]}>Completed</Text>
+              <SymbolView name="checkmark.circle.fill" size={16} tintColor={theme.success} />
+              <Text style={[styles.completionText, { color: theme.successHard }]}>Completed</Text>
             </View>
           </View>
         )}
@@ -136,12 +136,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 2,
-  },
-  overdueCard: {
-    borderColor: '#FECACA',
-  },
-  completedCard: {
-    borderColor: '#D1FAE5',
   },
   cardContent: {
     flex: 1,

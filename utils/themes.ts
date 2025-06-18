@@ -5,8 +5,6 @@ type theme = {
   accent: string,
   text: string,
   inverseText: string,
-  danger: string,
-  warning: string,
   mediumGrey: string,
   charcoal: string
   subdued: string
@@ -14,6 +12,14 @@ type theme = {
   lightBlue: string
   lightGrey: string
   offWhite: string
+  success: string
+  successSoft: string
+  successSofter: string
+  successHard: string
+  dangerSoft: string
+  dangerSofter: string
+  assignment: string
+  assignmentSoft: string
 }
 
 export const lightTheme: theme = {
@@ -23,15 +29,21 @@ export const lightTheme: theme = {
   accent: "#007FFF",
   text: '#374151',
   inverseText: '#FFFFFF',
-  danger: 'red',
-  warning: 'gold',
   mediumGrey: '#9CA3AF',
   charcoal: '#111827',
   subdued: '#6B7280',
   darkGrey: '#4B5563',
   lightBlue: '#EFF6FF',
   lightGrey: '#E5E7EB',
-  offWhite: '#F3F4F6'
+  offWhite: '#F3F4F6',
+  success: '#10B981',
+  successSoft: '#D1FAE5',
+  successSofter: '#F0FDF4',
+  successHard: '#059669',
+  dangerSoft: '#FECACA',
+  dangerSofter: '#FEF2F2',
+  assignmentSoft: '#2563EB',
+  assignment: '#1D4ED8'
 }
 
 export const darkTheme: theme = {
@@ -41,8 +53,6 @@ export const darkTheme: theme = {
   accent: '#007bff',
   text: '#F9FAFB',
   inverseText: '#111827',
-  danger: '#EF4444',
-  warning: '#F59E0B',
 }
 
 export const priorityColors = {
