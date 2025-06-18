@@ -7,6 +7,13 @@ type theme = {
   inverseText: string,
   danger: string,
   warning: string,
+  symbol: string,
+  highContrastText: string
+  subdued: string
+  secondaryText: string
+  divider: string
+  tag: string
+  tag2: string
 }
 
 export const lightTheme: theme = {
@@ -18,6 +25,13 @@ export const lightTheme: theme = {
   inverseText: '#FFFFFF',
   danger: 'red',
   warning: 'gold',
+  symbol: '#9CA3AF',
+  highContrastText: '#111827',
+  subdued: '#6B7280',
+  secondaryText: '#4B5563',
+  tag: '#EFF6FF',
+  divider: '#E5E7EB',
+  tag2: '#F3F4F6'
 }
 
 export const darkTheme: theme = {
