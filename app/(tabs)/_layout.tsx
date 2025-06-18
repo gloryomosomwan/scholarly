@@ -1,4 +1,4 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { SymbolView } from 'expo-symbols'
 import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import { StyleSheet } from 'react-native';
@@ -10,7 +10,7 @@ export default function TabLayout() {
   return (
     <Tabs screenOptions={{
       tabBarActiveTintColor: theme.text,
-      tabBarInactiveTintColor: theme.tertiary,
+      tabBarInactiveTintColor: theme.primary,
       headerBackground: () => (
         <BlurView
           intensity={50}
@@ -27,7 +27,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={35} name="square.grid.2x2" tintColor={theme.accent} />,
           headerShown: false,
         }}
       />
@@ -35,7 +35,7 @@ export default function TabLayout() {
         name="calendar"
         options={{
           title: 'Calendar',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="calendar" color={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={35} name="calendar" tintColor={theme.accent} />,
           headerShown: false
         }}
       />
@@ -44,14 +44,14 @@ export default function TabLayout() {
         options={{
           title: 'Courses',
           headerShown: false,
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="book" color={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={35} name="book" tintColor={theme.accent} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={35} name="gearshape" tintColor={theme.accent} />,
         }}
       />
     </Tabs>
