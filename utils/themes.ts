@@ -50,16 +50,34 @@ export const darkTheme: theme = {
   primary: '#111827',
   secondary: '#1F2937',
   tertiary: '#374151',
-  accent: '#007bff',
+  accent: '#3B82F6',
   text: '#F9FAFB',
   inverseText: '#111827',
+  mediumGrey: '#6B7280',
+  charcoal: '#F9FAFB',
+  subdued: '#9CA3AF',
+  darkGrey: '#D1D5DB',
+  lightBlue: '#1E3A8A',
+  lightGrey: '#374151',
+  offWhite: '#374151',
+  success: '#10B981',
+  successSoft: '#064E3B',
+  successSofter: '#022C22',
+  successHard: '#34D399',
+  dangerSoft: '#7F1D1D',
+  dangerSofter: '#451A1A',
+  assignmentSoft: '#1E40AF',
+  assignment: '#3B82F6'
 }
 
-export const priorityColors = {
+export const priorityColors2 = {
   high: {
-    backgroundColor: '#FEF2F2',
-    borderColor: '#FECACA',
+    // backgroundColor: '#FEF2F2',
+    // borderColor: '#FECACA',
     color: '#B91C1C',
+
+    backgroundColor: lightTheme['dangerSofter'],
+    borderColor: lightTheme['dangerSoft'],
   },
   medium: {
     backgroundColor: '#FFFBEB',
@@ -67,9 +85,13 @@ export const priorityColors = {
     color: '#B45309',
   },
   low: {
-    backgroundColor: '#F0FDF4',
-    borderColor: '#BBF7D0',
-    color: '#166534',
+    // backgroundColor: '#F0FDF4',
+    // borderColor: '#BBF7D0',
+    // color: '#166534',
+
+    backgroundColor: lightTheme['successSofter'],
+    borderColor: lightTheme['successSoft'],
+    color: lightTheme['successHard']
   },
   default: {
     backgroundColor: '#F9FAFB',
@@ -77,4 +99,26 @@ export const priorityColors = {
     color: '#374151',
   }
 
+}
+export const priorityColors = {
+  high: {
+    backgroundColor: darkTheme['dangerSofter'],
+    borderColor: darkTheme['dangerSoft'],
+    color: '#FCA5A5',
+  },
+  medium: {
+    backgroundColor: '#451A03',
+    borderColor: '#92400E',
+    color: '#FCD34D',
+  },
+  low: {
+    backgroundColor: darkTheme['successSofter'],
+    borderColor: darkTheme['successSoft'],
+    color: darkTheme['successHard']
+  },
+  default: {
+    backgroundColor: darkTheme['tertiary'],
+    borderColor: darkTheme['mediumGrey'],
+    color: darkTheme['text'],
+  }
 }

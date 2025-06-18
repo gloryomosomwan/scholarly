@@ -92,7 +92,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               {/* Estimated time */}
               <View style={styles.timeTag}>
                 <SymbolView name="clock" size={12} tintColor={theme.subdued} />
-                <Text style={styles.timeText}>30 min</Text>
+                <Text style={[styles.timeText, { color: theme.text }]}>30 min</Text>
               </View>
             </View>
           </View>
