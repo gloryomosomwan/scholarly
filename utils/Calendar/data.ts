@@ -1,4 +1,4 @@
-import { darkenHex } from '@/utils/utility'
+import { getSecondGradientColor } from '@/utils/utility'
 
 export const courseColors = {
   'MATH 119': '#FFBE0B',
@@ -9,11 +9,11 @@ export const courseColors = {
 };
 
 export const courseGradients = {
-  'MATH 119': [courseColors['MATH 119'], darkenHex(courseColors['MATH 119'])],
-  'PHYS 102': [courseColors['PHYS 102'], darkenHex(courseColors['PHYS 102'])],
-  'HIST 211': [courseColors['HIST 211'], darkenHex(courseColors['HIST 211'])],
-  'MARK 161': [courseColors['MARK 161'], darkenHex(courseColors['MARK 161'])],
-  'CHEM 105': [courseColors['CHEM 105'], darkenHex(courseColors['CHEM 105'])],
+  'MATH 119': [courseColors['MATH 119'], getSecondGradientColor(courseColors['MATH 119'])],
+  'PHYS 102': [courseColors['PHYS 102'], getSecondGradientColor(courseColors['PHYS 102'])],
+  'HIST 211': [courseColors['HIST 211'], getSecondGradientColor(courseColors['HIST 211'])],
+  'MARK 161': [courseColors['MARK 161'], getSecondGradientColor(courseColors['MARK 161'])],
+  'CHEM 105': [courseColors['CHEM 105'], getSecondGradientColor(courseColors['CHEM 105'])],
 };
 
 export interface Event {
