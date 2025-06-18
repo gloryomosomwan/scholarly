@@ -16,14 +16,14 @@ export default function ProgressCard({ completedToday, totalTasks, type }: Progr
 
   return (
     <View style={styles.cardContainer}>
-      <View style={[styles.cardContent, { backgroundColor: 'white' }]}>
+      <View style={[styles.cardContent, { backgroundColor: theme.secondary }]}>
         <View style={styles.headerContainer}>
           <View style={styles.iconContainer}>
             <SymbolView name={type === 'tasks' ? 'checklist' : 'doc.text'} tintColor={theme.accent} />
           </View>
-          <Text style={[styles.label, { color: '#9CA3AF' }]}>{type === 'tasks' ? 'TASKS' : 'ASSIGNMENTS'}</Text>
+          <Text style={[styles.itemTypeText, { color: theme.text }]}>{type === 'tasks' ? 'TASKS' : 'ASSIGNMENTS'}</Text>
         </View>
-        <Text style={[styles.value, { color: '#374151' }]}>{completedToday}/{totalTasks}</Text>
+        <Text style={[styles.quotientText, { color: theme.text }]}>{completedToday}/{totalTasks}</Text>
         <View style={styles.progressContainer}>
           <View style={[styles.progressBackground, { backgroundColor: '#E5E7EB' }]}>
             <View
@@ -33,7 +33,7 @@ export default function ProgressCard({ completedToday, totalTasks, type }: Progr
               ]}
             />
           </View>
-          <Text style={[styles.percentage, { color: '#6B7280' }]}>
+          <Text style={[styles.percentageText, { color: theme.text }]}>
             {Math.round(completionPercentage)}%
           </Text>
         </View>
@@ -73,12 +73,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 8,
   },
-  label: {
+  itemTypeText: {
     fontSize: 10,
     fontWeight: '500',
     textTransform: 'uppercase',
   },
-  value: {
+  quotientText: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 8,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     height: 4,
     borderRadius: 2,
   },
-  percentage: {
+  percentageText: {
     fontSize: 12,
     minWidth: 32,
     textAlign: 'right',
