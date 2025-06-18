@@ -27,7 +27,12 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
   };
 
   return (
-    <View style={[styles.card, overdue && styles.overdueCard, completed && styles.completedCard]}>
+    <View style={[
+      styles.card, 
+      { backgroundColor: '#FFFFFF' },
+      overdue && [styles.overdueCard, { backgroundColor: '#FEF2F2' }],
+      completed && [styles.completedCard, { backgroundColor: '#F0FDF4' }]
+    ]}>
       <View style={styles.cardContent}>
         <View style={styles.header}>
           {/* Checkbox */}
@@ -42,35 +47,35 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
           {/* Content */}
           <View style={styles.content}>
             <View style={styles.titleRow}>
-              <Text style={[styles.title, completed && styles.completedTitle]}>
+              <Text style={[styles.title, { color: '#111827' }, completed && [styles.completedTitle, { color: '#6B7280' }]]}>
                 {activity.title}
               </Text>
               {activity.due &&
                 <View style={styles.dueTimeContainer}>
                   {overdue && <SymbolView name={'exclamationmark.circle'} tintColor={'red'} size={12} />}
-                  <Text style={styles.dueTime}> {formatTime(activity.due)} </Text>
+                  <Text style={[styles.dueTime, { color: '#4B5563' }]}> {formatTime(activity.due)} </Text>
                 </View>
               }
             </View>
 
             {activity.description && (
-              <Text style={styles.description}>{activity.description}</Text>
+              <Text style={[styles.description, { color: '#6B7280' }]}>{activity.description}</Text>
             )}
 
             {/* Tags */}
             <View style={styles.tagsContainer}>
               {/* Course tag */}
               {activity.course && (
-                <View style={styles.courseTag}>
+                <View style={[styles.courseTag, { backgroundColor: '#F3F4F6' }]}>
                   <View style={[styles.courseDot, { backgroundColor: courseColor }]} />
-                  <Text style={styles.courseText}>{activity.course}</Text>
+                  <Text style={[styles.courseText, { color: '#374151' }]}>{activity.course}</Text>
                 </View>
               )}
 
               {/* Task type */}
-              <View style={styles.taskTypeTag}>
+              <View style={[styles.taskTypeTag, { backgroundColor: '#EFF6FF' }]}>
                 <SymbolView name="target" size={12} tintColor="#2563EB" />
-                <Text style={styles.taskTypeText}>assignment</Text>
+                <Text style={[styles.taskTypeText, { color: '#1D4ED8' }]}>assignment</Text>
               </View>
 
               {/* Priority tag */}
@@ -94,10 +99,10 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
         {/* Completion indicator */}
         {completed && (
           <View style={styles.completionIndicator}>
-            <View style={styles.completionDivider} />
+            <View style={[styles.completionDivider, { backgroundColor: '#E5E7EB' }]} />
             <View style={styles.completionContent}>
               <SymbolView name="checkmark.circle.fill" size={16} tintColor="#10B981" />
-              <Text style={styles.completionText}>Completed</Text>
+              <Text style={[styles.completionText, { color: '#059669' }]}>Completed</Text>
             </View>
           </View>
         )}
@@ -117,7 +122,6 @@ const getPriorityColor = (priority?: string) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#FFFFFF',
     borderRadius: 16,
     borderWidth: 2,
     borderColor: '#E5E7EB',
@@ -134,11 +138,9 @@ const styles = StyleSheet.create({
   },
   overdueCard: {
     borderColor: '#FECACA',
-    backgroundColor: '#FEF2F2',
   },
   completedCard: {
     borderColor: '#D1FAE5',
-    backgroundColor: '#F0FDF4',
   },
   cardContent: {
     flex: 1,
@@ -164,22 +166,18 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     fontWeight: '500',
-    color: '#111827',
     lineHeight: 20,
     marginRight: 12,
   },
   completedTitle: {
     textDecorationLine: 'line-through',
-    color: '#6B7280',
   },
   dueTime: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#4B5563',
   },
   description: {
     fontSize: 14,
-    color: '#6B7280',
     marginBottom: 8,
   },
   tagsContainer: {
@@ -190,7 +188,6 @@ const styles = StyleSheet.create({
   courseTag: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F3F4F6',
     borderRadius: 12,
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -204,12 +201,10 @@ const styles = StyleSheet.create({
   courseText: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#374151',
   },
   taskTypeTag: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#EFF6FF',
     borderRadius: 12,
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -218,7 +213,6 @@ const styles = StyleSheet.create({
   taskTypeText: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#1D4ED8',
     textTransform: 'capitalize',
   },
   priorityTag: {
@@ -238,14 +232,12 @@ const styles = StyleSheet.create({
   },
   timeText: {
     fontSize: 12,
-    color: '#6B7280',
   },
   completionIndicator: {
     marginTop: 12,
   },
   completionDivider: {
     height: 1,
-    backgroundColor: '#E5E7EB',
     marginBottom: 12,
   },
   completionContent: {
@@ -256,7 +248,6 @@ const styles = StyleSheet.create({
   completionText: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#059669',
   },
   dueTimeContainer: {
     flexDirection: 'row',
