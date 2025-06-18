@@ -10,12 +10,12 @@ type theme = {
 }
 
 export const lightTheme: theme = {
-  primary: 'white',
-  secondary: '#F8F8F8',
-  tertiary: '#bcbec4',
-  accent: "#007bff",
-  text: 'black',
-  inverseText: 'white',
+  primary: '#FFFFFF',
+  secondary: '#F9FAFB',
+  tertiary: '#BCBEC4',
+  accent: "#007FFF",
+  text: '#374151',
+  inverseText: '#FFFFFF',
   danger: 'red',
   warning: 'gold',
 }
