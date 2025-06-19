@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { SymbolView } from 'expo-symbols'
 
 import dayjs from '@/utils/dayjs'
-import { courseGradients } from '@/utils/Calendar/data';
+import { courseColors } from '@/utils/Calendar/data';
 
 type AssessmentCardProps = {
   assessment: {
@@ -18,7 +17,7 @@ type AssessmentCardProps = {
 };
 
 export default function AssessmentCard({ assessment }: AssessmentCardProps) {
-  const courseGradient = courseGradients[assessment.course as keyof typeof courseGradients];
+  const courseColor = courseColors[assessment.course as keyof typeof courseColors]
   const now = dayjs()
   const isCurrentEvent = now.isBetween(assessment.start, assessment.end)
   const isUpNext = now.isBefore(assessment.start)
@@ -35,12 +34,7 @@ export default function AssessmentCard({ assessment }: AssessmentCardProps) {
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={[courseGradient[0], courseGradient[1]]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.card}
-      >
+      <View style={[styles.card, { backgroundColor: courseColor }]} >
         <View style={styles.cardContent}>
           <View style={styles.cardHeader}>
             <View style={styles.leftContent}>
@@ -62,7 +56,7 @@ export default function AssessmentCard({ assessment }: AssessmentCardProps) {
             <Text style={styles.locationText}>{assessment.location}</Text>
           </View>
         </View>
-      </LinearGradient>
+      </View>
     </View>
   );
 };

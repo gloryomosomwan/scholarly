@@ -1,19 +1,9 @@
-import { getSecondGradientColor } from '@/utils/utility'
-
 export const courseColors = {
   'MATH 119': '#FFBE0B',
   'PHYS 102': '#FB5607',
   'HIST 211': '#FF006E',
   'MARK 161': '#8338EC',
   'CHEM 105': '#3A86FF',
-};
-
-export const courseGradients = {
-  'MATH 119': [courseColors['MATH 119'], getSecondGradientColor(courseColors['MATH 119'])],
-  'PHYS 102': [courseColors['PHYS 102'], getSecondGradientColor(courseColors['PHYS 102'])],
-  'HIST 211': [courseColors['HIST 211'], getSecondGradientColor(courseColors['HIST 211'])],
-  'MARK 161': [courseColors['MARK 161'], getSecondGradientColor(courseColors['MARK 161'])],
-  'CHEM 105': [courseColors['CHEM 105'], getSecondGradientColor(courseColors['CHEM 105'])],
 };
 
 export interface Event {

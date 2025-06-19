@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { SymbolView } from 'expo-symbols';
 
 import dayjs from '@/utils/dayjs'
-import { courseGradients } from '@/utils/Calendar/data';
 import { formatTime } from '@/utils/utility'
+import { courseColors } from '@/utils/Calendar/data';
 
 type EventCardProps = {
   event: {
@@ -20,7 +19,7 @@ type EventCardProps = {
 
 export default function EventCard({ event }: EventCardProps) {
   const { type, course, emoji, location, start, end } = event;
-  const courseGradient = courseGradients[event.course as keyof typeof courseGradients];
+  const courseColor = courseColors[event.course as keyof typeof courseColors]
 
   const now = new Date();
   const totalDuration = end.getTime() - start.getTime();
@@ -63,12 +62,7 @@ export default function EventCard({ event }: EventCardProps) {
   return (
     <View style={styles.container}>
 
-      <LinearGradient
-        colors={[courseGradient[0], courseGradient[1]]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.card}
-      >
+      <View style={[styles.card, { backgroundColor: courseColor }]} >
         {/* Header */}
         <View style={styles.topRowContainer}>
           <View style={styles.eventTypeBackground}>
@@ -122,7 +116,7 @@ export default function EventCard({ event }: EventCardProps) {
             </View>
           </View>
         }
-      </LinearGradient>
+      </View>
     </View>
   );
 };
