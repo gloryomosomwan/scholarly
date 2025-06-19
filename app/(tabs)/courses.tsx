@@ -90,7 +90,7 @@ export default function CoursesPage() {
     progress: 78,
     nextEvent: "Today 10:00 AM",
     grade: "A-",
-    color: "#B91081" // Course theme color
+    color: theme.success // Course theme color
   };
 
   return (
