@@ -66,12 +66,9 @@ export const darkTheme: theme = {
 
 export const lightPriorityColors = {
   high: {
-    // backgroundColor: '#FEF2F2',
-    // borderColor: '#FECACA',
-    color: '#B91C1C',
-
     backgroundColor: lightTheme['dangerSofter'],
     borderColor: lightTheme['dangerSoft'],
+    color: '#B91C1C',
   },
   medium: {
     backgroundColor: '#FFFBEB',
@@ -79,10 +76,6 @@ export const lightPriorityColors = {
     color: '#B45309',
   },
   low: {
-    // backgroundColor: '#F0FDF4',
-    // borderColor: '#BBF7D0',
-    // color: '#166534',
-
     backgroundColor: lightTheme['successSofter'],
     borderColor: lightTheme['successSoft'],
     color: lightTheme['successHard']
