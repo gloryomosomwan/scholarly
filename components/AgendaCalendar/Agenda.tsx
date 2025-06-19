@@ -89,20 +89,20 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       // enableContentPanningGesture={false}
       style={styles.bottomSheet}
       handleStyle={[styles.handleStyle, { backgroundColor: theme.primary }]}
-      handleIndicatorStyle={{ backgroundColor: theme.tertiary }}
+      handleIndicatorStyle={{ backgroundColor: theme.grey400 }}
     >
       <BottomSheetScrollView style={{ backgroundColor: theme.primary }}>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Schedule"}</Text>
-          {currentEvents.length > 0 ? currentEventElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No events"}</Text>}
+          {currentEvents.length > 0 ? currentEventElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No events"}</Text>}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Assignments"}</Text>
-          {currentAssignments.length > 0 ? currentAssignmentElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No assignments"}</Text>}
+          {currentAssignments.length > 0 ? currentAssignmentElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No assignments"}</Text>}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Tasks"}</Text>
-          {currentTasks.length > 0 ? currentTaskElements : <Text style={[styles.placeholderText, { color: theme.tertiary }]} >{"No tasks"}</Text>}
+          {currentTasks.length > 0 ? currentTaskElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No tasks"}</Text>}
         </View>
       </BottomSheetScrollView>
     </BottomSheet>

@@ -59,22 +59,22 @@ export default function Event({ event }: EventProps) {
   return (
     <View style={styles.container}>
       <View style={styles.timeContainer}>
-        <Text style={[styles.startTimeText, { color: eventWasEarlierToday ? theme.tertiary : theme.text }]}>{event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
-        <Text style={[styles.endTimeText, { color: theme.tertiary }]}>{event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
+        <Text style={[styles.startTimeText, { color: eventWasEarlierToday ? theme.grey400 : theme.text }]}>{event.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
+        <Text style={[styles.endTimeText, { color: theme.grey400 }]}>{event.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} </Text>
       </View>
       <View style={styles.dividerContainer}>
-        <View style={[styles.staticDivider, { backgroundColor: eventWasEarlierToday ? theme.tertiary : courseColor }]} />
-        <View style={[styles.dynamicDivider, { backgroundColor: theme.tertiary, position: 'absolute', height: dynamicDividerHeightPct }]} />
+        <View style={[styles.staticDivider, { backgroundColor: eventWasEarlierToday ? theme.grey400 : courseColor }]} />
+        <View style={[styles.dynamicDivider, { backgroundColor: theme.grey400, position: 'absolute', height: dynamicDividerHeightPct }]} />
       </View>
       <View style={styles.courseDetailsContainer}>
-        <Text style={[isAssessment(event.type) ? styles.assessmentTypeText : styles.instructionalTypeText, { color: isAssessment(event.type) ? courseColor : theme.tertiary }]}>{event.type}</Text>
+        <Text style={[isAssessment(event.type) ? styles.assessmentTypeText : styles.instructionalTypeText, { color: isAssessment(event.type) ? courseColor : theme.grey400 }]}>{event.type}</Text>
         <View style={styles.courseTitleContainer}>
           <Text style={styles.eventIcon}>{event.icon}</Text>
-          <Text style={[styles.courseTitleText, { color: eventWasEarlierToday ? theme.tertiary : theme.text }]}>{event.course}</Text>
+          <Text style={[styles.courseTitleText, { color: eventWasEarlierToday ? theme.grey400 : theme.text }]}>{event.course}</Text>
         </View>
         <View style={styles.courseLocationContainer}>
-          <SymbolView name="mappin.circle.fill" style={[styles.locationIcon]} tintColor={eventWasEarlierToday ? theme.tertiary : courseColor} type="hierarchical" />
-          <Text style={[styles.courseLocationText, { color: theme.tertiary }]}>{event.location}</Text>
+          <SymbolView name="mappin.circle.fill" style={[styles.locationIcon]} tintColor={eventWasEarlierToday ? theme.grey400 : courseColor} type="hierarchical" />
+          <Text style={[styles.courseLocationText, { color: theme.grey400 }]}>{event.location}</Text>
         </View>
       </View>
     </View>

@@ -163,7 +163,7 @@ export default function CoursesPage() {
         <View style={styles.addCourseContainer}>
           <TouchableOpacity style={[styles.addCourseButtonContainer, {
             backgroundColor: theme.secondary,
-            borderColor: theme.tertiary
+            borderColor: theme.grey400
           }]}>
             <View style={styles.addCourseContentContainer}>
               <View style={[styles.addCourseIconContainer, { backgroundColor: theme.lightBlue }]}>

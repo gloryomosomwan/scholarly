@@ -1,7 +1,6 @@
 type theme = {
   primary: string,
   secondary: string,
-  tertiary: string,
   accent: string,
   text: string,
   inverseText: string,
@@ -29,8 +28,6 @@ export const lightTheme: theme = {
   inverseText: '#FFFFFF',
 
 
-  tertiary: '#BCBEC4',
-
   grey100: '#F3F4F6',
   grey200: '#E5E7EB',
   grey400: '#9CA3AF',
@@ -49,7 +46,6 @@ export const lightTheme: theme = {
 export const darkTheme: theme = {
   primary: '#111827',
   secondary: '#1F2937',
-  tertiary: '#374151',
   accent: '#3B82F6',
   text: '#F9FAFB',
   inverseText: '#111827',
@@ -109,7 +105,7 @@ export const darkPriorityColors = {
     color: darkTheme['successHard']
   },
   default: {
-    backgroundColor: darkTheme['tertiary'],
+    backgroundColor: darkTheme['grey400'],
     // borderColor: darkTheme['mediumGrey'],
     color: darkTheme['text'],
   }

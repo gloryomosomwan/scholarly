@@ -10,7 +10,7 @@ export default function TabLayout() {
   return (
     <Tabs screenOptions={{
       tabBarActiveTintColor: theme.accent,
-      tabBarInactiveTintColor: theme.tertiary,
+      tabBarInactiveTintColor: theme.grey400,
       headerBackground: () => (
         <BlurView
           intensity={50}

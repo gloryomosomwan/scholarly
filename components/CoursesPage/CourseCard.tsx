@@ -48,7 +48,7 @@ export default function CourseCard({
   const colorWithOpacity = getColorWithOpacity(color, 0.15);
 
   // For dark mode, we need to adapt the header background
-  const headerBackgroundColor = theme.primary === '#111827' ? theme.tertiary : lightColor;
+  const headerBackgroundColor = theme.primary === '#111827' ? theme.grey400 : lightColor;
   const borderColor = getColorWithOpacity(theme.text, 0.06);
 
   return (
