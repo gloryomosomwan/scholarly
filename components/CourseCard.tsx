@@ -1,8 +1,6 @@
-import { useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Link, RelativePathString } from 'expo-router'
 
-import { CurrentCourseContext } from '@/context/CourseContext'
 
 type CourseCardProps = {
   courseName: string,
@@ -10,13 +8,8 @@ type CourseCardProps = {
 }
 
 export function CourseCard(props: CourseCardProps) {
-  const context = useContext(CurrentCourseContext)
-  const setCurrentCourse = context?.setCurrentCourse
 
   const handlePress = () => {
-    if (setCurrentCourse) {
-      setCurrentCourse(props.courseName)
-    }
   }
 
   return (
