@@ -16,8 +16,12 @@ type theme = {
   successBorder: string
   successBackground: string
   successText: string
+  warningBorder: string
+  warningBackground: string
+  warningText: string
   dangerBorder: string
   dangerBackground: string
+  dangerText: string
 }
 
 export const lightTheme: theme = {
@@ -36,23 +40,28 @@ export const lightTheme: theme = {
   grey600: '#4B5563',
 
   success: '#10B981',
+
   successBorder: '#D1FAE5',
   successBackground: '#F0FDF4',
   successText: '#059669',
+  warningBackground: '#FFFBEB',
+  warningBorder: '#FDE68A',
+  warningText: '#B45309',
   dangerBorder: '#FECACA',
   dangerBackground: '#FEF2F2',
+  dangerText: '#B91C1C'
 }
 
 export const lightPriorityColors = {
   high: {
     backgroundColor: lightTheme['dangerBackground'],
     borderColor: lightTheme['dangerBorder'],
-    color: '#B91C1C',
+    color: lightTheme['dangerText']
   },
   medium: {
-    backgroundColor: '#FFFBEB',
-    borderColor: '#FDE68A',
-    color: '#B45309',
+    backgroundColor: lightTheme['warningBackground'],
+    borderColor: lightTheme['warningBorder'],
+    color: lightTheme['warningText']
   },
   low: {
     backgroundColor: lightTheme['successBackground'],
@@ -84,23 +93,28 @@ export const darkTheme: theme = {
   grey600: '#D1D5DB',
 
   success: '#10B981',
+
   successBorder: '#064E3B',
   successBackground: '#022C22',
   successText: '#34D399',
+  warningBackground: '#451A03',
+  warningBorder: '#92400E',
+  warningText: '#FCD34D',
   dangerBorder: '#7F1D1D',
   dangerBackground: '#451A1A',
+  dangerText: '#FCA5A5'
 }
 
 export const darkPriorityColors = {
   high: {
     backgroundColor: darkTheme['dangerBackground'],
     borderColor: darkTheme['dangerBorder'],
-    color: '#FCA5A5',
+    color: darkTheme['dangerText']
   },
   medium: {
-    backgroundColor: '#451A03',
-    borderColor: '#92400E',
-    color: '#FCD34D',
+    backgroundColor: darkTheme['warningBackground'],
+    borderColor: darkTheme['warningBorder'],
+    color: darkTheme['warningText']
   },
   low: {
     backgroundColor: darkTheme['successBackground'],

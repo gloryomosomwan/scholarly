@@ -153,7 +153,7 @@ const task = {
   title: 'Record a voice memo explaining electromagnetic fields for PHYS 102',
   course: 'PHYS 102',
   due: new Date(2025, 5, 19, 23, 59),
-  priority: 'low',
+  priority: 'medium',
 }
 const task2 =
 {
