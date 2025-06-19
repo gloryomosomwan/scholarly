@@ -34,7 +34,7 @@ export default function AssessmentCard({ assessment }: AssessmentCardProps) {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.card, { backgroundColor: courseColor }]} >
+      <View style={[styles.card, { backgroundColor: '#FFF' }]} >
         <View style={styles.cardContent}>
           <View style={styles.cardHeader}>
             <View style={styles.leftContent}>

@@ -62,7 +62,7 @@ export default function EventCard({ event }: EventCardProps) {
   return (
     <View style={styles.container}>
 
-      <View style={[styles.card, { backgroundColor: courseColor }]} >
+      <View style={[styles.card, { backgroundColor: '#FFF' }]} >
         {/* Header */}
         <View style={styles.topRowContainer}>
           <View style={styles.eventTypeBackground}>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 8,
@@ -144,13 +144,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   eventTypeBackground: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(4, 255, 0, 0.2)',
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 20,
   },
   eventTypeText: {
-    color: 'white',
+    color: '#374151',
     fontSize: 12,
     fontWeight: '500',
   },
@@ -160,13 +160,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   timeRangeText: {
-    color: 'rgba(255, 255, 255, 0.9)',
+    color: '#374151',
     fontSize: 14,
     fontWeight: '600',
   },
   timeAgoText: {
     fontSize: 13,
-    color: 'white',
+    color: '#374151',
     opacity: 0.7,
     marginTop: 2,
   },
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   courseTitleText: {
-    color: 'white',
+    color: '#374151',
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 4,
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   },
   progressFill: {
     height: 8,
-    backgroundColor: 'white',
+    backgroundColor: '#374151',
     borderRadius: 4,
     flexDirection: 'row',
     alignItems: 'center',
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   progressLabel: {
-    color: 'rgba(255, 255, 255, 0.7)',
+    color: '#374151)',
     fontSize: 12,
   },
 
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     opacity: 0.7
   },
   locationText: {
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: '#374151',
     fontSize: 14,
   },
 });
