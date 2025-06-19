@@ -13,15 +13,15 @@ type theme = {
   grey500: string
   grey600: string
   success: string
-  successBorder: string
-  successBackground: string
   successText: string
-  warningBorder: string
-  warningBackground: string
+  successBackground: string
+  successBorder: string
   warningText: string
-  dangerBorder: string
-  dangerBackground: string
+  warningBackground: string
+  warningBorder: string
   dangerText: string
+  dangerBackground: string
+  dangerBorder: string
 }
 
 export const lightTheme: theme = {
@@ -41,40 +41,40 @@ export const lightTheme: theme = {
 
   success: '#10B981',
 
-  successBorder: '#D1FAE5',
-  successBackground: '#F0FDF4',
   successText: '#059669',
+  successBackground: '#F0FDF4',
+  successBorder: '#D1FAE5',
+  warningText: '#B45309',
   warningBackground: '#FFFBEB',
   warningBorder: '#FDE68A',
-  warningText: '#B45309',
-  dangerBorder: '#FECACA',
+  dangerText: '#B91C1C',
   dangerBackground: '#FEF2F2',
-  dangerText: '#B91C1C'
+  dangerBorder: '#FECACA',
 }
 
 export const lightPriorityColors = {
   high: {
+    color: lightTheme['dangerText'],
     backgroundColor: lightTheme['dangerBackground'],
     borderColor: lightTheme['dangerBorder'],
-    color: lightTheme['dangerText']
   },
   medium: {
+    color: lightTheme['warningText'],
     backgroundColor: lightTheme['warningBackground'],
     borderColor: lightTheme['warningBorder'],
-    color: lightTheme['warningText']
   },
   low: {
+    color: lightTheme['successText'],
     backgroundColor: lightTheme['successBackground'],
     borderColor: lightTheme['successBorder'],
-    color: lightTheme['successText']
+    // color: tinycolor(lightTheme['success']).darken(10).saturate(15).toHexString(),
     // backgroundColor: tinycolor(lightTheme['success']).lighten(57).toHexString(),
     // borderColor: tinycolor(lightTheme['success']).lighten(50).toHexString(),
-    // color: tinycolor(lightTheme['success']).darken(10).saturate(15).toHexString()
   },
   default: {
+    color: lightTheme['text'],
     backgroundColor: lightTheme['primary'],
     borderColor: lightTheme['grey200'],
-    color: lightTheme['text']
   }
 
 }
@@ -94,40 +94,40 @@ export const darkTheme: theme = {
 
   success: '#10B981',
 
-  successBorder: '#064E3B',
-  successBackground: '#022C22',
   successText: '#34D399',
+  successBackground: '#022C22',
+  successBorder: '#064E3B',
+  warningText: '#FCD34D',
   warningBackground: '#451A03',
   warningBorder: '#92400E',
-  warningText: '#FCD34D',
-  dangerBorder: '#7F1D1D',
+  dangerText: '#FCA5A5',
   dangerBackground: '#451A1A',
-  dangerText: '#FCA5A5'
+  dangerBorder: '#7F1D1D',
 }
 
 export const darkPriorityColors = {
   high: {
+    color: darkTheme['dangerText'],
     backgroundColor: darkTheme['dangerBackground'],
     borderColor: darkTheme['dangerBorder'],
-    color: darkTheme['dangerText']
   },
   medium: {
+    color: darkTheme['warningText'],
     backgroundColor: darkTheme['warningBackground'],
     borderColor: darkTheme['warningBorder'],
-    color: darkTheme['warningText']
   },
   low: {
-    backgroundColor: darkTheme['successBackground'],
-    borderColor: darkTheme['successBorder'],
-    color: darkTheme['successText']
+    // color: darkTheme['successText'],
+    // backgroundColor: darkTheme['successBackground'],
+    // borderColor: darkTheme['successBorder'],
 
-    // backgroundColor: tinycolor(darkTheme['success']).spin(-10).desaturate(20).darken(28).toHexString(),
-    // borderColor: tinycolor(darkTheme['success']).darken(25).toHexString(),
-    // color: tinycolor(darkTheme['success']).lighten(8).saturate(15).toHexString()
+    color: tinycolor(darkTheme['success']).lighten(20).toHexString(),
+    backgroundColor: tinycolor(darkTheme['success']).darken(45).desaturate(15).toHexString(),
+    borderColor: tinycolor(darkTheme['success']).darken(35).desaturate(10).toHexString(),
   },
   default: {
+    color: darkTheme['text'],
     backgroundColor: darkTheme['grey400'],
     borderColor: darkTheme['grey200'],
-    color: darkTheme['text'],
   }
 }
