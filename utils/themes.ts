@@ -1,6 +1,3 @@
-import tinycolor from "tinycolor2"
-import chroma from "chroma-js"
-
 type theme = {
   primary: string,
   secondary: string,
@@ -27,20 +24,15 @@ type theme = {
 export const lightTheme: theme = {
   primary: '#F9FAFB',
   secondary: '#FFFFFF',
-
   accent: "#0055FF",
-
   text: '#374151',
   inverseText: '#FFFFFF',
-
   grey100: '#F3F4F6',
   grey200: '#E5E7EB',
   grey400: '#9CA3AF',
   grey500: '#6B7280',
   grey600: '#4B5563',
-
   success: '#10B981',
-
   successText: '#059669',
   successBackground: '#F0FDF4',
   successBorder: '#D1FAE5',
@@ -67,9 +59,6 @@ export const lightPriorityColors = {
     color: lightTheme['successText'],
     backgroundColor: lightTheme['successBackground'],
     borderColor: lightTheme['successBorder'],
-    // color: tinycolor(lightTheme['success']).darken(10).saturate(15).toHexString(),
-    // backgroundColor: tinycolor(lightTheme['success']).lighten(57).toHexString(),
-    // borderColor: tinycolor(lightTheme['success']).lighten(50).toHexString(),
   },
   default: {
     color: lightTheme['text'],
@@ -85,15 +74,12 @@ export const darkTheme: theme = {
   accent: '#3B82F6',
   text: '#F9FAFB',
   inverseText: '#111827',
-
   grey100: '#374151',
   grey200: '#374151',
   grey400: '#6B7280',
   grey500: '#9CA3AF',
   grey600: '#D1D5DB',
-
   success: '#10B981',
-
   successText: '#34D399',
   successBackground: '#022C22',
   successBorder: '#064E3B',
@@ -117,13 +103,9 @@ export const darkPriorityColors = {
     borderColor: darkTheme['warningBorder'],
   },
   low: {
-    // color: darkTheme['successText'],
-    // backgroundColor: darkTheme['successBackground'],
-    // borderColor: darkTheme['successBorder'],
-
-    color: tinycolor(darkTheme['success']).lighten(20).toHexString(),
-    backgroundColor: tinycolor(darkTheme['success']).darken(45).desaturate(15).toHexString(),
-    borderColor: tinycolor(darkTheme['success']).darken(35).desaturate(10).toHexString(),
+    color: darkTheme['successText'],
+    backgroundColor: darkTheme['successBackground'],
+    borderColor: darkTheme['successBorder'],
   },
   default: {
     color: darkTheme['text'],
