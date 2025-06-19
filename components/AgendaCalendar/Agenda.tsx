@@ -7,11 +7,11 @@ import { isSameDay } from 'date-fns';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import Event from "@/components/AgendaCalendar/Event";
-import Activity from "@/components/AgendaCalendar/Activity";
 import { events, assignments, tasks } from '@/utils/Calendar/data'
 import { useTheme } from '@/utils/useTheme'
 import { useCalendar } from './CalendarContext';
 import { compareEventTimes, compareActivityTimes } from '@/utils/Calendar/utils';
+import ActivityCard from '../ActivityCard';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -42,11 +42,11 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   }
   const currentAssignments = assignments.filter(isActivityCurrent)
   currentAssignments.sort(compareActivityTimes)
-  const currentAssignmentElements = currentAssignments.map(assignment => <Activity key={assignment.id} activity={assignment} />)
+  const currentAssignmentElements = currentAssignments.map(assignment => <ActivityCard key={assignment.id} activity={assignment} />)
 
   const currentTasks = tasks.filter(isActivityCurrent)
   currentTasks.sort(compareActivityTimes)
-  const currentTaskElements = currentTasks.map(task => <Activity key={task.id} activity={task} />)
+  const currentTaskElements = currentTasks.map(task => <ActivityCard key={task.id} activity={task} />)
 
   useEffect(() => {
     const unsubscribe = calendarState.weekSubscribe(() => {
