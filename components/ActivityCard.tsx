@@ -58,7 +58,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
           {/* Content */}
           <View style={styles.content}>
             <View style={styles.titleRow}>
-              <Text style={[styles.title, { color: theme.charcoal }, completed && [styles.completedTitle, { color: theme.grey500 }]]}>
+              <Text style={[styles.title, { color: theme.text }, completed && [styles.completedTitle, { color: theme.grey500 }]]}>
                 {activity.title}
               </Text>
               {activity.due &&
