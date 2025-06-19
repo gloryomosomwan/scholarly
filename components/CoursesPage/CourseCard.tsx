@@ -63,23 +63,23 @@ export default function CourseCard({
             <Text style={[styles.courseNameText, { color: theme.text }]} numberOfLines={2}>
               {name}
             </Text>
-            <Text style={[styles.instructorText, { color: theme.subdued }]}>{instructor}</Text>
+            <Text style={[styles.instructorText, { color: theme.grey500 }]}>{instructor}</Text>
           </View>
           <View style={styles.gradeContainer}>
             <View style={[styles.gradeCircleContainer, { backgroundColor: darkColor }]}>
               <Text style={[styles.gradeText, { color: theme.inverseText }]}>{grade}</Text>
             </View>
-            <Text style={[styles.creditsText, { color: theme.subdued }]}>{credits} credits</Text>
+            <Text style={[styles.creditsText, { color: theme.grey500 }]}>{credits} credits</Text>
           </View>
         </View>
 
         {/* Progress Bar */}
         <View style={styles.progressContainer}>
           <View style={styles.progressLabelContainer}>
-            <Text style={[styles.progressLabelText, { color: theme.subdued }]}>Course Progress</Text>
+            <Text style={[styles.progressLabelText, { color: theme.grey500 }]}>Course Progress</Text>
             <Text style={[styles.progressPercentText, { color: darkColor }]}>{progress}%</Text>
           </View>
-          <View style={[styles.progressBarContainer, { backgroundColor: theme.lightGrey }]}>
+          <View style={[styles.progressBarContainer, { backgroundColor: theme.grey200 }]}>
             <View
               style={[
                 styles.progressBarFill,
@@ -128,8 +128,8 @@ export default function CourseCard({
       {/* Footer Section */}
       <View style={[styles.footerContainer, { borderTopColor: borderColor }]}>
         <View style={styles.locationContainer}>
-          <SymbolView name="location" size={14} tintColor={theme.subdued} />
-          <Text style={[styles.locationText, { color: theme.subdued }]}>{location}</Text>
+          <SymbolView name="location" size={14} tintColor={theme.grey500} />
+          <Text style={[styles.locationText, { color: theme.grey500 }]}>{location}</Text>
         </View>
 
         <View style={styles.nextEventContainer}>

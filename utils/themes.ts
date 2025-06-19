@@ -5,13 +5,13 @@ type theme = {
   accent: string,
   text: string,
   inverseText: string,
-  mediumGrey: string,
   charcoal: string
-  subdued: string
-  darkGrey: string
   lightBlue: string
-  lightGrey: string
-  offWhite: string
+  grey100: string
+  grey200: string
+  grey400: string,
+  grey500: string
+  grey600: string
   success: string
   successSoft: string
   successSofter: string
@@ -27,13 +27,15 @@ export const lightTheme: theme = {
   accent: "#007FFF",
   text: '#374151',
   inverseText: '#FFFFFF',
-  mediumGrey: '#9CA3AF',
   charcoal: '#111827',
-  subdued: '#6B7280',
-  darkGrey: '#4B5563',
+
+  grey100: '#F3F4F6',
+  grey200: '#E5E7EB',
+  grey400: '#9CA3AF',
+  grey500: '#6B7280',
+  grey600: '#4B5563',
+
   lightBlue: '#EFF6FF',
-  lightGrey: '#E5E7EB',
-  offWhite: '#F3F4F6',
   success: '#10B981',
   successSoft: '#D1FAE5',
   successSofter: '#F0FDF4',
@@ -49,13 +51,15 @@ export const darkTheme: theme = {
   accent: '#3B82F6',
   text: '#F9FAFB',
   inverseText: '#111827',
-  mediumGrey: '#6B7280',
   charcoal: '#F9FAFB',
-  subdued: '#9CA3AF',
-  darkGrey: '#D1D5DB',
   lightBlue: '#1E3A8A',
-  lightGrey: '#374151',
-  offWhite: '#374151',
+
+  grey100: '#374151',
+  grey200: '#374151',
+  grey400: '#6B7280',
+  grey500: '#9CA3AF',
+  grey600: '#D1D5DB',
+
   success: '#10B981',
   successSoft: '#064E3B',
   successSofter: '#022C22',
@@ -105,7 +109,7 @@ export const darkPriorityColors = {
   },
   default: {
     backgroundColor: darkTheme['tertiary'],
-    borderColor: darkTheme['mediumGrey'],
+    // borderColor: darkTheme['mediumGrey'],
     color: darkTheme['text'],
   }
 }

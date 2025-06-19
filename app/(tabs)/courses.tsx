@@ -116,7 +116,7 @@ export default function CoursesPage() {
                     <Text style={[styles.semesterBadgeText, { color: '#F59E0B' }]}>Current</Text>
                   </View>
                   <Text style={[styles.semesterText, { color: theme.inverseText }]}>Fall 2025</Text>
-                  <Text style={[styles.headerSubtitleText, { color: theme.subdued }]}>Academic excellence in progress</Text>
+                  <Text style={[styles.headerSubtitleText, { color: theme.grey500 }]}>Academic excellence in progress</Text>
                 </View>
                 <View style={[styles.headerIconContainer, { backgroundColor: getColorWithOpacity(theme.inverseText, 0.1) }]}>
                   <SymbolView name="graduationcap" size={24} tintColor={theme.inverseText} />
@@ -133,7 +133,7 @@ export default function CoursesPage() {
                     <SymbolView name="target" size={16} tintColor={theme.success} />
                   </View>
                   <View style={styles.statTextContainer}>
-                    <Text style={[styles.statLabelText, { color: theme.subdued }]}>GPA</Text>
+                    <Text style={[styles.statLabelText, { color: theme.grey500 }]}>GPA</Text>
                     <Text style={[styles.statValueText, { color: theme.inverseText }]}>3.7</Text>
                   </View>
                 </View>
@@ -145,7 +145,7 @@ export default function CoursesPage() {
                     <SymbolView name="book" size={16} tintColor={theme.accent} />
                   </View>
                   <View style={styles.statTextContainer}>
-                    <Text style={[styles.statLabelText, { color: theme.subdued }]}>CREDITS</Text>
+                    <Text style={[styles.statLabelText, { color: theme.grey500 }]}>CREDITS</Text>
                     <Text style={[styles.statValueText, { color: theme.inverseText }]}>10/12</Text>
                   </View>
                 </View>
@@ -171,7 +171,7 @@ export default function CoursesPage() {
               </View>
               <View style={styles.addCourseTextContainer}>
                 <Text style={[styles.addCourseText, { color: theme.text }]}>Add Course</Text>
-                <Text style={[styles.addCourseSubtitleText, { color: theme.subdued }]}>Enroll in a new course</Text>
+                <Text style={[styles.addCourseSubtitleText, { color: theme.grey500 }]}>Enroll in a new course</Text>
               </View>
             </View>
           </TouchableOpacity>
