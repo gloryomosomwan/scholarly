@@ -72,9 +72,9 @@ export const lightPriorityColors = {
     // color: tinycolor(lightTheme['success']).darken(10).saturate(15).toHexString()
   },
   default: {
-    backgroundColor: '#F9FAFB',
-    borderColor: '#E5E7EB',
-    color: '#374151',
+    backgroundColor: lightTheme['primary'],
+    borderColor: lightTheme['grey200'],
+    color: lightTheme['text']
   }
 
 }
@@ -127,7 +127,7 @@ export const darkPriorityColors = {
   },
   default: {
     backgroundColor: darkTheme['grey400'],
-    // borderColor: darkTheme['mediumGrey'],
+    borderColor: darkTheme['grey200'],
     color: darkTheme['text'],
   }
 }
