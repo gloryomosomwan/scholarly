@@ -1,3 +1,6 @@
+import tinycolor from "tinycolor2"
+import chroma from "chroma-js"
+
 type theme = {
   primary: string,
   secondary: string,
@@ -40,6 +43,30 @@ export const lightTheme: theme = {
   dangerSofter: '#FEF2F2',
 }
 
+export const lightPriorityColors = {
+  high: {
+    backgroundColor: lightTheme['dangerSofter'],
+    borderColor: lightTheme['dangerSoft'],
+    color: '#B91C1C',
+  },
+  medium: {
+    backgroundColor: '#FFFBEB',
+    borderColor: '#FDE68A',
+    color: '#B45309',
+  },
+  low: {
+    backgroundColor: tinycolor(lightTheme['success']).lighten(57).toHexString(),
+    borderColor: tinycolor(lightTheme['success']).lighten(50).toHexString(),
+    color: tinycolor(lightTheme['success']).darken(10).saturate(15).toHexString()
+  },
+  default: {
+    backgroundColor: '#F9FAFB',
+    borderColor: '#E5E7EB',
+    color: '#374151',
+  }
+
+}
+
 export const darkTheme: theme = {
   primary: '#111827',
   secondary: '#1F2937',
@@ -61,29 +88,6 @@ export const darkTheme: theme = {
   dangerSofter: '#451A1A',
 }
 
-export const lightPriorityColors = {
-  high: {
-    backgroundColor: lightTheme['dangerSofter'],
-    borderColor: lightTheme['dangerSoft'],
-    color: '#B91C1C',
-  },
-  medium: {
-    backgroundColor: '#FFFBEB',
-    borderColor: '#FDE68A',
-    color: '#B45309',
-  },
-  low: {
-    backgroundColor: lightTheme['successSofter'],
-    borderColor: lightTheme['successSoft'],
-    color: lightTheme['successHard']
-  },
-  default: {
-    backgroundColor: '#F9FAFB',
-    borderColor: '#E5E7EB',
-    color: '#374151',
-  }
-
-}
 export const darkPriorityColors = {
   high: {
     backgroundColor: darkTheme['dangerSofter'],
@@ -96,9 +100,13 @@ export const darkPriorityColors = {
     color: '#FCD34D',
   },
   low: {
-    backgroundColor: darkTheme['successSofter'],
-    borderColor: darkTheme['successSoft'],
-    color: darkTheme['successHard']
+    // backgroundColor: darkTheme['successSofter'],
+    // borderColor: darkTheme['successSoft'],
+    // color: darkTheme['successHard']
+
+    backgroundColor: tinycolor(darkTheme['success']).spin(-10).desaturate(20).darken(28).toHexString(),
+    borderColor: tinycolor(darkTheme['success']).darken(25).toHexString(),
+    color: tinycolor(darkTheme['success']).lighten(8).saturate(15).toHexString()
   },
   default: {
     backgroundColor: darkTheme['grey400'],

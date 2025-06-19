@@ -23,7 +23,7 @@ export default function Index() {
           </View>
           <SymbolView style={styles.profileIcon} name={'person.crop.circle.fill'} size={45} tintColor={'grey'} />
         </View>
-        <View style={styles.progressCards}>
+        {/* <View style={styles.progressCards}>
           <ProgressCard type={'assignments'} completedToday={1} totalTasks={2} />
           <ProgressCard type={'tasks'} completedToday={1} totalTasks={4} />
         </View>
@@ -38,8 +38,8 @@ export default function Index() {
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
           <AssessmentCard assessment={exam} />
-        </View>
-        <View>
+        </View> */}
+        {/* <View>
           <View style={styles.tasksHeaderContainer}>
             <View style={styles.tasksHeaderTopRowContainer}>
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Assignments:</Text>
@@ -49,7 +49,7 @@ export default function Index() {
           <ActivityCard activity={assignment1} />
           <ActivityCard activity={assignment2} />
           <ActivityCard activity={assignment3} />
-        </View>
+        </View> */}
         <View>
           <View style={styles.tasksHeaderContainer}>
             <View style={styles.tasksHeaderTopRowContainer}>
@@ -152,7 +152,7 @@ const task = {
   id: 50,
   title: 'Record a voice memo explaining electromagnetic fields for PHYS 102',
   course: 'PHYS 102',
-  due: new Date(2025, 5, 18, 23, 59),
+  due: new Date(2025, 5, 19, 23, 59),
   priority: 'low',
 }
 const task2 =
