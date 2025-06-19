@@ -42,8 +42,8 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
     <View style={[
       styles.card,
       { backgroundColor: theme.secondary, borderColor: theme.grey200 },
-      overdue && [{ backgroundColor: theme.dangerSofter, borderColor: theme.dangerSoft }],
-      completed && [{ backgroundColor: theme.successSofter, borderColor: theme.successSoft }]
+      overdue && [{ backgroundColor: theme.dangerBackground, borderColor: theme.dangerBorder }],
+      completed && [{ backgroundColor: theme.successBackground, borderColor: theme.successBorder }]
     ]}>
       <View style={styles.cardContent}>
         <View style={styles.header}>
@@ -108,7 +108,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
             <View style={[styles.completionDivider, { backgroundColor: theme.grey200 }]} />
             <View style={styles.completionContent}>
               <SymbolView name="checkmark.circle.fill" size={16} tintColor={theme.success} />
-              <Text style={[styles.completionText, { color: theme.successHard }]}>Completed</Text>
+              <Text style={[styles.completionText, { color: theme.successText }]}>Completed</Text>
             </View>
           </View>
         )}
