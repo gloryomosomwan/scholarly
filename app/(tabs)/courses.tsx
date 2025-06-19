@@ -166,7 +166,7 @@ export default function CoursesPage() {
             borderColor: theme.grey400
           }]}>
             <View style={styles.addCourseContentContainer}>
-              <View style={[styles.addCourseIconContainer, { backgroundColor: theme.lightBlue }]}>
+              <View style={[styles.addCourseIconContainer, { backgroundColor: getColorWithOpacity(theme.accent, 0.05) }]}>
                 <SymbolView name="plus" size={20} tintColor={theme.accent} />
               </View>
               <View style={styles.addCourseTextContainer}>

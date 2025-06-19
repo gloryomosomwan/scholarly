@@ -4,7 +4,6 @@ type theme = {
   accent: string,
   text: string,
   inverseText: string,
-  lightBlue: string
   grey100: string
   grey200: string
   grey400: string,
@@ -27,14 +26,12 @@ export const lightTheme: theme = {
   text: '#374151',
   inverseText: '#FFFFFF',
 
-
   grey100: '#F3F4F6',
   grey200: '#E5E7EB',
   grey400: '#9CA3AF',
   grey500: '#6B7280',
   grey600: '#4B5563',
 
-  lightBlue: '#EFF6FF',
   success: '#10B981',
   successSoft: '#D1FAE5',
   successSofter: '#F0FDF4',
@@ -49,7 +46,6 @@ export const darkTheme: theme = {
   accent: '#3B82F6',
   text: '#F9FAFB',
   inverseText: '#111827',
-  lightBlue: '#1E3A8A',
 
   grey100: '#374151',
   grey200: '#374151',
