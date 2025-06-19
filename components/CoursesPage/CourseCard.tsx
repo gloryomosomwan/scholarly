@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { useTheme } from '@/utils/useTheme';
-import { getColorIntensity, getColorWithOpacity } from '@/app/(tabs)/courses';
+import { getColorIntensity } from '@/app/(tabs)/courses';
+import { getColorWithOpacity } from '@/utils/utility';
 
 interface CourseCardProps {
   code: string;

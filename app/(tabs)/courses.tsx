@@ -11,6 +11,7 @@ import {
 import { SymbolView } from 'expo-symbols';
 import { useTheme } from '@/utils/useTheme';
 import CourseCard from '@/components/CoursesPage/CourseCard';
+import { getColorWithOpacity } from '@/utils/utility';
 
 interface CourseProps {
   code: string;
@@ -71,15 +72,6 @@ export const getColorIntensity = (baseColor: string, intensity: 'light' | 'mediu
   return colorMap[baseColor]?.[intensity] || baseColor;
 };
 
-export const getColorWithOpacity = (color: string, opacity: number): string => {
-  // Convert hex to rgba
-  const hex = color.replace('#', '');
-  const r = parseInt(hex.substr(0, 2), 16);
-  const g = parseInt(hex.substr(2, 2), 16);
-  const b = parseInt(hex.substr(4, 2), 16);
-
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-};
 
 const { width } = Dimensions.get('window');
 
