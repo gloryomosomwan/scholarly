@@ -4,7 +4,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/utils/useTheme";
 import ActivityCard from "@/components/ActivityCard";
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
-import ProgressCard from "@/components/Dashboard/ProgressCard";
 import EventCard from "@/components/Dashboard/EventCard";
 import { SymbolView } from "expo-symbols";
 

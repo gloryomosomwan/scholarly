@@ -5,6 +5,7 @@ import { SymbolView } from 'expo-symbols'
 import dayjs from '@/utils/dayjs'
 import { courseColors } from '@/utils/Calendar/data';
 import { useTheme } from '@/utils/useTheme';
+import tinycolor from 'tinycolor2';
 
 type AssessmentCardProps = {
   assessment: {
@@ -41,7 +42,7 @@ export default function AssessmentCard({ assessment }: AssessmentCardProps) {
         <View style={styles.cardContent}>
           <View style={styles.cardHeader}>
             <View style={styles.leftContent}>
-              <View style={styles.courseContainer}>
+              <View style={[styles.courseContainer, { backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }]}>
                 <Text style={styles.courseEmoji}>{assessment.emoji}</Text>
                 <Text style={[styles.courseName, { color: theme.grey500 }]}>{assessment.course}</Text>
               </View>
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   cardContent: {
-    flex: 1,
+    // flex: 1,
   },
   cardHeader: {
     flexDirection: 'row',
@@ -93,7 +94,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   leftContent: {
-    flex: 1,
+    // flex: 1,
+    alignItems: 'flex-start'
   },
   rightContent: {
     alignItems: 'flex-end',
@@ -106,13 +108,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 20
   },
   courseEmoji: {
     marginRight: 3,
-    fontSize: 14
+    fontSize: 12
   },
   courseName: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '700',
   },
   timeRange: {
