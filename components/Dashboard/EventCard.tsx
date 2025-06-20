@@ -97,11 +97,11 @@ export default function EventCard({ event }: EventCardProps) {
         </View>
 
         {/* Progress Bar */}
-        {
-          isCurrentEvent &&
-          <View style={styles.progressSection}>
-            <View style={styles.progressContainer}>
-              <View style={[styles.progressBackground, { backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }]}>
+
+        <View style={styles.progressSection}>
+          <View style={styles.progressContainer}>
+            <View style={[styles.progressBackground, { backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }]}>
+              {isCurrentEvent &&
                 <View
                   style={[
                     styles.progressFill,
@@ -109,9 +109,11 @@ export default function EventCard({ event }: EventCardProps) {
                   ]}
                 >
                 </View>
-              </View>
+              }
             </View>
-
+          </View>
+          {
+            isCurrentEvent &&
             <View style={styles.progressLabels}>
               <Text style={[styles.progressLabel, { color: theme.grey500 }]}>
                 {formatElapsedTime(elapsed)}
@@ -120,8 +122,8 @@ export default function EventCard({ event }: EventCardProps) {
                 {remaining > 0 ? formatRemainingTime(remaining) : 'Complete'}
               </Text>
             </View>
-          </View>
-        }
+          }
+        </View>
       </View>
     </View>
   );
