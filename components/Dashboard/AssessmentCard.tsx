@@ -43,8 +43,7 @@ export default function AssessmentCard({ assessment }: AssessmentCardProps) {
           <View style={styles.cardHeader}>
             <View style={styles.leftContent}>
               <View style={[styles.courseContainer, { backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }]}>
-                <Text style={styles.courseEmoji}>{assessment.emoji}</Text>
-                <Text style={[styles.courseName, { color: theme.grey500 }]}>{assessment.course}</Text>
+                <Text style={[styles.courseName, { color: courseColor }]}>{assessment.course}</Text>
               </View>
               <Text style={[styles.assessmentType, { color: theme.text }]}>{assessment.type}</Text>
             </View>
