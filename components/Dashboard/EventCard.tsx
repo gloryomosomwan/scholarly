@@ -83,14 +83,13 @@ export default function EventCard({ event }: EventCardProps) {
 
         {/* Main Content */}
         <View style={styles.mainContentContainer}>
-          {/* <Text style={styles.iconText}>{emoji}</Text> */}
           <View style={styles.courseInfoContainer}>
             <View style={styles.courseTitleContainer}>
-              <SymbolView name={'chart.bar.doc.horizontal'} size={32} tintColor={courseColor} style={{ width: 20, marginRight: 5 }} />
+              <SymbolView name={'book'} size={28} tintColor={courseColor} style={[styles.courseIcon]} />
               <Text style={[styles.courseTitleText, { color: theme.text }]}>{course}</Text>
             </View>
             <View style={styles.locationContainer}>
-              <SymbolView style={styles.locationIcon} name={'mappin.circle.fill'} type={'hierarchical'} tintColor={courseColor} size={15} />
+              <SymbolView style={styles.locationIcon} name={'mappin.circle.fill'} tintColor={courseColor} size={15} />
               <Text style={[styles.locationText, { color: theme.grey500 }]}>{location}</Text>
             </View>
           </View>
@@ -182,12 +181,16 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginBottom: 16,
   },
-  iconText: {
-    fontSize: 30,
-    marginRight: 8
+  courseIcon: {
+    marginRight: 5
   },
   courseInfoContainer: {
     flex: 1,
+  },
+  courseTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4
   },
   courseTitleText: {
     fontSize: 30,
@@ -238,9 +241,4 @@ const styles = StyleSheet.create({
   progressLabel: {
     fontSize: 12,
   },
-  courseTitleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4
-  }
 });
