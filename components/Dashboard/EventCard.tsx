@@ -71,7 +71,7 @@ export default function EventCard({ event }: EventCardProps) {
             <Text style={[styles.eventTypeText, { color: '#FFF' }]}>{type}</Text>
           </View>
           <View style={styles.timeContainer}>
-            <Text style={[styles.timeRangeText, { color: theme.text }]}>
+            <Text style={[styles.timeRangeText, { color: theme.grey600 }]}>
               {formatTime(start)} - {formatTime(end)}
             </Text>
             <Text style={[styles.timeAgoText, { color: theme.text }]}>
@@ -87,7 +87,7 @@ export default function EventCard({ event }: EventCardProps) {
             <Text style={[styles.courseTitleText, { color: theme.text }]}>{course}</Text>
             <View style={styles.locationContainer}>
               <SymbolView style={styles.locationIcon} name={'mappin.circle.fill'} tintColor={courseColor} size={15} />
-              <Text style={[styles.locationText, { color: theme.text }]}>{location}</Text>
+              <Text style={[styles.locationText, { color: theme.grey500 }]}>{location}</Text>
             </View>
           </View>
         </View>
@@ -97,11 +97,11 @@ export default function EventCard({ event }: EventCardProps) {
           isCurrentEvent &&
           <View style={styles.progressSection}>
             <View style={styles.progressContainer}>
-              <View style={[styles.progressBackground, { backgroundColor: 'rgba(255, 255, 255, 0.2)', }]}>
+              <View style={[styles.progressBackground, { backgroundColor: theme.grey200, }]}>
                 <View
                   style={[
                     styles.progressFill,
-                    { width: `${progressPercentage}%`, backgroundColor: '#374151', },
+                    { width: `${progressPercentage}%`, backgroundColor: courseColor },
                   ]}
                 >
                 </View>
@@ -109,10 +109,10 @@ export default function EventCard({ event }: EventCardProps) {
             </View>
 
             <View style={styles.progressLabels}>
-              <Text style={[styles.progressLabel, { color: theme.text }]}>
+              <Text style={[styles.progressLabel, { color: theme.grey500 }]}>
                 {formatElapsedTime(elapsed)}
               </Text>
-              <Text style={[styles.progressLabel, { color: theme.text }]}>
+              <Text style={[styles.progressLabel, { color: theme.grey500 }]}>
                 {remaining > 0 ? formatRemainingTime(remaining) : 'Complete'}
               </Text>
             </View>
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   iconText: {
-    fontSize: 40,
+    fontSize: 30,
     marginRight: 8
   },
   courseInfoContainer: {
@@ -187,6 +187,19 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 4,
+  },
+
+  // Location
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  locationIcon: {
+    marginRight: 4,
+    opacity: 0.7
+  },
+  locationText: {
+    fontSize: 14,
   },
 
   // Progress
@@ -217,18 +230,5 @@ const styles = StyleSheet.create({
   },
   progressLabel: {
     fontSize: 12,
-  },
-
-  // Location
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  locationIcon: {
-    marginRight: 4,
-    opacity: 0.7
-  },
-  locationText: {
-    fontSize: 14,
   },
 });
