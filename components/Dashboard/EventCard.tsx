@@ -97,11 +97,11 @@ export default function EventCard({ event }: EventCardProps) {
           isCurrentEvent &&
           <View style={styles.progressSection}>
             <View style={styles.progressContainer}>
-              <View style={styles.progressBackground}>
+              <View style={[styles.progressBackground, { backgroundColor: 'rgba(255, 255, 255, 0.2)', }]}>
                 <View
                   style={[
                     styles.progressFill,
-                    { width: `${progressPercentage}%` }
+                    { width: `${progressPercentage}%`, backgroundColor: '#374151', },
                   ]}
                 >
                 </View>
@@ -201,13 +201,11 @@ const styles = StyleSheet.create({
   progressBackground: {
     flex: 1,
     height: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderRadius: 4,
     overflow: 'hidden',
   },
   progressFill: {
     height: 8,
-    backgroundColor: '#374151',
     borderRadius: 4,
     flexDirection: 'row',
     alignItems: 'center',
