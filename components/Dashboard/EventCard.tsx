@@ -75,7 +75,7 @@ export default function EventCard({ event }: EventCardProps) {
             <Text style={[styles.timeRangeText, { color: theme.grey600 }]}>
               {formatTime(start)} - {formatTime(end)}
             </Text>
-            <Text style={[styles.timeAgoText, { color: theme.text }]}>
+            <Text style={[styles.timeAgoText, { color: theme.grey400 }]}>
               {!isCurrentEvent && timeFromNowString}
             </Text>
           </View>
