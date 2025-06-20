@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
+import tinycolor from 'tinycolor2';
 
 import dayjs from '@/utils/dayjs'
 import { formatTime, getColorWithOpacity } from '@/utils/utility'
@@ -67,8 +68,8 @@ export default function EventCard({ event }: EventCardProps) {
       <View style={[styles.card, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
         {/* Header */}
         <View style={styles.topRowContainer}>
-          <View style={[styles.eventTypeBackground, { backgroundColor: courseColor }]}>
-            <Text style={[styles.eventTypeText, { color: '#FFF' }]}>{type}</Text>
+          <View style={[styles.eventTypeBackground, { backgroundColor: getColorWithOpacity(courseColor, 0.25) }]}>
+            <Text style={[styles.eventTypeText, { color: courseColor }]}>{type}</Text>
           </View>
           <View style={styles.timeContainer}>
             <Text style={[styles.timeRangeText, { color: theme.grey600 }]}>
@@ -82,9 +83,12 @@ export default function EventCard({ event }: EventCardProps) {
 
         {/* Main Content */}
         <View style={styles.mainContentContainer}>
-          <Text style={styles.iconText}>{emoji}</Text>
+          {/* <Text style={styles.iconText}>{emoji}</Text> */}
           <View style={styles.courseInfoContainer}>
-            <Text style={[styles.courseTitleText, { color: theme.text }]}>{course}</Text>
+            <View style={styles.courseTitleContainer}>
+              <SymbolView name={'chart.bar.doc.horizontal'} size={22} type={'hierarchical'} tintColor={courseColor} style={{ marginRight: 5 }} />
+              <Text style={[styles.courseTitleText, { color: theme.text }]}>{course}</Text>
+            </View>
             <View style={styles.locationContainer}>
               <SymbolView style={styles.locationIcon} name={'mappin.circle.fill'} tintColor={courseColor} size={15} />
               <Text style={[styles.locationText, { color: theme.grey500 }]}>{location}</Text>
@@ -97,7 +101,7 @@ export default function EventCard({ event }: EventCardProps) {
           isCurrentEvent &&
           <View style={styles.progressSection}>
             <View style={styles.progressContainer}>
-              <View style={[styles.progressBackground, { backgroundColor: theme.grey200, }]}>
+              <View style={[styles.progressBackground, { backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }]}>
                 <View
                   style={[
                     styles.progressFill,
@@ -186,7 +190,7 @@ const styles = StyleSheet.create({
   courseTitleText: {
     fontSize: 30,
     fontWeight: 'bold',
-    marginBottom: 4,
+    // marginBottom: 4,
   },
 
   // Location
@@ -200,6 +204,7 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
+    fontWeight: '500',
   },
 
   // Progress
@@ -231,4 +236,9 @@ const styles = StyleSheet.create({
   progressLabel: {
     fontSize: 12,
   },
+  courseTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4
+  }
 });

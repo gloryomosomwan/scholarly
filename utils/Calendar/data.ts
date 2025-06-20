@@ -1,8 +1,8 @@
 export const courseColors = {
   'MATH 119': '#FFBE0B',
   'PHYS 102': '#FB5607',
-  'HIST 211': '#FF006E',
-  'MARK 161': '#8338EC',
+  'HIST 211': '#FF0000',
+  'MARK 161': '#8e40bf',
   'CHEM 105': '#3A86FF',
 };
 
