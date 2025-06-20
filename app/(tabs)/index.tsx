@@ -27,7 +27,7 @@ export default function Index() {
           <ProgressCard type={'assignments'} completedToday={1} totalTasks={2} />
           <ProgressCard type={'tasks'} completedToday={1} totalTasks={4} />
         </View>
-        {/* <View>
+        <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
           <EventCard event={currentLecture} />
         </View>
@@ -35,7 +35,7 @@ export default function Index() {
           <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
           <EventCard event={nextLecture} />
         </View>
-        <View>
+        {/* <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
           <AssessmentCard assessment={exam} />
         </View> */}

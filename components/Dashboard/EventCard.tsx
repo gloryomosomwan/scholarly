@@ -5,6 +5,7 @@ import { SymbolView } from 'expo-symbols';
 import dayjs from '@/utils/dayjs'
 import { formatTime } from '@/utils/utility'
 import { courseColors } from '@/utils/Calendar/data';
+import { useTheme } from '@/utils/useTheme';
 
 type EventCardProps = {
   event: {
@@ -19,7 +20,7 @@ type EventCardProps = {
 
 export default function EventCard({ event }: EventCardProps) {
   const { type, course, emoji, location, start, end } = event;
-  const courseColor = courseColors[event.course as keyof typeof courseColors]
+  const theme = useTheme()
 
   const now = new Date();
   const totalDuration = end.getTime() - start.getTime();
@@ -62,7 +63,7 @@ export default function EventCard({ event }: EventCardProps) {
   return (
     <View style={styles.container}>
 
-      <View style={[styles.card, { backgroundColor: '#FFF' }]} >
+      <View style={[styles.card, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
         {/* Header */}
         <View style={styles.topRowContainer}>
           <View style={styles.eventTypeBackground}>
@@ -126,16 +127,17 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   card: {
-    borderRadius: 24,
+    borderRadius: 16,
     padding: 24,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 8,
+    borderWidth: 2,
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
   },
   topRowContainer: {
     flexDirection: 'row',
