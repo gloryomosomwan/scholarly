@@ -132,16 +132,16 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   card: {
-    borderRadius: 16,
+    borderRadius: 24,
     padding: 24,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 4,
     },
     borderWidth: 2,
     shadowOpacity: 0.05,
-    shadowRadius: 2,
+    shadowRadius: 4,
     elevation: 2,
   },
   topRowContainer: {
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   },
   courseTitleText: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: '600',
     // marginBottom: 4,
   },
 

@@ -83,12 +83,14 @@ const styles = StyleSheet.create({
   headerText: {
     marginBottom: 15,
     fontSize: 20,
-    fontWeight: '600'
+    fontWeight: '600',
+    letterSpacing: 0.25
   },
   taskHeaderText: {
     fontSize: 20,
     marginBottom: 3,
-    fontWeight: '600'
+    fontWeight: '600',
+    letterSpacing: 0.25
   },
   subheaderText: {
     fontSize: 16,
