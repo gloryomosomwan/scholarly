@@ -86,7 +86,7 @@ export default function EventCard({ event }: EventCardProps) {
           {/* <Text style={styles.iconText}>{emoji}</Text> */}
           <View style={styles.courseInfoContainer}>
             <View style={styles.courseTitleContainer}>
-              <SymbolView name={'chart.bar.doc.horizontal'} size={22} type={'hierarchical'} tintColor={courseColor} style={{ marginRight: 5 }} />
+              <SymbolView name={'chart.bar.doc.horizontal'} size={32} type={'hierarchical'} tintColor={courseColor} style={{ width: 20, marginRight: 5 }} />
               <Text style={[styles.courseTitleText, { color: theme.text }]}>{course}</Text>
             </View>
             <View style={styles.locationContainer}>
