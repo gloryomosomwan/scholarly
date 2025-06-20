@@ -23,10 +23,6 @@ export default function Index() {
           </View>
           <SymbolView style={styles.profileIcon} name={'person.crop.circle.fill'} size={45} tintColor={theme.grey400} />
         </View>
-        {/* <View style={styles.progressCards}>
-          <ProgressCard type={'assignments'} completedToday={1} totalTasks={2} />
-          <ProgressCard type={'tasks'} completedToday={1} totalTasks={4} />
-        </View> */}
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
           <EventCard event={currentLecture} />
@@ -35,10 +31,10 @@ export default function Index() {
           <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
           <EventCard event={nextLecture} />
         </View>
-        {/* <View>
+        <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
           <AssessmentCard assessment={exam} />
-        </View> */}
+        </View>
         <View>
           <View style={styles.tasksHeaderContainer}>
             <View style={styles.tasksHeaderTopRowContainer}>

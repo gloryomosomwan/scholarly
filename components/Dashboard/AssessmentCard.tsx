@@ -4,6 +4,7 @@ import { SymbolView } from 'expo-symbols'
 
 import dayjs from '@/utils/dayjs'
 import { courseColors } from '@/utils/Calendar/data';
+import { useTheme } from '@/utils/useTheme';
 
 type AssessmentCardProps = {
   assessment: {
@@ -18,6 +19,8 @@ type AssessmentCardProps = {
 
 export default function AssessmentCard({ assessment }: AssessmentCardProps) {
   const courseColor = courseColors[assessment.course as keyof typeof courseColors]
+  const theme = useTheme()
+
   const now = dayjs()
   const isCurrentEvent = now.isBetween(assessment.start, assessment.end)
   const isUpNext = now.isBefore(assessment.start)
@@ -34,26 +37,28 @@ export default function AssessmentCard({ assessment }: AssessmentCardProps) {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.card, { backgroundColor: '#FFF' }]} >
+      <View style={[styles.card, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
         <View style={styles.cardContent}>
           <View style={styles.cardHeader}>
             <View style={styles.leftContent}>
               <View style={styles.courseContainer}>
                 <Text style={styles.courseEmoji}>{assessment.emoji}</Text>
-                <Text style={styles.courseName}>{assessment.course}</Text>
+                <Text style={[styles.courseName, { color: theme.grey500 }]}>{assessment.course}</Text>
               </View>
-              <Text style={[styles.assessmentType, { color: 'white' }]}>{assessment.type}</Text>
+              <Text style={[styles.assessmentType, { color: theme.text }]}>{assessment.type}</Text>
             </View>
             <View style={styles.rightContent}>
-              <Text style={[styles.timeRange]}>{`${assessment.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} - ${assessment.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}`}</Text>
-              <Text style={styles.timeAgo}>
+              <Text style={[styles.timeRange, { color: theme.grey600 }]}>
+                {`${assessment.start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })} - ${assessment.end.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}`}
+              </Text>
+              <Text style={[styles.timeAgo, { color: theme.grey400 }]}>
                 {isCurrentEvent ? timeLeftString : timeFromNowString}
               </Text>
             </View>
           </View>
           <View style={styles.locationContainer}>
-            <SymbolView name={'mappin.circle.fill'} tintColor={'white'} style={styles.locationIcon} size={15} />
-            <Text style={styles.locationText}>{assessment.location}</Text>
+            <SymbolView name={'mappin.circle.fill'} tintColor={courseColor} style={[styles.locationIcon]} size={15} />
+            <Text style={[styles.locationText, { color: theme.grey500 }]}>{assessment.location}</Text>
           </View>
         </View>
       </View>
@@ -73,9 +78,10 @@ const styles = StyleSheet.create({
       width: 0,
       height: 4,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 8,
+    shadowOpacity: 0.05,
+    borderWidth: 2,
+    shadowRadius: 4,
+    elevation: 2,
   },
   cardContent: {
     flex: 1,
@@ -108,16 +114,13 @@ const styles = StyleSheet.create({
   courseName: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#FFFFFF',
   },
   timeRange: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#FFFFFF',
   },
   timeAgo: {
     fontSize: 14,
-    color: 'white',
     opacity: 0.7,
   },
   locationContainer: {
@@ -133,13 +136,11 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 14,
-    color: 'white',
     opacity: 0.9,
     fontWeight: '500'
   },
   locationIcon: {
     opacity: 0.8,
-    color: 'white',
     marginRight: 5,
   },
 });
