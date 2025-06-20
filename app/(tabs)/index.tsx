@@ -23,10 +23,10 @@ export default function Index() {
           </View>
           <SymbolView style={styles.profileIcon} name={'person.crop.circle.fill'} size={45} tintColor={theme.grey400} />
         </View>
-        <View style={styles.progressCards}>
+        {/* <View style={styles.progressCards}>
           <ProgressCard type={'assignments'} completedToday={1} totalTasks={2} />
           <ProgressCard type={'tasks'} completedToday={1} totalTasks={4} />
-        </View>
+        </View> */}
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
           <EventCard event={currentLecture} />
@@ -126,8 +126,8 @@ const currentLecture = {
   type: 'Lecture',
   course: 'HIST 211',
   emoji: '📚',
-  start: new Date(2025, 5, 19, 0, 0),
-  end: new Date(2025, 5, 19, 23, 0),
+  start: new Date(2025, 5, 19, 23, 0),
+  end: new Date(2025, 5, 20, 23, 0),
   location: 'HIS 2-17',
 }
 
@@ -136,8 +136,8 @@ const nextLecture = {
   type: 'Lecture',
   course: 'MARK 161',
   emoji: '📊',
-  start: new Date(2025, 5, 19, 22, 0),
-  end: new Date(2025, 5, 19, 23, 0),
+  start: new Date(2025, 5, 20, 22, 0),
+  end: new Date(2025, 5, 20, 23, 0),
   location: 'GMH 5-18',
 }
 

@@ -1,18 +1,27 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
+import Svg, { Circle } from 'react-native-svg';
 
 import { useTheme } from '@/utils/useTheme';
+import tinycolor from 'tinycolor2';
 
 type ProgressCardProps = {
   completedToday: number;
   totalTasks: number;
-  type: string
+  type: string;
 };
 
 export default function ProgressCard({ completedToday, totalTasks, type }: ProgressCardProps) {
   const completionPercentage = totalTasks > 0 ? (completedToday / totalTasks) * 100 : 0;
-  const theme = useTheme()
+  const theme = useTheme();
+
+  const size = 120;
+  const strokeWidth = 6;
+  const radius = (size - strokeWidth) / 2;
+  const circumference = radius * 2 * Math.PI;
+  const strokeDasharray = circumference;
+  const strokeDashoffset = circumference - (completionPercentage / 100) * circumference;
 
   return (
     <View style={styles.cardContainer}>
@@ -21,21 +30,44 @@ export default function ProgressCard({ completedToday, totalTasks, type }: Progr
           <View style={styles.iconContainer}>
             <SymbolView name={type === 'tasks' ? 'checklist' : 'doc.text'} tintColor={theme.accent} />
           </View>
-          <Text style={[styles.itemTypeText, { color: theme.text }]}>{type === 'tasks' ? 'TASKS' : 'ASSIGNMENTS'}</Text>
-        </View>
-        <Text style={[styles.quotientText, { color: theme.text }]}>{completedToday}/{totalTasks}</Text>
-        <View style={styles.progressContainer}>
-          <View style={[styles.progressBackground, { backgroundColor: theme.grey200 }]}>
-            <View
-              style={[
-                styles.progressFill,
-                { backgroundColor: theme.accent, width: `${Math.min(completionPercentage, 100)}%` }
-              ]}
-            />
-          </View>
-          <Text style={[styles.percentageText, { color: theme.text }]}>
-            {Math.round(completionPercentage)}%
+          <Text style={[styles.itemTypeText, { color: theme.text }]}>
+            {type === 'tasks' ? 'TASKS' : 'ASSIGNMENTS'}
           </Text>
+        </View>
+
+        <View style={styles.progressSection}>
+          <View style={styles.circularProgressContainer}>
+            <Svg width={size} height={size} style={styles.circularProgress}>
+              {/* Background circle */}
+              <Circle
+                cx={size / 2}
+                cy={size / 2}
+                r={radius}
+                stroke={tinycolor(theme.accent).setAlpha(0.10).toRgbString()}
+                strokeWidth={strokeWidth}
+                fill="transparent"
+              />
+              {/* Progress circle */}
+              <Circle
+                cx={size / 2}
+                cy={size / 2}
+                r={radius}
+                stroke={theme.accent}
+                strokeWidth={strokeWidth}
+                fill="transparent"
+                strokeDasharray={strokeDasharray}
+                strokeDashoffset={strokeDashoffset}
+                strokeLinecap="round"
+                transform={`rotate(-90 ${size / 2} ${size / 2})`}
+              />
+            </Svg>
+            <View style={styles.progressTextContainer}>
+              <Text style={[styles.percentageText, { color: theme.text }]}>
+                {completedToday}/{totalTasks}
+              </Text>
+            </View>
+          </View>
+
         </View>
       </View>
     </View>
@@ -65,7 +97,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 16,
   },
   iconContainer: {
     width: 24,
@@ -78,30 +110,42 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '500',
     textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  progressSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  circularProgressContainer: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  circularProgress: {
+    transform: [{ rotate: '0deg' }],
+  },
+  progressTextContainer: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  percentageText: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  quotientContainer: {
+    alignItems: 'flex-end',
   },
   quotientText: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: 2,
   },
-  progressContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  progressBackground: {
-    flex: 1,
-    height: 4,
-    borderRadius: 2,
-    overflow: 'hidden',
-  },
-  progressFill: {
-    height: 4,
-    borderRadius: 2,
-  },
-  percentageText: {
+  completedText: {
     fontSize: 12,
-    minWidth: 32,
-    textAlign: 'right',
+    fontWeight: '400',
   },
 });
