@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import dayjs from '@/utils/dayjs'
-import { formatTime } from '@/utils/utility'
+import { formatTime, getColorWithOpacity } from '@/utils/utility'
 import { courseColors } from '@/utils/Calendar/data';
 import { useTheme } from '@/utils/useTheme';
 
@@ -21,6 +21,7 @@ type EventCardProps = {
 export default function EventCard({ event }: EventCardProps) {
   const { type, course, emoji, location, start, end } = event;
   const theme = useTheme()
+  const courseColor = courseColors[event.course as keyof typeof courseColors]
 
   const now = new Date();
   const totalDuration = end.getTime() - start.getTime();
@@ -66,14 +67,14 @@ export default function EventCard({ event }: EventCardProps) {
       <View style={[styles.card, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
         {/* Header */}
         <View style={styles.topRowContainer}>
-          <View style={styles.eventTypeBackground}>
-            <Text style={styles.eventTypeText}>{type}</Text>
+          <View style={[styles.eventTypeBackground, { backgroundColor: courseColor }]}>
+            <Text style={[styles.eventTypeText, { color: '#FFF' }]}>{type}</Text>
           </View>
           <View style={styles.timeContainer}>
-            <Text style={styles.timeRangeText}>
+            <Text style={[styles.timeRangeText, { color: theme.text }]}>
               {formatTime(start)} - {formatTime(end)}
             </Text>
-            <Text style={styles.timeAgoText}>
+            <Text style={[styles.timeAgoText, { color: theme.text }]}>
               {!isCurrentEvent && timeFromNowString}
             </Text>
           </View>
@@ -83,10 +84,10 @@ export default function EventCard({ event }: EventCardProps) {
         <View style={styles.mainContentContainer}>
           <Text style={styles.iconText}>{emoji}</Text>
           <View style={styles.courseInfoContainer}>
-            <Text style={styles.courseTitleText}>{course}</Text>
+            <Text style={[styles.courseTitleText, { color: theme.text }]}>{course}</Text>
             <View style={styles.locationContainer}>
-              <SymbolView style={styles.locationIcon} name={'mappin.circle.fill'} tintColor={'white'} size={15} />
-              <Text style={styles.locationText}>{location}</Text>
+              <SymbolView style={styles.locationIcon} name={'mappin.circle.fill'} tintColor={courseColor} size={15} />
+              <Text style={[styles.locationText, { color: theme.text }]}>{location}</Text>
             </View>
           </View>
         </View>
@@ -108,10 +109,10 @@ export default function EventCard({ event }: EventCardProps) {
             </View>
 
             <View style={styles.progressLabels}>
-              <Text style={styles.progressLabel}>
+              <Text style={[styles.progressLabel, { color: theme.text }]}>
                 {formatElapsedTime(elapsed)}
               </Text>
-              <Text style={styles.progressLabel}>
+              <Text style={[styles.progressLabel, { color: theme.text }]}>
                 {remaining > 0 ? formatRemainingTime(remaining) : 'Complete'}
               </Text>
             </View>
@@ -146,13 +147,11 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   eventTypeBackground: {
-    backgroundColor: 'rgba(4, 255, 0, 0.2)',
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 20,
   },
   eventTypeText: {
-    color: '#374151',
     fontSize: 12,
     fontWeight: '500',
   },
@@ -162,13 +161,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   timeRangeText: {
-    color: '#374151',
     fontSize: 14,
     fontWeight: '600',
   },
   timeAgoText: {
     fontSize: 13,
-    color: '#374151',
     opacity: 0.7,
     marginTop: 2,
   },
@@ -187,7 +184,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   courseTitleText: {
-    color: '#374151',
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 4,
@@ -222,7 +218,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   progressLabel: {
-    color: '#374151)',
     fontSize: 12,
   },
 
@@ -236,7 +231,6 @@ const styles = StyleSheet.create({
     opacity: 0.7
   },
   locationText: {
-    color: '#374151',
     fontSize: 14,
   },
 });
