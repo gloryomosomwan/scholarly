@@ -39,7 +39,10 @@ export default function Index() {
             <View style={styles.tasksHeaderTopRowContainer}>
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Assignments:</Text>
             </View>
-            <Text style={[styles.subheaderText, { color: theme.grey400 }]}>3 assignments due today (1 overdue)</Text>
+            <Text style={[styles.subheaderText, { color: theme.grey400 }]}>
+              3 assignments due today
+              <Text style={[styles.subheaderText, { color: theme.grey500, fontWeight: 700 }]} > (1 overdue)</Text>
+            </Text>
           </View>
           <ActivityCard activity={assignment1} />
           <ActivityCard activity={assignment2} />
@@ -50,7 +53,10 @@ export default function Index() {
             <View style={styles.tasksHeaderTopRowContainer}>
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
             </View>
-            <Text style={[styles.subheaderText, { color: theme.grey400 }]}>3 tasks due today (1 overdue)</Text>
+            <Text style={[styles.subheaderText, { color: theme.grey400 }]}>
+              3 tasks due today
+              <Text style={[styles.subheaderText, { color: theme.grey500, fontWeight: 700 }]} > (1 overdue)</Text>
+            </Text>
           </View>
           <ActivityCard activity={task} />
           <ActivityCard activity={task2} />
