@@ -25,7 +25,7 @@ export default function ProgressCard({ completedToday, totalTasks, type }: Progr
         </View>
         <Text style={[styles.quotientText, { color: theme.text }]}>{completedToday}/{totalTasks}</Text>
         <View style={styles.progressContainer}>
-          <View style={[styles.progressBackground, { backgroundColor: '#E5E7EB' }]}>
+          <View style={[styles.progressBackground, { backgroundColor: theme.grey200 }]}>
             <View
               style={[
                 styles.progressFill,

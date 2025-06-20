@@ -37,7 +37,6 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
     }
   };
 
-  console.log(priorityColors.low)
   return (
     <View style={[
       styles.card,
