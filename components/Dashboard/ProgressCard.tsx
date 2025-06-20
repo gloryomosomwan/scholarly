@@ -16,7 +16,7 @@ export default function ProgressCard({ completedToday, totalTasks, type }: Progr
 
   return (
     <View style={styles.cardContainer}>
-      <View style={[styles.cardContent, { backgroundColor: theme.secondary }]}>
+      <View style={[styles.cardContent, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]}>
         <View style={styles.headerContainer}>
           <View style={styles.iconContainer}>
             <SymbolView name={type === 'tasks' ? 'checklist' : 'doc.text'} tintColor={theme.accent} />
@@ -50,16 +50,17 @@ const styles = StyleSheet.create({
   cardContent: {
     position: 'relative',
     zIndex: 1,
-    borderRadius: 16,
     padding: 16,
+    borderRadius: 16,
+    borderWidth: 2,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 1,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
   },
   headerContainer: {
     flexDirection: 'row',

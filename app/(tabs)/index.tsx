@@ -21,13 +21,13 @@ export default function Index() {
             <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
             <Text style={[styles.dateText, { color: theme.grey400 }]}>Friday, November 28</Text>
           </View>
-          <SymbolView style={styles.profileIcon} name={'person.crop.circle.fill'} size={45} tintColor={'grey'} />
+          <SymbolView style={styles.profileIcon} name={'person.crop.circle.fill'} size={45} tintColor={theme.grey400} />
         </View>
         <View style={styles.progressCards}>
           <ProgressCard type={'assignments'} completedToday={1} totalTasks={2} />
           <ProgressCard type={'tasks'} completedToday={1} totalTasks={4} />
         </View>
-        <View>
+        {/* <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
           <EventCard event={currentLecture} />
         </View>
@@ -38,7 +38,7 @@ export default function Index() {
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
           <AssessmentCard assessment={exam} />
-        </View>
+        </View> */}
         <View>
           <View style={styles.tasksHeaderContainer}>
             <View style={styles.tasksHeaderTopRowContainer}>
@@ -152,7 +152,7 @@ const task = {
   id: 50,
   title: 'Record a voice memo explaining electromagnetic fields for PHYS 102',
   course: 'PHYS 102',
-  due: new Date(2025, 5, 19, 23, 59),
+  due: new Date(2025, 9, 19, 23, 59),
   priority: 'low',
 }
 const task2 =
@@ -161,7 +161,7 @@ const task2 =
   title: 'Storyboard a 30-second marketing video for MARK 161',
   course: 'MARK 161',
   description: 'Draft key messaging points',
-  due: new Date(2025, 5, 19, 21, 0),
+  due: new Date(2025, 9, 19, 21, 0),
   priority: 'high',
 }
 const task3 =
@@ -170,28 +170,28 @@ const task3 =
   title: 'Compose a summary blog post on series convergence for MATH 119',
   course: 'MATH 119',
   description: 'Include references to lecture examples',
-  due: new Date(2025, 5, 19, 23, 59),
+  due: new Date(2025, 9, 19, 23, 59),
   priority: 'medium',
 }
 
 const assignment1 = {
   id: 15, title: 'Problem Set 3: Thermodynamics', course: 'CHEM 105',
   description: 'Show all work clearly',
-  due: new Date(2025, 5, 18, 23, 59),
+  due: new Date(2025, 9, 20, 23, 59),
 }
 
 const assignment2 =
 {
   id: 35, title: 'Reading: Electromagnetism', course: 'PHYS 102',
   description: 'Prepare questions',
-  due: new Date(2025, 5, 19, 20, 0),
+  due: new Date(2025, 9, 19, 20, 0),
 }
 
 const assignment3 =
 {
   id: 50, title: 'Lab Report 12: Pendulum Experiment', course: 'PHYS 102',
   description: 'Attach tables',
-  due: new Date(2025, 5, 19, 23, 59),
+  due: new Date(2025, 9, 19, 23, 59),
 }
 
 const sampleProgressData = {

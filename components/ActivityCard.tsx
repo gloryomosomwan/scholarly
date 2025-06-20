@@ -120,10 +120,10 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 16,
-    borderWidth: 2,
     padding: 16,
     marginBottom: 12,
+    borderRadius: 16,
+    borderWidth: 2,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
