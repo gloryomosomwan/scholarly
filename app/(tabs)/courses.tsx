@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions, } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { useTheme } from '@/utils/useTheme';
 import CourseCard from '@/components/CoursesPage/CourseCard';
@@ -48,9 +48,7 @@ export default function CoursesPage() {
             <View style={styles.semesterInfoContainer}>
               <Text style={[styles.semesterText, { color: theme.text }]}>Summer 2025</Text>
             </View>
-            <View style={[styles.headerIconContainer, { backgroundColor: theme.grey400 }]}>
-              <SymbolView name="graduationcap" size={24} tintColor={theme.inverseText} />
-            </View>
+            <SymbolView name="calendar" size={35} tintColor={theme.text} />
           </View>
 
           {/* Stats Row */}
@@ -59,15 +57,15 @@ export default function CoursesPage() {
           }]}>
             <View style={styles.statItemContainer}>
               <View style={styles.statTextContainer}>
-                <Text style={[styles.statLabelText, { color: theme.text }]}>GPA</Text>
+                <Text style={[styles.statLabelText, { color: theme.grey400 }]}>GPA</Text>
                 <Text style={[styles.statValueText, { color: theme.text }]}>3.7</Text>
               </View>
             </View>
 
             <View style={styles.statItemContainer}>
               <View style={styles.statTextContainer}>
-                <Text style={[styles.statLabelText, { color: theme.text }]}>CREDITS</Text>
-                <Text style={[styles.statValueText, { color: theme.text }]}>10/12</Text>
+                <Text style={[styles.statLabelText, { color: theme.grey400 }]}>CREDITS</Text>
+                <Text style={[styles.statValueText, { color: theme.text }]}>10</Text>
               </View>
             </View>
           </View>
@@ -75,6 +73,8 @@ export default function CoursesPage() {
 
         {/* Course */}
         <View style={styles.courseContainer}>
+          <CourseCard {...courseData} />
+          <CourseCard {...courseData} />
           <CourseCard {...courseData} />
         </View>
 
@@ -155,14 +155,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
   },
-  headerIconContainer: {
-    paddingTop: 16,
-    paddingBottom: 16,
-    paddingLeft: 16,
-    paddingRight: 16,
-    borderRadius: 16,
-    marginLeft: 16,
-  },
   statsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -183,7 +175,7 @@ const styles = StyleSheet.create({
   },
   statLabelText: {
     fontSize: 11,
-    fontWeight: '600',
+    fontWeight: '400',
     letterSpacing: 0.5,
     marginBottom: 2,
   },
