@@ -39,53 +39,35 @@ export default function CoursesPage() {
   };
 
   return (
-    <SafeAreaView style={[styles.safeAreaContainer, { backgroundColor: theme.text }]}>
+    <SafeAreaView style={[styles.safeAreaContainer, { backgroundColor: theme.primary }]}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         {/* Header */}
-        <View style={styles.headerContainer}>
-          <View style={[styles.headerGradientContainer, { backgroundColor: theme.secondary }]}>
-            <View style={styles.headerContentContainer}>
-              {/* Top Row */}
-              <View style={styles.headerTopContainer}>
-                <View style={styles.semesterInfoContainer}>
-                  <View style={[styles.semesterBadgeContainer, { backgroundColor: getColorWithOpacity('#F59E0B', 0.15) }]}>
-                    <SymbolView name="sparkles" size={14} tintColor="#F59E0B" />
-                    <Text style={[styles.semesterBadgeText, { color: '#F59E0B' }]}>Current</Text>
-                  </View>
-                  <Text style={[styles.semesterText, { color: theme.inverseText }]}>Fall 25</Text>
-                  <Text style={[styles.headerSubtitleText, { color: theme.grey500 }]}>Academic excellence in progress</Text>
-                </View>
-                <View style={[styles.headerIconContainer, { backgroundColor: getColorWithOpacity(theme.inverseText, 0.1) }]}>
-                  <SymbolView name="graduationcap" size={24} tintColor={theme.inverseText} />
-                </View>
+        <View style={[styles.headerContainer, { backgroundColor: theme.primary }]}>
+          {/* Top Row */}
+          <View style={styles.headerTopContainer}>
+            <View style={styles.semesterInfoContainer}>
+              <Text style={[styles.semesterText, { color: theme.text }]}>Summer 2025</Text>
+            </View>
+            <View style={[styles.headerIconContainer, { backgroundColor: theme.grey400 }]}>
+              <SymbolView name="graduationcap" size={24} tintColor={theme.inverseText} />
+            </View>
+          </View>
+
+          {/* Stats Row */}
+          <View style={[styles.statsContainer, {
+            backgroundColor: theme.primary
+          }]}>
+            <View style={styles.statItemContainer}>
+              <View style={styles.statTextContainer}>
+                <Text style={[styles.statLabelText, { color: theme.text }]}>GPA</Text>
+                <Text style={[styles.statValueText, { color: theme.text }]}>3.7</Text>
               </View>
+            </View>
 
-              {/* Stats Row */}
-              <View style={[styles.statsContainer, {
-                backgroundColor: getColorWithOpacity(theme.inverseText, 0.1),
-                borderColor: getColorWithOpacity(theme.inverseText, 0.15)
-              }]}>
-                <View style={styles.statItemContainer}>
-                  <View style={[styles.statIconContainer, { backgroundColor: getColorWithOpacity(theme.inverseText, 0.15) }]}>
-                    <SymbolView name="target" size={16} tintColor={theme.success} />
-                  </View>
-                  <View style={styles.statTextContainer}>
-                    <Text style={[styles.statLabelText, { color: theme.grey500 }]}>GPA</Text>
-                    <Text style={[styles.statValueText, { color: theme.inverseText }]}>3.7</Text>
-                  </View>
-                </View>
-
-                <View style={[styles.statDivider, { backgroundColor: getColorWithOpacity(theme.inverseText, 0.2) }]} />
-
-                <View style={styles.statItemContainer}>
-                  <View style={[styles.statIconContainer, { backgroundColor: getColorWithOpacity(theme.inverseText, 0.15) }]}>
-                    <SymbolView name="book" size={16} tintColor={theme.accent} />
-                  </View>
-                  <View style={styles.statTextContainer}>
-                    <Text style={[styles.statLabelText, { color: theme.grey500 }]}>CREDITS</Text>
-                    <Text style={[styles.statValueText, { color: theme.inverseText }]}>10/12</Text>
-                  </View>
-                </View>
+            <View style={styles.statItemContainer}>
+              <View style={styles.statTextContainer}>
+                <Text style={[styles.statLabelText, { color: theme.text }]}>CREDITS</Text>
+                <Text style={[styles.statValueText, { color: theme.text }]}>10/12</Text>
               </View>
             </View>
           </View>
@@ -129,22 +111,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 8,
-  },
-  headerGradientContainer: {
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 4,
+    // },
+    // shadowOpacity: 0.1,
+    // shadowRadius: 8,
+    // elevation: 8,
     paddingTop: 24,
-    paddingBottom: 32,
+    paddingBottom: 24,
     paddingHorizontal: 20,
-  },
-  headerContentContainer: {
-    flex: 1,
   },
   headerTopContainer: {
     flexDirection: 'row',
@@ -187,19 +164,11 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   statsContainer: {
-    borderRadius: 16,
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    borderWidth: 1,
+    justifyContent: 'space-evenly',
   },
   statItemContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
   },
   statIconContainer: {
     paddingTop: 12,
@@ -210,7 +179,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   statTextContainer: {
-    flex: 1,
+    alignItems: 'center'
   },
   statLabelText: {
     fontSize: 11,
@@ -219,7 +188,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   statValueText: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: 'bold',
   },
   statDivider: {
