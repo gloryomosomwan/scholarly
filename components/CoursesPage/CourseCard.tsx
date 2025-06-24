@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { useTheme } from '@/utils/useTheme';
-import { getColorIntensity } from '@/app/(tabs)/courses';
 import { getColorWithOpacity } from '@/utils/utility';
 
 interface CourseCardProps {
@@ -41,14 +35,12 @@ export default function CourseCard({
 }: CourseCardProps) {
   const theme = useTheme();
 
-  // Generate color variations based on the course color
   const lightColor = getColorIntensity(color, 'light');
   const mediumColor = getColorIntensity(color, 'medium');
   const darkColor = getColorIntensity(color, 'dark');
   const darkerColor = getColorIntensity(color, 'darker');
   const colorWithOpacity = getColorWithOpacity(color, 0.15);
 
-  // For dark mode, we need to adapt the header background
   const headerBackgroundColor = theme.primary === '#111827' ? theme.grey400 : lightColor;
   const borderColor = getColorWithOpacity(theme.text, 0.06);
 
@@ -325,3 +317,46 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
 });
+
+const getColorIntensity = (baseColor: string, intensity: 'light' | 'medium' | 'dark' | 'darker'): string => {
+  const colorMap: { [key: string]: { [key in typeof intensity]: string } } = {
+    '#007FFF': {
+      light: '#EFF6FF',
+      medium: '#BFDBFE',
+      dark: '#1D4ED8',
+      darker: '#1E3A8A'
+    },
+    '#10B981': {
+      light: '#D1FAE5',
+      medium: '#86EFAC',
+      dark: '#059669',
+      darker: '#047857'
+    },
+    '#F59E0B': {
+      light: '#FEF3C7',
+      medium: '#FCD34D',
+      dark: '#D97706',
+      darker: '#B45309'
+    },
+    '#EF4444': {
+      light: '#FECACA',
+      medium: '#FCA5A5',
+      dark: '#DC2626',
+      darker: '#B91C1C'
+    },
+    '#8B5CF6': {
+      light: '#EDE9FE',
+      medium: '#C4B5FD',
+      dark: '#7C3AED',
+      darker: '#6D28D9'
+    },
+    '#06B6D4': {
+      light: '#CFFAFE',
+      medium: '#67E8F9',
+      dark: '#0891B2',
+      darker: '#0E7490'
+    }
+  };
+
+  return colorMap[baseColor]?.[intensity] || baseColor;
+};

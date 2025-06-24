@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  Dimensions,
-} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions, } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { useTheme } from '@/utils/useTheme';
 import CourseCard from '@/components/CoursesPage/CourseCard';
@@ -25,55 +17,8 @@ interface CourseProps {
   progress: number;
   nextEvent: string;
   grade: string;
-  color: string; // Added course color
+  color: string;
 }
-
-// Color utility functions for different intensities
-export const getColorIntensity = (baseColor: string, intensity: 'light' | 'medium' | 'dark' | 'darker'): string => {
-  const colorMap: { [key: string]: { [key in typeof intensity]: string } } = {
-    '#007FFF': {
-      light: '#EFF6FF',
-      medium: '#BFDBFE',
-      dark: '#1D4ED8',
-      darker: '#1E3A8A'
-    },
-    '#10B981': {
-      light: '#D1FAE5',
-      medium: '#86EFAC',
-      dark: '#059669',
-      darker: '#047857'
-    },
-    '#F59E0B': {
-      light: '#FEF3C7',
-      medium: '#FCD34D',
-      dark: '#D97706',
-      darker: '#B45309'
-    },
-    '#EF4444': {
-      light: '#FECACA',
-      medium: '#FCA5A5',
-      dark: '#DC2626',
-      darker: '#B91C1C'
-    },
-    '#8B5CF6': {
-      light: '#EDE9FE',
-      medium: '#C4B5FD',
-      dark: '#7C3AED',
-      darker: '#6D28D9'
-    },
-    '#06B6D4': {
-      light: '#CFFAFE',
-      medium: '#67E8F9',
-      dark: '#0891B2',
-      darker: '#0E7490'
-    }
-  };
-
-  return colorMap[baseColor]?.[intensity] || baseColor;
-};
-
-
-const { width } = Dimensions.get('window');
 
 export default function CoursesPage() {
   const theme = useTheme();
@@ -90,11 +35,11 @@ export default function CoursesPage() {
     progress: 78,
     nextEvent: "Today 10:00 AM",
     grade: "A-",
-    color: theme.success // Course theme color
+    color: theme.success
   };
 
   return (
-    <SafeAreaView style={[styles.safeAreaContainer, { backgroundColor: theme.primary }]}>
+    <SafeAreaView style={[styles.safeAreaContainer, { backgroundColor: theme.text }]}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.headerContainer}>
@@ -107,7 +52,7 @@ export default function CoursesPage() {
                     <SymbolView name="sparkles" size={14} tintColor="#F59E0B" />
                     <Text style={[styles.semesterBadgeText, { color: '#F59E0B' }]}>Current</Text>
                   </View>
-                  <Text style={[styles.semesterText, { color: theme.inverseText }]}>Fall 2025</Text>
+                  <Text style={[styles.semesterText, { color: theme.inverseText }]}>Fall 25</Text>
                   <Text style={[styles.headerSubtitleText, { color: theme.grey500 }]}>Academic excellence in progress</Text>
                 </View>
                 <View style={[styles.headerIconContainer, { backgroundColor: getColorWithOpacity(theme.inverseText, 0.1) }]}>
