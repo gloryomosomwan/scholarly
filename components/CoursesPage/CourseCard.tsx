@@ -85,51 +85,28 @@ export default function CourseCard({
 
       {/* Schedule Section */}
       <View style={styles.scheduleContainer}>
-        <View style={styles.scheduleHeaderContainer}>
-          <SymbolView name="calendar" size={16} tintColor={color} />
-          <Text style={[styles.scheduleHeaderText, { color: theme.text }]}>Schedule</Text>
-        </View>
-
-        <View style={styles.scheduleItemsContainer}>
-          <View style={styles.scheduleItemContainer}>
-            <View style={[styles.scheduleTypeContainer, { backgroundColor: colorWithOpacity }]}>
-              <Text style={[styles.scheduleTypeText, { color: darkColor }]}>Lecture</Text>
+        <View>
+          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: lightColor }]}>
+            <View style={styles.scheduleCardTextContainer}>
+              <Text style={[styles.scheduleCardHeaderText, { color: darkColor }]}>UP NEXT</Text>
+              <Text style={[styles.scheduleCardText, { color: darkerColor }]}>Lecture 10:00 AM</Text>
             </View>
-            <Text style={[styles.scheduleTimeText, { color: theme.text }]}>{lectureSchedule}</Text>
+            <SymbolView name={'bell'} tintColor={color} size={24} />
           </View>
-
-          {labSchedule && (
-            <View style={styles.scheduleItemContainer}>
-              <View style={[styles.scheduleTypeContainer, { backgroundColor: colorWithOpacity }]}>
-                <Text style={[styles.scheduleTypeText, { color: darkColor }]}>Lab</Text>
-              </View>
-              <Text style={[styles.scheduleTimeText, { color: theme.text }]}>{labSchedule}</Text>
+          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: lightColor }]}>
+            <View style={styles.scheduleCardTextContainer}>
+              <Text style={[styles.scheduleCardHeaderText, { color: darkColor }]}>DUE NEXT</Text>
+              <Text style={[styles.scheduleCardText, { color: darkerColor }]}>Problem Set 5</Text>
             </View>
-          )}
-
-          {seminarSchedule && (
-            <View style={styles.scheduleItemContainer}>
-              <View style={[styles.scheduleTypeContainer, { backgroundColor: colorWithOpacity }]}>
-                <Text style={[styles.scheduleTypeText, { color: darkColor }]}>Seminar</Text>
-              </View>
-              <Text style={[styles.scheduleTimeText, { color: theme.text }]}>{seminarSchedule}</Text>
-            </View>
-          )}
+            <View style={[styles.scheduleCardDot, { backgroundColor: color }]} />
+          </View>
         </View>
       </View>
 
       {/* Footer Section */}
       <View style={[styles.footerContainer, { borderTopColor: borderColor }]}>
-        <View style={styles.locationContainer}>
-          <SymbolView name="location" size={14} tintColor={theme.grey500} />
-          <Text style={[styles.locationText, { color: theme.grey500 }]}>{location}</Text>
-        </View>
-
-        <View style={styles.nextEventContainer}>
-          <View style={[styles.nextEventBadgeContainer, { backgroundColor: mediumColor }]}>
-            <SymbolView name="clock" size={12} tintColor={darkerColor} />
-            <Text style={[styles.nextEventText, { color: darkerColor }]}>{nextEvent}</Text>
-          </View>
+        <View style={[styles.scheduleCardContainer, { backgroundColor: theme.secondary, borderColor: lightColor, justifyContent: 'center' }]}>
+          <Text style={[styles.scheduleCardHeaderText, { color: darkColor }]}>View Details</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -243,79 +220,42 @@ const styles = StyleSheet.create({
   scheduleContainer: {
     paddingTop: 20,
     paddingBottom: 20,
-    paddingHorizontal: 20,
-  },
-  scheduleHeaderContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  scheduleHeaderText: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginLeft: 8,
-  },
-  scheduleItemsContainer: {
-    marginTop: 4,
-  },
-  scheduleItemContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  scheduleTypeContainer: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 10,
-    marginRight: 12,
-    minWidth: 60,
-    alignItems: 'center',
-  },
-  scheduleTypeText: {
-    fontSize: 11,
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
-  scheduleTimeText: {
-    fontSize: 14,
-    fontWeight: '500',
-    flex: 1,
+    paddingHorizontal: 15,
   },
   footerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     paddingTop: 16,
     paddingBottom: 20,
     paddingHorizontal: 20,
     borderTopWidth: 1,
   },
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  locationText: {
-    fontSize: 14,
-    fontWeight: '500',
-    marginLeft: 6,
-  },
-  nextEventContainer: {
-    alignItems: 'flex-end',
-  },
-  nextEventBadgeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  scheduleCardContainer: {
+    borderWidth: 1,
+    borderRadius: 8,
+    marginVertical: 7,
     paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 12,
+    paddingVertical: 14,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
-  nextEventText: {
-    fontSize: 11,
+  scheduleCardTextContainer: {
+
+  },
+  scheduleCardHeaderText: {
     fontWeight: '600',
-    marginLeft: 4,
+    fontSize: 16,
+    marginBottom: 2,
   },
+  scheduleCardText: {
+    fontWeight: '600',
+    fontSize: 16
+  },
+  scheduleCardDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 5,
+    right: 10
+  }
 });
 
 const getColorIntensity = (baseColor: string, intensity: 'light' | 'medium' | 'dark' | 'darker'): string => {
