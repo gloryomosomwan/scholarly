@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, } from 'react-native';
 import { SymbolView } from 'expo-symbols';
+import { Link } from 'expo-router'
+
 import { useTheme } from '@/utils/useTheme';
 import { getColorWithOpacity } from '@/utils/utility';
 
@@ -106,7 +108,9 @@ export default function CourseCard({
       {/* Footer Section */}
       <View style={[styles.footerContainer, { borderTopColor: borderColor }]}>
         <View style={[styles.scheduleCardContainer, { backgroundColor: theme.secondary, borderColor: lightColor, justifyContent: 'center' }]}>
-          <Text style={[styles.scheduleCardHeaderText, { color: darkColor }]}>View Details</Text>
+          <Link href={{ pathname: '/[courseName]/schedule', params: { courseName: 'Math 124' } }} >
+            <Text style={[styles.scheduleCardHeaderText, { color: darkColor }]}>View Details</Text>
+          </Link>
         </View>
       </View>
     </TouchableOpacity>
