@@ -2,7 +2,7 @@ import { Button } from "react-native";
 import { Stack } from "expo-router";
 
 type CourseRouteParams = {
-  courseName?: string;
+  courseCode?: string;
 };
 
 export default function RootLayout() {
@@ -12,12 +12,18 @@ export default function RootLayout() {
         headerShown: false
       }}
       />
-      <Stack.Screen name="[courseName]"
+      <Stack.Screen name="[courseCode]"
         options={({ route }: { route: { params?: CourseRouteParams } }) => ({
-          title: route.params?.courseName,
+          // headerTitle: (props) => <Header courseName={route.params?.courseName || 'Course'} />,
+
+          title: route.params?.courseCode,
           headerBackTitle: 'Courses',
-          headerRight: () => (<Button title='Edit Course' onPress={() => alert('Editing course! 😂')}></Button>),
+          headerStyle: {
+            backgroundColor: ''
+          },
+          headerLargeTitleShadowVisible: false,
           headerLargeTitle: true,
+          headerRight: () => (<Button title='Edit Course' onPress={() => alert('Editing course! 😂')}></Button>),
         })}
       />
     </Stack>
