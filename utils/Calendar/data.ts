@@ -33,6 +33,7 @@ export interface Exam {
   end: Date
   weight: string
   location: string
+  grade?: number
 }
 
 export const exams: Exam[] = [
@@ -43,7 +44,8 @@ export const exams: Exam[] = [
     end: new Date(2025, 5, 28, 11),
     weight: '30%',
     location: 'BSD 30-1',
-    notes: 'Crush it!'
+    notes: 'Crush it!',
+    grade: 40
   },
   {
     id: 2,

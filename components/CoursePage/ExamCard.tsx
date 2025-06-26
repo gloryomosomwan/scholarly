@@ -3,18 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/utils/useTheme';
-
-export type ExamCardProps = {
-  exam: {
-    id: number
-    title: string
-    notes: string
-    start: Date
-    end: Date
-    weight: string
-    location: string
-  };
-};
+import { Exam } from '@/utils/Calendar/data';
 
 function getDateString(date: Date) {
   const day = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
@@ -22,8 +11,9 @@ function getDateString(date: Date) {
   return day + ' at ' + time
 }
 
-export default function ExamCard({ exam }: ExamCardProps) {
+export default function ExamCard({ title, notes, start, end, location, weight, grade }: Exam) {
   const theme = useTheme();
+  const [graded, setGraded] = useState(grade ? true : false)
 
   return (
     <View style={[styles.cardContainer, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]}>
@@ -32,34 +22,34 @@ export default function ExamCard({ exam }: ExamCardProps) {
           <SymbolView name={"doc.text"} size={20} tintColor={theme.text} />
         </View>
         <View style={styles.mainTextContainer}>
-          <Text style={[styles.titleText, { color: theme.text }]}>{exam.title}</Text>
+          <Text style={[styles.titleText, { color: theme.text }]}>{title}</Text>
           <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
         </View>
       </View>
       <View style={styles.detailRowContainer}>
         <SymbolView name={'clock'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Starts: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(exam.start)}</Text>
+        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(start)}</Text>
       </View>
       <View style={styles.detailRowContainer}>
         <SymbolView name={'clock'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Ends: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(exam.end)}</Text>
+        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(end)}</Text>
       </View>
       <View style={styles.detailRowContainer}>
         <SymbolView name={'mappin.circle'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Location: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{exam.location}</Text>
+        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{location}</Text>
       </View>
       <View style={styles.detailRowContainer}>
         <SymbolView name={'scalemass'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Weight: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{exam.weight}</Text>
+        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{weight}</Text>
       </View>
       <View style={styles.detailRowContainer}>
         <SymbolView name={'note.text'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Notes: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{exam.notes}</Text>
+        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{notes}</Text>
       </View>
       {/* <View style={[styles.divider, { backgroundColor: theme.grey200 }]} /> */}
     </View>

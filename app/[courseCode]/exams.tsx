@@ -9,7 +9,7 @@ export default function Exams() {
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]}>
-      {exams.map(exam => <ExamCard key={exam.id} exam={exam} />)}
+      {exams.map(exam => <ExamCard key={exam.id} {...exam} />)}
     </ScrollView>
   );
 }
