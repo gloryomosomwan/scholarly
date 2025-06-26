@@ -15,8 +15,6 @@ export default function RootLayout() {
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="[courseCode]"
         options={({ route }: { route: { params?: CourseRouteParams } }) => ({
-          // headerTitle: (props) => <Header courseName={route.params?.courseName || 'Course'} />,
-
           title: route.params?.courseCode,
           headerBackTitle: 'Courses',
           headerStyle: {
