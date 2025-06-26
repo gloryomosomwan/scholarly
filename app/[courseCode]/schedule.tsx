@@ -8,7 +8,7 @@ const lecture: ScheduleCardProps['schedule'] = {
   id: 1,
   type: 'Lecture',
   time: '10:00AM - 11:00AM',
-  days: 'S M T W T F S',
+  days: 'Every Week S M T W T F S',
   location: 'BRJ 2-30',
   status: 'upcoming',
   topic: 'Idek'
