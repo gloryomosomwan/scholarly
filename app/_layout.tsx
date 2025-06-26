@@ -11,11 +11,8 @@ export default function RootLayout() {
   const theme = useTheme()
 
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{
-        headerShown: false
-      }}
-      />
+    <Stack screenOptions={{ contentStyle: { backgroundColor: theme.secondary } }}>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="[courseCode]"
         options={({ route }: { route: { params?: CourseRouteParams } }) => ({
           // headerTitle: (props) => <Header courseName={route.params?.courseName || 'Course'} />,

@@ -14,7 +14,7 @@ export default function Subheader({ courseName, grade, credits }: SubheaderProps
 
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary }]}>
-      <Text style={{ color: theme.grey600 }}>{courseName}</Text>
+      <Text style={[styles.courseNameText, { color: theme.grey600 }]}>{courseName}</Text>
       <View style={styles.statRowContainer}>
         <View style={styles.statContainer}>
           <Text style={[styles.statText, { color: theme.text }]}>{grade}</Text>
@@ -31,19 +31,25 @@ export default function Subheader({ courseName, grade, credits }: SubheaderProps
 
 const styles = StyleSheet.create({
   container: {
-    height: 90,
+    height: 100,
+    marginBottom: 20,
+    justifyContent: 'space-between'
   },
   statRowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around'
   },
   statContainer: {
-
+    alignItems: 'center'
   },
   statText: {
     fontSize: 30
   },
   statLabelText: {
     fontSize: 13
+  },
+  courseNameText: {
+    fontSize: 20,
+    left: 20,
   }
 })
