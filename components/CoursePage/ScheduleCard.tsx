@@ -75,9 +75,6 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
     marginBottom: 12,
   },
   typeContainer: {
