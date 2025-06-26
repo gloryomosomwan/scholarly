@@ -25,6 +25,36 @@ export interface Activity {
   due?: Date;
   priority?: string;
 }
+export interface Exam {
+  id: number
+  title: string
+  notes: string
+  start: Date
+  end: Date
+  weight: string
+  location: string
+}
+
+export const exams: Exam[] = [
+  {
+    id: 1,
+    title: 'Midterm',
+    start: new Date(2025, 5, 28, 10),
+    end: new Date(2025, 5, 28, 11),
+    weight: '30%',
+    location: 'BSD 30-1',
+    notes: 'Crush it!'
+  },
+  {
+    id: 2,
+    title: 'Final',
+    start: new Date(2025, 6, 28, 10),
+    end: new Date(2025, 6, 28, 11),
+    weight: '40%',
+    location: 'BSD 30-1',
+    notes: 'Crush it again!'
+  },
+]
 
 export const events: Event[] = [
   {
