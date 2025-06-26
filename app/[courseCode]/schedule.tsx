@@ -14,16 +14,12 @@ const lecture: ScheduleCardProps['schedule'] = {
   topic: 'Idek'
 }
 
-const onJoinPress = () => {
-  console.log('huh')
-}
-
 export default function Schedule() {
   const theme = useTheme()
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} >
-      <ScheduleCard schedule={lecture} onJoinPress={onJoinPress} />
+      <ScheduleCard schedule={lecture} />
     </ScrollView>
   );
 }

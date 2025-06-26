@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/utils/useTheme';
@@ -14,10 +14,9 @@ export type ScheduleCardProps = {
     status: 'today' | 'upcoming' | 'available';
     topic: string;
   };
-  onJoinPress?: () => void;
 };
 
-export default function ScheduleCard({ schedule, onJoinPress }: ScheduleCardProps) {
+export default function ScheduleCard({ schedule }: ScheduleCardProps) {
   const theme = useTheme();
 
   const getTypeIcon = (type: string) => {
