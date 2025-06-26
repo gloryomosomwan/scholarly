@@ -1,6 +1,8 @@
 import { StyleSheet, ScrollView } from 'react-native';
 import { CourseEvent } from '@/components/CourseEvent';
 
+import { useTheme } from '@/utils/useTheme';
+
 const lecture = {
   eventType: 'Lecture',
   time: '10:00AM - 11:00AM',
@@ -16,10 +18,12 @@ const lab = {
 }
 
 export default function Schedule() {
+  const theme = useTheme()
+
   return (
-    <ScrollView style={styles.container} >
-      <CourseEvent {...lecture} />
-      <CourseEvent {...lab} />
+    <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} >
+      {/* <CourseEvent {...lecture} />
+      <CourseEvent {...lab} /> */}
     </ScrollView>
   );
 }
@@ -28,6 +32,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'white'
   },
 });

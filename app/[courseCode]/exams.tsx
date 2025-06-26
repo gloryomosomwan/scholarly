@@ -1,6 +1,8 @@
 import { StyleSheet, ScrollView } from 'react-native';
 import { ExamItem } from '@/components/ExamItem';
 
+import { useTheme } from '@/utils/useTheme';
+
 const midterm = {
   title: 'Miderm',
   day: 'Tuesday, October 3',
@@ -16,10 +18,12 @@ const final = {
 }
 
 export default function Exams() {
+  const theme = useTheme()
+
   return (
-    <ScrollView style={styles.container}>
-      <ExamItem {...midterm} />
-      <ExamItem {...final} />
+    <ScrollView style={[styles.container, { backgroundColor: theme.primary }]}>
+      {/* <ExamItem {...midterm} />
+      <ExamItem {...final} /> */}
     </ScrollView>
   );
 }
