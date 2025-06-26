@@ -35,6 +35,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: 'space-between'
   },
+  courseNameText: {
+    fontSize: 20,
+    fontWeight: '600',
+    left: 20,
+  },
   statRowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around'
@@ -43,13 +48,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   statText: {
-    fontSize: 30
+    fontSize: 30,
+    fontWeight: '600'
   },
   statLabelText: {
-    fontSize: 13
+    fontSize: 13,
+    fontWeight: '500'
   },
-  courseNameText: {
-    fontSize: 20,
-    left: 20,
-  }
 })
