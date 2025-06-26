@@ -52,6 +52,13 @@ export default function ExamCard({ title, notes, start, end, location, weight, g
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{notes}</Text>
       </View>
       {/* <View style={[styles.divider, { backgroundColor: theme.grey200 }]} /> */}
+      {
+        graded &&
+        <View style={[styles.gradeContainer, { backgroundColor: theme.accent }]} >
+          <Text style={[styles.gradeLabelText, { color: theme.text }]}>Grade</Text>
+          <Text style={[styles.gradeText, { color: theme.text }]}>{grade}</Text>
+        </View>
+      }
     </View>
   );
 }
@@ -153,4 +160,20 @@ const styles = StyleSheet.create({
   completionIcon: {
     marginRight: 6
   },
+  gradeContainer: {
+    marginTop: 10,
+    borderWidth: 1,
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10
+  },
+  gradeLabelText: {
+    fontSize: 20,
+    fontWeight: '600'
+  },
+  gradeText: {
+    fontSize: 20,
+    fontWeight: '600'
+  }
 });
