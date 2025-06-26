@@ -83,8 +83,6 @@ const styles = StyleSheet.create({
   typeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
-    flex: 1,
   },
   iconContainer: {
     width: 30,
@@ -94,55 +92,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   titleContainer: {
-    flex: 1,
+    marginLeft: 10
   },
   typeText: {
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 2,
   },
-  topicText: {
-    fontSize: 14,
-    lineHeight: 18,
-  },
-  statusContainer: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    borderWidth: 1,
-  },
-  statusText: {
-    fontSize: 12,
-    fontWeight: '500',
-    textTransform: 'capitalize',
-  },
-  detailsContainer: {
-    gap: 8,
-  },
+  detailsContainer: {},
   detailRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    marginBottom: 8,
   },
   detailText: {
     fontSize: 14,
     flex: 1,
-  },
-  actionContainer: {
-    marginTop: 12,
-  },
-  dividerContainer: {
-    height: 1,
-    marginBottom: 12,
-  },
-  joinButton: {
-    paddingVertical: 12,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  joinButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
+    marginLeft: 10
   },
 });
