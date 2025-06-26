@@ -32,6 +32,7 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
         </View>
         <View style={styles.mainTextContainer}>
           <Text style={[styles.titleText, { color: theme.text }]}>{assignment.title}</Text>
+          <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
         </View>
       </View>
       <View style={styles.detailRowContainer}>
@@ -93,7 +94,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   mainTextContainer: {
-    marginLeft: 10
+    marginLeft: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1
   },
   titleText: {
     fontSize: 16,
