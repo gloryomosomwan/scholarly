@@ -21,20 +21,7 @@ interface CourseCardProps {
   color: string;
 }
 
-export default function CourseCard({
-  code,
-  name,
-  instructor,
-  credits,
-  lectureSchedule,
-  labSchedule,
-  seminarSchedule,
-  location,
-  progress,
-  nextEvent,
-  grade,
-  color
-}: CourseCardProps) {
+export default function CourseCard({ code, name, instructor, credits, progress, grade, color }: CourseCardProps) {
   const theme = useTheme();
 
   const lightColor = getColorIntensity(color, 'light');
