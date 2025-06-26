@@ -38,7 +38,7 @@ export interface Exam {
 export const exams: Exam[] = [
   {
     id: 1,
-    title: 'Midterm',
+    title: 'Midterm 1',
     start: new Date(2025, 5, 28, 10),
     end: new Date(2025, 5, 28, 11),
     weight: '30%',
@@ -47,6 +47,15 @@ export const exams: Exam[] = [
   },
   {
     id: 2,
+    title: 'Midterm 2',
+    start: new Date(2025, 6, 12, 10),
+    end: new Date(2025, 6, 12, 11),
+    weight: '40%',
+    location: 'BSD 30-1',
+    notes: 'Crush it again!'
+  },
+  {
+    id: 3,
     title: 'Final',
     start: new Date(2025, 6, 28, 10),
     end: new Date(2025, 6, 28, 11),
