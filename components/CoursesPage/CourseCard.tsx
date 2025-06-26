@@ -49,7 +49,7 @@ export default function CourseCard({ code, name, instructor, credits, progress, 
           </View>
           <View style={styles.gradeContainer}>
             <View style={[styles.gradeCircleContainer, { backgroundColor: darkColor }]}>
-              <Text style={[styles.gradeText, { color: theme.inverseText }]}>{grade}</Text>
+              <Text style={[styles.gradeText, { color: theme.textOnDarkBackground }]}>{grade}</Text>
             </View>
             <Text style={[styles.creditsText, { color: theme.grey500 }]}>{credits} credits</Text>
           </View>
