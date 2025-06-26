@@ -1,20 +1,21 @@
 import { StyleSheet, ScrollView } from 'react-native';
-import { CourseEvent } from '@/components/CourseEvent';
 
 import { useTheme } from '@/utils/useTheme';
+import ScheduleCard from '@/components/CoursePage/ScheduleCard';
+import type { ScheduleCardProps } from '@/components/CoursePage/ScheduleCard';
 
-const lecture = {
-  eventType: 'Lecture',
+const lecture: ScheduleCardProps['schedule'] = {
+  id: 1,
+  type: 'Lecture',
   time: '10:00AM - 11:00AM',
-  frequency: 'Every Week S M T W T F S',
-  location: 'BRJ 5-69'
+  days: 'S M T W T F S',
+  location: 'BRJ 2-30',
+  status: 'upcoming',
+  topic: 'Idek'
 }
 
-const lab = {
-  eventType: 'Lab',
-  time: '4:00PM - 5:00PM',
-  frequency: 'Every Week S M T W T F S',
-  location: 'BRJ 2-80'
+const onJoinPress = () => {
+  console.log('huh')
 }
 
 export default function Schedule() {
@@ -22,8 +23,7 @@ export default function Schedule() {
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} >
-      {/* <CourseEvent {...lecture} />
-      <CourseEvent {...lab} /> */}
+      <ScheduleCard schedule={lecture} onJoinPress={onJoinPress} />
     </ScrollView>
   );
 }
