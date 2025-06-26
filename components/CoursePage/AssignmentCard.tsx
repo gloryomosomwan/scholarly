@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
@@ -22,6 +22,7 @@ function getDateString(date: Date) {
 
 export default function AssignmentCard({ assignment }: AssignmentCardProps) {
   const theme = useTheme();
+  const [completed, setCompleted] = useState(false)
 
   return (
     <View style={[styles.cardContainer, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]}>
@@ -41,7 +42,7 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
       <View style={styles.detailRowContainer}>
         <SymbolView name={'clock'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Due: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(assignment.due)}</Text>Text
+        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(assignment.due)}</Text>
       </View>
       <View style={styles.detailRowContainer}>
         <SymbolView name={'scalemass'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
