@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
+import { useTheme } from '@/utils/useTheme'
+
 type SubheaderProps = {
   courseName: string
   credits: string
@@ -8,17 +10,19 @@ type SubheaderProps = {
 }
 
 export default function Subheader({ courseName, grade, credits }: SubheaderProps) {
+  const theme = useTheme()
+
   return (
-    <View style={styles.container}>
-      <Text>{courseName}</Text>
+    <View style={[styles.container, { backgroundColor: theme.secondary }]}>
+      <Text style={{ color: theme.grey600 }}>{courseName}</Text>
       <View style={styles.statRowContainer}>
         <View style={styles.statContainer}>
-          <Text style={styles.statText}>{grade}</Text>
-          <Text style={styles.statLabelText}>CURRENT GRADE</Text>
+          <Text style={[styles.statText, { color: theme.text }]}>{grade}</Text>
+          <Text style={[styles.statLabelText, { color: theme.grey500 }]}>CURRENT GRADE</Text>
         </View>
         <View style={styles.statContainer}>
-          <Text style={styles.statText}>{credits}</Text>
-          <Text style={styles.statLabelText}>CREDITS</Text>
+          <Text style={[styles.statText, { color: theme.text }]}>{credits}</Text>
+          <Text style={[styles.statLabelText, { color: theme.grey500 }]}>CREDITS</Text>
         </View>
       </View>
     </View>
@@ -27,7 +31,6 @@ export default function Subheader({ courseName, grade, credits }: SubheaderProps
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'cadetblue',
     height: 90,
   },
   statRowContainer: {
