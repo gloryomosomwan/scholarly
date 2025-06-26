@@ -4,6 +4,7 @@ type theme = {
   accent: string,
   text: string,
   inverseText: string,
+  textOnDarkBackground: '#F9FAFB'
   grey100: string
   grey200: string
   grey400: string,
@@ -27,6 +28,7 @@ export const lightTheme: theme = {
   accent: "#0055FF",
   text: '#374151',
   inverseText: '#FFFFFF',
+  textOnDarkBackground: '#F9FAFB',
   grey100: '#F3F4F6',
   grey200: '#E5E7EB',
   grey400: '#9CA3AF',
@@ -74,6 +76,7 @@ export const darkTheme: theme = {
   accent: '#3B82F6',
   text: '#F9FAFB',
   inverseText: '#111827',
+  textOnDarkBackground: '#F9FAFB',
   grey100: '#374151',
   grey200: '#374151',
   grey400: '#6B7280',
