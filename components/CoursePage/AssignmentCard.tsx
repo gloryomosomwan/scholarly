@@ -22,7 +22,7 @@ function getDateString(date: Date) {
 
 export default function AssignmentCard({ assignment }: AssignmentCardProps) {
   const theme = useTheme();
-  const [completed, setCompleted] = useState(false)
+  const [completed, setCompleted] = useState(true)
 
   return (
     <View style={[styles.cardContainer, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]}>
@@ -49,10 +49,18 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Weight: '}</Text>
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{assignment.courseWeight}</Text>
       </View>
-      <View style={[styles.divider, { backgroundColor: theme.grey200 }]} />
-      <Pressable style={[styles.doneButton, { backgroundColor: theme.accent }]}>
-        <Text style={[styles.doneText, { color: 'white' }]}>Mark Done</Text>
-      </Pressable>
+      {/* <View style={[styles.divider, { backgroundColor: theme.grey200 }]} /> */}
+      {
+        completed ?
+          <View style={[styles.completionContent, { backgroundColor: theme.successBackground }]}>
+            <SymbolView name="checkmark.circle.fill" size={16} tintColor={theme.success} style={styles.completionIcon} />
+            <Text style={[styles.completionText, { color: theme.successText }]}>Completed</Text>
+          </View>
+          :
+          <Pressable style={[styles.doneButton, { backgroundColor: theme.accent }]}>
+            <Text style={[styles.doneText, { color: 'white' }]}>Mark Done</Text>
+          </Pressable>
+      }
     </View>
   );
 }
@@ -122,16 +130,33 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 15,
   },
-  divider: {
-    height: 1,
-    marginBottom: 12
-  },
+  // divider: {
+  //   height: 1,
+  //   marginBottom: 12
+  // },
   doneButton: {
     paddingVertical: 10,
     borderRadius: 8,
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 10
   },
   doneText: {
     fontWeight: '500',
+  },
+  completionContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 15,
+    marginTop: 10,
+    alignSelf: 'flex-start'
+  },
+  completionText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  completionIcon: {
+    marginRight: 6
   },
 });
