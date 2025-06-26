@@ -32,7 +32,7 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
     <View style={[styles.cardContainer, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]}>
       <View style={styles.mainContentContainer}>
         <View style={[styles.iconContainer, { backgroundColor: theme.grey200 }]}>
-          <SymbolView name={"doc.text"} size={20} tintColor={theme.text} />
+          <SymbolView name={"square.and.pencil"} size={20} tintColor={theme.text} />
         </View>
         <View style={styles.mainTextContainer}>
           <Text style={[styles.titleText, { color: theme.text }]}>{assignment.title}</Text>

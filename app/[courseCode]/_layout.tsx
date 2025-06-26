@@ -35,11 +35,11 @@ export default function TabLayout() {
         } />
         <MaterialTopTabs.Screen name="assignments" options={{
           title: "Assignments",
-          tabBarIcon: ({ color }) => <SymbolView size={20} name="doc.text" tintColor={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={20} name="square.and.pencil" tintColor={color} />,
         }} />
         <MaterialTopTabs.Screen name="exams" options={{
           title: "Exams",
-          tabBarIcon: ({ color }) => <SymbolView size={20} name="graduationcap" tintColor={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={20} name="doc.text" tintColor={color} />,
         }} />
       </MaterialTopTabs>
     </SafeAreaView>
