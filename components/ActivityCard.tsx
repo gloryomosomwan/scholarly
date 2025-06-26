@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { isAfter } from 'date-fns';
 
-import { courseColors } from '@/utils/Calendar/data';
+import { courseColors } from '@/utils/data';
 import { formatTime } from '@/utils/utility'
 import { useTheme, usePriorityColors } from '@/utils/useTheme';
 

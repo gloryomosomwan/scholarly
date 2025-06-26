@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import { isBefore, isSameDay } from 'date-fns';
 
 import { useTheme } from '@/utils/useTheme';
-import { courseColors } from '@/utils/Calendar/data';
+import { courseColors } from '@/utils/data';
 import { useCalendar } from './CalendarContext';
 
 type EventProps = {

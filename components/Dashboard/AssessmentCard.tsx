@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols'
 
 import dayjs from '@/utils/dayjs'
-import { courseColors } from '@/utils/Calendar/data';
+import { courseColors } from '@/utils/data';
 import { useTheme } from '@/utils/useTheme';
 import tinycolor from 'tinycolor2';
 
