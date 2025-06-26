@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/utils/useTheme';
@@ -22,7 +22,11 @@ function getDateString(date: Date) {
 
 export default function AssignmentCard({ assignment }: AssignmentCardProps) {
   const theme = useTheme();
-  const [completed, setCompleted] = useState(true)
+  const [completed, setCompleted] = useState(false)
+
+  const onPress = () => {
+    setCompleted(true)
+  }
 
   return (
     <View style={[styles.cardContainer, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]}>
@@ -58,9 +62,9 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
             <Text style={[styles.completionText, { color: theme.successText }]}>Completed</Text>
           </View>
           :
-          <Pressable style={[styles.doneButton, { backgroundColor: theme.accent }]}>
+          <TouchableOpacity onPress={onPress} style={[styles.doneButton, { backgroundColor: theme.accent }]}>
             <Text style={[styles.doneText, { color: 'white' }]}>Mark Done</Text>
-          </Pressable>
+          </TouchableOpacity>
       }
     </View>
   );
