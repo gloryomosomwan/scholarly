@@ -39,6 +39,7 @@ export default function ScheduleCard({ schedule }: ScheduleCardProps) {
             <Text style={[styles.typeText, { color: theme.text }]}>{schedule.type}</Text>
           </View>
         </View>
+        <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
       </View>
 
       <View style={styles.detailsContainer}>
@@ -76,6 +77,8 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     marginBottom: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   typeContainer: {
     flexDirection: 'row',
