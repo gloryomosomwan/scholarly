@@ -1,3 +1,5 @@
+import { Event, Activity, Exam, Course } from '@/types'
+
 export const courseColors = {
   'MATH 119': '#FFBE0B',
   'PHYS 102': '#FB5607',
@@ -5,49 +7,6 @@ export const courseColors = {
   'MARK 161': '#8e40bf',
   'CHEM 105': '#3A86FF',
 };
-
-export interface Event {
-  id: number;
-  type: string;
-  course: string;
-  start: Date;
-  end: Date;
-  location:
-  string;
-  icon: string;
-}
-
-export interface Activity {
-  id: number;
-  title: string;
-  course?: string;
-  description?: string;
-  due?: Date;
-  priority?: string;
-}
-export interface Exam {
-  id: number
-  title: string
-  notes: string
-  start: Date
-  end: Date
-  weight: string
-  location: string
-  grade?: string
-}
-
-export interface Course {
-  code: string;
-  name: string;
-  instructor: string;
-  credits: number;
-  lectureSchedule: string;
-  labSchedule?: string;
-  seminarSchedule?: string;
-  location: string;
-  grade: string;
-  color: string;
-}
 
 export const courses: Course[] = [
   {
