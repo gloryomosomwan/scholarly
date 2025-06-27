@@ -5,8 +5,8 @@ import tinycolor from 'tinycolor2';
 
 import dayjs from '@/utils/dayjs'
 import { formatTime, getColorWithOpacity } from '@/utils/utility'
-import { courseColors } from '@/utils/data';
 import { useTheme } from '@/utils/useTheme';
+import { courses } from '@/utils/data';
 
 type EventCardProps = {
   event: {
@@ -20,9 +20,9 @@ type EventCardProps = {
 };
 
 export default function EventCard({ event }: EventCardProps) {
-  const { type, course, emoji, location, start, end } = event;
+  const { type, course, location, start, end } = event;
   const theme = useTheme()
-  const courseColor = courseColors[event.course as keyof typeof courseColors]
+  const courseColor = courses.find(course => course.code === event.course)?.color ?? theme.grey400
 
   const now = new Date();
   const totalDuration = end.getTime() - start.getTime();
