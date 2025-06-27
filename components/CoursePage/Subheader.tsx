@@ -4,9 +4,9 @@ import React from 'react'
 import { useTheme } from '@/utils/useTheme'
 
 type SubheaderProps = {
-  courseName: string
-  credits: string
-  grade: string
+  courseName?: string
+  credits?: string
+  grade?: string
 }
 
 export default function Subheader({ courseName, grade, credits }: SubheaderProps) {

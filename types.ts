@@ -4,8 +4,7 @@ export interface Event {
   course: string;
   start: Date;
   end: Date;
-  location:
-  string;
+  location?: string;
   icon: string;
 }
 
@@ -20,23 +19,23 @@ export interface Activity {
 export interface Exam {
   id: number
   title: string
-  notes: string
   start: Date
   end: Date
-  weight: string
-  location: string
+  weight?: string
+  location?: string
   grade?: string
+  notes?: string
 }
 
 export interface Course {
   code: string;
-  name: string;
-  instructor: string;
-  credits: number;
-  lectureSchedule: string;
+  name?: string;
+  instructor?: string;
+  credits?: number;
+  lectureSchedule?: string;
   labSchedule?: string;
   seminarSchedule?: string;
-  location: string;
-  grade: string;
+  location?: string;
+  grade?: string;
   color: string;
 }
