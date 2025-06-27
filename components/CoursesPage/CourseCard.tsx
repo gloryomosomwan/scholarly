@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import { Link } from 'expo-router'
 
 import { useTheme } from '@/utils/useTheme';
-import { getColorWithOpacity } from '@/utils/utility';
+import { getColorWithOpacity, getColorPalette } from '@/utils/utility';
 
 interface CourseCardProps {
   code: string;
@@ -23,14 +23,9 @@ interface CourseCardProps {
 
 export default function CourseCard({ code, name, instructor, credits, progress, grade, color }: CourseCardProps) {
   const theme = useTheme();
-
-  const lightColor = getColorIntensity(color, 'light');
-  const mediumColor = getColorIntensity(color, 'medium');
-  const darkColor = getColorIntensity(color, 'dark');
-  const darkerColor = getColorIntensity(color, 'darker');
+  const { light, medium, dark, darker } = getColorPalette(color)
   const colorWithOpacity = getColorWithOpacity(color, 0.15);
-
-  const headerBackgroundColor = theme.primary === '#111827' ? theme.grey400 : lightColor;
+  const headerBackgroundColor = theme.primary === '#111827' ? theme.grey400 : light;
   const borderColor = getColorWithOpacity(theme.text, 0.06);
 
   return (
@@ -40,7 +35,7 @@ export default function CourseCard({ code, name, instructor, credits, progress, 
         <View style={styles.headerTopContainer}>
           <View style={styles.courseInfoContainer}>
             <View style={[styles.codeBadgeContainer, { backgroundColor: colorWithOpacity }]}>
-              <Text style={[styles.codeBadgeText, { color: darkerColor }]}>{code}</Text>
+              <Text style={[styles.codeBadgeText, { color: darker }]}>{code}</Text>
             </View>
             <Text style={[styles.courseNameText, { color: theme.text }]} numberOfLines={2}>
               {name}
@@ -48,7 +43,7 @@ export default function CourseCard({ code, name, instructor, credits, progress, 
             <Text style={[styles.instructorText, { color: theme.grey500 }]}>{instructor}</Text>
           </View>
           <View style={styles.gradeContainer}>
-            <View style={[styles.gradeCircleContainer, { backgroundColor: darkColor }]}>
+            <View style={[styles.gradeCircleContainer, { backgroundColor: dark }]}>
               <Text style={[styles.gradeText, { color: theme.textOnDarkBackground }]}>{grade}</Text>
             </View>
             <Text style={[styles.creditsText, { color: theme.grey500 }]}>{credits} credits</Text>
@@ -59,13 +54,13 @@ export default function CourseCard({ code, name, instructor, credits, progress, 
         <View style={styles.progressContainer}>
           <View style={styles.progressLabelContainer}>
             <Text style={[styles.progressLabelText, { color: theme.grey500 }]}>Course Progress</Text>
-            <Text style={[styles.progressPercentText, { color: darkColor }]}>{progress}%</Text>
+            <Text style={[styles.progressPercentText, { color: dark }]}>{progress}%</Text>
           </View>
           <View style={[styles.progressBarContainer, { backgroundColor: theme.grey200 }]}>
             <View
               style={[
                 styles.progressBarFill,
-                { backgroundColor: darkColor, width: `${progress}%` }
+                { backgroundColor: dark, width: `${progress}%` }
               ]}
             />
           </View>
@@ -75,17 +70,17 @@ export default function CourseCard({ code, name, instructor, credits, progress, 
       {/* Schedule Section */}
       <View style={styles.scheduleContainer}>
         <View>
-          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: lightColor }]}>
+          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: light }]}>
             <View style={styles.scheduleCardTextContainer}>
-              <Text style={[styles.scheduleCardHeaderText, { color: darkColor }]}>UP NEXT</Text>
-              <Text style={[styles.scheduleCardText, { color: darkerColor }]}>Lecture 10:00 AM</Text>
+              <Text style={[styles.scheduleCardHeaderText, { color: dark }]}>UP NEXT</Text>
+              <Text style={[styles.scheduleCardText, { color: darker }]}>Lecture 10:00 AM</Text>
             </View>
             <SymbolView name={'bell'} tintColor={color} size={24} />
           </View>
-          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: lightColor }]}>
+          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: light }]}>
             <View style={styles.scheduleCardTextContainer}>
-              <Text style={[styles.scheduleCardHeaderText, { color: darkColor }]}>DUE NEXT</Text>
-              <Text style={[styles.scheduleCardText, { color: darkerColor }]}>Problem Set 5</Text>
+              <Text style={[styles.scheduleCardHeaderText, { color: dark }]}>DUE NEXT</Text>
+              <Text style={[styles.scheduleCardText, { color: darker }]}>Problem Set 5</Text>
             </View>
             <View style={[styles.scheduleCardDot, { backgroundColor: color }]} />
           </View>
@@ -94,9 +89,9 @@ export default function CourseCard({ code, name, instructor, credits, progress, 
 
       {/* Footer Section */}
       <View style={[styles.footerContainer, { borderTopColor: borderColor }]}>
-        <View style={[styles.scheduleCardContainer, { backgroundColor: theme.secondary, borderColor: lightColor, justifyContent: 'center' }]}>
+        <View style={[styles.scheduleCardContainer, { backgroundColor: theme.secondary, borderColor: light, justifyContent: 'center' }]}>
           <Link href={{ pathname: '/[courseCode]/schedule', params: { courseCode: 'MATH 124', courseName: 'Calculus I', grade: 'A+', credits: '3' } }} >
-            <Text style={[styles.scheduleCardHeaderText, { color: darkColor }]}>View Details</Text>
+            <Text style={[styles.scheduleCardHeaderText, { color: dark }]}>View Details</Text>
           </Link>
         </View>
       </View>
@@ -248,46 +243,3 @@ const styles = StyleSheet.create({
     right: 10
   }
 });
-
-const getColorIntensity = (baseColor: string, intensity: 'light' | 'medium' | 'dark' | 'darker'): string => {
-  const colorMap: { [key: string]: { [key in typeof intensity]: string } } = {
-    '#007FFF': {
-      light: '#EFF6FF',
-      medium: '#BFDBFE',
-      dark: '#1D4ED8',
-      darker: '#1E3A8A'
-    },
-    '#10B981': {
-      light: '#D1FAE5',
-      medium: '#86EFAC',
-      dark: '#059669',
-      darker: '#047857'
-    },
-    '#F59E0B': {
-      light: '#FEF3C7',
-      medium: '#FCD34D',
-      dark: '#D97706',
-      darker: '#B45309'
-    },
-    '#EF4444': {
-      light: '#FECACA',
-      medium: '#FCA5A5',
-      dark: '#DC2626',
-      darker: '#B91C1C'
-    },
-    '#8B5CF6': {
-      light: '#EDE9FE',
-      medium: '#C4B5FD',
-      dark: '#7C3AED',
-      darker: '#6D28D9'
-    },
-    '#06B6D4': {
-      light: '#CFFAFE',
-      medium: '#67E8F9',
-      dark: '#0891B2',
-      darker: '#0E7490'
-    }
-  };
-
-  return colorMap[baseColor]?.[intensity] || baseColor;
-};
