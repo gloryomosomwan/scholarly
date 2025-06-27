@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import { Link } from 'expo-router'
 
 import { useTheme } from '@/utils/useTheme';
-import { getColorWithOpacity, getColorPalette } from '@/utils/utility';
+import { getColorWithOpacity, getCoursePalette } from '@/utils/utility';
 
 interface CourseCardProps {
   code: string;
@@ -23,7 +23,7 @@ interface CourseCardProps {
 
 export default function CourseCard({ code, name, instructor, credits, progress, grade, color }: CourseCardProps) {
   const theme = useTheme();
-  const { light, medium, dark, darker } = getColorPalette(color)
+  const { light, medium, dark, darker } = getCoursePalette(color)
   const colorWithOpacity = getColorWithOpacity(color, 0.15);
   const headerBackgroundColor = theme.primary === '#111827' ? theme.grey400 : light;
   const borderColor = getColorWithOpacity(theme.text, 0.06);

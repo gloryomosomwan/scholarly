@@ -14,7 +14,7 @@ export const getColorWithOpacity = (color: string, opacity: number): string => {
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 };
 
-export const getColorPalette = (color: string) => {
+export const getCoursePalette = (color: string) => {
   type Intensity = 'light' | 'medium' | 'dark' | 'darker';
   type ColorPalette = Record<Intensity, string>;
   type ColorMap = Record<string, ColorPalette>;
