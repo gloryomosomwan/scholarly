@@ -1,43 +1,15 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { SymbolView } from 'expo-symbols';
-import { useTheme } from '@/utils/useTheme';
-import CourseCard from '@/components/CoursesPage/CourseCard';
-import { getColorWithOpacity } from '@/utils/utility';
 
-interface CourseProps {
-  code: string;
-  name: string;
-  instructor: string;
-  credits: number;
-  lectureSchedule: string;
-  labSchedule?: string;
-  seminarSchedule?: string;
-  location: string;
-  progress: number;
-  nextEvent: string;
-  grade: string;
-  color: string;
-}
+import { useTheme } from '@/utils/useTheme';
+import { getColorWithOpacity } from '@/utils/utility';
+import { courses } from '@/utils/data';
+
+import CourseCard from '@/components/CoursesPage/CourseCard';
 
 export default function CoursesPage() {
   const theme = useTheme();
-
-  const courseData: CourseProps = {
-    code: "MARK 101",
-    name: "Principles of Marketing",
-    instructor: "Dr. Sarah Chen",
-    credits: 3,
-    lectureSchedule: "MWF 10:00-11:00 AM",
-    labSchedule: "T 2:00-4:00 PM",
-    seminarSchedule: "Th 11:00-12:00 PM",
-    location: "Business 204",
-    progress: 78,
-    nextEvent: "Today 10:00 AM",
-    grade: "A-",
-    color: '#007FFF'
-  };
-
   return (
     <SafeAreaView style={[styles.safeAreaContainer, { backgroundColor: theme.primary }]}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
@@ -73,9 +45,7 @@ export default function CoursesPage() {
 
         {/* Course */}
         <View style={styles.courseContainer}>
-          <CourseCard {...courseData} />
-          <CourseCard {...courseData} />
-          <CourseCard {...courseData} />
+          {courses.map(course => <CourseCard key={course.code}{...course} />)}
         </View>
 
         {/* Add Course Button */}

@@ -5,23 +5,9 @@ import { Link } from 'expo-router'
 
 import { useTheme } from '@/utils/useTheme';
 import { getColorWithOpacity, getCoursePalette } from '@/utils/utility';
+import { Course } from '@/utils/data';
 
-interface CourseCardProps {
-  code: string;
-  name: string;
-  instructor: string;
-  credits: number;
-  lectureSchedule: string;
-  labSchedule?: string;
-  seminarSchedule?: string;
-  location: string;
-  progress: number;
-  nextEvent: string;
-  grade: string;
-  color: string;
-}
-
-export default function CourseCard({ code, name, instructor, credits, progress, grade, color }: CourseCardProps) {
+export default function CourseCard({ code, name, instructor, credits, grade, color }: Course) {
   const theme = useTheme();
   const { light, medium, dark, darker } = getCoursePalette(color)
   const colorWithOpacity = getColorWithOpacity(color, 0.15);
@@ -54,13 +40,13 @@ export default function CourseCard({ code, name, instructor, credits, progress, 
         <View style={styles.progressContainer}>
           <View style={styles.progressLabelContainer}>
             <Text style={[styles.progressLabelText, { color: theme.grey500 }]}>Course Progress</Text>
-            <Text style={[styles.progressPercentText, { color: dark }]}>{progress}%</Text>
+            <Text style={[styles.progressPercentText, { color: dark }]}>40%</Text>
           </View>
           <View style={[styles.progressBarContainer, { backgroundColor: theme.grey200 }]}>
             <View
               style={[
                 styles.progressBarFill,
-                { backgroundColor: dark, width: `${progress}%` }
+                { backgroundColor: dark, width: `40%` }
               ]}
             />
           </View>
