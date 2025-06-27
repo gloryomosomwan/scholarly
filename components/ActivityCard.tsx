@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { isAfter } from 'date-fns';
 
-import { courseColors } from '@/utils/data';
 import { formatTime } from '@/utils/utility'
 import { useTheme, usePriorityColors } from '@/utils/useTheme';
+import { courses } from '@/utils/data';
 
 type ActivityCardProps = {
   activity: {
@@ -20,7 +20,7 @@ type ActivityCardProps = {
 export default function ActivityCard({ activity }: ActivityCardProps) {
   const [completed, setCompleted] = useState(false);
   const [overdue, setOverdue] = useState(activity.due && isAfter(new Date(), activity.due))
-  const courseColor = courseColors[activity.course as keyof typeof courseColors];
+  const color = activity.course && courses.find(course => course.code === activity.course)?.color
   const theme = useTheme()
   const priorityColors = usePriorityColors()
 
@@ -78,7 +78,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               {/* Course tag */}
               {activity.course && (
                 <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
-                  <View style={[styles.courseDot, { backgroundColor: courseColor }]} />
+                  {color && <View style={[styles.courseDot, { backgroundColor: color }]} />}
                   <Text style={[styles.courseText, { color: theme.text }]}>{activity.course}</Text>
                 </View>
               )}
