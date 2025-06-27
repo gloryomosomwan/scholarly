@@ -40,17 +40,17 @@ export default function CourseCard({ code, name, instructor, credits, grade, col
       {/* Schedule Section */}
       <View style={styles.scheduleContainer}>
         <View>
-          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: scheme === 'light' ? light : dark }]}>
+          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.10), borderColor: scheme === 'light' ? light : dark }]}>
             <View style={styles.scheduleCardTextContainer}>
-              <Text style={[styles.scheduleCardHeaderText, { color: dark }]}>UP NEXT</Text>
-              <Text style={[styles.scheduleCardText, { color: darker }]}>Lecture 10:00 AM</Text>
+              <Text style={[styles.scheduleCardHeaderText, { color: color }]}>UP NEXT</Text>
+              <Text style={[styles.scheduleCardText, { color: dark }]}>Lecture 10:00 AM</Text>
             </View>
             <SymbolView name={'bell'} tintColor={color} size={24} />
           </View>
-          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: scheme === 'light' ? light : dark }]}>
+          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.10), borderColor: scheme === 'light' ? light : dark }]}>
             <View style={styles.scheduleCardTextContainer}>
-              <Text style={[styles.scheduleCardHeaderText, { color: dark }]}>DUE NEXT</Text>
-              <Text style={[styles.scheduleCardText, { color: darker }]}>Problem Set 5</Text>
+              <Text style={[styles.scheduleCardHeaderText, { color: color }]}>DUE NEXT</Text>
+              <Text style={[styles.scheduleCardText, { color: dark }]}>Problem Set 5</Text>
             </View>
             <View style={[styles.scheduleCardDot, { backgroundColor: color }]} />
           </View>
