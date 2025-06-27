@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, useColorScheme } from 'react-native';
 import { SymbolView } from 'expo-symbols';
-import { Link } from 'expo-router'
+import { router } from 'expo-router'
 
 import { useTheme } from '@/utils/useTheme';
 import { getColorWithOpacity, getCoursePalette } from '@/utils/utility';
@@ -14,8 +14,12 @@ export default function CourseCard({ code, name, instructor, credits, grade, col
   const colorWithOpacity = getColorWithOpacity(color, 0.15);
   const borderColor = getColorWithOpacity(theme.text, 0.06);
 
+  const onPress = () => {
+    router.navigate({ pathname: '/[courseCode]/schedule', params: { courseCode: code, courseName: name, instructor: instructor, credits: credits, grade: grade, color: color } })
+  }
+
   return (
-    <TouchableOpacity style={[styles.cardContainer, { backgroundColor: theme.secondary }]} activeOpacity={0.95}>
+    <TouchableOpacity onPress={onPress} style={[styles.cardContainer, { backgroundColor: theme.secondary }]} activeOpacity={0.95}>
       {/* Header Section */}
       <View style={[styles.headerContainer, { backgroundColor: scheme === 'light' ? medium : darker }]}>
         <View style={styles.headerTopContainer}>
@@ -54,15 +58,6 @@ export default function CourseCard({ code, name, instructor, credits, grade, col
             </View>
             <View style={[styles.scheduleCardDot, { backgroundColor: color }]} />
           </View>
-        </View>
-      </View>
-
-      {/* Footer Section */}
-      <View style={[styles.footerContainer, { borderTopColor: borderColor }]}>
-        <View style={[styles.scheduleCardContainer, { backgroundColor: theme.secondary, borderColor: scheme === 'light' ? light : dark, justifyContent: 'center' }]}>
-          <Link href={{ pathname: '/[courseCode]/schedule', params: { courseCode: code, courseName: name, instructor: instructor, credits: credits, grade: grade, color: color } }} >
-            <Text style={[styles.scheduleCardHeaderText, { color: dark }]}>View Details</Text>
-          </Link>
         </View>
       </View>
     </TouchableOpacity>
@@ -151,12 +146,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
     paddingHorizontal: 15,
-  },
-  footerContainer: {
-    paddingTop: 16,
-    paddingBottom: 20,
-    paddingHorizontal: 20,
-    borderTopWidth: 1,
   },
   scheduleCardContainer: {
     borderWidth: 1,
