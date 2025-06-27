@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols'
+import tinycolor from 'tinycolor2';
 
 import dayjs from '@/utils/dayjs'
-import { courseColors } from '@/utils/data';
 import { useTheme } from '@/utils/useTheme';
-import tinycolor from 'tinycolor2';
+import { courses } from '@/utils/data';
 
 type AssessmentCardProps = {
   assessment: {
@@ -19,8 +19,8 @@ type AssessmentCardProps = {
 };
 
 export default function AssessmentCard({ assessment }: AssessmentCardProps) {
-  const courseColor = courseColors[assessment.course as keyof typeof courseColors]
   const theme = useTheme()
+  const courseColor = courses.find(course => course.code === assessment.course)?.color ?? theme.grey400
 
   const now = dayjs()
   const isCurrentEvent = now.isBetween(assessment.start, assessment.end)
