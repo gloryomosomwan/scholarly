@@ -1,3 +1,6 @@
+import { CourseColorMap } from './courseColors';
+export type CourseColor = keyof typeof CourseColorMap;
+
 export interface Event {
   id: number;
   type: string;
@@ -37,5 +40,5 @@ export interface Course {
   seminarSchedule?: string;
   location?: string;
   grade?: string;
-  color: string;
+  color: CourseColor;
 }

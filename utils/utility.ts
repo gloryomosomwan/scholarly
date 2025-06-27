@@ -1,4 +1,5 @@
 import { CourseColorMap } from "@/courseColors";
+import { CourseColor } from "@/types";
 
 export function formatTime(date: Date) {
   return date.toLocaleTimeString('en-US', {
@@ -16,6 +17,6 @@ export const getColorWithOpacity = (color: string, opacity: number): string => {
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 };
 
-export const getCoursePalette = (color: string) => {
+export const getCoursePalette = (color: CourseColor) => {
   return CourseColorMap[color]
 }

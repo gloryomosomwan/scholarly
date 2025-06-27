@@ -1,8 +1,4 @@
-type Intensity = 'light' | 'medium' | 'dark' | 'darker';
-type ColorPalette = Record<Intensity, string>;
-type CourseColorMap = Record<string, ColorPalette>;
-
-export const CourseColorMap: CourseColorMap = {
+export const CourseColorMap = {
   '#007FFF': {
     light: '#EFF6FF',
     medium: '#BFDBFE',
@@ -38,5 +34,5 @@ export const CourseColorMap: CourseColorMap = {
     medium: '#67E8F9',
     dark: '#0891B2',
     darker: '#0E7490'
-  }
+  } as const
 };
