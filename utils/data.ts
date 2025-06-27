@@ -1,13 +1,5 @@
 import { Event, Activity, Exam, Course } from '@/types'
 
-export const courseColors = {
-  'MATH 119': '#FFBE0B',
-  'PHYS 102': '#FB5607',
-  'HIST 211': '#FF0000',
-  'MARK 161': '#8e40bf',
-  'CHEM 105': '#3A86FF',
-};
-
 export const courses: Course[] = [
   {
     code: "MATH 119",
