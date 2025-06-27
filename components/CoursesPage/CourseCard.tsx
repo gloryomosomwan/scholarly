@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, useColorScheme } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { Link } from 'expo-router'
 
@@ -9,46 +9,30 @@ import { Course } from '@/types';
 
 export default function CourseCard({ code, name, instructor, credits, grade, color }: Course) {
   const theme = useTheme();
+  const scheme = useColorScheme()
   const { light, medium, dark, darker } = getCoursePalette(color)
   const colorWithOpacity = getColorWithOpacity(color, 0.15);
-  const headerBackgroundColor = theme.primary === '#111827' ? theme.grey400 : light;
   const borderColor = getColorWithOpacity(theme.text, 0.06);
 
   return (
     <TouchableOpacity style={[styles.cardContainer, { backgroundColor: theme.secondary }]} activeOpacity={0.95}>
       {/* Header Section */}
-      <View style={[styles.headerContainer, { backgroundColor: headerBackgroundColor }]}>
+      <View style={[styles.headerContainer, { backgroundColor: scheme === 'light' ? medium : darker }]}>
         <View style={styles.headerTopContainer}>
           <View style={styles.courseInfoContainer}>
-            <View style={[styles.codeBadgeContainer, { backgroundColor: colorWithOpacity }]}>
-              <Text style={[styles.codeBadgeText, { color: darker }]}>{code}</Text>
+            <View style={[styles.courseCodeContainer, { backgroundColor: colorWithOpacity }]}>
+              <Text style={[styles.courseCodeText, { color: scheme === 'light' ? dark : light }]}>{code}</Text>
             </View>
             <Text style={[styles.courseNameText, { color: theme.text }]} numberOfLines={2}>
               {name}
             </Text>
-            <Text style={[styles.instructorText, { color: theme.grey500 }]}>{instructor}</Text>
+            <Text style={[styles.instructorText, { color: theme.grey600 }]}>{instructor}</Text>
           </View>
           <View style={styles.gradeContainer}>
             <View style={[styles.gradeCircleContainer, { backgroundColor: dark }]}>
               <Text style={[styles.gradeText, { color: theme.textOnDarkBackground }]}>{grade}</Text>
             </View>
-            <Text style={[styles.creditsText, { color: theme.grey500 }]}>{credits} credits</Text>
-          </View>
-        </View>
-
-        {/* Progress Bar */}
-        <View style={styles.progressContainer}>
-          <View style={styles.progressLabelContainer}>
-            <Text style={[styles.progressLabelText, { color: theme.grey500 }]}>Course Progress</Text>
-            <Text style={[styles.progressPercentText, { color: dark }]}>40%</Text>
-          </View>
-          <View style={[styles.progressBarContainer, { backgroundColor: theme.grey200 }]}>
-            <View
-              style={[
-                styles.progressBarFill,
-                { backgroundColor: dark, width: `40%` }
-              ]}
-            />
+            <Text style={[styles.creditsText, { color: scheme === 'light' ? darker : light }]}>{credits} credits</Text>
           </View>
         </View>
       </View>
@@ -56,14 +40,14 @@ export default function CourseCard({ code, name, instructor, credits, grade, col
       {/* Schedule Section */}
       <View style={styles.scheduleContainer}>
         <View>
-          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: light }]}>
+          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: scheme === 'light' ? light : dark }]}>
             <View style={styles.scheduleCardTextContainer}>
               <Text style={[styles.scheduleCardHeaderText, { color: dark }]}>UP NEXT</Text>
               <Text style={[styles.scheduleCardText, { color: darker }]}>Lecture 10:00 AM</Text>
             </View>
             <SymbolView name={'bell'} tintColor={color} size={24} />
           </View>
-          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: light }]}>
+          <View style={[styles.scheduleCardContainer, { backgroundColor: getColorWithOpacity(color, 0.15), borderColor: scheme === 'light' ? light : dark }]}>
             <View style={styles.scheduleCardTextContainer}>
               <Text style={[styles.scheduleCardHeaderText, { color: dark }]}>DUE NEXT</Text>
               <Text style={[styles.scheduleCardText, { color: darker }]}>Problem Set 5</Text>
@@ -75,7 +59,7 @@ export default function CourseCard({ code, name, instructor, credits, grade, col
 
       {/* Footer Section */}
       <View style={[styles.footerContainer, { borderTopColor: borderColor }]}>
-        <View style={[styles.scheduleCardContainer, { backgroundColor: theme.secondary, borderColor: light, justifyContent: 'center' }]}>
+        <View style={[styles.scheduleCardContainer, { backgroundColor: theme.secondary, borderColor: scheme === 'light' ? light : dark, justifyContent: 'center' }]}>
           <Link href={{ pathname: '/[courseCode]/schedule', params: { courseCode: code, courseName: name, instructor: instructor, credits: credits, grade: grade, color: color } }} >
             <Text style={[styles.scheduleCardHeaderText, { color: dark }]}>View Details</Text>
           </Link>
@@ -114,14 +98,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: 16,
   },
-  codeBadgeContainer: {
+  courseCodeContainer: {
     alignSelf: 'flex-start',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 12,
     marginBottom: 12,
   },
-  codeBadgeText: {
+  courseCodeText: {
     fontSize: 12,
     fontWeight: '700',
     letterSpacing: 0.5,
@@ -162,32 +146,6 @@ const styles = StyleSheet.create({
   creditsText: {
     fontSize: 12,
     fontWeight: '500',
-  },
-  progressContainer: {
-    marginTop: 4,
-  },
-  progressLabelContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  progressLabelText: {
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  progressPercentText: {
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  progressBarContainer: {
-    height: 6,
-    borderRadius: 3,
-    overflow: 'hidden',
-  },
-  progressBarFill: {
-    height: '100%',
-    borderRadius: 3,
   },
   scheduleContainer: {
     paddingTop: 20,
