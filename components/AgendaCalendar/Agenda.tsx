@@ -7,7 +7,7 @@ import { isSameDay } from 'date-fns';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import Event from "@/components/AgendaCalendar/Event";
-import { events, assignments, tasks } from '@/utils/data'
+import { events, assignments, tasks } from '@/data'
 import { useTheme } from '@/utils/useTheme'
 import { useCalendar } from './CalendarContext';
 import { compareEventTimes, compareActivityTimes } from '@/utils/Calendar/utils';

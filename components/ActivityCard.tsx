@@ -5,7 +5,7 @@ import { isAfter } from 'date-fns';
 
 import { formatTime } from '@/utils/utility'
 import { useTheme, usePriorityColors } from '@/utils/useTheme';
-import { courses } from '@/utils/data';
+import { courses } from '@/data';
 
 type ActivityCardProps = {
   activity: {

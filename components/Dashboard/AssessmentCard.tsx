@@ -5,7 +5,7 @@ import tinycolor from 'tinycolor2';
 
 import dayjs from '@/utils/dayjs'
 import { useTheme } from '@/utils/useTheme';
-import { courses } from '@/utils/data';
+import { courses } from '@/data';
 
 type AssessmentCardProps = {
   assessment: {

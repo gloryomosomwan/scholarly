@@ -1,7 +1,7 @@
 import { StyleSheet, ScrollView } from 'react-native';
 
 import { useTheme } from '@/utils/useTheme';
-import { exams } from '@/utils/data';
+import { exams } from '@/data';
 import ExamCard from '@/components/CoursePage/ExamCard';
 
 export default function Exams() {

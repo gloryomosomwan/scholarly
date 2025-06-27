@@ -5,7 +5,7 @@ import { isBefore, isSameDay } from 'date-fns';
 
 import { useTheme } from '@/utils/useTheme';
 import { useCalendar } from './CalendarContext';
-import { courses } from '@/utils/data';
+import { courses } from '@/data';
 
 type EventProps = {
   event: {

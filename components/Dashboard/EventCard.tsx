@@ -6,7 +6,7 @@ import tinycolor from 'tinycolor2';
 import dayjs from '@/utils/dayjs'
 import { formatTime, getColorWithOpacity } from '@/utils/utility'
 import { useTheme } from '@/utils/useTheme';
-import { courses } from '@/utils/data';
+import { courses } from '@/data';
 
 type EventCardProps = {
   event: {
