@@ -53,7 +53,7 @@ export default function ExamCard({ title, notes, start, end, location, weight, g
       </View>
       {
         graded &&
-        <View style={[styles.gradeContainer, { backgroundColor: theme.successBackground, borderColor: theme.successBorder }]} >
+        <View style={[styles.gradeContainer, { backgroundColor: theme.successBackground }]} >
           <Text style={[styles.gradeLabelText, { color: theme.successText }]}>Grade</Text>
           <Text style={[styles.gradeText, { color: theme.successText }]}>{grade}</Text>
         </View>
@@ -157,7 +157,6 @@ const styles = StyleSheet.create({
   },
   gradeContainer: {
     marginTop: 10,
-    borderWidth: 1,
     borderRadius: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
