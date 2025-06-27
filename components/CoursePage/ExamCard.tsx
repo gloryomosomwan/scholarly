@@ -51,12 +51,11 @@ export default function ExamCard({ title, notes, start, end, location, weight, g
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Notes: '}</Text>
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{notes}</Text>
       </View>
-      {/* <View style={[styles.divider, { backgroundColor: theme.grey200 }]} /> */}
       {
         graded &&
-        <View style={[styles.gradeContainer, { backgroundColor: theme.accent }]} >
-          <Text style={[styles.gradeLabelText, { color: theme.text }]}>Grade</Text>
-          <Text style={[styles.gradeText, { color: theme.text }]}>{grade}</Text>
+        <View style={[styles.gradeContainer, { backgroundColor: theme.successBackground, borderColor: theme.successBorder }]} >
+          <Text style={[styles.gradeLabelText, { color: theme.successText }]}>Grade</Text>
+          <Text style={[styles.gradeText, { color: theme.successText }]}>{grade}</Text>
         </View>
       }
     </View>
@@ -131,10 +130,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 15,
   },
-  // divider: {
-  //   height: 1,
-  //   marginBottom: 12
-  // },
   doneButton: {
     paddingVertical: 10,
     borderRadius: 8,
