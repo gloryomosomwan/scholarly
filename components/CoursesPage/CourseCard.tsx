@@ -76,7 +76,7 @@ export default function CourseCard({ code, name, instructor, credits, grade, col
       {/* Footer Section */}
       <View style={[styles.footerContainer, { borderTopColor: borderColor }]}>
         <View style={[styles.scheduleCardContainer, { backgroundColor: theme.secondary, borderColor: light, justifyContent: 'center' }]}>
-          <Link href={{ pathname: '/[courseCode]/schedule', params: { courseCode: 'MATH 124', courseName: 'Calculus I', grade: 'A+', credits: '3' } }} >
+          <Link href={{ pathname: '/[courseCode]/schedule', params: { courseCode: code, courseName: name, instructor: instructor, credits: credits, grade: grade, color: color } }} >
             <Text style={[styles.scheduleCardHeaderText, { color: dark }]}>View Details</Text>
           </Link>
         </View>
