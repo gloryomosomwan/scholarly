@@ -4,6 +4,7 @@ import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/utils/useTheme';
 import { Exam } from '@/types';
+import Graded from './Graded';
 
 function getDateString(date: Date) {
   const day = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
@@ -51,13 +52,7 @@ export default function ExamCard({ title, notes, start, end, location, weight, g
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Notes: '}</Text>
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{notes}</Text>
       </View>
-      {
-        graded &&
-        <View style={[styles.gradeContainer, { backgroundColor: theme.successBackground }]} >
-          <Text style={[styles.gradeLabelText, { color: theme.successText }]}>Grade</Text>
-          <Text style={[styles.gradeText, { color: theme.successText }]}>{grade}</Text>
-        </View>
-      }
+      {graded && grade && <Graded grade={grade} />}
     </View>
   );
 }
@@ -155,19 +150,4 @@ const styles = StyleSheet.create({
   completionIcon: {
     marginRight: 6
   },
-  gradeContainer: {
-    marginTop: 10,
-    borderRadius: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 10
-  },
-  gradeLabelText: {
-    fontSize: 20,
-    fontWeight: '600'
-  },
-  gradeText: {
-    fontSize: 20,
-    fontWeight: '600'
-  }
 });
