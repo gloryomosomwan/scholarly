@@ -17,7 +17,7 @@ export const MaterialTopTabs = withLayoutContext<
 >(Navigator);
 
 export default function TabLayout() {
-  const { courseName, credits, grade } = useLocalSearchParams<{ courseName: string, credits: string, grade: string }>()
+  const { courseName, credits, grade, color } = useLocalSearchParams<{ courseName: string, credits: string, grade: string, color: string }>()
   const theme = useTheme()
 
   return (
@@ -27,19 +27,20 @@ export default function TabLayout() {
         tabBarStyle: { backgroundColor: theme.secondary },
         tabBarLabelStyle: { color: theme.text },
         tabBarItemStyle: { flexDirection: 'row' },
+        tabBarIndicatorStyle: { backgroundColor: color }
       }}>
         <MaterialTopTabs.Screen name="schedule" options={{
           title: "Schedule",
-          tabBarIcon: ({ color }) => <SymbolView size={20} name="calendar" tintColor={color} />,
+          tabBarIcon: () => <SymbolView size={20} name="calendar" tintColor={color} />,
         }
         } />
         <MaterialTopTabs.Screen name="assignments" options={{
           title: "Assignments",
-          tabBarIcon: ({ color }) => <SymbolView size={20} name="square.and.pencil" tintColor={color} />,
+          tabBarIcon: () => <SymbolView size={20} name="square.and.pencil" tintColor={color} />,
         }} />
         <MaterialTopTabs.Screen name="exams" options={{
           title: "Exams",
-          tabBarIcon: ({ color }) => <SymbolView size={20} name="doc.text" tintColor={color} />,
+          tabBarIcon: () => <SymbolView size={20} name="doc.text" tintColor={color} />,
         }} />
       </MaterialTopTabs>
     </SafeAreaView>

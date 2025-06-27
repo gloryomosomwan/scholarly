@@ -5,6 +5,7 @@ import { useTheme } from "@/utils/useTheme";
 
 type CourseRouteParams = {
   courseCode?: string;
+  color?: string
 };
 
 export default function RootLayout() {
@@ -17,13 +18,14 @@ export default function RootLayout() {
         options={({ route }: { route: { params?: CourseRouteParams } }) => ({
           title: route.params?.courseCode,
           headerBackTitle: 'Courses',
+          headerTintColor: route.params?.color,
           headerStyle: {
             backgroundColor: theme.secondary
           },
           headerLargeTitleShadowVisible: false,
           headerLargeTitle: true,
           headerTitleStyle: { color: theme.text },
-          headerRight: () => (<Button title='Edit Course' onPress={() => alert('Editing course! 😂')}></Button>),
+          headerRight: () => (<Button color={route.params?.color} title='Edit Course' onPress={() => alert('Editing course! 😂')}></Button>),
         })}
       />
     </Stack>
