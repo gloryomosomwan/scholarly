@@ -24,21 +24,14 @@ export default function CoursesPage() {
           </View>
 
           {/* Stats Row */}
-          <View style={[styles.statsContainer, {
-            backgroundColor: theme.primary
-          }]}>
-            <View style={styles.statItemContainer}>
-              <View style={styles.statTextContainer}>
-                <Text style={[styles.statLabelText, { color: theme.grey400 }]}>GPA</Text>
-                <Text style={[styles.statValueText, { color: theme.text }]}>3.7</Text>
-              </View>
+          <View style={[styles.statRowContainer, { backgroundColor: theme.primary }]}>
+            <View style={[styles.statContainer, { backgroundColor: theme.grey100 }]}>
+              <Text style={[styles.statLabelText, { color: theme.grey600 }]}>GPA: </Text>
+              <Text style={[styles.statValueText, { color: theme.text }]}>3.7</Text>
             </View>
-
-            <View style={styles.statItemContainer}>
-              <View style={styles.statTextContainer}>
-                <Text style={[styles.statLabelText, { color: theme.grey400 }]}>CREDITS</Text>
-                <Text style={[styles.statValueText, { color: theme.text }]}>10</Text>
-              </View>
+            <View style={[styles.statContainer, { backgroundColor: theme.grey100 }]}>
+              <Text style={[styles.statLabelText, { color: theme.grey600 }]}>Credits: </Text>
+              <Text style={[styles.statValueText, { color: theme.text }]}>10</Text>
             </View>
           </View>
         </View>
@@ -50,10 +43,7 @@ export default function CoursesPage() {
 
         {/* Add Course Button */}
         <View style={styles.addCourseContainer}>
-          <TouchableOpacity style={[styles.addCourseButtonContainer, {
-            backgroundColor: theme.secondary,
-            borderColor: theme.grey400
-          }]}>
+          <TouchableOpacity style={[styles.addCourseButtonContainer, { backgroundColor: theme.secondary, borderColor: theme.grey400 }]}>
             <View style={styles.addCourseContentContainer}>
               <View style={[styles.addCourseIconContainer, { backgroundColor: getColorWithOpacity(theme.accent, 0.05) }]}>
                 <SymbolView name="plus" size={20} tintColor={theme.accent} />
@@ -81,23 +71,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 4,
-    // },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 8,
-    // elevation: 8,
     paddingTop: 24,
-    paddingBottom: 24,
     paddingHorizontal: 20,
+    marginBottom: 10
   },
   headerTopContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 24,
+    marginBottom: 10,
   },
   semesterInfoContainer: {
     flex: 1,
@@ -125,12 +107,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
   },
-  statsContainer: {
+  statRowContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  },
-  statItemContainer: {
+    justifyContent: 'flex-start',
   },
   statIconContainer: {
     paddingTop: 12,
@@ -140,17 +119,20 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginRight: 12,
   },
-  statTextContainer: {
-    alignItems: 'center'
+  statContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 20,
   },
   statLabelText: {
     fontSize: 11,
     fontWeight: '400',
-    letterSpacing: 0.5,
-    marginBottom: 2,
   },
   statValueText: {
-    fontSize: 30,
+    fontSize: 11,
     fontWeight: 'bold',
   },
   statDivider: {

@@ -18,11 +18,11 @@ export default function Subheader({ courseName, grade, credits }: SubheaderProps
       <View style={styles.statRowContainer}>
         <View style={[styles.statContainer, { backgroundColor: theme.grey200 }]}>
           <Text style={[styles.statLabelText, { color: theme.grey500 }]}>Grade: </Text>
-          <Text style={[styles.statText, { color: theme.text }]}>{grade}</Text>
+          <Text style={[styles.statValueText, { color: theme.text }]}>{grade}</Text>
         </View>
         <View style={[styles.statContainer, { backgroundColor: theme.grey200 }]}>
           <Text style={[styles.statLabelText, { color: theme.grey500 }]}>Credits: </Text>
-          <Text style={[styles.statText, { color: theme.text }]}>{credits}</Text>
+          <Text style={[styles.statValueText, { color: theme.text }]}>{credits}</Text>
         </View>
       </View>
     </View>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 20,
   },
-  statText: {
+  statValueText: {
     fontSize: 11,
     fontWeight: '600'
   },
