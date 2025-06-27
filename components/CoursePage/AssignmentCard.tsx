@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/utils/useTheme';
+import { getColorWithOpacity } from '@/utils/utility';
 
 export type AssignmentCardProps = {
   assignment: {
@@ -54,7 +55,6 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Notes: '}</Text>
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{assignment.description}</Text>
       </View>
-      {/* <View style={[styles.divider, { backgroundColor: theme.grey200 }]} /> */}
       {
         completed ?
           <View style={[styles.completionContent, { backgroundColor: theme.successBackground }]}>
@@ -62,8 +62,8 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
             <Text style={[styles.completionText, { color: theme.successText }]}>Completed</Text>
           </View>
           :
-          <TouchableOpacity onPress={onPress} style={[styles.doneButton, { backgroundColor: theme.accent }]}>
-            <Text style={[styles.doneText, { color: 'white' }]}>Mark Done</Text>
+          <TouchableOpacity onPress={onPress} style={[styles.doneButton, { backgroundColor: getColorWithOpacity(theme.accent, 0.15) }]}>
+            <Text style={[styles.doneText, { color: theme.accent }]}>Mark Done</Text>
           </TouchableOpacity>
       }
     </View>
@@ -138,10 +138,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 15,
   },
-  // divider: {
-  //   height: 1,
-  //   marginBottom: 12
-  // },
   doneButton: {
     paddingVertical: 10,
     borderRadius: 8,
