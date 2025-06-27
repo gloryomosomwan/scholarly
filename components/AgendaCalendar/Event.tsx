@@ -4,8 +4,8 @@ import { SymbolView } from 'expo-symbols';
 import { isBefore, isSameDay } from 'date-fns';
 
 import { useTheme } from '@/utils/useTheme';
-import { courseColors } from '@/utils/data';
 import { useCalendar } from './CalendarContext';
+import { courses } from '@/utils/data';
 
 type EventProps = {
   event: {
@@ -28,7 +28,7 @@ function isAssessment(eventType: string) {
 export default function Event({ event }: EventProps) {
   const theme = useTheme()
   const { calendarState } = useCalendar()
-  const courseColor = courseColors[event.course as keyof typeof courseColors];
+  const courseColor = courses.find(course => course.code === event.course)?.color ?? theme.grey400
   const eventWasEarlierToday = (() => {
     if (isSameDay(event.start, calendarState.todayDate) && isBefore(event.end, Date.now())) {
       return true
