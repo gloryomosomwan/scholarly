@@ -21,37 +21,30 @@ export default function TabLayout() {
       tabBarShowLabel: false,
       tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary, display: 'flex' },
       tabBarIconStyle: { top: 15 },
+      headerShown: false,
       sceneStyle: { backgroundColor: theme.primary }
     }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
           tabBarIcon: ({ color }) => <SymbolView size={35} name="square.grid.2x2" tintColor={color} />,
-          headerShown: false,
         }}
       />
       <Tabs.Screen
         name="calendar"
         options={{
-          title: 'Calendar',
           tabBarIcon: ({ color }) => <SymbolView size={35} name="calendar" tintColor={color} />,
-          headerShown: false
         }}
       />
       <Tabs.Screen
         name="(courses)"
         options={{
-          title: 'Courses',
-          headerShown: false,
           tabBarIcon: ({ color }) => <SymbolView size={35} name="book" tintColor={color} />,
         }}
       />
       <Tabs.Screen
         name="tasks"
         options={{
-          title: 'Tasks',
-          headerShown: false,
           tabBarIcon: ({ color }) => <SymbolView size={35} name="checklist" tintColor={color} />,
         }}
       />
@@ -60,6 +53,7 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ color }) => <SymbolView size={35} name="gearshape" tintColor={color} />,
+          headerShown: true
         }}
       />
     </Tabs>
