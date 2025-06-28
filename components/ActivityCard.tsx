@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
 import { SymbolView } from 'expo-symbols';
-import { isAfter } from 'date-fns';
+import { isAfter, format } from 'date-fns';
 
-import { formatTime } from '@/utils/utility'
 import { useTheme, usePriorityColors } from '@/utils/useTheme';
 import { courses } from '@/data';
 
@@ -61,14 +60,13 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               <Text style={[styles.title, { color: theme.text }, completed && [styles.completedTitle, { color: theme.grey500 }]]}>
                 {activity.title}
               </Text>
-              {activity.due &&
-                <View style={styles.dueTimeContainer}>
-                  {overdue && <SymbolView name={'exclamationmark.circle'} tintColor={'red'} size={12} />}
-                  <Text style={[styles.dueTime, { color: theme.grey600 }]}> {formatTime(activity.due)} </Text>
-                </View>
-              }
+              {/* Edit Button */}
+              <Pressable style={styles.editButton}>
+                <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
+              </Pressable>
             </View>
 
+            {/* Description */}
             {activity.description && (
               <Text style={[styles.description, { color: theme.grey500 }]}>{activity.description}</Text>
             )}
@@ -98,6 +96,19 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
                 <Text style={[styles.timeText, { color: theme.text }]}>30 min</Text>
               </View>
             </View>
+
+            {activity.due &&
+              <View style={styles.dueContainer}>
+                <View style={styles.dueDateContainer}>
+                  <SymbolView name="calendar" size={15} tintColor={theme.grey500} />
+                  <Text style={[styles.dueText, { color: theme.grey600 }]}>{format(activity.due, 'MMM d')}</Text>
+                </View>
+                <View style={styles.dueTimeContainer}>
+                  <SymbolView name="clock" size={15} tintColor={theme.grey500} />
+                  <Text style={[styles.dueText, { color: theme.grey600 }]}>{format(activity.due, 'h:mm a')}</Text>
+                </View>
+              </View>
+            }
           </View>
         </View>
 
@@ -150,7 +161,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 8,
+    marginBottom: 6,
   },
   title: {
     flex: 1,
@@ -162,15 +173,16 @@ const styles = StyleSheet.create({
   completedTitle: {
     textDecorationLine: 'line-through',
   },
-  dueTime: {
-    fontSize: 14,
-    fontWeight: '500',
+  editButton: {
+    transform: [{ rotate: '90deg' }]
   },
   description: {
     fontSize: 14,
     marginBottom: 8,
   },
   tagsContainer: {
+    marginTop: 6,
+    marginBottom: 12,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
@@ -226,8 +238,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
+  dueContainer: {
+    flexDirection: 'row',
+    gap: 4
+  },
+  dueDateContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    marginRight: 5
+  },
   dueTimeContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    gap: 3,
+    marginRight: 5
   },
+  dueText: {
+    fontSize: 13
+  }
 });
