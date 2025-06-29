@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   cardContent: {
-    flex: 1,
+    // flex: 1,
   },
   header: {
     flexDirection: 'row',
