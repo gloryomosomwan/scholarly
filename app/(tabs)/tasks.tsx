@@ -25,7 +25,7 @@ export default function Tab() {
           </Pressable>
         </View>
       </View>
-      <ScrollView style={styles.tasksContainer} contentInsetAdjustmentBehavior="automatic">
+      <ScrollView style={[styles.tasksContainer, {}]} contentContainerStyle={{}} contentInsetAdjustmentBehavior="automatic">
         {tasks.map((task) => <ActivityCard key={task.id} activity={task} />)}
       </ScrollView>
     </View>
@@ -34,7 +34,7 @@ export default function Tab() {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
   },
   header: {
     flexDirection: 'row',
