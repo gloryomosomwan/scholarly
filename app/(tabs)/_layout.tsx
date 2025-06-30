@@ -49,11 +49,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="(settings)"
         options={{
           title: 'Settings',
           tabBarIcon: ({ color }) => <SymbolView size={35} name="gearshape" tintColor={color} />,
-          headerShown: true
+          headerShown: false
         }}
       />
     </Tabs>
