@@ -31,7 +31,7 @@ export default function Tab() {
           </Pressable>
         </View>
       </View>
-      <ScrollView style={[styles.tasksContainer, {}]} contentContainerStyle={{}} contentInsetAdjustmentBehavior="automatic">
+      <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
         {todayTasks.map((task) => <ActivityCard key={task.id} activity={task} />)}
       </ScrollView>
     </View>
