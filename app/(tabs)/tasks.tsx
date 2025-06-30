@@ -10,10 +10,13 @@ export default function Tab() {
   const theme = useTheme()
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={[styles.container, { paddingTop: insets.top }]} >
       <View style={styles.header}>
         <Text style={[styles.headerText, { color: theme.text }]}>Tasks</Text>
         <View style={styles.buttonsContainer}>
+          <Pressable style={styles.buttonContainer}>
+            <SymbolView name={'tray'} tintColor={theme.accent} />
+          </Pressable>
           <Pressable style={styles.buttonContainer}>
             <SymbolView name={'line.3.horizontal.decrease'} tintColor={theme.accent} />
           </Pressable>
@@ -22,7 +25,7 @@ export default function Tab() {
           </Pressable>
         </View>
       </View>
-      <ScrollView style={styles.tasksContainer}>
+      <ScrollView style={styles.tasksContainer} contentInsetAdjustmentBehavior="automatic">
         {tasks.map((task) => <ActivityCard key={task.id} activity={task} />)}
       </ScrollView>
     </View>
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10
+    marginBottom: 25
   },
   headerText: {
     fontSize: 45,
@@ -48,11 +51,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   buttonContainer: {
-    marginHorizontal: 5,
+    marginHorizontal: 10,
   },
   tasksContainer: {
     paddingHorizontal: 20,
-  }
+  },
 });
 
 const tasks = [
