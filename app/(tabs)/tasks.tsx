@@ -21,7 +21,7 @@ export default function Tab() {
             <SymbolView name={'line.3.horizontal.decrease'} tintColor={theme.accent} />
           </Pressable>
           <Pressable style={styles.buttonContainer}>
-            <SymbolView name={'arrow.up.and.down'} tintColor={theme.accent} />
+            <SymbolView name={'arrow.up.arrow.down'} tintColor={theme.accent} />
           </Pressable>
         </View>
       </View>
