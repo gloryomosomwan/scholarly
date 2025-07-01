@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import { isAfter, format } from 'date-fns';
 
 import { useTheme, usePriorityColors } from '@/utils/useTheme';
-import { courses } from '@/data';
+import { courses } from '@/data/data';
 import ActivityMenu from '@/components/ActivityMenu';
 
 type ActivityCardProps = {

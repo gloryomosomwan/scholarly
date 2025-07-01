@@ -1,6 +1,6 @@
 import { SymbolView } from 'expo-symbols'
 
-import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon } from '@/zeego-components'
+import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon } from '@/components/Zeego'
 import { useTheme } from '../utils/useTheme'
 
 export default function Menu() {

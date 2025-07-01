@@ -5,7 +5,7 @@ import { isSameDay } from 'date-fns';
 
 import { useTheme } from '@/utils/useTheme';
 import ActivityCard from '@/components/ActivityCard';
-import { tasks } from '@/data'
+import { tasks } from '@/data/data'
 
 export default function Tab() {
   const insets = useSafeAreaInsets()

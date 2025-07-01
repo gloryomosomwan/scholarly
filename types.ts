@@ -1,4 +1,4 @@
-import { CourseColorMap } from './courseColors';
+import { CourseColorMap } from './data/courseColors';
 export type CourseColor = keyof typeof CourseColorMap;
 
 export interface Event {

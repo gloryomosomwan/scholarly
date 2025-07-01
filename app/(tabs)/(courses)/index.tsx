@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/utils/useTheme';
 import { getColorWithOpacity } from '@/utils/utility';
-import { courses } from '@/data';
+import { courses } from '@/data/data';
 
 import CourseCard from '@/components/CoursesPage/CourseCard';
 
