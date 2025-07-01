@@ -3,6 +3,7 @@ import React from 'react'
 import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/utils/useTheme'
+import PressableOpacity from '../PressableOpacity'
 
 type SettingsItemProps = {
   title: string
@@ -11,13 +12,13 @@ type SettingsItemProps = {
 export default function SettingsItem({ title }: SettingsItemProps) {
   const theme = useTheme()
   return (
-    <Pressable onPress={() => alert('hello')} style={[styles.container, {}]}>
+    <PressableOpacity onPress={() => alert('hello')} style={[styles.container, {}]}>
       <View style={[styles.leftSide, {}]}>
         <SymbolView style={styles.icon} name={'bolt.shield'} />
         <Text style={[styles.text, { color: theme.text }]}>{title}</Text>
       </View>
       <SymbolView name={'chevron.right'} size={15} tintColor={theme.grey400} />
-    </Pressable >
+    </PressableOpacity >
   )
 }
 
