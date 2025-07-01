@@ -4,10 +4,15 @@ import { useTheme } from "@/utils/useTheme";
 
 export default function Layout() {
   const theme = useTheme()
-
   return (
-    <Stack>
-      <Stack.Screen name="settings" options={{ headerLargeTitle: true, title: 'Settings' }} />
+    <Stack screenOptions={{}}>
+      <Stack.Screen name="settings" options={{
+        title: 'Settings',
+        headerLargeTitle: true,
+        headerStyle: { backgroundColor: theme.primary },
+        contentStyle: { backgroundColor: theme.primary },
+        headerLargeTitleShadowVisible: false,
+      }} />
     </Stack>
   )
 }

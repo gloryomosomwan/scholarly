@@ -1,17 +1,18 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
+
+import SettingsGroup from '@/components/SettingsPage/SettingsGroup';
 
 export default function Tab() {
   return (
-    <View style={styles.container}>
-      <Text>Tab [Home|Settings]</Text>
-    </View>
+    <ScrollView style={[styles.container, {}]} contentInsetAdjustmentBehavior='automatic' >
+      <SettingsGroup title={'GENERAL'} />
+    </ScrollView >
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 20
   },
 });

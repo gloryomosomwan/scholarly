@@ -37,7 +37,7 @@ export default function CoursesPage() {
         </View>
 
         {/* Course */}
-        <View style={styles.courseContainer}>
+        <View style={styles.coursesContainer}>
           {courses.map(course => <CourseCard key={course.code}{...course} />)}
         </View>
 
@@ -65,10 +65,10 @@ export default function CoursesPage() {
 
 const styles = StyleSheet.create({
   safeAreaContainer: {
-    flex: 1,
+    // flex: 1,
   },
   scrollContainer: {
-    flex: 1,
+    // flex: 1,
   },
   headerContainer: {
     paddingTop: 24,
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     height: 32,
     marginHorizontal: 16,
   },
-  courseContainer: {
+  coursesContainer: {
     paddingTop: 20,
     paddingHorizontal: 16,
     paddingBottom: 4,
