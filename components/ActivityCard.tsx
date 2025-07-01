@@ -5,6 +5,7 @@ import { isAfter, format } from 'date-fns';
 
 import { useTheme, usePriorityColors } from '@/utils/useTheme';
 import { courses } from '@/data';
+import ActivityMenu from '@/components/ActivityMenu';
 
 type ActivityCardProps = {
   activity: {
@@ -61,9 +62,10 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
                 {activity.title}
               </Text>
               {/* Edit Button */}
-              <Pressable style={styles.editButton}>
+              {/* <Pressable style={styles.editButton}>
                 <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
-              </Pressable>
+              </Pressable> */}
+              <ActivityMenu />
             </View>
 
             {/* Description */}
