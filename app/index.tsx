@@ -1,11 +1,23 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useCallback, useRef } from 'react'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import { useTheme } from '@/utils/useTheme'
 import { SymbolView } from 'expo-symbols'
+import DateTimeModal from '@/components/DateTimeModal'
 
 export default function editActivity() {
   const theme = useTheme()
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log('handleSheetChanges', index);
+  }, []);
+
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary }]}>
       <View style={styles.formContainer}>
@@ -14,10 +26,10 @@ export default function editActivity() {
           style={[styles.titleInput, { color: theme.text }]}
           placeholderTextColor={theme.grey500}
         />
-        <View style={styles.detailRow}>
+        <TouchableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
           <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
           <Text style={[styles.detailText, { color: theme.grey500 }]}>Add due date</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.detailRow}>
           <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
           <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
@@ -31,14 +43,7 @@ export default function editActivity() {
           <Text style={[styles.detailText, { color: theme.grey500 }]}>Add notes</Text>
         </View>
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity>
-          <Text style={[styles.buttonText, { color: theme.accent }]}>Mark completed</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={[styles.buttonText, { color: theme.dangerText }]}>Delete</Text>
-        </TouchableOpacity>
-      </View>
+      <DateTimeModal bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
     </View>
   )
 }
