@@ -8,13 +8,14 @@ import PressableOpacity from '@/components/PressableOpacity';
 
 type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
+  initialDate: Date
   handleSheetChanges: (index: number) => void
   handleSetDate: (date: Date) => void
 }
 
-export default function DateTimeModal({ handleSetDate, bottomSheetModalRef, handleSheetChanges }: DateTimeModalProps) {
+export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetModalRef, handleSheetChanges }: DateTimeModalProps) {
   const theme = useTheme()
-  const [internalDate, setInternalDate] = useState(new Date())
+  const [internalDate, setInternalDate] = useState(initialDate)
 
   const handlePickerChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate || internalDate;
