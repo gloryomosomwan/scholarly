@@ -15,19 +15,19 @@ export default function editActivity() {
       />
       <View style={styles.detailRow}>
         <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
-        <Text style={[styles.detailText, { color: theme.grey500 }]}>Due Date</Text>
+        <Text style={[styles.detailText, { color: theme.grey500 }]}>Add due date</Text>
       </View>
       <View style={styles.detailRow}>
         <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
-        <Text style={[styles.detailText, { color: theme.grey500 }]}>Course</Text>
+        <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
       </View>
       <View style={styles.detailRow}>
         <SymbolView name={'flag'} tintColor={theme.grey500} size={24} />
-        <Text style={[styles.detailText, { color: theme.grey500 }]}>Priority</Text>
+        <Text style={[styles.detailText, { color: theme.grey500 }]}>Add priority</Text>
       </View>
       <View style={styles.detailRow}>
         <SymbolView name={'note.text'} tintColor={theme.grey500} size={24} />
-        <Text style={[styles.detailText, { color: theme.grey500 }]}>Notes</Text>
+        <Text style={[styles.detailText, { color: theme.grey500 }]}>Add notes</Text>
       </View>
     </View>
   )
