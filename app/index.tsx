@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React, { useCallback, useRef, useState } from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/utils/useTheme'
 import DateTimeModal from '@/components/DateTimeModal'
+import PressableOpacity from '@/components/PressableOpacity'
 
 export default function editActivity() {
   const theme = useTheme()
@@ -13,13 +14,15 @@ export default function editActivity() {
   const [addedDate, setAddedDate] = useState(false)
 
   const handlePresentModalPress = useCallback(() => {
-    setAddedDate(true)
     bottomSheetModalRef.current?.present();
   }, []);
 
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
-  }, []);
+  const handleSheetChanges = useCallback((index: number) => { }, []);
+
+  const handleSetDate = (date: Date) => {
+    setDate(date)
+    setAddedDate(true)
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary }]}>
@@ -29,7 +32,7 @@ export default function editActivity() {
           style={[styles.titleInput, { color: theme.text }]}
           placeholderTextColor={theme.grey500}
         />
-        <TouchableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
+        <PressableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
           <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
           {
             !addedDate ?
@@ -37,7 +40,7 @@ export default function editActivity() {
               :
               <Text style={[styles.detailText, { color: theme.grey500 }]}>{date.toLocaleDateString()}</Text>
           }
-        </TouchableOpacity>
+        </PressableOpacity>
         <View style={styles.detailRow}>
           <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
           <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
@@ -51,7 +54,7 @@ export default function editActivity() {
           <Text style={[styles.detailText, { color: theme.grey500 }]}>Add notes</Text>
         </View>
       </View>
-      <DateTimeModal date={date} setDate={setDate} bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
+      <DateTimeModal handleSetDate={handleSetDate} bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
     </View>
   )
 }

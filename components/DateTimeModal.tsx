@@ -9,22 +9,27 @@ import PressableOpacity from '@/components/PressableOpacity';
 type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
   handleSheetChanges: (index: number) => void
-  date: Date
-  setDate: (date: Date) => void
+  handleSetDate: (date: Date) => void
 }
 
-export default function DateTimeModal({ date, setDate, bottomSheetModalRef, handleSheetChanges }: DateTimeModalProps) {
+export default function DateTimeModal({ handleSetDate, bottomSheetModalRef, handleSheetChanges }: DateTimeModalProps) {
   const theme = useTheme()
+  const [internalDate, setInternalDate] = useState(new Date())
 
   const handlePickerChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    const currentDate = selectedDate || date;
-    setDate(currentDate);
+    const currentDate = selectedDate || internalDate;
+    setInternalDate(currentDate)
   };
 
-  const HandleComponent = () => {
+  function handlePress() {
+    handleSetDate(internalDate)
+    bottomSheetModalRef.current?.dismiss()
+  }
+
+  const BottomSheetHandle = () => {
     return (
-      <View style={[styles.handleComponent, { backgroundColor: theme.primary }]}>
-        <PressableOpacity style={[styles.doneButton]} onPress={() => bottomSheetModalRef.current?.dismiss()}>
+      <View style={[styles.bottomSheetHandle, { backgroundColor: theme.primary }]}>
+        <PressableOpacity style={[styles.doneButton]} onPress={handlePress}>
           <Text style={[styles.doneText, { color: theme.accent }]}>Done</Text>
         </PressableOpacity>
       </View>
@@ -37,14 +42,14 @@ export default function DateTimeModal({ date, setDate, bottomSheetModalRef, hand
         ref={bottomSheetModalRef}
         onChange={handleSheetChanges}
         backgroundStyle={{ backgroundColor: theme.primary }}
-        handleComponent={() => <HandleComponent />}
+        handleComponent={() => <BottomSheetHandle />}
       >
         <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
           <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
           </View>
           <DateTimePicker
             testID="dateTimePicker"
-            value={date}
+            value={internalDate}
             mode={'date'}
             display={'inline'}
             onChange={handlePickerChange}
@@ -72,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-end'
   },
-  handleComponent: {
+  bottomSheetHandle: {
     alignItems: 'flex-end',
     paddingTop: 20,
     paddingHorizontal: 20,
