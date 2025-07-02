@@ -1,6 +1,6 @@
 import React, { RefObject, useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
-import { BottomSheetModal, BottomSheetView, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 import { useTheme } from '@/utils/useTheme'
@@ -38,12 +38,20 @@ export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetM
   }
 
   return (
-    <BottomSheetModalProvider>
       <BottomSheetModal
         ref={bottomSheetModalRef}
         onChange={handleSheetChanges}
         backgroundStyle={{ backgroundColor: theme.primary }}
         handleComponent={() => <BottomSheetHandle />}
+        backdropComponent={props => (
+          <BottomSheetBackdrop
+            {...props}
+            appearsOnIndex={0}
+            disappearsOnIndex={-1}
+            opacity={0.5}
+            pressBehavior="close"
+          />
+        )}
       >
         <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
           <DateTimePicker
@@ -56,7 +64,6 @@ export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetM
           />
         </BottomSheetView>
       </BottomSheetModal>
-    </BottomSheetModalProvider>
   )
 }
 
