@@ -45,8 +45,6 @@ export default function DateTimeModal({ handleSetDate, bottomSheetModalRef, hand
         handleComponent={() => <BottomSheetHandle />}
       >
         <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
-          <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-          </View>
           <DateTimePicker
             testID="dateTimePicker"
             value={internalDate}
