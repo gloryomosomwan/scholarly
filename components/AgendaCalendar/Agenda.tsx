@@ -11,7 +11,7 @@ import { events, assignments, tasks } from '@/data/data'
 import { useTheme } from '@/utils/useTheme'
 import { useCalendar } from './CalendarContext';
 import { compareEventTimes, compareActivityTimes } from '@/utils/Calendar/utils';
-import ActivityCard from '../ActivityCard';
+import ActivityCard from '../Activity/ActivityCard';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
