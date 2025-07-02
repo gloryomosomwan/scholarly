@@ -8,13 +8,14 @@ import { useTheme } from '@/utils/useTheme'
 type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
   handleSheetChanges: (index: number) => void
+  date: Date
+  setDate: (date: Date) => void
 }
 
-export default function DateTimeModal({ bottomSheetModalRef, handleSheetChanges }: DateTimeModalProps) {
+export default function DateTimeModal({ date, setDate, bottomSheetModalRef, handleSheetChanges }: DateTimeModalProps) {
   const theme = useTheme()
-  const [date, setDate] = useState(new Date());
 
-  const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+  const handlePickerChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
   };
@@ -34,7 +35,7 @@ export default function DateTimeModal({ bottomSheetModalRef, handleSheetChanges 
             value={date}
             mode={'date'}
             display={'inline'}
-            onChange={onChange}
+            onChange={handlePickerChange}
             accentColor={theme.accent}
           />
         </BottomSheetView>

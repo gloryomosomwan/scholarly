@@ -1,14 +1,15 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/utils/useTheme'
-import { SymbolView } from 'expo-symbols'
 import DateTimeModal from '@/components/DateTimeModal'
 
 export default function editActivity() {
   const theme = useTheme()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [date, setDate] = useState(new Date());
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
@@ -28,7 +29,7 @@ export default function editActivity() {
         />
         <TouchableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
           <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
-          <Text style={[styles.detailText, { color: theme.grey500 }]}>Add due date</Text>
+          <Text style={[styles.detailText, { color: theme.grey500 }]}>{date.toLocaleDateString()}</Text>
         </TouchableOpacity>
         <View style={styles.detailRow}>
           <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
@@ -43,7 +44,7 @@ export default function editActivity() {
           <Text style={[styles.detailText, { color: theme.grey500 }]}>Add notes</Text>
         </View>
       </View>
-      <DateTimeModal bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
+      <DateTimeModal date={date} setDate={setDate} bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
     </View>
   )
 }
