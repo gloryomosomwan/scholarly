@@ -4,6 +4,7 @@ import { BottomSheetModal, BottomSheetView, BottomSheetModalProvider } from '@go
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 import { useTheme } from '@/utils/useTheme'
+import PressableOpacity from '@/components/PressableOpacity';
 
 type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
@@ -20,16 +21,27 @@ export default function DateTimeModal({ date, setDate, bottomSheetModalRef, hand
     setDate(currentDate);
   };
 
+  const HandleComponent = () => {
+    return (
+      <View style={[styles.handleComponent, { backgroundColor: theme.primary }]}>
+        <PressableOpacity style={[styles.doneButton]} onPress={() => bottomSheetModalRef.current?.dismiss()}>
+          <Text style={[styles.doneText, { color: theme.accent }]}>Done</Text>
+        </PressableOpacity>
+      </View>
+    )
+  }
+
   return (
     <BottomSheetModalProvider>
       <BottomSheetModal
         ref={bottomSheetModalRef}
         onChange={handleSheetChanges}
-        handleStyle={{ backgroundColor: theme.primary, borderRadius: 10 }}
-        handleIndicatorStyle={[styles.handleIndicator, {}]}
         backgroundStyle={{ backgroundColor: theme.primary }}
+        handleComponent={() => <HandleComponent />}
       >
         <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
+          <View style={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+          </View>
           <DateTimePicker
             testID="dateTimePicker"
             value={date}
@@ -52,5 +64,18 @@ const styles = StyleSheet.create({
   },
   handleIndicator: {
     display: 'none'
+  },
+  doneText: {
+    fontWeight: '500'
+  },
+  doneButton: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end'
+  },
+  handleComponent: {
+    alignItems: 'flex-end',
+    paddingTop: 20,
+    paddingHorizontal: 20,
+    borderRadius: 10
   },
 })

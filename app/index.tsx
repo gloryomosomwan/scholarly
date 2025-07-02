@@ -10,8 +10,10 @@ export default function editActivity() {
   const theme = useTheme()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [date, setDate] = useState(new Date());
+  const [addedDate, setAddedDate] = useState(false)
 
   const handlePresentModalPress = useCallback(() => {
+    setAddedDate(true)
     bottomSheetModalRef.current?.present();
   }, []);
 
@@ -29,7 +31,12 @@ export default function editActivity() {
         />
         <TouchableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
           <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
-          <Text style={[styles.detailText, { color: theme.grey500 }]}>{date.toLocaleDateString()}</Text>
+          {
+            !addedDate ?
+              <Text style={[styles.detailText, { color: theme.grey500 }]}>Add date</Text>
+              :
+              <Text style={[styles.detailText, { color: theme.grey500 }]}>{date.toLocaleDateString()}</Text>
+          }
         </TouchableOpacity>
         <View style={styles.detailRow}>
           <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
