@@ -12,6 +12,7 @@ export default function Layout() {
         headerStyle: { backgroundColor: theme.primary },
         contentStyle: { backgroundColor: theme.primary },
         headerLargeTitleShadowVisible: false,
+        headerTintColor: theme.text
       }} />
     </Stack>
   )
