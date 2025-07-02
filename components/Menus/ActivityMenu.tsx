@@ -22,7 +22,7 @@ export default function Menu() {
           }} />
           <DropdownMenuItemTitle>Edit Activity</DropdownMenuItemTitle>
         </DropdownMenuItem>
-        <DropdownMenuItem key="delete">
+        <DropdownMenuItem key="delete" destructive>
           <DropdownMenuItemTitle>Delete Activity</DropdownMenuItemTitle>
           <DropdownMenuItemIcon ios={{
             name: 'trash',
