@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Keyboard } from 'react-native'
 import React, { useCallback, useRef, useState } from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { SymbolView } from 'expo-symbols'
@@ -14,6 +14,7 @@ export default function editActivity() {
   const [addedDate, setAddedDate] = useState(false)
 
   const handlePresentModalPress = useCallback(() => {
+    Keyboard.dismiss()
     bottomSheetModalRef.current?.present();
   }, []);
 
