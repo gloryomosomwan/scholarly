@@ -9,10 +9,7 @@ export default function RootLayout() {
     <Stack
       screenOptions={{ contentStyle: { backgroundColor: theme.secondary } }}>
       <Stack.Screen
-        name="(tabs)"
-        options={{ headerShown: false }} />
-      <Stack.Screen
-        name="edit-activity"
+        name="index"
         options={{
           headerTitle: "",
           headerBackTitle: 'Back',
@@ -21,6 +18,9 @@ export default function RootLayout() {
           headerShadowVisible: false
         }}
       />
+      <Stack.Screen
+        name="(tabs)"
+        options={{ headerShown: false }} />
     </Stack>
   )
 }
