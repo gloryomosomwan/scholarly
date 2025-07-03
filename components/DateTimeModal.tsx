@@ -5,12 +5,13 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 
 import { useTheme } from '@/utils/useTheme'
 import PressableOpacity from '@/components/PressableOpacity';
+import { DueType } from '@/types';
 
 type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
   initialDate: Date
   handleSheetChanges: (index: number) => void
-  handleSetDate: (date: Date) => void
+  handleSetDate: (date: Date, dueType: DueType) => void
 }
 
 type PickerMode = 'date' | 'datetime';
@@ -26,7 +27,13 @@ export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetM
   };
 
   function handlePress() {
-    handleSetDate(internalDate)
+    if (pickerMode === 'date') {
+      internalDate.setHours(0, 0, 0, 0)
+      handleSetDate(internalDate, 'date')
+    }
+    else if (pickerMode === 'datetime') {
+      handleSetDate(internalDate, 'datetime')
+    }
     bottomSheetModalRef.current?.dismiss()
   }
 
@@ -72,14 +79,14 @@ export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetM
           </PressableOpacity>
         </View>
         {pickerMode === 'date' ? <DateTimePicker
-          testID="dateTimePicker"
+          testID="datePicker"
           value={internalDate}
           mode={'date'}
           display={'inline'}
           onChange={handlePickerChange}
           accentColor={theme.accent}
         /> : <DateTimePicker
-          testID="timePicker"
+          testID="datetimePicker"
           value={internalDate}
           mode={'datetime'}
           display={'inline'}

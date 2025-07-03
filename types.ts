@@ -42,3 +42,5 @@ export interface Course {
   grade?: string;
   color: CourseColor;
 }
+
+export type DueType = 'date' | 'datetime'

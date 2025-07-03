@@ -6,12 +6,14 @@ import { SymbolView } from 'expo-symbols'
 import { useTheme } from '@/utils/useTheme'
 import DateTimeModal from '@/components/DateTimeModal'
 import PressableOpacity from '@/components/PressableOpacity'
+import { DueType } from '@/types'
 
-export default function editActivity() {
+export default function EditActivity() {
   const theme = useTheme()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [date, setDate] = useState(new Date());
   const [addedDate, setAddedDate] = useState(false)
+  const [dueType, setDueType] = useState<DueType>('date')
 
   const handlePresentModalPress = useCallback(() => {
     Keyboard.dismiss()
@@ -20,9 +22,10 @@ export default function editActivity() {
 
   const handleSheetChanges = useCallback((index: number) => { }, []);
 
-  const handleSetDate = (date: Date) => {
+  const handleSetDate = (date: Date, dueType: DueType) => {
     setDate(date)
     setAddedDate(true)
+    setDueType(dueType)
   }
 
   return (
@@ -36,10 +39,9 @@ export default function editActivity() {
         <PressableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
           <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
           {
-            !addedDate ?
-              <Text style={[styles.detailText, { color: theme.grey500 }]}>Add date</Text>
-              :
-              <Text style={[styles.detailText, { color: theme.grey500 }]}>{date.toLocaleString()}</Text>
+            !addedDate
+              ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add date</Text>
+              : <Text style={[styles.detailText, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
           }
         </PressableOpacity>
         <View style={styles.detailRow}>
@@ -56,7 +58,7 @@ export default function editActivity() {
         </View>
       </View>
       <DateTimeModal initialDate={date} handleSetDate={handleSetDate} bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
-    </View>
+    </View >
   )
 }
 
