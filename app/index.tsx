@@ -4,7 +4,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/utils/useTheme'
-import DateTimeModal from '@/components/DateTimeModal'
+import DateTimeModal from '@/components/Modals/DateTimeModal'
 import PressableOpacity from '@/components/PressableOpacity'
 import { DueType } from '@/types'
 
