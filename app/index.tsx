@@ -39,7 +39,7 @@ export default function editActivity() {
             !addedDate ?
               <Text style={[styles.detailText, { color: theme.grey500 }]}>Add date</Text>
               :
-              <Text style={[styles.detailText, { color: theme.grey500 }]}>{date.toLocaleDateString()}</Text>
+              <Text style={[styles.detailText, { color: theme.grey500 }]}>{date.toLocaleString()}</Text>
           }
         </PressableOpacity>
         <View style={styles.detailRow}>

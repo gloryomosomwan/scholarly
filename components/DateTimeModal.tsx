@@ -13,9 +13,12 @@ type DateTimeModalProps = {
   handleSetDate: (date: Date) => void
 }
 
+type PickerMode = 'date' | 'datetime';
+
 export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetModalRef, handleSheetChanges }: DateTimeModalProps) {
   const theme = useTheme()
   const [internalDate, setInternalDate] = useState(initialDate)
+  const [pickerMode, setPickerMode] = useState<PickerMode>('date');
 
   const handlePickerChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate || internalDate;
@@ -38,32 +41,53 @@ export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetM
   }
 
   return (
-      <BottomSheetModal
-        ref={bottomSheetModalRef}
-        onChange={handleSheetChanges}
-        backgroundStyle={{ backgroundColor: theme.primary }}
-        handleComponent={() => <BottomSheetHandle />}
-        backdropComponent={props => (
-          <BottomSheetBackdrop
-            {...props}
-            appearsOnIndex={0}
-            disappearsOnIndex={-1}
-            opacity={0.5}
-            pressBehavior="close"
-          />
-        )}
-      >
-        <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={internalDate}
-            mode={'date'}
-            display={'inline'}
-            onChange={handlePickerChange}
-            accentColor={theme.accent}
-          />
-        </BottomSheetView>
-      </BottomSheetModal>
+    <BottomSheetModal
+      ref={bottomSheetModalRef}
+      onChange={handleSheetChanges}
+      backgroundStyle={{ backgroundColor: theme.primary }}
+      handleComponent={() => <BottomSheetHandle />}
+      backdropComponent={props => (
+        <BottomSheetBackdrop
+          {...props}
+          appearsOnIndex={0}
+          disappearsOnIndex={-1}
+          opacity={0.5}
+          pressBehavior="close"
+        />
+      )}
+    >
+      <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
+        <View style={[styles.toggleContainer, { borderColor: theme.accent }]}>
+          <PressableOpacity
+            style={[styles.toggleButton, pickerMode === 'date' && { backgroundColor: theme.accent }]}
+            onPress={() => setPickerMode('date')}
+          >
+            <Text style={[styles.toggleButtonText, { color: pickerMode === 'date' ? theme.primary : theme.accent }]}>Date</Text>
+          </PressableOpacity>
+          <PressableOpacity
+            style={[styles.toggleButton, pickerMode === 'datetime' && { backgroundColor: theme.accent }]}
+            onPress={() => setPickerMode('datetime')}
+          >
+            <Text style={[styles.toggleButtonText, { color: pickerMode === 'datetime' ? theme.primary : theme.accent }]}>Time</Text>
+          </PressableOpacity>
+        </View>
+        {pickerMode === 'date' ? <DateTimePicker
+          testID="dateTimePicker"
+          value={internalDate}
+          mode={'date'}
+          display={'inline'}
+          onChange={handlePickerChange}
+          accentColor={theme.accent}
+        /> : <DateTimePicker
+          testID="timePicker"
+          value={internalDate}
+          mode={'datetime'}
+          display={'inline'}
+          onChange={handlePickerChange}
+          accentColor={theme.accent}
+        />}
+      </BottomSheetView>
+    </BottomSheetModal>
   )
 }
 
@@ -71,7 +95,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     alignItems: 'center',
-    paddingBottom: 20
+    paddingBottom: 50
   },
   handleIndicator: {
     display: 'none'
@@ -88,5 +112,20 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 20,
     borderRadius: 10
+  },
+  toggleContainer: {
+    flexDirection: 'row',
+    borderRadius: 8,
+    borderWidth: 1,
+    overflow: 'hidden',
+    marginBottom: 5,
+  },
+  toggleButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 24,
+  },
+  toggleButtonText: {
+    fontWeight: '500',
+    fontSize: 16,
   },
 })
