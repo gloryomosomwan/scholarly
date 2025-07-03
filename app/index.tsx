@@ -7,6 +7,7 @@ import { useTheme } from '@/utils/useTheme'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
 import PressableOpacity from '@/components/PressableOpacity'
 import { DueType } from '@/types'
+import CourseSelectorModal from '@/components/Modals/CourseSelector/CourseSelectorModal'
 
 export default function EditActivity() {
   const theme = useTheme()
@@ -14,6 +15,8 @@ export default function EditActivity() {
   const [date, setDate] = useState(new Date());
   const [addedDate, setAddedDate] = useState(false)
   const [dueType, setDueType] = useState<DueType>('date')
+
+  const courseSelectorModalRef = useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = useCallback(() => {
     Keyboard.dismiss()
@@ -44,10 +47,12 @@ export default function EditActivity() {
               : <Text style={[styles.detailText, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
           }
         </PressableOpacity>
-        <View style={styles.detailRow}>
-          <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
-          <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
-        </View>
+        <PressableOpacity onPress={() => { courseSelectorModalRef.current?.present() }}>
+          <View style={styles.detailRow}>
+            <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
+            <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
+          </View>
+        </PressableOpacity>
         <View style={styles.detailRow}>
           <SymbolView name={'flag'} tintColor={theme.grey500} size={24} />
           <Text style={[styles.detailText, { color: theme.grey500 }]}>Add priority</Text>
@@ -58,6 +63,7 @@ export default function EditActivity() {
         </View>
       </View>
       <DateTimeModal initialDate={date} handleSetDate={handleSetDate} bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
+      <CourseSelectorModal bottomSheetModalRef={courseSelectorModalRef} />
     </View >
   )
 }
@@ -68,6 +74,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
     justifyContent: 'space-between',
+    gap: 10,
   },
   formContainer: {
     gap: 24,
