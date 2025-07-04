@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Keyboard } from 'react-native'
 import { SymbolView } from 'expo-symbols'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
@@ -12,10 +12,15 @@ import PriorityItem from '@/components/Modals/Items/PriorityItem'
 import CourseItem from '@/components/Modals/Items/CourseItem';
 
 export default function EditActivity() {
-  const theme = useTheme()
+  const theme = useTheme();
   const [date, setDate] = useState(new Date());
-  const [addedDate, setAddedDate] = useState(false)
-  const [dueType, setDueType] = useState<DueType>('date')
+  const [addedDate, setAddedDate] = useState(false);
+  const [dueType, setDueType] = useState<DueType>('date');
+  const [course, setCourse] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCourse('PHYS 102')
+  })
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const courseSelectorModalRef = useRef<BottomSheetModal>(null);
@@ -62,7 +67,14 @@ export default function EditActivity() {
         }}>
           <View style={styles.detailRow}>
             <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
-            <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
+            {course ?
+              <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
+                <View style={[styles.courseDot, { backgroundColor: 'red' }]} />
+                <Text style={[styles.courseText, { color: theme.text }]}>{course}</Text>
+              </View>
+              :
+              <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
+            }
           </View>
         </PressableOpacity>
 
@@ -131,5 +143,23 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: '600',
+  },
+
+  courseTag: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    gap: 6,
+  },
+  courseDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+  courseText: {
+    fontSize: 12,
+    fontWeight: '500',
   },
 })
