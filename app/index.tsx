@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, TextInput, Keyboard } from 'react-native'
 import React, { useCallback, useRef, useState } from 'react'
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { StyleSheet, Text, View, TextInput, Keyboard } from 'react-native'
 import { SymbolView } from 'expo-symbols'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import { useTheme } from '@/utils/useTheme'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
@@ -13,11 +13,11 @@ import CourseItem from '@/components/Modals/Items/CourseItem';
 
 export default function EditActivity() {
   const theme = useTheme()
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [date, setDate] = useState(new Date());
   const [addedDate, setAddedDate] = useState(false)
   const [dueType, setDueType] = useState<DueType>('date')
 
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const courseSelectorModalRef = useRef<BottomSheetModal>(null);
   const prioritySelectorModalRef = useRef<BottomSheetModal>(null);
 
@@ -50,13 +50,19 @@ export default function EditActivity() {
               : <Text style={[styles.detailText, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
           }
         </PressableOpacity>
-        <PressableOpacity onPress={() => { courseSelectorModalRef.current?.present() }}>
+        <PressableOpacity onPress={() => {
+          Keyboard.dismiss()
+          courseSelectorModalRef.current?.present()
+        }}>
           <View style={styles.detailRow}>
             <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
             <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
           </View>
         </PressableOpacity>
-        <PressableOpacity onPress={() => prioritySelectorModalRef.current?.present()}>
+        <PressableOpacity onPress={() => {
+          Keyboard.dismiss()
+          prioritySelectorModalRef.current?.present()
+        }}>
           <View style={styles.detailRow}>
             <SymbolView name={'flag'} tintColor={theme.grey500} size={24} />
             <Text style={[styles.detailText, { color: theme.grey500 }]}>Add priority</Text>
