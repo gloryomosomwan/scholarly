@@ -1,17 +1,16 @@
-import React, { RefObject, useState } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
-import { BottomSheetModal, BottomSheetScrollView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import React, { RefObject } from 'react';
+import { StyleSheet } from 'react-native';
+import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 
 import { useTheme } from '@/utils/useTheme'
 import PressableOpacity from '@/components/PressableOpacity';
-import CourseItem from './CourseItem';
 import { SymbolView } from 'expo-symbols';
 
-type CourseSelectorProps = {
+type BottomSheetModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
+  children: React.ReactNode
 }
-
-export default function CourseSelectorModal({ bottomSheetModalRef }: CourseSelectorProps) {
+export default function CustomBottomSheetModal({ bottomSheetModalRef, children }: BottomSheetModalProps) {
   const theme = useTheme()
   return (
     <BottomSheetModal
@@ -32,16 +31,17 @@ export default function CourseSelectorModal({ bottomSheetModalRef }: CourseSelec
       <PressableOpacity style={styles.closeButton} onPress={() => bottomSheetModalRef.current?.dismiss()}>
         <SymbolView name={'xmark.circle.fill'} tintColor={theme.grey400} style={styles.closeButtonIcon} />
       </PressableOpacity>
-      <BottomSheetScrollView contentContainerStyle={[styles.contentContainer, { backgroundColor: theme.primary }]}>
-        <CourseItem code={'PHYS 102'} name={'Introduction to Physics'} color={'red'} />
-      </BottomSheetScrollView>
+      <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
+        {children}
+      </BottomSheetView>
     </BottomSheetModal>
   )
 }
 
 const styles = StyleSheet.create({
   contentContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    gap: 10
   },
   closeButton: {
     alignSelf: 'flex-end',

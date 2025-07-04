@@ -7,7 +7,9 @@ import { useTheme } from '@/utils/useTheme'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
 import PressableOpacity from '@/components/PressableOpacity'
 import { DueType } from '@/types'
-import CourseSelectorModal from '@/components/Modals/CourseSelector/CourseSelectorModal'
+import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
+import PriorityItem from '@/components/Modals/Items/PriorityItem'
+import CourseItem from '@/components/Modals/Items/CourseItem';
 
 export default function EditActivity() {
   const theme = useTheme()
@@ -17,6 +19,7 @@ export default function EditActivity() {
   const [dueType, setDueType] = useState<DueType>('date')
 
   const courseSelectorModalRef = useRef<BottomSheetModal>(null);
+  const prioritySelectorModalRef = useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = useCallback(() => {
     Keyboard.dismiss()
@@ -53,17 +56,26 @@ export default function EditActivity() {
             <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
           </View>
         </PressableOpacity>
-        <View style={styles.detailRow}>
-          <SymbolView name={'flag'} tintColor={theme.grey500} size={24} />
-          <Text style={[styles.detailText, { color: theme.grey500 }]}>Add priority</Text>
-        </View>
+        <PressableOpacity onPress={() => prioritySelectorModalRef.current?.present()}>
+          <View style={styles.detailRow}>
+            <SymbolView name={'flag'} tintColor={theme.grey500} size={24} />
+            <Text style={[styles.detailText, { color: theme.grey500 }]}>Add priority</Text>
+          </View>
+        </PressableOpacity>
         <View style={styles.detailRow}>
           <SymbolView name={'note.text'} tintColor={theme.grey500} size={24} />
           <Text style={[styles.detailText, { color: theme.grey500 }]}>Add notes</Text>
         </View>
       </View>
       <DateTimeModal initialDate={date} handleSetDate={handleSetDate} bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
-      <CourseSelectorModal bottomSheetModalRef={courseSelectorModalRef} />
+      <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef}>
+        <CourseItem code={'PHYS 102'} name={'Introduction to Physics'} color={'red'} />
+      </CustomBottomSheetModal>
+      <CustomBottomSheetModal bottomSheetModalRef={prioritySelectorModalRef}>
+        <PriorityItem level={'high'} />
+        <PriorityItem level={'medium'} />
+        <PriorityItem level={'low'} />
+      </CustomBottomSheetModal>
     </View >
   )
 }
