@@ -130,6 +130,14 @@ export default function EditActivity() {
           />
         </View>
       </View>
+      <View style={[styles.buttonContainer, {}]}>
+        <PressableOpacity>
+          <Text style={[styles.buttonText, { color: theme.accent }]}>Mark completed</Text>
+        </PressableOpacity>
+        <PressableOpacity>
+          <Text style={[styles.buttonText, { color: theme.dangerText }]}>Delete</Text>
+        </PressableOpacity>
+      </View>
 
       <DateTimeModal initialDate={date} handleSetDate={handleSetDate} bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
       <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable>
