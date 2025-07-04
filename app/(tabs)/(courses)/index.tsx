@@ -7,6 +7,8 @@ import { getColorWithOpacity } from '@/utils/utility';
 import { courses } from '@/data/data';
 
 import CourseCard from '@/components/CoursesPage/CourseCard';
+import PressableOpacity from '@/components/PressableOpacity';
+import { router } from 'expo-router';
 
 export default function CoursesPage() {
   const theme = useTheme();
@@ -20,7 +22,9 @@ export default function CoursesPage() {
             <View style={styles.semesterInfoContainer}>
               <Text style={[styles.semesterText, { color: theme.text }]}>Summer 2025</Text>
             </View>
-            <SymbolView name="calendar" size={35} tintColor={theme.text} />
+            <PressableOpacity onPress={() => router.navigate('/selectSemester')}>
+              <SymbolView name="calendar" size={35} tintColor={theme.text} />
+            </PressableOpacity>
           </View>
 
           {/* Stats Row */}
