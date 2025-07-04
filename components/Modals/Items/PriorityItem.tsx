@@ -14,7 +14,10 @@ export default function PriorityItem({ level, onSelect }: PriorityItemProps) {
   const levelText = level.toUpperCase()
 
   return (
-    <PressableOpacity style={[styles.container, { backgroundColor: priorityPalette.backgroundColor }]} onPress={() => onSelect()}>
+    <PressableOpacity
+      style={[styles.container, { backgroundColor: priorityPalette.backgroundColor }]}
+      onPress={() => onSelect()}
+    >
       <Text style={[styles.codeText, { color: priorityPalette.color }]}>{levelText}</Text>
     </PressableOpacity >
   )
