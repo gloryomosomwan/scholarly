@@ -4,12 +4,14 @@ import { SymbolView } from 'expo-symbols'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import { useTheme, usePriorityPalette } from '@/hooks'
-import DateTimeModal from '@/components/Modals/DateTimeModal'
+
 import PressableOpacity from '@/components/PressableOpacity'
-import { DueType } from '@/types'
+import DateTimeModal from '@/components/Modals/DateTimeModal'
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import PriorityItem from '@/components/Modals/Items/PriorityItem'
 import CourseItem from '@/components/Modals/Items/CourseItem';
+
+import { DueType } from '@/types'
 import { courses } from '@/data/data'
 
 export default function EditActivity() {
