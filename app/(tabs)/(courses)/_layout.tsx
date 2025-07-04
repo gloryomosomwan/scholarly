@@ -1,7 +1,7 @@
 import { Button } from "react-native";
 import { Stack } from "expo-router";
 
-import { useTheme } from "@/utils/useTheme";
+import { useTheme } from "@/hooks/useTheme";
 
 type CourseRouteParams = {
   courseCode?: string;

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-nativ
 import { SymbolView } from 'expo-symbols';
 import { isAfter, format } from 'date-fns';
 
-import { useTheme, usePriorityColors } from '@/utils/useTheme';
+import { useTheme, usePriorityColors } from '@/hooks/useTheme';
 import { courses } from '@/data/data';
 import ActivityMenu from '@/components/Menus/ActivityMenu';
 

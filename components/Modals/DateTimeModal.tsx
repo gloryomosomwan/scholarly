@@ -3,7 +3,7 @@ import { Text, StyleSheet, View } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
-import { useTheme } from '@/utils/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import PressableOpacity from '@/components/PressableOpacity';
 import { DueType } from '@/types';
 

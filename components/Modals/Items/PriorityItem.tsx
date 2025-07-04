@@ -1,7 +1,7 @@
 import { StyleSheet, Text } from 'react-native'
 import React from 'react'
 
-import { useTheme } from '@/utils/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import PressableOpacity from '@/components/PressableOpacity'
 
 type PriorityItemProps = {

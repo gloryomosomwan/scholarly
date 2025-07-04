@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { useCalendar } from "./CalendarContext";
-import { useTheme } from '@/utils/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import HeatmapButton from './HeatmapButton';
 import { useCalendarAppearance } from './CalendarAppearanceContext';
 

@@ -1,6 +1,6 @@
 import { CourseColorMap } from "@/data/coursePalettes";
 import { CourseColor } from "@/types";
-import { useTheme } from "./useTheme";
+import { useTheme } from "../hooks/useTheme";
 
 export function formatTime(date: Date) {
   return date.toLocaleTimeString('en-US', {

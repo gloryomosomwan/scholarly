@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetScrollView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { SymbolView } from 'expo-symbols';
 
-import { useTheme } from '@/utils/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import PressableOpacity from '@/components/PressableOpacity';
 
 type BottomSheetModalProps = {

@@ -5,7 +5,7 @@ import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Day from './Day'
-import { useTheme } from '@/utils/useTheme';
+import { useTheme } from '@/hooks/useTheme';
 
 type MonthProps = {
   initialDay: Date

@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-import { useTheme } from "@/utils/useTheme";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function Layout() {
   const theme = useTheme()

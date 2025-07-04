@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
-import { useTheme } from '@/utils/useTheme';
+import { useTheme } from '@/hooks/useTheme';
 import { getColorWithOpacity } from '@/utils/utility';
 import { courses } from '@/data/data';
 

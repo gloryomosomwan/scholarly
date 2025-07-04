@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Keyboard } from 'react-native'
 import { SymbolView } from 'expo-symbols'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
-import { useTheme } from '@/utils/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
 import PressableOpacity from '@/components/PressableOpacity'
 import { DueType } from '@/types'
@@ -11,7 +11,7 @@ import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import PriorityItem from '@/components/Modals/Items/PriorityItem'
 import CourseItem from '@/components/Modals/Items/CourseItem';
 import { courses } from '@/data/data'
-import { usePriorityPalette } from '@/utils/usePriorityPalette'
+import { usePriorityPalette } from '@/hooks/usePriorityPalette'
 
 export default function EditActivity() {
   const theme = useTheme();

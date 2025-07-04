@@ -2,7 +2,7 @@ import { SymbolView } from 'expo-symbols'
 import { useRouter } from 'expo-router'
 
 import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon } from '@/components/Menus/Zeego'
-import { useTheme } from '../../utils/useTheme'
+import { useTheme } from '../../hooks/useTheme'
 
 export default function Menu() {
   const theme = useTheme()

@@ -5,7 +5,7 @@ import { SharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { useCalendar } from './CalendarContext';
-import { useTheme } from '@/utils/useTheme';
+import { useTheme } from '@/hooks/useTheme';
 import { Event, Activity, events, assignments, tasks } from '@/data/data';
 import { useCalendarAppearance } from './CalendarAppearanceContext'
 

@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView } from 'react-native';
 
-import { useTheme } from '@/utils/useTheme';
+import { useTheme } from '@/hooks/useTheme';
 import ScheduleCard from '@/components/CoursePage/ScheduleCard';
 import type { ScheduleCardProps } from '@/components/CoursePage/ScheduleCard';
 
