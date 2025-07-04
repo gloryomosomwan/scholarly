@@ -11,13 +11,17 @@ import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import PriorityItem from '@/components/Modals/Items/PriorityItem'
 import CourseItem from '@/components/Modals/Items/CourseItem';
 import { courses } from '@/data/data'
+import { usePriorityPalette } from '@/utils/usePriorityPalette'
 
 export default function EditActivity() {
   const theme = useTheme();
+
   const [date, setDate] = useState(new Date());
   const [addedDate, setAddedDate] = useState(false);
   const [dueType, setDueType] = useState<DueType>('date');
   const [course, setCourse] = useState<string | null>(null);
+  const [priority, setPriority] = useState<string | null>(null);
+  const priorityPalette = usePriorityPalette(priority)
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const courseSelectorModalRef = useRef<BottomSheetModal>(null);
@@ -87,7 +91,19 @@ export default function EditActivity() {
         }}>
           <View style={styles.detailRow}>
             <SymbolView name={'flag'} tintColor={theme.grey500} size={24} />
-            <Text style={[styles.detailText, { color: theme.grey500 }]}>Add priority</Text>
+            {priority ?
+              (() => {
+                return (
+                  <View style={[styles.priorityTag, { backgroundColor: priorityPalette.backgroundColor }]}>
+                    <Text style={[styles.priorityText, { color: priorityPalette.color }]}>
+                      {priority.toUpperCase()}
+                    </Text>
+                  </View>
+                )
+              })()
+              :
+              <Text style={[styles.detailText, { color: theme.grey500 }]}>Add priority</Text>
+            }
           </View>
         </PressableOpacity>
 
@@ -114,9 +130,18 @@ export default function EditActivity() {
         ))}
       </CustomBottomSheetModal>
       <CustomBottomSheetModal bottomSheetModalRef={prioritySelectorModalRef} showHandle={false}>
-        <PriorityItem level={'high'} />
-        <PriorityItem level={'medium'} />
-        <PriorityItem level={'low'} />
+        <PriorityItem level={'high'} onSelect={() => {
+          setPriority('high')
+          prioritySelectorModalRef.current?.dismiss()
+        }} />
+        <PriorityItem level={'medium'} onSelect={() => {
+          setPriority('medium')
+          prioritySelectorModalRef.current?.dismiss()
+        }} />
+        <PriorityItem level={'low'} onSelect={() => {
+          setPriority('low')
+          prioritySelectorModalRef.current?.dismiss()
+        }} />
       </CustomBottomSheetModal>
     </View >
   )
@@ -172,6 +197,16 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   courseText: {
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  priorityTag: {
+    borderRadius: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    // borderWidth: 1,
+  },
+  priorityText: {
     fontSize: 12,
     fontWeight: '500',
   },

@@ -6,9 +6,10 @@ import PressableOpacity from '@/components/PressableOpacity'
 
 type PriorityItemProps = {
   level: string
+  onSelect: () => void
 }
 
-export default function PriorityItem({ level }: PriorityItemProps) {
+export default function PriorityItem({ level, onSelect }: PriorityItemProps) {
   const theme = useTheme()
   let textColor;
   let backgroundColor;
@@ -31,7 +32,7 @@ export default function PriorityItem({ level }: PriorityItemProps) {
   const levelText = level.toUpperCase()
 
   return (
-    <PressableOpacity style={[styles.container, { backgroundColor: backgroundColor }]}>
+    <PressableOpacity style={[styles.container, { backgroundColor: backgroundColor }]} onPress={() => onSelect()}>
       <Text style={[styles.codeText, { color: textColor }]}>{levelText}</Text>
     </PressableOpacity >
   )
