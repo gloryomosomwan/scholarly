@@ -37,11 +37,15 @@ export default function EditActivity() {
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary }]}>
       <View style={styles.formContainer}>
+
+        {/* Title */}
         <TextInput
           placeholder="Enter title"
           style={[styles.titleInput, { color: theme.text }]}
           placeholderTextColor={theme.grey500}
         />
+
+        {/* Datetime */}
         <PressableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
           <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
           {
@@ -50,6 +54,8 @@ export default function EditActivity() {
               : <Text style={[styles.detailText, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
           }
         </PressableOpacity>
+
+        {/* Course */}
         <PressableOpacity onPress={() => {
           Keyboard.dismiss()
           courseSelectorModalRef.current?.present()
@@ -59,6 +65,8 @@ export default function EditActivity() {
             <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
           </View>
         </PressableOpacity>
+
+        {/* Priority */}
         <PressableOpacity onPress={() => {
           Keyboard.dismiss()
           prioritySelectorModalRef.current?.present()
@@ -68,16 +76,19 @@ export default function EditActivity() {
             <Text style={[styles.detailText, { color: theme.grey500 }]}>Add priority</Text>
           </View>
         </PressableOpacity>
+
+        {/* Notes */}
         <View style={styles.detailRow}>
           <SymbolView name={'note.text'} tintColor={theme.grey500} size={24} />
           <Text style={[styles.detailText, { color: theme.grey500 }]}>Add notes</Text>
         </View>
       </View>
+
       <DateTimeModal initialDate={date} handleSetDate={handleSetDate} bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
-      <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable showHandle={false}>
+      <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable >
         <CourseItem code={'PHYS 102'} name={'Introduction to Physics'} color={'red'} />
       </CustomBottomSheetModal>
-      <CustomBottomSheetModal bottomSheetModalRef={prioritySelectorModalRef}>
+      <CustomBottomSheetModal bottomSheetModalRef={prioritySelectorModalRef} showHandle={false}>
         <PriorityItem level={'high'} />
         <PriorityItem level={'medium'} />
         <PriorityItem level={'low'} />
