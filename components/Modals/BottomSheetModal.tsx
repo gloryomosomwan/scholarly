@@ -1,5 +1,5 @@
 import React, { RefObject } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, RefreshControl, StyleSheet, View } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetScrollView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { SymbolView } from 'expo-symbols';
 
@@ -49,7 +49,11 @@ export default function CustomBottomSheetModal({ bottomSheetModalRef, children, 
         />
       )}
     >
-      <Container>
+      <Container
+        refreshControl={
+          Platform.OS === "ios" ? <RefreshControl refreshing={false} style={{ opacity: 0 }} /> : undefined
+        }
+      >
         <View style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
           {children}
         </View>
