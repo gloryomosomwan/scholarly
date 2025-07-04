@@ -23,6 +23,8 @@ export default function EditActivity() {
   const [course, setCourse] = useState<string | null>(null);
   const [priority, setPriority] = useState<string | null>(null);
   const priorityPalette = usePriorityPalette(priority)
+  const [title, setTitle] = useState('')
+  const [notes, setNotes] = useState('')
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const courseSelectorModalRef = useRef<BottomSheetModal>(null);
@@ -50,6 +52,8 @@ export default function EditActivity() {
           placeholder="Enter title"
           style={[styles.titleInput, { color: theme.text }]}
           placeholderTextColor={theme.grey500}
+          value={title}
+          onChangeText={setTitle}
         />
 
         {/* Datetime */}
@@ -118,6 +122,8 @@ export default function EditActivity() {
             multiline
             returnKeyType='done'
             blurOnSubmit
+            value={notes}
+            onChangeText={setNotes}
           />
         </View>
       </View>
