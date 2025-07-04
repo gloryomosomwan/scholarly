@@ -1,4 +1,4 @@
-import { CourseColorMap } from "@/data/coursePalettes";
+import { CourseColorMap } from "@/constants/coursePalettes";
 import { CourseColor } from "@/types";
 
 export function formatTime(date: Date) {
