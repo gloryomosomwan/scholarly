@@ -1,5 +1,6 @@
 import { CourseColorMap } from "@/data/coursePalettes";
 import { CourseColor } from "@/types";
+import { useTheme } from "./useTheme";
 
 export function formatTime(date: Date) {
   return date.toLocaleTimeString('en-US', {
@@ -20,3 +21,33 @@ export const getColorWithOpacity = (color: string, opacity: number): string => {
 export const getCoursePalette = (color: CourseColor) => {
   return CourseColorMap[color]
 }
+
+export const getPriorityPalette = (priority?: string) => {
+  const theme = useTheme()
+  switch (priority?.toLowerCase()) {
+    case 'high':
+      return {
+        color: theme.dangerText,
+        backgroundColor: theme.dangerBackground,
+        borderColor: theme.dangerBorder,
+      };
+    case 'medium':
+      return {
+        color: theme.warningText,
+        backgroundColor: theme.warningBackground,
+        borderColor: theme.warningBorder,
+      };
+    case 'low':
+      return {
+        color: theme.successText,
+        backgroundColor: theme.successBackground,
+        borderColor: theme.successBorder,
+      };
+    default:
+      return {
+        color: theme.text,
+        backgroundColor: theme.grey100,
+        borderColor: theme.grey200,
+      };
+  }
+};
