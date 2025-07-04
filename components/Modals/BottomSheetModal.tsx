@@ -1,10 +1,10 @@
 import React, { RefObject } from 'react';
 import { StyleSheet } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/utils/useTheme'
 import PressableOpacity from '@/components/PressableOpacity';
-import { SymbolView } from 'expo-symbols';
 
 type BottomSheetModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
