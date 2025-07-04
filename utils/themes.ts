@@ -46,30 +46,6 @@ export const lightTheme: theme = {
   dangerBorder: '#FECACA',
 }
 
-export const lightPriorityColors = {
-  high: {
-    color: lightTheme['dangerText'],
-    backgroundColor: lightTheme['dangerBackground'],
-    borderColor: lightTheme['dangerBorder'],
-  },
-  medium: {
-    color: lightTheme['warningText'],
-    backgroundColor: lightTheme['warningBackground'],
-    borderColor: lightTheme['warningBorder'],
-  },
-  low: {
-    color: lightTheme['successText'],
-    backgroundColor: lightTheme['successBackground'],
-    borderColor: lightTheme['successBorder'],
-  },
-  default: {
-    color: lightTheme['text'],
-    backgroundColor: lightTheme['primary'],
-    borderColor: lightTheme['grey200'],
-  }
-
-}
-
 export const darkTheme: theme = {
   primary: '#111827',
   secondary: '#1F2937',
@@ -92,27 +68,4 @@ export const darkTheme: theme = {
   dangerText: '#FCA5A5',
   dangerBackground: '#451A1A',
   dangerBorder: '#7F1D1D',
-}
-
-export const darkPriorityColors = {
-  high: {
-    color: darkTheme['dangerText'],
-    backgroundColor: darkTheme['dangerBackground'],
-    borderColor: darkTheme['dangerBorder'],
-  },
-  medium: {
-    color: darkTheme['warningText'],
-    backgroundColor: darkTheme['warningBackground'],
-    borderColor: darkTheme['warningBorder'],
-  },
-  low: {
-    color: darkTheme['successText'],
-    backgroundColor: darkTheme['successBackground'],
-    borderColor: darkTheme['successBorder'],
-  },
-  default: {
-    color: darkTheme['text'],
-    backgroundColor: darkTheme['grey400'],
-    borderColor: darkTheme['grey200'],
-  }
 }
