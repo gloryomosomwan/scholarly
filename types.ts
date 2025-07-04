@@ -44,3 +44,11 @@ export interface Course {
 }
 
 export type DueType = 'date' | 'datetime'
+
+export interface Semester {
+  id: number;
+  name: string;
+  start: Date;
+  end: Date;
+  numberOfCourses: number
+}

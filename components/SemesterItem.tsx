@@ -4,15 +4,10 @@ import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks'
 import PressableOpacity from '@/components/PressableOpacity'
+import { Semester } from '@/types'
 
 export type SemesterItemProps = {
-  item: {
-    id: string
-    name: string
-    start: Date
-    end: Date
-    courses: number
-  }
+  item: Semester
   onPress?: () => void
 }
 
@@ -41,7 +36,7 @@ export default function SemesterItem({ item, onPress }: SemesterItemProps) {
       </View>
       <View style={styles.courseCountContainer}>
         <Text style={[styles.courseCount, { color: theme.accent }]}>
-          {item.courses} courses
+          {item.numberOfCourses} courses
         </Text>
       </View>
     </PressableOpacity>

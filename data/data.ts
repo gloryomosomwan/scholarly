@@ -1,4 +1,28 @@
-import { Event, Activity, Exam, Course } from '@/types'
+import { Event, Activity, Exam, Course, Semester } from '@/types'
+
+export const semesters: Semester[] = [
+  {
+    id: 1,
+    name: 'Fall 2025',
+    start: new Date(2025, 8, 1),
+    end: new Date(2025, 11, 15),
+    numberOfCourses: 4,
+  },
+  {
+    id: 2,
+    name: 'Spring 2025',
+    start: new Date(2025, 0, 10),
+    end: new Date(2025, 4, 20),
+    numberOfCourses: 5,
+  },
+  {
+    id: 3,
+    name: 'Summer 2024',
+    start: new Date(2024, 5, 6),
+    end: new Date(2024, 8, 2),
+    numberOfCourses: 2,
+  },
+]
 
 export const courses: Course[] = [
   {
