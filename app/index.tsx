@@ -111,7 +111,14 @@ export default function EditActivity() {
         {/* Notes */}
         <View style={styles.detailRow}>
           <SymbolView name={'note.text'} tintColor={theme.grey500} size={24} />
-          <Text style={[styles.detailText, { color: theme.grey500 }]}>Add notes</Text>
+          <TextInput
+            placeholder="Add notes"
+            style={[styles.detailText, { color: theme.text, flex: 1 }]}
+            placeholderTextColor={theme.grey500}
+            multiline
+            returnKeyType='done'
+            blurOnSubmit
+          />
         </View>
       </View>
 
@@ -166,12 +173,13 @@ const styles = StyleSheet.create({
   },
   detailRow: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: 16,
   },
   detailText: {
     fontSize: 20,
     fontWeight: '500',
+    paddingTop: 0,
   },
   buttonContainer: {
     flexDirection: 'row',
