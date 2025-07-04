@@ -74,7 +74,7 @@ export default function EditActivity() {
         </View>
       </View>
       <DateTimeModal initialDate={date} handleSetDate={handleSetDate} bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
-      <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef}>
+      <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable showHandle={false}>
         <CourseItem code={'PHYS 102'} name={'Introduction to Physics'} color={'red'} />
       </CustomBottomSheetModal>
       <CustomBottomSheetModal bottomSheetModalRef={prioritySelectorModalRef}>
