@@ -52,6 +52,9 @@ export default function EditActivity() {
           placeholder="Enter title"
           style={[styles.titleInput, { color: theme.text }]}
           placeholderTextColor={theme.grey500}
+          returnKeyType='done'
+          multiline
+          blurOnSubmit
           value={title}
           onChangeText={setTitle}
         />
