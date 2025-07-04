@@ -28,10 +28,10 @@ export default function CustomBottomSheetModal({ bottomSheetModalRef, children }
         />
       )}
     >
-      <PressableOpacity style={styles.closeButton} onPress={() => bottomSheetModalRef.current?.dismiss()}>
-        <SymbolView name={'xmark.circle.fill'} tintColor={theme.grey400} style={styles.closeButtonIcon} />
-      </PressableOpacity>
       <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
+        <PressableOpacity style={styles.closeButton} onPress={() => bottomSheetModalRef.current?.dismiss()}>
+          <SymbolView name={'xmark.circle.fill'} tintColor={theme.grey400} style={styles.closeButtonIcon} />
+        </PressableOpacity>
         {children}
       </BottomSheetView>
     </BottomSheetModal>
