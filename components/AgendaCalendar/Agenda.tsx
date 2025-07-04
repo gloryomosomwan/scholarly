@@ -10,7 +10,7 @@ import Event from "@/components/AgendaCalendar/Event";
 import { events, assignments, tasks } from '@/data/data'
 import { useTheme } from '@/hooks'
 import { useCalendar } from './CalendarContext';
-import { compareEventTimes, compareActivityTimes } from '@/utils/Calendar/calendarUtils';
+import { compareEventTimes, compareActivityTimes } from '@/utils/calendarUtils';
 import ActivityCard from '../Activity/ActivityCard';
 
 type AgendaProps = {
