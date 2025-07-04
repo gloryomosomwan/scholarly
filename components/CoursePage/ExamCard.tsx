@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks';
 import { Exam } from '@/types';
 import Graded from './Graded';
 

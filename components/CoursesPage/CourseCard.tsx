@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, useColorScheme } from 'react-
 import { SymbolView } from 'expo-symbols';
 import { router } from 'expo-router'
 
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks';
 import { getColorWithOpacity, getCoursePalette } from '@/utils/utility';
 import { Course } from '@/types';
 

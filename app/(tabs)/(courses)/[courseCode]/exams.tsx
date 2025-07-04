@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView } from 'react-native';
 
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks';
 import { exams } from '@/data/data';
 import ExamCard from '@/components/CoursePage/ExamCard';
 

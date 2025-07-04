@@ -3,7 +3,7 @@ import React from 'react'
 import { SymbolView } from 'expo-symbols';
 import { isBefore, isSameDay } from 'date-fns';
 
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks';
 import { useCalendar } from './CalendarContext';
 import { courses } from '@/data/data';
 

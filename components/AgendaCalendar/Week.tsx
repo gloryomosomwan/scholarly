@@ -4,7 +4,7 @@ import { addDays, startOfWeek } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated'
 
 import Day from './Day'
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/hooks'
 
 type WeekProps = {
   initialDay: Date

@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView } from 'react-native';
 
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks';
 import AssignmentCard from '@/components/CoursePage/AssignmentCard';
 
 const assignment1 = {

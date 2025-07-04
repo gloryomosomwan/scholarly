@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks';
 
 export type ScheduleCardProps = {
   schedule: {

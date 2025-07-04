@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Pressable } from 'react-native'
 import React from 'react'
 import { SymbolView } from 'expo-symbols'
 
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/hooks'
 import PressableOpacity from '../PressableOpacity'
 
 type SettingsItemProps = {

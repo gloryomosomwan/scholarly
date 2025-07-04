@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols'
 import tinycolor from 'tinycolor2';
 
 import dayjs from '@/utils/dayjs'
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks';
 import { courses } from '@/data/data';
 
 type AssessmentCardProps = {

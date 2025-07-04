@@ -1,7 +1,7 @@
 import { Text, StyleSheet, ScrollView, View, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "@/hooks";
 import ActivityCard from "@/components/Activity/ActivityCard";
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
 import EventCard from "@/components/Dashboard/EventCard";

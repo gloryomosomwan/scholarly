@@ -3,7 +3,7 @@ import { withLayoutContext, useLocalSearchParams } from "expo-router";
 import { ParamListBase, TabNavigationState } from "@react-navigation/native";
 import { SafeAreaView, StyleSheet } from "react-native";
 
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "@/hooks";
 import Subheader from "@/components/CoursePage/Subheader";
 import { SymbolView } from "expo-symbols";
 

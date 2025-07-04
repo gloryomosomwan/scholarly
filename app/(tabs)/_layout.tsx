@@ -3,7 +3,7 @@ import { BlurView } from 'expo-blur';
 import { Tabs } from 'expo-router';
 import { StyleSheet } from 'react-native';
 
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks';
 
 export default function TabLayout() {
   const theme = useTheme()

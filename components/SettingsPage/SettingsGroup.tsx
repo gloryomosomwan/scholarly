@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-import { useTheme } from '@/hooks/useTheme'
+import { useTheme } from '@/hooks'
 import SettingsItem from './SettingsItem'
 
 type SettingsGroupProps = {

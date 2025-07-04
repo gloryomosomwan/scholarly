@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SymbolView } from 'expo-symbols';
 import { isSameDay } from 'date-fns';
 
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks';
 import ActivityCard from '@/components/Activity/ActivityCard';
 import { tasks } from '@/data/data'
 
