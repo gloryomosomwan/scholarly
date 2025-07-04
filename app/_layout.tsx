@@ -13,7 +13,7 @@ export default function RootLayout() {
         <Stack
           screenOptions={{ contentStyle: { backgroundColor: theme.secondary } }}>
           <Stack.Screen
-            name="index"
+            name="edit-activity"
             options={{
               headerTitle: "",
               headerBackTitle: 'Back',
