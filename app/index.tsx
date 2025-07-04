@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Keyboard } from 'react-native'
 import { SymbolView } from 'expo-symbols'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
@@ -10,6 +10,7 @@ import { DueType } from '@/types'
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import PriorityItem from '@/components/Modals/Items/PriorityItem'
 import CourseItem from '@/components/Modals/Items/CourseItem';
+import { courses } from '@/data/data'
 
 export default function EditActivity() {
   const theme = useTheme();
@@ -17,10 +18,6 @@ export default function EditActivity() {
   const [addedDate, setAddedDate] = useState(false);
   const [dueType, setDueType] = useState<DueType>('date');
   const [course, setCourse] = useState<string | null>(null);
-
-  useEffect(() => {
-    setCourse('PHYS 102')
-  })
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const courseSelectorModalRef = useRef<BottomSheetModal>(null);
@@ -68,10 +65,15 @@ export default function EditActivity() {
           <View style={styles.detailRow}>
             <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
             {course ?
-              <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
-                <View style={[styles.courseDot, { backgroundColor: 'red' }]} />
-                <Text style={[styles.courseText, { color: theme.text }]}>{course}</Text>
-              </View>
+              (() => {
+                const selected = courses.find(c => c.code === course)
+                return (
+                  <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
+                    <View style={[styles.courseDot, { backgroundColor: selected?.color ?? 'grey' }]} />
+                    <Text style={[styles.courseText, { color: theme.text }]}>{course}</Text>
+                  </View>
+                )
+              })()
               :
               <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
             }
@@ -97,8 +99,19 @@ export default function EditActivity() {
       </View>
 
       <DateTimeModal initialDate={date} handleSetDate={handleSetDate} bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
-      <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable >
-        <CourseItem code={'PHYS 102'} name={'Introduction to Physics'} color={'red'} />
+      <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable>
+        {courses.map(course => (
+          <CourseItem
+            key={course.code}
+            code={course.code}
+            name={course.name ?? ''}
+            color={course.color}
+            onSelect={({ code }) => {
+              setCourse(code)
+              courseSelectorModalRef.current?.dismiss()
+            }}
+          />
+        ))}
       </CustomBottomSheetModal>
       <CustomBottomSheetModal bottomSheetModalRef={prioritySelectorModalRef} showHandle={false}>
         <PriorityItem level={'high'} />

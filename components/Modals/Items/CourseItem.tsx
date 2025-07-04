@@ -8,12 +8,16 @@ type CourseItemProps = {
   code: string
   name: string
   color: string
+  onSelect?: (course: { code: string, name: string, color: string }) => void
 }
 
-export default function CourseItem({ name, code, color }: CourseItemProps) {
+export default function CourseItem({ name, code, color, onSelect }: CourseItemProps) {
   const theme = useTheme()
   return (
-    <PressableOpacity style={[styles.container, { backgroundColor: theme.secondary }]}>
+    <PressableOpacity
+      style={[styles.container, { backgroundColor: theme.secondary }]}
+      onPress={() => onSelect?.({ code, name, color })}
+    >
       <View style={[styles.tag, { backgroundColor: color }]}>
         <Text style={[styles.codeText, { color: 'white' }]}>{code}</Text>
       </View>
