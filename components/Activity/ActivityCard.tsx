@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { isAfter, format } from 'date-fns';
 
-import { useTheme, usePriorityColors } from '@/hooks/useTheme';
+import { useTheme, usePriorityPalette } from '@/hooks';
 import { courses } from '@/data/data';
 import ActivityMenu from '@/components/Menus/ActivityMenu';
 
@@ -22,19 +22,10 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
   const [overdue, setOverdue] = useState(activity.due && isAfter(new Date(), activity.due))
   const color = activity.course && courses.find(course => course.code === activity.course)?.color
   const theme = useTheme()
-  const priorityColors = usePriorityColors()
+  const priorityPalette = usePriorityPalette(activity.priority)
 
   const toggleCompleted = () => {
     setCompleted(!completed);
-  };
-
-  const getPriorityColor = (priority?: string) => {
-    switch (priority?.toUpperCase()) {
-      case 'HIGH': return priorityColors.high;
-      case 'MEDIUM': return priorityColors.medium;
-      case 'LOW': return priorityColors.low;
-      default: return priorityColors.default;
-    }
   };
 
   return (
@@ -85,8 +76,8 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
 
               {/* Priority tag */}
               {activity.priority && (
-                <View style={[styles.priorityTag, getPriorityColor(activity.priority)]}>
-                  <Text style={[styles.priorityText, getPriorityColor(activity.priority)]}>
+                <View style={[styles.priorityTag, { backgroundColor: priorityPalette.backgroundColor, borderColor: priorityPalette.borderColor }]}>
+                  <Text style={[styles.priorityText, { color: priorityPalette.color }]}>
                     {activity.priority.toUpperCase()}
                   </Text>
                 </View>
