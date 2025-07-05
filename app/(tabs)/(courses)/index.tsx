@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { SymbolView } from 'expo-symbols';
+import { router, useLocalSearchParams } from 'expo-router';
 
 import { useTheme } from '@/hooks';
 import { getColorWithOpacity } from '@/utils/utility';
@@ -8,10 +9,11 @@ import { courses } from '@/data/data';
 
 import CourseCard from '@/components/CoursesPage/CourseCard';
 import PressableOpacity from '@/components/PressableOpacity';
-import { router } from 'expo-router';
 
 export default function CoursesPage() {
   const theme = useTheme();
+  const { semesterString } = useLocalSearchParams()
+  const [semesterName, setSemesterName] = useState(semesterString)
   return (
     <SafeAreaView style={[styles.safeAreaContainer, { backgroundColor: theme.primary }]}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>

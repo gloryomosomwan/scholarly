@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 
 import { useTheme } from '@/hooks'
@@ -8,6 +8,11 @@ import { semesters } from '@/data/data'
 export default function SelectSemester() {
   const theme = useTheme()
 
+  function handleSetSemester(name: string) {
+    // pass sem name to course index
+
+  }
+
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary }]}>
       <Text style={[styles.header, { color: theme.text }]}>Select Semester</Text>
@@ -16,8 +21,8 @@ export default function SelectSemester() {
           <SemesterItem
             key={item.id}
             item={item}
-            onPress={() => {
-              /* handle select */
+            onSelect={({ name }) => {
+              handleSetSemester(name)
             }}
           />
         ))}

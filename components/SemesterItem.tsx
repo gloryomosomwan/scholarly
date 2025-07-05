@@ -8,7 +8,7 @@ import { Semester } from '@/types'
 
 export type SemesterItemProps = {
   item: Semester
-  onPress?: () => void
+  onSelect?: (semester: { name: string }) => void
 }
 
 function formatDate(date: Date) {
@@ -19,12 +19,12 @@ function formatDate(date: Date) {
   })
 }
 
-export default function SemesterItem({ item, onPress }: SemesterItemProps) {
+export default function SemesterItem({ item, onSelect }: SemesterItemProps) {
   const theme = useTheme()
   return (
     <PressableOpacity
       style={[styles.semesterItem, { backgroundColor: theme.primary }]}
-      onPress={onPress}
+      onPress={() => onSelect?.({ name: item.name })}
     >
       <View style={styles.semesterInfo}>
         <Text style={[styles.semesterName, { color: theme.text }]}>
