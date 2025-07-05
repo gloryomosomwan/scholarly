@@ -42,7 +42,7 @@ export default function Tab() {
           </PressableOpacity>
         </View>
       </View>
-      <View>
+      <View style={[styles.selectionsContainer]}>
         {
           filterBy &&
           <View style={[styles.selectionContainer, {}]}>
@@ -97,9 +97,13 @@ const styles = StyleSheet.create({
   tasksContainer: {
     paddingHorizontal: 20,
   },
-  selectionContainer: {
+  selectionsContainer: {
     flexDirection: 'row',
     paddingHorizontal: 20,
+    gap: 10
+  },
+  selectionContainer: {
+    flexDirection: 'row',
     gap: 5
   },
   selectionPill: {
