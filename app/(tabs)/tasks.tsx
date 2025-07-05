@@ -9,11 +9,13 @@ import ActivityCard from '@/components/Activity/ActivityCard';
 import PressableOpacity from '@/components/PressableOpacity';
 import { tasks } from '@/data/data'
 import TaskSortMenu from '@/components/Menus/TaskSortMenu';
+import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
   const [sortBy, setSortBy] = useState<string | null>(null)
+  const [filterBy, setFilterBy] = useState<string | null>(null)
   const todayTasks = tasks.filter((task) => {
     if (!task.due) return;
     return isSameDay(new Date(), task.due)
@@ -23,16 +25,20 @@ export default function Tab() {
     setSortBy(sortBy)
   }
 
+  const handleFilterBy = (filterBy: string) => {
+    setFilterBy(filterBy)
+  }
+
   return (
     <View style={[styles.container, { paddingTop: insets.top }]} >
       <View style={styles.header}>
         <Text style={[styles.headerText, { color: theme.text }]}>Tasks</Text>
         <View style={styles.buttonsContainer}>
           <PressableOpacity style={styles.buttonContainer}>
-            <TaskSortMenu handleSelection={handleSortBy} />
+            <TaskFilterMenu handleSelection={handleSortBy} />
           </PressableOpacity>
           <PressableOpacity style={styles.buttonContainer}>
-            <SymbolView name={'arrow.up.arrow.down'} tintColor={theme.accent} />
+            <TaskSortMenu handleSelection={handleFilterBy} />
           </PressableOpacity>
         </View>
       </View>
