@@ -23,7 +23,7 @@ export default function CoursesPage() {
             <View style={styles.semesterInfoContainer}>
               <Text style={[styles.semesterText, { color: theme.text }]}>{semesterName}</Text>
             </View>
-            <PressableOpacity onPress={() => router.navigate('/selectSemester')}>
+            <PressableOpacity onPress={() => router.navigate('/select-semester')}>
               <SymbolView name="calendar" size={35} tintColor={theme.text} />
             </PressableOpacity>
           </View>
