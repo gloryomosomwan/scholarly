@@ -49,9 +49,20 @@ export default function Tab() {
             <View style={[styles.selectionPill, { backgroundColor: theme.grey100 }]}>
               <Text style={[styles.selectionText, { color: theme.text }]}>Filtered by: {filterBy}</Text>
             </View>
-            <View style={[styles.clearSelectionContainer, { backgroundColor: theme.grey100 }]}>
+            <Pressable style={[styles.clearSelectionContainer, { backgroundColor: theme.grey100 }]} onPress={() => setFilterBy(null)}>
               <Text style={[styles.clearSelectionText, { color: theme.text }]}>X</Text>
+            </Pressable>
+          </View>
+        }
+        {
+          sortBy &&
+          <View style={[styles.selectionContainer, {}]}>
+            <View style={[styles.selectionPill, { backgroundColor: theme.grey100 }]}>
+              <Text style={[styles.selectionText, { color: theme.text }]}>Sorted by: {sortBy}</Text>
             </View>
+            <Pressable style={[styles.clearSelectionContainer, { backgroundColor: theme.grey100 }]} onPress={() => setSortBy(null)}>
+              <Text style={[styles.clearSelectionText, { color: theme.text }]}>X</Text>
+            </Pressable>
           </View>
         }
       </View>
