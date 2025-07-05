@@ -12,8 +12,7 @@ import PressableOpacity from '@/components/PressableOpacity';
 
 export default function CoursesPage() {
   const theme = useTheme();
-  const { semesterString } = useLocalSearchParams()
-  const [semesterName, setSemesterName] = useState(semesterString)
+  const { semesterName } = useLocalSearchParams<{ semesterName: string }>()
   return (
     <SafeAreaView style={[styles.safeAreaContainer, { backgroundColor: theme.primary }]}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
@@ -22,7 +21,7 @@ export default function CoursesPage() {
           {/* Top Row */}
           <View style={styles.headerTopContainer}>
             <View style={styles.semesterInfoContainer}>
-              <Text style={[styles.semesterText, { color: theme.text }]}>Summer 2025</Text>
+              <Text style={[styles.semesterText, { color: theme.text }]}>{semesterName}</Text>
             </View>
             <PressableOpacity onPress={() => router.navigate('/selectSemester')}>
               <SymbolView name="calendar" size={35} tintColor={theme.text} />

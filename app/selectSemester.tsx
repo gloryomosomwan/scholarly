@@ -4,13 +4,13 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { useTheme } from '@/hooks'
 import SemesterItem from '@/components/SemesterItem'
 import { semesters } from '@/data/data'
+import { router } from 'expo-router'
 
 export default function SelectSemester() {
   const theme = useTheme()
 
   function handleSetSemester(name: string) {
-    // pass sem name to course index
-
+    router.replace({ pathname: './(tabs)/(courses)', params: { semesterName: name } })
   }
 
   return (
