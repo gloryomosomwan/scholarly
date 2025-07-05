@@ -23,7 +23,14 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
-          name="selectSemester"
+          name="select-semester"
+          options={{
+            headerShown: false,
+            presentation: 'modal'
+          }}
+        />
+        <Stack.Screen
+          name="course-form"
           options={{
             headerShown: false,
             presentation: 'modal'

@@ -48,7 +48,7 @@ export default function CoursesPage() {
 
         {/* Add Course Button */}
         <View style={styles.addCourseContainer}>
-          <TouchableOpacity style={[styles.addCourseButtonContainer, { backgroundColor: theme.secondary, borderColor: theme.grey400 }]}>
+          <TouchableOpacity style={[styles.addCourseButtonContainer, { backgroundColor: theme.secondary, borderColor: theme.grey400 }]} onPress={() => { router.navigate('/course-form') }}>
             <View style={styles.addCourseContentContainer}>
               <View style={[styles.addCourseIconContainer, { backgroundColor: getColorWithOpacity(theme.accent, 0.05) }]}>
                 <SymbolView name="plus" size={20} tintColor={theme.accent} />
