@@ -35,12 +35,25 @@ export default function Tab() {
         <Text style={[styles.headerText, { color: theme.text }]}>Tasks</Text>
         <View style={styles.buttonsContainer}>
           <PressableOpacity style={styles.buttonContainer}>
-            <TaskFilterMenu handleSelection={handleSortBy} />
+            <TaskFilterMenu handleSelection={handleFilterBy} />
           </PressableOpacity>
           <PressableOpacity style={styles.buttonContainer}>
-            <TaskSortMenu handleSelection={handleFilterBy} />
+            <TaskSortMenu handleSelection={handleSortBy} />
           </PressableOpacity>
         </View>
+      </View>
+      <View>
+        {
+          filterBy &&
+          <View style={[styles.selectionContainer, {}]}>
+            <View style={[styles.selectionPill, { backgroundColor: theme.grey100 }]}>
+              <Text style={[styles.selectionText, { color: theme.text }]}>Filtered by: {filterBy}</Text>
+            </View>
+            <View style={[styles.clearSelectionContainer, { backgroundColor: theme.grey100 }]}>
+              <Text style={[styles.clearSelectionText, { color: theme.text }]}>X</Text>
+            </View>
+          </View>
+        }
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
         {todayTasks.map((task) => <ActivityCard key={task.id} activity={task} />)}
@@ -72,5 +85,26 @@ const styles = StyleSheet.create({
   },
   tasksContainer: {
     paddingHorizontal: 20,
+  },
+  selectionContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    gap: 5
+  },
+  selectionPill: {
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    justifyContent: 'center'
+  },
+  selectionText: {
+    fontWeight: '600'
+  },
+  clearSelectionContainer: {
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  clearSelectionText: {
+    fontWeight: '600'
   },
 });
