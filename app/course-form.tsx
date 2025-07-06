@@ -6,7 +6,8 @@ import { useTheme } from '@/hooks'
 
 export default function CourseForm() {
   const theme = useTheme()
-  const [title, setTitle] = useState('')
+  const [courseCode, setCourseCode] = useState('')
+  const [courseName, setCourseName] = useState('')
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
   const courseColors = courses.map(course => course.color);
@@ -21,8 +22,8 @@ export default function CourseForm() {
           returnKeyType='done'
           multiline
           blurOnSubmit
-          value={title}
-          onChangeText={setTitle}
+          value={courseCode}
+          onChangeText={setCourseCode}
         />
       </View>
       <View style={[styles.fieldContainer, {}]}>
@@ -33,8 +34,8 @@ export default function CourseForm() {
           returnKeyType='done'
           multiline
           blurOnSubmit
-          value={title}
-          onChangeText={setTitle}
+          value={courseName}
+          onChangeText={setCourseName}
         />
       </View>
       <View style={[styles.fieldContainer, {}]}>
