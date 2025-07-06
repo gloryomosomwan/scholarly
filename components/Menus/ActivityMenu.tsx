@@ -14,7 +14,7 @@ export default function Menu() {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
-        <DropdownMenuItem key="edit" onSelect={() => router.navigate('/edit-activity')}>
+        <DropdownMenuItem key="edit" onSelect={() => router.navigate('/activity-form')}>
           <DropdownMenuItemIcon ios={{
             name: 'pencil',
             pointSize: 20,

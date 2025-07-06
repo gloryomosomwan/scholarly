@@ -14,7 +14,7 @@ import CourseItem from '@/components/Modals/Items/CourseItem';
 import { DueType } from '@/types'
 import { courses } from '@/data/data'
 
-export default function EditActivity() {
+export default function ActivityForm() {
   const theme = useTheme();
 
   const [date, setDate] = useState(new Date());

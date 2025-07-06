@@ -11,7 +11,7 @@ export default function RootLayout() {
       <Stack
         screenOptions={{ contentStyle: { backgroundColor: theme.secondary } }}>
         <Stack.Screen
-          name="edit-activity"
+          name="activity-form"
           options={{
             // headerTitle: "",
             // headerBackTitle: 'Back',
