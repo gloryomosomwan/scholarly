@@ -10,7 +10,7 @@ import PressableOpacity from '@/components/PressableOpacity'
 type AddButtonProps = {
   route: Href
   title: string
-  description: string
+  description?: string
 }
 
 export default function AddButton({ route, title, description }: AddButtonProps) {
@@ -25,7 +25,9 @@ export default function AddButton({ route, title, description }: AddButtonProps)
           </View>
           <View style={styles.addCourseTextContainer}>
             <Text style={[styles.addCourseText, { color: theme.text }]}>{title}</Text>
-            <Text style={[styles.addCourseSubtitleText, { color: theme.grey500 }]}>{description}</Text>
+            {
+              description && <Text style={[styles.addCourseSubtitleText, { color: theme.grey500 }]}>{description}</Text>
+            }
           </View>
         </View>
       </PressableOpacity>
