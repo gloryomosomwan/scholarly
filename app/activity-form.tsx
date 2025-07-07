@@ -47,6 +47,7 @@ export default function ActivityForm() {
     <BottomSheetModalProvider>
       <View style={[styles.container, { backgroundColor: theme.secondary }]}>
         <View style={styles.formContainer}>
+
           {/* Title */}
           <TextInput
             placeholder="Enter title"
@@ -58,6 +59,7 @@ export default function ActivityForm() {
             value={title}
             onChangeText={setTitle}
           />
+
           {/* Datetime */}
           <PressableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
             <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
@@ -67,6 +69,7 @@ export default function ActivityForm() {
                 : <Text style={[styles.detailText, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
             }
           </PressableOpacity>
+
           {/* Course */}
           <PressableOpacity onPress={() => {
             Keyboard.dismiss()
@@ -89,6 +92,7 @@ export default function ActivityForm() {
               }
             </View>
           </PressableOpacity>
+
           {/* Priority */}
           <PressableOpacity onPress={() => {
             Keyboard.dismiss()
@@ -111,6 +115,7 @@ export default function ActivityForm() {
               }
             </View>
           </PressableOpacity>
+
           {/* Notes */}
           <View style={styles.detailRow}>
             <SymbolView name={'note.text'} tintColor={theme.grey500} size={24} />
@@ -125,7 +130,9 @@ export default function ActivityForm() {
               onChangeText={setNotes}
             />
           </View>
+
         </View>
+        {/* Button Row */}
         <View style={[styles.buttonContainer, {}]}>
           <PressableOpacity>
             <Text style={[styles.buttonText, { color: theme.accent }]}>Mark completed</Text>
@@ -134,7 +141,11 @@ export default function ActivityForm() {
             <Text style={[styles.buttonText, { color: theme.dangerText }]}>Delete</Text>
           </PressableOpacity>
         </View>
+
+        {/* Date Picker */}
         <DateTimeModal initialDate={date} handleSetDate={handleSetDate} bottomSheetModalRef={datePickerModalRef} handleSheetChanges={handleSheetChanges} />
+
+        {/* Course Modal */}
         <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable>
           {courses.map(course => (
             <CourseItem
@@ -149,6 +160,8 @@ export default function ActivityForm() {
             />
           ))}
         </CustomBottomSheetModal>
+
+        {/* Priority Selector */}
         <CustomBottomSheetModal bottomSheetModalRef={prioritySelectorModalRef} showHandle={false}>
           <PriorityItem level={'high'} onSelect={() => {
             setPriority('high')
@@ -163,6 +176,7 @@ export default function ActivityForm() {
             prioritySelectorModalRef.current?.dismiss()
           }} />
         </CustomBottomSheetModal>
+
       </View >
     </BottomSheetModalProvider>
   )
