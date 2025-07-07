@@ -11,6 +11,9 @@ export default function RootLayout() {
       <Stack
         screenOptions={{ contentStyle: { backgroundColor: theme.secondary } }}>
         <Stack.Screen
+          name="(tabs)"
+          options={{ headerShown: false }} />
+        <Stack.Screen
           name="activity-form"
           options={{
             // headerTitle: "",
@@ -37,8 +40,12 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen
-          name="(tabs)"
-          options={{ headerShown: false }} />
+          name="event-form"
+          options={{
+            headerShown: false,
+            presentation: 'modal'
+          }}
+        />
       </Stack>
     </GestureHandlerRootView>
   )
