@@ -28,9 +28,15 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const { calendarState } = useCalendar()
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
 
-  const currentEvents = events.filter((event) => isSameDay(event.start, calendarState.currentDate))
-  currentEvents.sort(compareEventTimes)
-  const currentEventElements = currentEvents.map(event => <Event key={event.id} event={event} />)
+  const currentEvents = useMemo(() => {
+    const filteredEvents = events.filter((event) => isSameDay(event.start, calendarState.currentDate));
+    filteredEvents.sort(compareEventTimes);
+    return filteredEvents;
+  }, [calendarState.currentDate]);
+
+  const currentEventElements = useMemo(() => {
+    return currentEvents.map(event => <Event key={event.id} event={event} />);
+  }, [currentEvents]);
 
   const isActivityCurrent = (activity: any) => {
     if (activity.due) {
@@ -40,13 +46,26 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
     }
     return false
   }
-  const currentAssignments = assignments.filter(isActivityCurrent)
-  currentAssignments.sort(compareActivityTimes)
-  const currentAssignmentElements = currentAssignments.map(assignment => <ActivityCard key={assignment.id} activity={assignment} />)
 
-  const currentTasks = tasks.filter(isActivityCurrent)
-  currentTasks.sort(compareActivityTimes)
-  const currentTaskElements = currentTasks.map(task => <ActivityCard key={task.id} activity={task} />)
+  const currentAssignments = useMemo(() => {
+    const filteredAssignments = assignments.filter(isActivityCurrent);
+    filteredAssignments.sort(compareActivityTimes);
+    return filteredAssignments;
+  }, [calendarState.currentDate]);
+
+  const currentAssignmentElements = useMemo(() => {
+    return currentAssignments.map(assignment => <ActivityCard key={assignment.id} activity={assignment} />);
+  }, [currentAssignments]);
+
+  const currentTasks = useMemo(() => {
+    const filteredTasks = tasks.filter(isActivityCurrent);
+    filteredTasks.sort(compareActivityTimes);
+    return filteredTasks;
+  }, [calendarState.currentDate]);
+
+  const currentTaskElements = useMemo(() => {
+    return currentTasks.map(task => <ActivityCard key={task.id} activity={task} />);
+  }, [currentTasks]);
 
   useEffect(() => {
     const unsubscribe = calendarState.weekSubscribe(() => {
