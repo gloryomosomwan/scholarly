@@ -24,7 +24,7 @@ export default function Schedule() {
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} >
       <ScheduleCard schedule={lecture} />
       <View style={styles.addCourseContainer}>
-        <TouchableOpacity style={[styles.addCourseButtonContainer, { backgroundColor: theme.secondary, borderColor: theme.grey400 }]} onPress={() => { router.navigate('/course-form') }}>
+        <TouchableOpacity style={[styles.addCourseButtonContainer, { backgroundColor: theme.secondary, borderColor: theme.grey400 }]} onPress={() => { router.navigate('/event-form') }}>
           <View style={styles.addCourseContentContainer}>
             <View style={[styles.addCourseIconContainer, { backgroundColor: getColorWithOpacity(theme.accent, 0.05) }]}>
               <SymbolView name="plus" size={20} tintColor={theme.accent} />
