@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from '@/hooks';
 import { exams } from '@/data/data';
 import ExamCard from '@/components/CoursePage/ExamCard';
+import AddButton from '@/components/AddButton';
 
 export default function Exams() {
   const theme = useTheme()
@@ -10,6 +11,7 @@ export default function Exams() {
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]}>
       {exams.map(exam => <ExamCard key={exam.id} {...exam} />)}
+      <AddButton route='/exam-form' title='Add Exam' />
     </ScrollView>
   );
 }

@@ -60,6 +60,13 @@ export default function RootLayout() {
             presentation: 'modal'
           }}
         />
+        <Stack.Screen
+          name="exam-form"
+          options={{
+            headerShown: false,
+            presentation: 'modal'
+          }}
+        />
       </Stack>
     </GestureHandlerRootView>
   )
