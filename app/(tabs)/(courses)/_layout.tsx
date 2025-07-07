@@ -1,5 +1,5 @@
 import { Button } from "react-native";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 
 import { useTheme } from "@/hooks";
 
@@ -25,7 +25,7 @@ export default function Layout() {
           headerLargeTitleShadowVisible: false,
           headerLargeTitle: true,
           headerTitleStyle: { color: theme.text },
-          headerRight: () => (<Button color={route.params?.color} title='Edit Course' onPress={() => alert('Editing course! 😂')}></Button>),
+          headerRight: () => (<Button color={route.params?.color} title='Edit Course' onPress={() => router.navigate('/course-form')}></Button>),
         })}
       />
     </Stack>
