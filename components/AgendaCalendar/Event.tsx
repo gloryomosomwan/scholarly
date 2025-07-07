@@ -10,9 +10,9 @@ import { courses } from '@/data/data';
 type EventProps = {
   event: {
     type: string,
-    course: string,
-    icon: string,
-    location: string,
+    course?: string,
+    icon?: string,
+    location?: string,
     start: Date,
     end: Date
   }
