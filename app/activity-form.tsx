@@ -5,7 +5,7 @@ import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet
 
 import { useTheme, usePriorityPalette } from '@/hooks'
 
-import PressableOpacity from '@/components/PressableOpacity'
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import PriorityItem from '@/components/Modals/Items/PriorityItem'

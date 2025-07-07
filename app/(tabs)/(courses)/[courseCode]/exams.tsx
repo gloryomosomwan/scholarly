@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from '@/hooks';
 import { exams } from '@/data/data';
 import ExamCard from '@/components/CoursePage/ExamCard';
-import AddButton from '@/components/AddButton';
+import AddButton from '@/components/Buttons/AddButton';
 
 export default function Exams() {
   const theme = useTheme()

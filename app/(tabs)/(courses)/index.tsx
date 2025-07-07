@@ -8,7 +8,7 @@ import { getColorWithOpacity } from '@/utils/utility';
 import { courses } from '@/data/data';
 
 import CourseCard from '@/components/CoursesPage/CourseCard';
-import PressableOpacity from '@/components/PressableOpacity';
+import PressableOpacity from '@/components/Buttons/PressableOpacity';
 
 export default function CoursesPage() {
   const theme = useTheme();

@@ -6,7 +6,7 @@ import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
-import PressableOpacity from '@/components/PressableOpacity'
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 
 export default function EventForm() {

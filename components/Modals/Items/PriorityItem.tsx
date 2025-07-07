@@ -2,7 +2,7 @@ import { StyleSheet, Text } from 'react-native'
 import React from 'react'
 
 import { usePriorityPalette } from '@/hooks'
-import PressableOpacity from '@/components/PressableOpacity'
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 type PriorityItemProps = {
   level: string

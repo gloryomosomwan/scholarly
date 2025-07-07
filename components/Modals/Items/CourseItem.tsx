@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import { useTheme } from '@/hooks'
-import PressableOpacity from '@/components/PressableOpacity'
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 type CourseItemProps = {
   code: string

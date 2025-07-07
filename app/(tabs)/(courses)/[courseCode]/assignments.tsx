@@ -2,7 +2,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 
 import { useTheme } from '@/hooks';
 import AssignmentCard from '@/components/CoursePage/AssignmentCard';
-import AddButton from '@/components/AddButton';
+import AddButton from '@/components/Buttons/AddButton';
 
 const assignment1 = {
   id: 1,

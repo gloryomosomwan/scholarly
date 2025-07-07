@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
 import { useTheme } from '@/hooks';
-import PressableOpacity from '@/components/PressableOpacity';
+import PressableOpacity from '@/components/Buttons/PressableOpacity';
 
 type RecurrenceModalProps = {
   onClose: () => void;

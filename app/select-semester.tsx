@@ -5,7 +5,7 @@ import { SymbolView } from 'expo-symbols'
 import { useTheme } from '@/hooks'
 import SemesterItem from '@/components/SemesterSelector/SemesterItem'
 import { semesters } from '@/data/data'
-import PressableOpacity from '@/components/PressableOpacity'
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 export default function SelectSemester() {
   const theme = useTheme()

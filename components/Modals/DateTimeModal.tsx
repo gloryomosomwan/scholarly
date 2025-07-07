@@ -4,7 +4,7 @@ import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop } from '@gorhom/
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 import { useTheme } from '@/hooks'
-import PressableOpacity from '@/components/PressableOpacity';
+import PressableOpacity from '@/components/Buttons/PressableOpacity';
 import { DueType } from '@/types';
 
 type DateTimeModalProps = {

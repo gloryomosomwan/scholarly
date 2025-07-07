@@ -4,7 +4,7 @@ import { BottomSheetModal, BottomSheetView, BottomSheetScrollView, BottomSheetBa
 import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/hooks'
-import PressableOpacity from '@/components/PressableOpacity';
+import PressableOpacity from '@/components/Buttons/PressableOpacity';
 
 type BottomSheetModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>

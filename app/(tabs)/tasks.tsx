@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { useTheme } from '@/hooks';
 import ActivityCard from '@/components/Activity/ActivityCard';
-import PressableOpacity from '@/components/PressableOpacity';
+import PressableOpacity from '@/components/Buttons/PressableOpacity';
 import { tasks } from '@/data/data'
 import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks'
-import PressableOpacity from '@/components/PressableOpacity'
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import { Semester } from '@/types'
 
 export type SemesterItemProps = {

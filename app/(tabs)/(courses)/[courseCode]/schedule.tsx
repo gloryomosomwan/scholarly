@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from '@/hooks';
 import ScheduleCard from '@/components/CoursePage/ScheduleCard';
 import type { ScheduleCardProps } from '@/components/CoursePage/ScheduleCard';
-import AddButton from '@/components/AddButton';
+import AddButton from '@/components/Buttons/AddButton';
 
 const lecture: ScheduleCardProps['schedule'] = {
   id: 1,

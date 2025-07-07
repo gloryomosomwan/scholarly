@@ -3,7 +3,7 @@ import React from 'react'
 import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks'
-import PressableOpacity from '../PressableOpacity'
+import PressableOpacity from '../Buttons/PressableOpacity'
 
 type SettingsItemProps = {
   title: string
