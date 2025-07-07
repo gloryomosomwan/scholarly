@@ -3,7 +3,7 @@ import { router } from 'expo-router'
 import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks'
-import SemesterItem from '@/components/SemesterItem'
+import SemesterItem from '@/components/SemesterSelector/SemesterItem'
 import { semesters } from '@/data/data'
 import PressableOpacity from '@/components/PressableOpacity'
 
