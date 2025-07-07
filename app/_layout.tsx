@@ -46,6 +46,13 @@ export default function RootLayout() {
             presentation: 'modal'
           }}
         />
+        <Stack.Screen
+          name="recurrence-modal"
+          options={{
+            headerShown: false,
+            presentation: 'modal'
+          }}
+        />
       </Stack>
     </GestureHandlerRootView>
   )

@@ -12,7 +12,7 @@ import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import CourseItem from '@/components/Modals/Items/CourseItem'
 
-export default function CourseForm() {
+export default function EventForm() { // Consider renaming to EventForm
   const theme = useTheme()
   const router = useRouter()
 
@@ -21,7 +21,7 @@ export default function CourseForm() {
   const [end, setEnd] = useState<Date>()
   const [location, setLocation] = useState('')
   const [course, setCourse] = useState('')
-  const [recurring, setRecurring] = useState('')
+  const [recurring, setRecurring] = useState(false)
 
   const startDatePickerModalRef = useRef<BottomSheetModal>(null);
   const endDatePickerModalRef = useRef<BottomSheetModal>(null);
@@ -117,11 +117,20 @@ export default function CourseForm() {
                     </View>
                   )
                 })()
-                :
-                <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
+                : <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
               }
             </View>
           </PressableOpacity>
+
+          {/* Recurring Event */}
+          <View style={[styles.fieldContainer, { justifyContent: 'space-between' }]}>
+            <PressableOpacity onPress={() => router.push('/recurrence-modal')}>
+              <View style={{ flexDirection: 'row', gap: 16 }}>
+                <SymbolView name={'repeat'} tintColor={theme.grey500} size={24} />
+                <Text style={[styles.detailText, { color: theme.grey500 }]}>Repeat</Text>
+              </View>
+            </PressableOpacity>
+          </View>
 
         </View>
 
@@ -139,7 +148,7 @@ export default function CourseForm() {
           <Pressable
             style={[styles.saveButton, { backgroundColor: '#007AFF' }]}
             onPress={() => {
-              console.log()
+              console.log('Title:', title, 'Start:', start, 'End:', end, 'Location:', location, 'Course:', course, 'Recurring:', recurring);
               router.back()
             }}
             accessibilityLabel="Save"
