@@ -9,6 +9,8 @@ import { useTheme } from '@/hooks'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
 import PressableOpacity from '@/components/PressableOpacity'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
+import CourseItem from '@/components/Modals/Items/CourseItem'
 
 export default function CourseForm() {
   const theme = useTheme()
@@ -17,19 +19,30 @@ export default function CourseForm() {
   const [title, setTitle] = useState('Add title')
   const [start, setStart] = useState<Date>()
   const [end, setEnd] = useState<Date>()
-  const [location, setLocation] = useState()
-  const [course, setCourse] = useState()
-  const [recurring, setRecurring] = useState()
+  const [location, setLocation] = useState('')
+  const [course, setCourse] = useState('')
+  const [recurring, setRecurring] = useState('')
 
-  const datePickerModalRef = useRef<BottomSheetModal>(null);
+  const startDatePickerModalRef = useRef<BottomSheetModal>(null);
+  const endDatePickerModalRef = useRef<BottomSheetModal>(null);
+  const courseSelectorModalRef = useRef<BottomSheetModal>(null)
 
-  const handlePresentModalPress = useCallback(() => {
+  const handleStartPress = useCallback(() => {
     Keyboard.dismiss()
-    datePickerModalRef.current?.present();
+    startDatePickerModalRef.current?.present();
+  }, []);
+
+  const handleEndPress = useCallback(() => {
+    Keyboard.dismiss()
+    endDatePickerModalRef.current?.present();
   }, []);
 
   const handleSetStart = (date: Date) => {
     setStart(date)
+  }
+
+  const handleSetEnd = (date: Date) => {
+    setEnd(date)
   }
 
   return (
@@ -48,18 +61,57 @@ export default function CourseForm() {
               onChangeText={setTitle}
             />
           </View>
+
           {/* Start */}
           <View style={[styles.fieldContainer]}>
-            <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
-            <PressableOpacity onPress={handlePresentModalPress}>
+            <SymbolView name={'clock'} tintColor={theme.grey500} size={24} />
+            <PressableOpacity onPress={handleStartPress}>
               {
                 start === undefined
-                  ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add date</Text>
+                  ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add start date</Text>
                   : <Text style={[styles.detailText, { color: theme.grey500 }]}>{start.toLocaleString()}</Text>
               }
             </PressableOpacity>
           </View>
+
+          {/* End */}
+          <View style={[styles.fieldContainer]}>
+            <SymbolView name={'clock'} tintColor={theme.grey500} size={24} />
+            <PressableOpacity onPress={handleEndPress}>
+              {
+                end === undefined
+                  ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add end date</Text>
+                  : <Text style={[styles.detailText, { color: theme.grey500 }]}>{end.toLocaleString()}</Text>
+              }
+            </PressableOpacity>
+          </View>
+
+          {/* Course */}
+          <PressableOpacity onPress={() => {
+            Keyboard.dismiss()
+            courseSelectorModalRef.current?.present()
+          }}>
+            <View style={styles.fieldContainer}>
+              <SymbolView name={'graduationcap.fill'} tintColor={theme.grey500} size={24} />
+              {course ?
+                (() => {
+                  const selected = courses.find(c => c.code === course)
+                  return (
+                    <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
+                      <View style={[styles.courseDot, { backgroundColor: selected?.color ?? 'grey' }]} />
+                      <Text style={[styles.courseText, { color: theme.text }]}>{course}</Text>
+                    </View>
+                  )
+                })()
+                :
+                <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
+              }
+            </View>
+          </PressableOpacity>
+
         </View>
+
+        {/* Button Row */}
         <View style={styles.buttonRowContainer}>
           <Pressable
             style={[styles.closeButton, { backgroundColor: '#eee' }]}
@@ -81,7 +133,26 @@ export default function CourseForm() {
             <Text style={[styles.saveButtonText, { color: '#fff' }]}> Save </Text>
           </Pressable>
         </View>
-        <DateTimeModal initialDate={start} handleSetDate={handleSetStart} bottomSheetModalRef={datePickerModalRef} />
+
+        {/* Date Pickers */}
+        <DateTimeModal initialDate={start} handleSetDate={handleSetStart} bottomSheetModalRef={startDatePickerModalRef} />
+        <DateTimeModal initialDate={end} handleSetDate={handleSetEnd} bottomSheetModalRef={endDatePickerModalRef} />
+
+        {/* Course Selector */}
+        <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable>
+          {courses.map(course => (
+            <CourseItem
+              key={course.code}
+              code={course.code}
+              name={course.name ?? ''}
+              color={course.color}
+              onSelect={({ code }) => {
+                setCourse(code)
+                courseSelectorModalRef.current?.dismiss()
+              }}
+            />
+          ))}
+        </CustomBottomSheetModal>
       </View>
     </BottomSheetModalProvider>
   )
@@ -111,6 +182,26 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingTop: 0,
   },
+
+  courseTag: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    gap: 6,
+  },
+  courseDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+  courseText: {
+    fontSize: 12,
+    fontWeight: '500',
+  },
+
+  // Button row
   buttonRowContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
