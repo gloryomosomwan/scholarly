@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { courses } from '@/data/data'
+import { useRouter } from 'expo-router'
 
 import { useTheme } from '@/hooks'
 import { SymbolView } from 'expo-symbols'
@@ -10,6 +11,7 @@ export default function CourseForm() {
   const [courseCode, setCourseCode] = useState('')
   const [courseName, setCourseName] = useState('')
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const router = useRouter()
 
   const courseColors = courses.map(course => course.color);
 
@@ -65,7 +67,7 @@ export default function CourseForm() {
         <Pressable
           style={[styles.closeButton, { backgroundColor: '#eee' }]}
           onPress={() => {
-            // TODO: Add your close/cancel logic here
+            router.back()
           }}
           accessibilityLabel="Close"
         >
@@ -74,7 +76,8 @@ export default function CourseForm() {
         <Pressable
           style={[styles.saveButton, { backgroundColor: '#007AFF' }]}
           onPress={() => {
-            // TODO: Add your save logic here
+            console.log(courseCode, courseName, selectedColor)
+            router.back()
           }}
           accessibilityLabel="Save"
         >
