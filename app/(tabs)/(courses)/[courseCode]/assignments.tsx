@@ -2,6 +2,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 
 import { useTheme } from '@/hooks';
 import AssignmentCard from '@/components/CoursePage/AssignmentCard';
+import AddButton from '@/components/AddButton';
 
 const assignment1 = {
   id: 1,
@@ -16,6 +17,7 @@ export default function Assignments() {
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]}>
       <AssignmentCard assignment={assignment1} />
+      <AddButton title='Add Assignment' route='/activity-form' />
     </ScrollView>
   );
 }
