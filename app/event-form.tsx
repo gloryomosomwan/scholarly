@@ -85,6 +85,20 @@ export default function CourseForm() {
               }
             </PressableOpacity>
           </View>
+          {/* Location */}
+          <View style={styles.fieldContainer}>
+            <SymbolView name={'mappin.circle.fill'} tintColor={theme.grey500} size={24} />
+            <TextInput
+              placeholder="Add location"
+              style={[styles.detailText, { color: theme.text, flex: 1 }]}
+              placeholderTextColor={theme.grey500}
+              multiline
+              returnKeyType='done'
+              blurOnSubmit
+              value={location}
+              onChangeText={setLocation}
+            />
+          </View>
 
           {/* Course */}
           <PressableOpacity onPress={() => {
