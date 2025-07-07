@@ -6,7 +6,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { useCalendar } from './CalendarContext';
 import { useTheme } from '@/hooks';
-import { Event, Activity, events, assignments, tasks } from '@/data/data';
+import { events, assignments, tasks } from '@/data/data';
+import { Event, Activity } from '@/types';
 import { useCalendarAppearance } from './CalendarAppearanceContext'
 
 type DayType = 'week' | 'month'
