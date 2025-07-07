@@ -15,49 +15,71 @@ export default function CourseForm() {
 
   return (
     <View style={[styles.container, {}]}>
-      <View style={[styles.fieldContainer, {}]}>
-        <TextInput
-          placeholder="Enter code"
-          style={[styles.titleText, { color: theme.text }]}
-          placeholderTextColor={theme.grey500}
-          returnKeyType='done'
-          multiline
-          blurOnSubmit
-          value={courseCode}
-          onChangeText={setCourseCode}
-        />
-      </View>
-      <View style={[styles.fieldContainer, {}]}>
-        <SymbolView name={'graduationcap.fill'} tintColor={theme.grey500} />
-        <TextInput
-          placeholder="Enter name"
-          style={[styles.detailText, { color: theme.text }]}
-          placeholderTextColor={theme.grey500}
-          returnKeyType='done'
-          multiline
-          blurOnSubmit
-          value={courseName}
-          onChangeText={setCourseName}
-        />
-      </View>
-      <View style={[styles.colorPickerField, { flexDirection: 'column' }]}>
-        <View style={[styles.fieldContainer]}>
-          <SymbolView name={'paintpalette'} tintColor={theme.grey500} />
-          <Text style={[styles.detailText, { color: theme.grey500 }]}>Choose color</Text>
+      <View style={[styles.formContainer, {}]}>
+        <View style={[styles.fieldContainer, {}]}>
+          <TextInput
+            placeholder="Enter code"
+            style={[styles.titleText, { color: theme.text }]}
+            placeholderTextColor={theme.grey500}
+            returnKeyType='done'
+            multiline
+            blurOnSubmit
+            value={courseCode}
+            onChangeText={setCourseCode}
+          />
         </View>
-        <View style={styles.colorPickerContainer}>
-          {courseColors.map((color, index) => (
-            <Pressable
-              key={index}
-              style={[
-                styles.colorCircle,
-                { backgroundColor: color },
-                selectedColor === color && styles.selectedColorCircle,
-              ]}
-              onPress={() => setSelectedColor(color)}
-            />
-          ))}
+        <View style={[styles.fieldContainer, {}]}>
+          <SymbolView name={'graduationcap.fill'} tintColor={theme.grey500} />
+          <TextInput
+            placeholder="Enter name"
+            style={[styles.detailText, { color: theme.text }]}
+            placeholderTextColor={theme.grey500}
+            returnKeyType='done'
+            multiline
+            blurOnSubmit
+            value={courseName}
+            onChangeText={setCourseName}
+          />
         </View>
+        <View style={[styles.colorPickerField, { flexDirection: 'column' }]}>
+          <View style={[styles.fieldContainer]}>
+            <SymbolView name={'paintpalette'} tintColor={theme.grey500} />
+            <Text style={[styles.detailText, { color: theme.grey500 }]}>Choose color</Text>
+          </View>
+          <View style={styles.colorPickerContainer}>
+            {courseColors.map((color, index) => (
+              <Pressable
+                key={index}
+                style={[
+                  styles.colorCircle,
+                  { backgroundColor: color },
+                  selectedColor === color && styles.selectedColorCircle,
+                ]}
+                onPress={() => setSelectedColor(color)}
+              />
+            ))}
+          </View>
+        </View>
+      </View>
+      <View style={styles.buttonRowContainer}>
+        <Pressable
+          style={[styles.closeButton, { backgroundColor: '#eee' }]}
+          onPress={() => {
+            // TODO: Add your close/cancel logic here
+          }}
+          accessibilityLabel="Close"
+        >
+          <Text style={[styles.closeButtonText, { color: '#333' }]}> × </Text>
+        </Pressable>
+        <Pressable
+          style={[styles.saveButton, { backgroundColor: '#007AFF' }]}
+          onPress={() => {
+            // TODO: Add your save logic here
+          }}
+          accessibilityLabel="Save"
+        >
+          <Text style={[styles.saveButtonText, { color: '#fff' }]}> Save </Text>
+        </Pressable>
       </View>
     </View>
   )
@@ -65,9 +87,13 @@ export default function CourseForm() {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 24,
+    flex: 1,
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingVertical: 16
+    paddingVertical: 16,
+  },
+  formContainer: {
+    gap: 24,
   },
   fieldContainer: {
     flexDirection: 'row',
@@ -102,5 +128,41 @@ const styles = StyleSheet.create({
   },
   colorPickerField: {
     gap: 8
-  }
+  },
+  buttonRowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginTop: 32,
+    paddingHorizontal: 20,
+    paddingBottom: 40
+  },
+  closeButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 16,
+    elevation: 2,
+  },
+  closeButtonText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    lineHeight: 28,
+  },
+  saveButton: {
+    paddingHorizontal: 20,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 16,
+    elevation: 2,
+  },
+  saveButtonText: {
+    fontSize: 18,
+    fontWeight: '600',
+    letterSpacing: 1,
+  },
 })
