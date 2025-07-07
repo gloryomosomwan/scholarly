@@ -12,7 +12,7 @@ import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import CourseItem from '@/components/Modals/Items/CourseItem'
 
-export default function EventForm() { // Consider renaming to EventForm
+export default function EventForm() {
   const theme = useTheme()
   const router = useRouter()
 
@@ -85,6 +85,7 @@ export default function EventForm() { // Consider renaming to EventForm
               }
             </PressableOpacity>
           </View>
+
           {/* Location */}
           <View style={styles.fieldContainer}>
             <SymbolView name={'mappin.circle.fill'} tintColor={theme.grey500} size={24} />
