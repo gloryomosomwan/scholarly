@@ -39,7 +39,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(courses)"
         options={{
-          tabBarIcon: ({ color }) => <SymbolView size={35} name="book" tintColor={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={35} name="graduationcap.fill" tintColor={color} />,
         }}
       />
       <Tabs.Screen
