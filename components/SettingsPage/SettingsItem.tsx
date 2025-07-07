@@ -1,20 +1,21 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import React from 'react'
-import { SymbolView } from 'expo-symbols'
+import { SFSymbol, SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks'
 import PressableOpacity from '../Buttons/PressableOpacity'
 
 type SettingsItemProps = {
   title: string
+  icon: SFSymbol
 }
 
-export default function SettingsItem({ title }: SettingsItemProps) {
+export default function SettingsItem({ title, icon }: SettingsItemProps) {
   const theme = useTheme()
   return (
     <PressableOpacity onPress={() => alert('hello')} style={[styles.container, {}]}>
       <View style={[styles.leftSide, {}]}>
-        <SymbolView style={styles.icon} name={'bolt.shield'} />
+        <SymbolView style={styles.icon} name={icon} />
         <Text style={[styles.text, { color: theme.text }]}>{title}</Text>
       </View>
       <SymbolView name={'chevron.right'} size={15} tintColor={theme.grey400} />
