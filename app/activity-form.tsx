@@ -26,13 +26,13 @@ export default function ActivityForm() {
   const [title, setTitle] = useState('')
   const [notes, setNotes] = useState('')
 
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const datePickerModalRef = useRef<BottomSheetModal>(null);
   const courseSelectorModalRef = useRef<BottomSheetModal>(null);
   const prioritySelectorModalRef = useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = useCallback(() => {
     Keyboard.dismiss()
-    bottomSheetModalRef.current?.present();
+    datePickerModalRef.current?.present();
   }, []);
 
   const handleSheetChanges = useCallback((index: number) => { }, []);
@@ -134,7 +134,7 @@ export default function ActivityForm() {
             <Text style={[styles.buttonText, { color: theme.dangerText }]}>Delete</Text>
           </PressableOpacity>
         </View>
-        <DateTimeModal initialDate={date} handleSetDate={handleSetDate} bottomSheetModalRef={bottomSheetModalRef} handleSheetChanges={handleSheetChanges} />
+        <DateTimeModal initialDate={date} handleSetDate={handleSetDate} bottomSheetModalRef={datePickerModalRef} handleSheetChanges={handleSheetChanges} />
         <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable>
           {courses.map(course => (
             <CourseItem
