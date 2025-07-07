@@ -42,17 +42,17 @@ export default function ExamCard({ title, notes, start, end, location, weight, g
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Location: '}</Text>
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{location}</Text>
       </View>
-      <View style={styles.detailRowContainer}>
+      {/* <View style={styles.detailRowContainer}>
         <SymbolView name={'scalemass'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Weight: '}</Text>
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{weight}</Text>
-      </View>
+      </View> */}
       <View style={styles.detailRowContainer}>
         <SymbolView name={'note.text'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Notes: '}</Text>
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{notes}</Text>
       </View>
-      {graded && grade && <Graded grade={grade} />}
+      {/* {graded && grade && <Graded grade={grade} />} */}
     </View>
   );
 }
