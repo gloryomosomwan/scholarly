@@ -29,7 +29,7 @@ export default function CoursesPage() {
           </View>
 
           {/* Stats Row */}
-          <View style={[styles.statRowContainer, { backgroundColor: theme.primary }]}>
+          {/* <View style={[styles.statRowContainer, { backgroundColor: theme.primary }]}>
             <View style={[styles.statContainer, { backgroundColor: theme.grey100 }]}>
               <Text style={[styles.statLabelText, { color: theme.grey600 }]}>GPA: </Text>
               <Text style={[styles.statValueText, { color: theme.text }]}>3.7</Text>
@@ -38,7 +38,7 @@ export default function CoursesPage() {
               <Text style={[styles.statLabelText, { color: theme.grey600 }]}>Credits: </Text>
               <Text style={[styles.statValueText, { color: theme.text }]}>10</Text>
             </View>
-          </View>
+          </View> */}
         </View>
 
         {/* Course */}
