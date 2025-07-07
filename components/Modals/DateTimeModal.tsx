@@ -9,8 +9,8 @@ import { DueType } from '@/types';
 
 type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
-  initialDate: Date
-  handleSheetChanges: (index: number) => void
+  initialDate: Date | undefined
+  handleSheetChanges?: (index: number) => void
   handleSetDate: (date: Date, dueType: DueType) => void
 }
 
@@ -18,7 +18,7 @@ type PickerMode = 'date' | 'datetime';
 
 export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetModalRef, handleSheetChanges }: DateTimeModalProps) {
   const theme = useTheme()
-  const [internalDate, setInternalDate] = useState(initialDate)
+  const [internalDate, setInternalDate] = useState(initialDate === undefined ? new Date() : initialDate)
   const [pickerMode, setPickerMode] = useState<PickerMode>('date');
 
   const handlePickerChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
