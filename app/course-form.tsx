@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Pressable } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { courses } from '@/data/data'
 
 import { useTheme } from '@/hooks'
+import { SymbolView } from 'expo-symbols'
 
 export default function CourseForm() {
   const theme = useTheme()
@@ -16,7 +17,7 @@ export default function CourseForm() {
     <View style={[styles.container, {}]}>
       <View style={[styles.fieldContainer, {}]}>
         <TextInput
-          placeholder="Enter course code"
+          placeholder="Enter code"
           style={[styles.titleText, { color: theme.text }]}
           placeholderTextColor={theme.grey500}
           returnKeyType='done'
@@ -27,8 +28,9 @@ export default function CourseForm() {
         />
       </View>
       <View style={[styles.fieldContainer, {}]}>
+        <SymbolView name={'graduationcap.fill'} tintColor={theme.grey500} />
         <TextInput
-          placeholder="Enter course name"
+          placeholder="Enter name"
           style={[styles.detailText, { color: theme.text }]}
           placeholderTextColor={theme.grey500}
           returnKeyType='done'
@@ -38,8 +40,11 @@ export default function CourseForm() {
           onChangeText={setCourseName}
         />
       </View>
-      <View style={[styles.fieldContainer, {}]}>
-        <Text style={[styles.detailText, { color: theme.grey500 }]}>Select course color</Text>
+      <View style={[styles.colorPickerField, { flexDirection: 'column' }]}>
+        <View style={[styles.fieldContainer]}>
+          <SymbolView name={'paintpalette'} tintColor={theme.grey500} />
+          <Text style={[styles.detailText, { color: theme.grey500 }]}>Choose color</Text>
+        </View>
         <View style={styles.colorPickerContainer}>
           {courseColors.map((color, index) => (
             <Pressable
@@ -60,9 +65,14 @@ export default function CourseForm() {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 10
+    gap: 24,
+    paddingHorizontal: 20,
+    paddingVertical: 16
   },
-  fieldContainer: {},
+  fieldContainer: {
+    flexDirection: 'row',
+    gap: 16
+  },
   titleText: {
     fontSize: 30,
     fontWeight: '600',
@@ -78,6 +88,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 10,
     marginTop: 10,
+    alignSelf: 'center'
   },
   colorCircle: {
     width: 40,
@@ -89,4 +100,7 @@ const styles = StyleSheet.create({
   selectedColorCircle: {
     borderColor: 'black',
   },
+  colorPickerField: {
+    gap: 8
+  }
 })
