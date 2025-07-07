@@ -7,13 +7,13 @@ import { SymbolView } from 'expo-symbols'
 import { useTheme } from '@/hooks'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
 import PressableOpacity from '@/components/PressableOpacity'
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 
 export default function EventForm() {
   const theme = useTheme()
   const router = useRouter()
 
-  const [title, setTitle] = useState('Add title')
+  const [title, setTitle] = useState('')
   const [start, setStart] = useState<Date>()
   const [end, setEnd] = useState<Date>()
 
@@ -39,74 +39,74 @@ export default function EventForm() {
   }
 
   return (
-    <View style={[styles.container, {}]}>
-      <View style={[styles.formContainer, {}]}>
-        <View style={[styles.fieldContainer, {}]}>
-          <TextInput
-            placeholder="Add name"
-            style={[styles.titleText, { color: theme.text }]}
-            placeholderTextColor={theme.grey500}
-            returnKeyType='done'
-            multiline
-            blurOnSubmit
-            value={title}
-            onChangeText={setTitle}
-          />
+    <BottomSheetModalProvider>
+      <View style={[styles.container, {}]}>
+        <View style={[styles.formContainer, {}]}>
+          <View style={[styles.fieldContainer, {}]}>
+            <TextInput
+              placeholder="Add name"
+              style={[styles.titleText, { color: theme.text }]}
+              placeholderTextColor={theme.grey500}
+              returnKeyType='done'
+              multiline
+              blurOnSubmit
+              value={title}
+              onChangeText={setTitle}
+            />
+          </View>
+
+          {/* Start */}
+          <View style={[styles.fieldContainer]}>
+            <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
+            <PressableOpacity onPress={handleStartPress}>
+              {
+                start === undefined
+                  ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add start date</Text>
+                  : <Text style={[styles.detailText, { color: theme.grey500 }]}>{start.toLocaleString()}</Text>
+              }
+            </PressableOpacity>
+          </View>
+
+          {/* End */}
+          <View style={[styles.fieldContainer]}>
+            <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
+            <PressableOpacity onPress={handleEndPress}>
+              {
+                end === undefined
+                  ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add end date</Text>
+                  : <Text style={[styles.detailText, { color: theme.grey500 }]}>{end.toLocaleString()}</Text>
+              }
+            </PressableOpacity>
+          </View>
         </View>
 
-        {/* Start */}
-        <View style={[styles.fieldContainer]}>
-          <SymbolView name={'clock'} tintColor={theme.grey500} size={24} />
-          <PressableOpacity onPress={handleStartPress}>
-            {
-              start === undefined
-                ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add start date</Text>
-                : <Text style={[styles.detailText, { color: theme.grey500 }]}>{start.toLocaleString()}</Text>
-            }
-          </PressableOpacity>
+        {/* Button Row */}
+        <View style={styles.buttonRowContainer}>
+          <Pressable
+            style={[styles.closeButton, { backgroundColor: '#eee' }]}
+            onPress={() => {
+              router.back()
+            }}
+            accessibilityLabel="Close"
+          >
+            <Text style={[styles.closeButtonText, { color: '#333' }]}> × </Text>
+          </Pressable>
+          <Pressable
+            style={[styles.saveButton, { backgroundColor: '#007AFF' }]}
+            onPress={() => {
+              console.log('Title:', title, 'Start:', start, 'End:', end);
+              router.back()
+            }}
+            accessibilityLabel="Save"
+          >
+            <Text style={[styles.saveButtonText, { color: '#fff' }]}> Save </Text>
+          </Pressable>
         </View>
-
-        {/* End */}
-        <View style={[styles.fieldContainer]}>
-          <SymbolView name={'clock'} tintColor={theme.grey500} size={24} />
-          <PressableOpacity onPress={handleEndPress}>
-            {
-              end === undefined
-                ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add end date</Text>
-                : <Text style={[styles.detailText, { color: theme.grey500 }]}>{end.toLocaleString()}</Text>
-            }
-          </PressableOpacity>
-        </View>
+        {/* Date Pickers */}
+        <DateTimeModal initialDate={start} handleSetDate={handleSetStart} bottomSheetModalRef={startDatePickerModalRef} />
+        <DateTimeModal initialDate={end} handleSetDate={handleSetEnd} bottomSheetModalRef={endDatePickerModalRef} />
       </View>
-
-      {/* Button Row */}
-      <View style={styles.buttonRowContainer}>
-        <Pressable
-          style={[styles.closeButton, { backgroundColor: '#eee' }]}
-          onPress={() => {
-            router.back()
-          }}
-          accessibilityLabel="Close"
-        >
-          <Text style={[styles.closeButtonText, { color: '#333' }]}> × </Text>
-        </Pressable>
-        <Pressable
-          style={[styles.saveButton, { backgroundColor: '#007AFF' }]}
-          onPress={() => {
-            console.log('Title:', title, 'Start:', start, 'End:', end);
-            router.back()
-          }}
-          accessibilityLabel="Save"
-        >
-          <Text style={[styles.saveButtonText, { color: '#fff' }]}> Save </Text>
-        </Pressable>
-      </View>
-
-      {/* Date Pickers */}
-      <DateTimeModal initialDate={start} handleSetDate={handleSetStart} bottomSheetModalRef={startDatePickerModalRef} />
-      <DateTimeModal initialDate={end} handleSetDate={handleSetEnd} bottomSheetModalRef={endDatePickerModalRef} />
-
-    </View>
+    </BottomSheetModalProvider>
   )
 }
 
