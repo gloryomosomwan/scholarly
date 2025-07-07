@@ -1,19 +1,21 @@
-import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { SFSymbol, SymbolView } from 'expo-symbols'
+import { Href, router } from 'expo-router'
 
 import { useTheme } from '@/hooks'
-import PressableOpacity from '../Buttons/PressableOpacity'
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 type SettingsItemProps = {
   title: string
   icon: SFSymbol
+  route: Href
 }
 
-export default function SettingsItem({ title, icon }: SettingsItemProps) {
+export default function SettingsItem({ title, icon, route }: SettingsItemProps) {
   const theme = useTheme()
   return (
-    <PressableOpacity onPress={() => alert('hello')} style={[styles.container, {}]}>
+    <PressableOpacity onPress={() => router.navigate(route)} style={[styles.container, {}]}>
       <View style={[styles.leftSide, {}]}>
         <SymbolView style={styles.icon} name={icon} />
         <Text style={[styles.text, { color: theme.text }]}>{title}</Text>

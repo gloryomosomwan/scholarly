@@ -7,9 +7,8 @@ export default function Tab() {
   return (
     <ScrollView style={[styles.container, {}]} contentInsetAdjustmentBehavior='automatic' >
       <SettingsGroup title={'GENERAL'}>
-        <SettingsItem title={'Notifications'} icon='bell.fill' />
+        <SettingsItem title={'Notifications'} icon='bell.fill' route='./notifications' />
       </SettingsGroup>
-
     </ScrollView >
   );
 }
