@@ -19,6 +19,9 @@ type DayProps = {
   dayType: DayType
 }
 
+const MAX_ITEMS = 5
+const map01to08 = (t: number) => t * 0.9;
+
 export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayType }: DayProps) {
   const { calendarState } = useCalendar()
   const { heatmapActive, isGradientBackground } = useCalendarAppearance()
@@ -139,8 +142,6 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
     calendarState.daySelectDate(date)
   }
 
-  const MAX_ITEMS = 5
-  const map01to08 = (t: number) => t * 0.9;
   // const eventsOnThisDate = events.filter((event) => isSameDay(event.start, date))
   const eventsOnThisDate = []
   const tasksOnThisDate = useMemo(() =>
