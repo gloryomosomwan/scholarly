@@ -15,10 +15,9 @@ type DayProps = {
   dayType: DayType
   isSelected: boolean
   isInactive: boolean
-  // hasItems: boolean
   count: number
   paddingTop: number
-  // onPress
+  // onPress()
 }
 
 const MAX_ITEMS = 5
@@ -86,8 +85,6 @@ export default function Day({ date, selectedDatePosition, dayType, isSelected, i
     calendarState.selectPreviousDate(calendarState.currentDate)
     calendarState.daySelectDate(date)
   }
-
-  // const eventsOnThisDate = events.filter((event) => isSameDay(event.start, date))
 
   const opacityPct = map01to08((count / MAX_ITEMS))
 
