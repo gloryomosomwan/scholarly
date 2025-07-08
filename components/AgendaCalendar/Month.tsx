@@ -105,7 +105,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
           date={date}
           isSelected={isSelected}
           isInactive={isInactive}
-          hasItems={count > 0}
+          count={count}
           paddingTop={topPadding}
           selectedDatePosition={selectedDatePosition}
           // onPress={() => useCalendarState.getState().selectDate(date)}
