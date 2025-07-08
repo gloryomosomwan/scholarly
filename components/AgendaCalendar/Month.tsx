@@ -7,7 +7,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { events, assignments, tasks, exams } from '@/data/data';
 
 import Day from './Day'
-import { useTheme } from '@/hooks';
 
 type MonthProps = {
   initialDay: Date
@@ -29,7 +28,6 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   // const daysArray = createDays(paddedDates, initialDay, selectedDatePosition)
   // const weeks = createWeeks(daysArray)
   const insets = useSafeAreaInsets()
-  const theme = useTheme()
 
   const itemsByDate = useMemo(() => {
     const map: Record<string, number> = {}
