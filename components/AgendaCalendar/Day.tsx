@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, useColorScheme } from 'react-native'
-import React, { useRef, useLayoutEffect, useEffect, useState } from 'react'
-import { isSameMonth, isSameDay, getWeekOfMonth, isSameWeek } from 'date-fns'
+import React, { useRef, useLayoutEffect } from 'react'
+import { isSameMonth, isSameDay, getWeekOfMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 
-import { useCalendar } from './CalendarContext';
+import { useCalendarStore } from '@/stores/CalendarState';
 import { useTheme } from '@/hooks';
 import { useCalendarAppearance } from './CalendarAppearanceContext'
 
@@ -13,77 +13,43 @@ type DayProps = {
   date: Date;
   selectedDatePosition: SharedValue<number>
   dayType: DayType
-  isSelected: boolean
-  isInactive: boolean
+  isInactive?: boolean // Optional because is static (can be passed in) for Month Days but not for Week Days
   count: number
   paddingTop: number
-  // onPress()
+  firstDay: Date;
 }
 
 const MAX_ITEMS = 5
 const map01to08 = (t: number) => t * 0.9;
 
-export default function Day({ date, selectedDatePosition, dayType, isSelected, isInactive, count, paddingTop }: DayProps) {
-  const { calendarState } = useCalendar()
+export default function Day({ date, selectedDatePosition, dayType, count, paddingTop, firstDay }: DayProps) {
+  const isSelected = useCalendarStore(state => (dayType === 'week' && isSameDay(date, state.currentDate)) || (dayType === 'month' && isSameDay(date, state.currentDate) && isSameMonth(date, firstDay)));
+
+  // let weekDayInactive;
+  // if (dayType === 'week') {
+  //   weekDayInactive = useCalendarStore(state => !isSameMonth(date, state.currentDate))
+  // }
+
+  // A week Day can be active even if it isn't in the same month as the first Day of its week
+  const isInactive = useCalendarStore(state => (dayType === 'week' && !isSameMonth(date, state.currentDate) || (dayType === 'month' && !isSameMonth(date, firstDay))))
+
+  const daySelectDate = useCalendarStore(state => state.daySelectDate);
+  const selectPreviousDate = useCalendarStore(state => state.selectPreviousDate);
+
   const { heatmapActive, isGradientBackground } = useCalendarAppearance()
-  const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
   const elementRef = useRef<View | null>(null)
   const theme = useTheme()
 
-  useEffect(() => {
-    const unsubscribe = calendarState.weekSubscribe(() => {
-      if (isSameWeek(date, calendarState.currentDate) || isSameWeek(date, calendarState.previousDate)) {
-        setSelectedDate(calendarState.currentDate)
-      }
-    });
-    return unsubscribe;
-  }, [])
-
-  useEffect(() => {
-    const unsubscribe = calendarState.monthSubscribe(() => {
-      if (isSameDay(date, calendarState.currentDate) || isSameDay(date, calendarState.previousDate)) {
-        setSelectedDate(calendarState.currentDate)
-      }
-    });
-    return unsubscribe;
-  }, [])
-
-  useEffect(() => {
-    if (dayType === 'week') {
-      const dayUnsubscribe = calendarState.daySubscribe(() => {
-        if (isSameMonth(date, calendarState.currentDate) || isSameMonth(date, calendarState.previousDate)) {
-          setSelectedDate(calendarState.currentDate)
-        }
-      })
-      return dayUnsubscribe
-    }
-    else {
-      const dayUnsubscribe = calendarState.daySubscribe(() => {
-        if (isSameDay(date, calendarState.currentDate) || isSameDay(date, calendarState.previousDate)) {
-          setSelectedDate(calendarState.currentDate)
-        }
-      })
-      return dayUnsubscribe
-    }
-  }, [])
-
-  useEffect(() => {
-    const todayUnsubscribe = calendarState.todaySubscribe(() => {
-      if (isSameDay(date, calendarState.currentDate) || isSameDay(date, calendarState.previousDate))
-        setSelectedDate(calendarState.currentDate)
-    })
-    return todayUnsubscribe
-  }, [])
-
   useLayoutEffect(() => {
-    if (isSameDay(date, selectedDate) && isSelected) {
+    if (isSelected) {
       selectedDatePosition.value = (paddingTop + 52) + (47 * (getWeekOfMonth(date) - 1))
     }
-  })
+  }, [date, isSelected, paddingTop, selectedDatePosition])
 
   const onPress = () => {
-    calendarState.selectPreviousDate(calendarState.currentDate)
-    calendarState.daySelectDate(date)
+    const currentGlobalDate = useCalendarStore.getState().currentDate;
+    selectPreviousDate(currentGlobalDate);
+    daySelectDate(date);
   }
 
   const opacityPct = map01to08((count / MAX_ITEMS))
