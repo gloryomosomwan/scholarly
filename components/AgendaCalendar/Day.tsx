@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, Pressable, Dimensions, Platform, useColorScheme
 import React, { useRef, useLayoutEffect, useEffect, useState, memo, useMemo } from 'react'
 import { isSameMonth, isSameDay, getWeekOfMonth, isSameWeek } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
-import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { useCalendar } from './CalendarContext';
 import { useTheme } from '@/hooks';
@@ -14,50 +13,55 @@ type DayType = 'week' | 'month'
 
 type DayProps = {
   date: Date;
-  firstDayOfMonth: Date;
+  // firstDayOfMonth: Date;
   selectedDatePosition: SharedValue<number>
   dayType: DayType
+  isSelected: boolean
+  isInactive: boolean
+  hasItems: boolean
+  paddingTop: number
+  // onPress
 }
 
 const MAX_ITEMS = 5
 const map01to08 = (t: number) => t * 0.9;
 
-export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayType }: DayProps) {
+export default function Day({ date, selectedDatePosition, dayType, isSelected, isInactive, hasItems, paddingTop }: DayProps) {
   const { calendarState } = useCalendar()
   const { heatmapActive, isGradientBackground } = useCalendarAppearance()
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
   const elementRef = useRef<View | null>(null)
-  const insets = useSafeAreaInsets()
-  let paddingTop = Platform.OS === 'android' ? 0 : insets.top
+  // const insets = useSafeAreaInsets()
+  // let paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const theme = useTheme()
 
-  const isSelectedDay = (() => {
-    if (dayType === 'month') {
-      if (isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth)) {
-        return true
-      }
-    }
-    else if (dayType === 'week') {
-      if (isSameDay(date, selectedDate)) {
-        return true
-      }
-    }
-    return false
-  })()
+  // const isSelectedDay = (() => {
+  //   if (dayType === 'month') {
+  //     if (isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth)) {
+  //       return true
+  //     }
+  //   }
+  //   else if (dayType === 'week') {
+  //     if (isSameDay(date, selectedDate)) {
+  //       return true
+  //     }
+  //   }
+  //   return false
+  // })()
 
-  const isInactive = (() => {
-    if (dayType === 'month') {
-      if (!isSameMonth(date, firstDayOfMonth)) {
-        return true
-      }
-    }
-    else if (dayType === 'week') {
-      if (!isSameMonth(date, selectedDate)) {
-        return true
-      }
-    }
-    return false
-  })()
+  // const isInactive = (() => {
+  //   if (dayType === 'month') {
+  //     if (!isSameMonth(date, firstDayOfMonth)) {
+  //       return true
+  //     }
+  //   }
+  //   else if (dayType === 'week') {
+  //     if (!isSameMonth(date, selectedDate)) {
+  //       return true
+  //     }
+  //   }
+  //   return false
+  // })()
 
   const eventHappensToday = (event: Event) => {
     if (isSameDay(event.start, date)) {
@@ -132,7 +136,7 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
   }, [])
 
   useLayoutEffect(() => {
-    if (isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth)) {
+    if (isSameDay(date, selectedDate) && isSelected) {
       selectedDatePosition.value = (paddingTop + 52) + (47 * (getWeekOfMonth(date) - 1))
     }
   })
@@ -175,19 +179,19 @@ export default function Day({ date, firstDayOfMonth, selectedDatePosition, dayTy
   return (
     <Pressable onPress={onPress}>
       <View style={styles.container} ref={elementRef}>
-        {isSelectedDay && !heatmapActive && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
-        {isSelectedDay && heatmapActive && <View style={[styles.heatmapSelectedDayCircle, { borderColor: theme.accent }]} />}
+        {isSelected && !heatmapActive && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
+        {isSelected && heatmapActive && <View style={[styles.heatmapSelectedDayCircle, { borderColor: theme.accent }]} />}
         {heatmapActive && !isInactive && <View style={[styles.heatmapCircle, { backgroundColor: theme.accent, opacity: 0.1 + opacityPct }]} />}
         <Text
           style={[
             styles.text,
             { color: scheme === 'light' ? lightThemeText : darkThemeText },
-            scheme === 'light' && isSelectedDay && { color: theme.inverseText },
+            scheme === 'light' && isSelected && { color: theme.inverseText },
             isInactive && subduedTextColor
           ]}>
           {date.getDate()}
         </Text>
-        {somethingHappensToday && !heatmapActive && !isSelectedDay && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: 'white', opacity: 0.5, position: 'absolute', bottom: 4 }} />}
+        {somethingHappensToday && !heatmapActive && !isSelected && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: 'white', opacity: 0.5, position: 'absolute', bottom: 4 }} />}
       </View>
     </Pressable>
   )
