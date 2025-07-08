@@ -1,6 +1,6 @@
-import { Platform, StyleSheet, View, Text } from 'react-native'
-import React, { useEffect, useMemo, useState } from 'react'
-import { startOfMonth, addDays, subDays, getDay, getDaysInMonth, format, isSameDay, isSameMonth } from 'date-fns'
+import { Platform, StyleSheet, View } from 'react-native'
+import React, { useMemo } from 'react'
+import { startOfMonth, addDays, subDays, getDay, getDaysInMonth, format, isSameMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -8,8 +8,6 @@ import { events, assignments, tasks, exams } from '@/data/data';
 
 import Day from './Day'
 import { useTheme } from '@/hooks';
-import { useCalendar } from './CalendarContext';
-// import { useCalendar } from './CalendarContext';
 
 type MonthProps = {
   initialDay: Date
@@ -32,15 +30,6 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   // const weeks = createWeeks(daysArray)
   const insets = useSafeAreaInsets()
   const theme = useTheme()
-  const { calendarState } = useCalendar()
-  const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
-
-  useEffect(() => {
-    const dayUnsubscribe = calendarState.daySubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
-    })
-    return dayUnsubscribe
-  }), []
 
   const itemsByDate = useMemo(() => {
     const map: Record<string, number> = {}
@@ -96,25 +85,24 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
       const key = date.toDateString()
       const dateKey = format(date, 'yyyy-MM-dd')
       const count = itemsByDate[dateKey] || 0
-      const isSelected = isSameDay(date, selectedDate) && isSameMonth(date, initialDay)
       const isInactive = !isSameMonth(date, initialDay)
 
       return (
         <Day
           key={key}
           date={date}
-          isSelected={isSelected}
           isInactive={isInactive}
           count={count}
           paddingTop={topPadding}
           selectedDatePosition={selectedDatePosition}
           // onPress={() => useCalendarState.getState().selectDate(date)}
           dayType='month'
+          initialMonth={initialDay}
         />
       )
     })
 
-  }, [initialDay, selectedDate, itemsByDate, selectedDatePosition, topPadding])
+  }, [initialDay, itemsByDate, selectedDatePosition, topPadding])
 
   const weeks = useMemo(() => chunk(days, 7), [days])
 
