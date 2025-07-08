@@ -5,20 +5,18 @@ import { SharedValue } from 'react-native-reanimated';
 
 import { useCalendar } from './CalendarContext';
 import { useTheme } from '@/hooks';
-import { events, assignments, tasks } from '@/data/data';
-import { Event, Activity } from '@/types';
 import { useCalendarAppearance } from './CalendarAppearanceContext'
 
 type DayType = 'week' | 'month'
 
 type DayProps = {
   date: Date;
-  // firstDayOfMonth: Date;
   selectedDatePosition: SharedValue<number>
   dayType: DayType
   isSelected: boolean
   isInactive: boolean
-  hasItems: boolean
+  // hasItems: boolean
+  count: number
   paddingTop: number
   // onPress
 }
@@ -26,69 +24,12 @@ type DayProps = {
 const MAX_ITEMS = 5
 const map01to08 = (t: number) => t * 0.9;
 
-export default function Day({ date, selectedDatePosition, dayType, isSelected, isInactive, hasItems, paddingTop }: DayProps) {
+export default function Day({ date, selectedDatePosition, dayType, isSelected, isInactive, count, paddingTop }: DayProps) {
   const { calendarState } = useCalendar()
   const { heatmapActive, isGradientBackground } = useCalendarAppearance()
   const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
   const elementRef = useRef<View | null>(null)
-  // const insets = useSafeAreaInsets()
-  // let paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const theme = useTheme()
-
-  // const isSelectedDay = (() => {
-  //   if (dayType === 'month') {
-  //     if (isSameDay(date, selectedDate) && isSameMonth(date, firstDayOfMonth)) {
-  //       return true
-  //     }
-  //   }
-  //   else if (dayType === 'week') {
-  //     if (isSameDay(date, selectedDate)) {
-  //       return true
-  //     }
-  //   }
-  //   return false
-  // })()
-
-  // const isInactive = (() => {
-  //   if (dayType === 'month') {
-  //     if (!isSameMonth(date, firstDayOfMonth)) {
-  //       return true
-  //     }
-  //   }
-  //   else if (dayType === 'week') {
-  //     if (!isSameMonth(date, selectedDate)) {
-  //       return true
-  //     }
-  //   }
-  //   return false
-  // })()
-
-  const eventHappensToday = (event: Event) => {
-    if (isSameDay(event.start, date)) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
-  const activityHappensToday = (activity: Activity) => {
-    if (activity.due) {
-      if (isSameDay(activity.due, date)) {
-        return true;
-      }
-    }
-    else {
-      return false;
-    }
-  }
-
-  const somethingHappensToday = (() => {
-    if (events.some(eventHappensToday) || assignments.some(activityHappensToday) || tasks.some(activityHappensToday)) {
-      return true
-    }
-    return false
-  })()
 
   useEffect(() => {
     const unsubscribe = calendarState.weekSubscribe(() => {
@@ -147,29 +88,8 @@ export default function Day({ date, selectedDatePosition, dayType, isSelected, i
   }
 
   // const eventsOnThisDate = events.filter((event) => isSameDay(event.start, date))
-  const eventsOnThisDate = []
-  const tasksOnThisDate = useMemo(() =>
-    tasks.filter((task) => {
-      if (task.due) {
-        return isSameDay(task.due, date)
-      }
-      return false
-    }),
-    [tasks]
-  )
 
-  const assignmentOnThisDate = useMemo(() =>
-    assignments.filter((assignment) => {
-      if (assignment.due) {
-        return isSameDay(assignment.due, date)
-      }
-      return false
-    }),
-    [assignments]
-  )
-
-  const numberOfItemsOnThisDate = eventsOnThisDate.length + tasksOnThisDate.length + assignmentOnThisDate.length
-  const opacityPct = map01to08((numberOfItemsOnThisDate / MAX_ITEMS))
+  const opacityPct = map01to08((count / MAX_ITEMS))
 
   const scheme = useColorScheme() ?? 'light'
   const darkThemeText = theme.text
@@ -191,7 +111,7 @@ export default function Day({ date, selectedDatePosition, dayType, isSelected, i
           ]}>
           {date.getDate()}
         </Text>
-        {somethingHappensToday && !heatmapActive && !isSelected && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: 'white', opacity: 0.5, position: 'absolute', bottom: 4 }} />}
+        {count > 0 && !heatmapActive && !isSelected && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: 'white', opacity: 0.5, position: 'absolute', bottom: 4 }} />}
       </View>
     </Pressable>
   )
