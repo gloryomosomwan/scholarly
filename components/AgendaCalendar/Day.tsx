@@ -39,6 +39,11 @@ export default function Day({ date, selectedDatePosition, dayType, count, paddin
   const { heatmapActive, isGradientBackground } = useCalendarAppearance()
   const elementRef = useRef<View | null>(null)
   const theme = useTheme()
+  const opacityPct = map01to08((count / MAX_ITEMS))
+  const scheme = useColorScheme() ?? 'light'
+  const darkThemeText = theme.text
+  const lightThemeText = heatmapActive || isGradientBackground ? theme.inverseText : theme.text
+  const subduedTextColor = isGradientBackground || scheme === 'dark' ? { color: 'white', opacity: 0.5 } : { color: theme.grey400 }
 
   useLayoutEffect(() => {
     if (isSelected) {
@@ -51,13 +56,6 @@ export default function Day({ date, selectedDatePosition, dayType, count, paddin
     selectPreviousDate(currentGlobalDate);
     daySelectDate(date);
   }
-
-  const opacityPct = map01to08((count / MAX_ITEMS))
-
-  const scheme = useColorScheme() ?? 'light'
-  const darkThemeText = theme.text
-  const lightThemeText = heatmapActive || isGradientBackground ? theme.inverseText : theme.text
-  const subduedTextColor = isGradientBackground || scheme === 'dark' ? { color: 'white', opacity: 0.5 } : { color: theme.grey400 }
 
   return (
     <Pressable onPress={onPress}>
