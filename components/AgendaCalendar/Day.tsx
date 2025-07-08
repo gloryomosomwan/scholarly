@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Pressable, Dimensions, Platform, useColorScheme } from 'react-native'
-import React, { useRef, useLayoutEffect, useEffect, useState, memo, useMemo } from 'react'
+import { StyleSheet, Text, View, Pressable, Dimensions, useColorScheme } from 'react-native'
+import React, { useRef, useLayoutEffect, useEffect, useState } from 'react'
 import { isSameMonth, isSameDay, getWeekOfMonth, isSameWeek } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 
