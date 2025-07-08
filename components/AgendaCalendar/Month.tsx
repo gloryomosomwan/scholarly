@@ -5,7 +5,6 @@ import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { events, assignments, tasks, exams } from '@/data/data';
-
 import Day from './Day'
 
 type MonthProps = {
@@ -28,6 +27,13 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   // const daysArray = createDays(paddedDates, initialDay, selectedDatePosition)
   // const weeks = createWeeks(daysArray)
   const insets = useSafeAreaInsets()
+  let paddingTop = 0;
+  if (Platform.OS === 'android') {
+    paddingTop = 0
+  }
+  else if (Platform.OS === 'ios') {
+    paddingTop = insets.top
+  }
 
   const itemsByDate = useMemo(() => {
     const map: Record<string, number> = {}
@@ -49,15 +55,6 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   }, [events, tasks, assignments, exams])
 
 
-  let topPadding = 0;
-
-  if (Platform.OS === 'android') {
-    topPadding = 0
-  }
-  else if (Platform.OS === 'ios') {
-    topPadding = insets.top
-  }
-
   const days = useMemo(() => {
     const numDaysInMonth = getDaysInMonth(initialDay)
     let firstOfMonth = startOfMonth(initialDay)
@@ -69,11 +66,13 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
       rawDates.push(addDays(firstOfMonth, i))
     }
 
+    // Start padding
     const padStart = getDay(firstOfMonth)
     for (let i = padStart; i > 0; i--) {
       rawDates.unshift(subDays(firstOfMonth, i))
     }
 
+    // End padding
     while (rawDates.length < 42) {
       const last = rawDates[rawDates.length - 1]
       rawDates.push(addDays(last, 1))
@@ -91,16 +90,16 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
           date={date}
           isInactive={isInactive}
           count={count}
-          paddingTop={topPadding}
+          paddingTop={paddingTop}
           selectedDatePosition={selectedDatePosition}
           // onPress={() => useCalendarState.getState().selectDate(date)}
+          firstDay={initialDay}
           dayType='month'
-          initialMonth={initialDay}
         />
       )
     })
 
-  }, [initialDay, itemsByDate, selectedDatePosition, topPadding])
+  }, [initialDay, itemsByDate, selectedDatePosition, paddingTop])
 
   const weeks = useMemo(() => chunk(days, 7), [days])
 
