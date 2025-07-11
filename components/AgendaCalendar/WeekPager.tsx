@@ -2,12 +2,11 @@ import { Platform, StyleSheet } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import { addWeeks, differenceInCalendarWeeks, isSameWeek, setDay, startOfWeek } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
-import Animated, { SharedValue, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
+import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useCalendarStore } from '@/stores/CalendarState';
 import Week from './Week';
-import { useCalendar } from './CalendarContext';
 
 type WeekPagerProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -16,65 +15,23 @@ type WeekPagerProps = {
 
 export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: WeekPagerProps) {
   const { currentDate, previousDate, todayDate } = useCalendarStore();
-  // const { calendarState } = useCalendar();
   const weekPagerRef = useRef<InfinitePagerImperativeApi>(null)
-  const isProgrammaticChange = useSharedValue(false)
-  const didInitialSync = useRef<boolean>(false)
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
   const pagerOpacity = useSharedValue(1)
-  const hasPagerInit = useRef(false); // Add this new ref
-  const isInternalChange = useRef(false)
-
-  // useEffect(() => {
-  //   const dayUnsubscribe = calendarState.daySubscribe(() => {
-  //     if (isSameWeek(calendarState.currentDate, calendarState.previousDate)) return;
-  //     isProgrammaticChange.value = true;
-  //     weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, calendarState.todayDate), { animated: false })
-  //   })
-  //   return dayUnsubscribe
-  // }, [])
-
-  // useEffect(() => {
-  //   const monthUnsubscribe = calendarState.monthSubscribe(() => {
-  //     // MonthPager's onPageChange is invoked on mount so we skip that initial "change"
-  //     if (didInitialSync.current === false) {
-  //       didInitialSync.current = true;
-  //       return;
-  //     }
-  //     isProgrammaticChange.value = true;
-  //     weekPagerRef.current?.setPage(differenceInCalendarWeeks(calendarState.currentDate, calendarState.todayDate), { animated: false })
-  //   })
-  //   return monthUnsubscribe
-  // }, [])
-
-  // useEffect(() => {
-  //   const todayUnsubscribe = calendarState.todaySubscribe(() => {
-  //     if (isSameWeek(calendarState.previousDate, calendarState.todayDate)) return;
-  //     // if (Math.abs(differenceInCalendarWeeks(calendarState.previousDate, calendarState.todayDate)) > 4) {
-  //     //   pagerOpacity.value = withRepeat(
-  //     //     withTiming(0, { duration: 250 }),
-  //     //     2,
-  //     //     true
-  //     //   );
-  //     // }
-  //     isProgrammaticChange.value = true
-  //     weekPagerRef.current?.setPage(0, { animated: false })
-  //   })
-  //   return todayUnsubscribe
-  // }, [])
+  const isProgrammaticChange = useSharedValue(false)
+  const didInitialSync = useRef<boolean>(false)
+  const changeMadeByMe = useRef<boolean>(false)
 
   useEffect(() => {
-    // if (didInitialSync.current === false) {
-    //   didInitialSync.current = true;
-    //   return;
-    // }
-    if (isSameWeek(previousDate, currentDate)) return;
-    if (isInternalChange.current) {
-      isInternalChange.current = false
-      return
+    if (isSameWeek(previousDate, currentDate)) {
+      return;
     }
-    // isProgrammaticChange.value = true;
+    if (changeMadeByMe.current === true) {
+      changeMadeByMe.current = false
+      return;
+    }
+    isProgrammaticChange.value = true;
     weekPagerRef.current?.setPage(differenceInCalendarWeeks(currentDate, todayDate), { animated: false })
   }, [currentDate, previousDate, todayDate])
 
@@ -109,15 +66,15 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
         ref={weekPagerRef}
         PageComponent={WeekPage}
         onPageChange={(index) => {
-          if (!hasPagerInit.current) {
-            hasPagerInit.current = true;
+          if (didInitialSync.current === false) {
+            didInitialSync.current = true;
             return;
           }
-          isInternalChange.current = true
-          // if (isProgrammaticChange.value === true) {
-          //   isProgrammaticChange.value = false;
-          //   return;
-          // }
+          if (isProgrammaticChange.value === true) {
+            isProgrammaticChange.value = false;
+            return;
+          }
+          changeMadeByMe.current = true
           const currentGlobalDate = useCalendarStore.getState().currentDate;
           const globalTodayDate = useCalendarStore.getState().todayDate;
           const dayOfPreviousWeek = currentGlobalDate.getDay();
