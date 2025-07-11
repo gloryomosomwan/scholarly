@@ -126,6 +126,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
             const currentGlobalDate = useCalendarStore.getState().currentDate
             const globalTodayDate = useCalendarStore.getState().todayDate;
             let date = index === 0 ? globalTodayDate : startOfMonth(addMonths(globalTodayDate, index))
+            console.log('Date from Month: ', date)
             useCalendarStore.getState().selectPreviousDate(currentGlobalDate);
             useCalendarStore.getState().monthSelectDate(date);
           }}

@@ -24,6 +24,7 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
   const changeMadeByMe = useRef<boolean>(false)
 
   useEffect(() => {
+    console.log('useEffect in Week says currentDate is: ', currentDate)
     if (isSameWeek(previousDate, currentDate)) {
       return;
     }
@@ -37,14 +38,14 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
 
   const rWeekPagerStyle = useAnimatedStyle(() => {
     return {
-      opacity: pagerOpacity.value,
+      // opacity: pagerOpacity.value,
       pointerEvents: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 'auto' : 'none'
     }
   })
 
   const rPageStyle = useAnimatedStyle(() => {
     return {
-      opacity: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 1 : 0
+      // opacity: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 1 : 0
     }
   })
 

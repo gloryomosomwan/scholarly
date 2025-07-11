@@ -52,9 +52,9 @@ export default function Day({ date, selectedDatePosition, dayType, count, paddin
   }, [date, isSelected, paddingTop, selectedDatePosition])
 
   const onPress = () => {
-    const currentGlobalDate = useCalendarStore.getState().currentDate;
-    selectPreviousDate(currentGlobalDate);
-    daySelectDate(date);
+    // const currentGlobalDate = useCalendarStore.getState().currentDate;
+    // selectPreviousDate(currentGlobalDate);
+    // daySelectDate(date);
   }
 
   return (
