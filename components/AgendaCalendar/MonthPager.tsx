@@ -49,7 +49,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
   // }, [])
 
   useEffect(() => {
-    if (isSameMonth(previousDate, todayDate)) {
+    if (isSameMonth(previousDate, currentDate)) {
       return;
     }
 
