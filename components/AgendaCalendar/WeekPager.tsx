@@ -22,18 +22,30 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
   const isProgrammaticChange = useSharedValue(false)
   const didInitialSync = useRef<boolean>(false)
   const changeMadeByMe = useRef<boolean>(false)
+  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isSameWeek(previousDate, currentDate)) {
       return;
     }
     if (changeMadeByMe.current === true) {
-      changeMadeByMe.current = false
+      changeMadeByMe.current = false;
       return;
     }
-    isProgrammaticChange.value = true;
-    weekPagerRef.current?.setPage(differenceInCalendarWeeks(currentDate, todayDate), { animated: false })
-  }, [currentDate, previousDate, todayDate])
+
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+
+    debounceTimer.current = setTimeout(() => {
+      isProgrammaticChange.value = true;
+      weekPagerRef.current?.setPage(differenceInCalendarWeeks(currentDate, todayDate), { animated: false });
+    }, 50);
+
+    return () => {
+      if (debounceTimer.current) clearTimeout(debounceTimer.current);
+    };
+  }, [currentDate, previousDate, todayDate]);
 
   const rWeekPagerStyle = useAnimatedStyle(() => {
     return {
