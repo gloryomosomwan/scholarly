@@ -24,7 +24,6 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
   const changeMadeByMe = useRef<boolean>(false)
 
   useEffect(() => {
-    console.log('useEffect in Week says currentDate is: ', currentDate)
     if (isSameWeek(previousDate, currentDate)) {
       return;
     }
@@ -75,6 +74,7 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
             isProgrammaticChange.value = false;
             return;
           }
+          console.log('i hate LLMs.')
           changeMadeByMe.current = true
           const currentGlobalDate = useCalendarStore.getState().currentDate;
           const globalTodayDate = useCalendarStore.getState().todayDate;
