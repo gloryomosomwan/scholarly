@@ -58,22 +58,20 @@ export default function Day({ date, selectedDatePosition, dayType, count, paddin
   }
 
   return (
-    <Pressable onPress={onPress}>
-      <View style={styles.container} ref={elementRef}>
-        {isSelected && !heatmapActive && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
-        {isSelected && heatmapActive && <View style={[styles.heatmapSelectedDayCircle, { borderColor: theme.accent }]} />}
-        {heatmapActive && !isInactive && <View style={[styles.heatmapCircle, { backgroundColor: theme.accent, opacity: 0.1 + opacityPct }]} />}
-        <Text
-          style={[
-            styles.text,
-            { color: scheme === 'light' ? lightThemeText : darkThemeText },
-            scheme === 'light' && isSelected && { color: theme.inverseText },
-            isInactive && subduedTextColor
-          ]}>
-          {date.getDate()}
-        </Text>
-        {count > 0 && !heatmapActive && !isSelected && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: 'white', opacity: 0.5, position: 'absolute', bottom: 4 }} />}
-      </View>
+    <Pressable onPress={onPress} style={styles.container} ref={elementRef}>
+      {isSelected && !heatmapActive && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
+      {isSelected && heatmapActive && <View style={[styles.heatmapSelectedDayCircle, { borderColor: theme.accent }]} />}
+      {heatmapActive && !isInactive && <View style={[styles.heatmapCircle, { backgroundColor: theme.accent, opacity: 0.1 + opacityPct }]} />}
+      <Text
+        style={[
+          styles.text,
+          { color: scheme === 'light' ? lightThemeText : darkThemeText },
+          scheme === 'light' && isSelected && { color: theme.inverseText },
+          isInactive && subduedTextColor
+        ]}>
+        {date.getDate()}
+      </Text>
+      {count > 0 && !heatmapActive && !isSelected && <View style={{ height: 6, width: 6, borderRadius: 6, backgroundColor: 'white', opacity: 0.5, position: 'absolute', bottom: 4 }} />}
     </Pressable>
   )
 }
