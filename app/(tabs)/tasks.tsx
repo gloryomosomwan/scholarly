@@ -1,25 +1,33 @@
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { SymbolView } from 'expo-symbols';
-import { isSameDay } from 'date-fns';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase'
 
-import { useTheme } from '@/hooks';
 import ActivityCard from '@/components/Activity/ActivityCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
-import { tasks } from '@/data/data'
 import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
+import { useTheme } from '@/hooks';
+import { Activity } from '@/types';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
   const [sortBy, setSortBy] = useState<string | null>(null)
   const [filterBy, setFilterBy] = useState<string | null>(null)
-  const todayTasks = tasks.filter((task) => {
-    if (!task.due) return;
-    return isSameDay(new Date(), task.due)
-  })
+  const [tasks, setTasks] = useState<Activity[] | []>([])
+
+  useEffect(() => {
+    getTasks()
+  }, [])
+
+  async function getTasks() {
+    const { data } = await supabase.from('tasks').select()
+    console.log(data)
+    if (data) {
+      setTasks(data)
+    }
+  }
 
   const handleSortBy = (sortBy: string) => {
     setSortBy(sortBy)
@@ -67,7 +75,7 @@ export default function Tab() {
         }
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
-        {todayTasks.map((task) => <ActivityCard key={task.id} activity={task} />)}
+        {tasks.map((task) => <ActivityCard key={task.id} activity={task} />)}
       </ScrollView>
     </View>
   );

@@ -17,10 +17,13 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
     "@gorhom/bottom-sheet": "^5.1.6",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-community/datetimepicker": "8.2.0",
     "@react-navigation/bottom-tabs": "^7.0.0",
     "@react-navigation/material-top-tabs": "^7.0.14",
     "@react-navigation/native": "^7.0.0",
+    "@rneui/themed": "^4.0.0-rc.8",
+    "@supabase/supabase-js": "^2.50.5",
     "@types/chroma-js": "^3.1.1",
     "chroma-js": "^3.1.2",
     "date-fns": "^4.1.0",
