@@ -1,28 +1,51 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
+import * as SplashScreen from 'expo-splash-screen';
 
 import { useTheme } from "@/hooks";
 import Auth from "@/components/Auth";
 
+SplashScreen.preventAutoHideAsync()
+
+SplashScreen.setOptions({
+  duration: 500,
+});
+
 export default function RootLayout() {
   const theme = useTheme()
   const [session, setSession] = useState<Session | null>(null)
+  const [appIsReady, setAppIsReady] = useState(false)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
+      setAppIsReady(true)
     })
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
   }, [])
+  const onLayoutRootView = useCallback(() => {
+    if (appIsReady) {
+      // This tells the splash screen to hide immediately! If we call this after
+      // `setAppIsReady`, then we may see a blank screen while the app is
+      // loading its initial state and rendering its first pixels. So instead,
+      // we hide the splash screen once we know the root view has already
+      // performed layout.
+      SplashScreen.hide();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null
+  }
 
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView onLayout={onLayoutRootView}>
       {
         session && session.user ?
           <Stack
