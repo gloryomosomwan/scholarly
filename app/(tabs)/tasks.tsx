@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, Button } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase'
+import { useState } from 'react';
+import * as SQLite from 'expo-sqlite';
 
 import ActivityCard from '@/components/Activity/ActivityCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
@@ -15,18 +15,17 @@ export default function Tab() {
   const theme = useTheme()
   const [sortBy, setSortBy] = useState<string | null>(null)
   const [filterBy, setFilterBy] = useState<string | null>(null)
-  const [tasks, setTasks] = useState<Activity[] | []>([])
+  // const [tasks, setTasks] = useState<Activity[] | []>([])
 
-  useEffect(() => {
-    getTasks()
-  }, [])
+  const db = SQLite.openDatabaseSync('databaseName')
+  const tasks = db.getAllSync<Activity>('SELECT * FROM tasks')
 
-  async function getTasks() {
-    const { data } = await supabase.from('tasks').select()
-    console.log(data)
-    if (data) {
-      setTasks(data)
-    }
+  async function addTask() {
+    const result = await db.runAsync(
+      `CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY NOT NULL, title TEXT NOT NULL);
+       INSERT INTO tasks (title) VALUES ('Buy textbooks');`
+    )
+    console.log(result.lastInsertRowId, result.changes)
   }
 
   const handleSortBy = (sortBy: string) => {
@@ -76,6 +75,7 @@ export default function Tab() {
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
         {tasks.map((task) => <ActivityCard key={task.id} activity={task} />)}
+        <Button title='Add Task' onPress={addTask} />
       </ScrollView>
     </View>
   );
