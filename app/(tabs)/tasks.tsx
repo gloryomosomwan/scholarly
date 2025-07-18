@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, ScrollView, Pressable, Button } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState } from 'react';
-import * as SQLite from 'expo-sqlite';
+import { useSQLiteContext } from 'expo-sqlite';
 
 import ActivityCard from '@/components/Activity/ActivityCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
@@ -16,8 +16,8 @@ export default function Tab() {
   const [sortBy, setSortBy] = useState<string | null>(null)
   const [filterBy, setFilterBy] = useState<string | null>(null)
   // const [tasks, setTasks] = useState<Activity[] | []>([])
+  const db = useSQLiteContext()
 
-  const db = SQLite.openDatabaseSync('databaseName')
   const tasks = db.getAllSync<Activity>('SELECT * FROM tasks')
 
   async function addTask() {

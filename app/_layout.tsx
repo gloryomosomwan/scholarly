@@ -4,6 +4,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
 import * as SplashScreen from 'expo-splash-screen';
+import * as SQLite from 'expo-sqlite';
+import { SQLiteProvider } from 'expo-sqlite';
+import { useDrizzleStudio } from "expo-drizzle-studio-plugin"
 
 import { useTheme } from "@/hooks";
 import Auth from "@/components/Auth";
@@ -18,6 +21,8 @@ export default function RootLayout() {
   const theme = useTheme()
   const [session, setSession] = useState<Session | null>(null)
   const [appIsReady, setAppIsReady] = useState(false)
+  const db = SQLite.openDatabaseSync('databaseName')
+  useDrizzleStudio(db);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -46,71 +51,73 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView onLayout={onLayoutRootView}>
-      {
-        session && session.user ?
-          <Stack
-            screenOptions={{ contentStyle: { backgroundColor: theme.secondary } }}>
-            <Stack.Screen
-              name="(tabs)"
-              options={{ headerShown: false }} />
-            <Stack.Screen
-              name="activity-form"
-              options={{
-                // headerTitle: "",
-                // headerBackTitle: 'Back',
-                // headerStyle: { backgroundColor: theme.accent },
-                // headerTintColor: theme.accent,
-                // headerShadowVisible: false,
-                headerShown: false,
-                presentation: 'modal'
-              }}
-            />
-            <Stack.Screen
-              name="select-semester"
-              options={{
-                headerShown: false,
-                presentation: 'modal'
-              }}
-            />
-            <Stack.Screen
-              name="course-form"
-              options={{
-                headerShown: false,
-                presentation: 'modal'
-              }}
-            />
-            <Stack.Screen
-              name="event-form"
-              options={{
-                headerShown: false,
-                presentation: 'modal'
-              }}
-            />
-            <Stack.Screen
-              name="recurrence-modal"
-              options={{
-                headerShown: false,
-                presentation: 'modal'
-              }}
-            />
-            <Stack.Screen
-              name="semester-form"
-              options={{
-                headerShown: false,
-                presentation: 'modal'
-              }}
-            />
-            <Stack.Screen
-              name="exam-form"
-              options={{
-                headerShown: false,
-                presentation: 'modal'
-              }}
-            />
-          </Stack>
-          :
-          <Auth />
-      }
+      <SQLiteProvider databaseName="databaseName">
+        {
+          session && session.user ?
+            <Stack
+              screenOptions={{ contentStyle: { backgroundColor: theme.secondary } }}>
+              <Stack.Screen
+                name="(tabs)"
+                options={{ headerShown: false }} />
+              <Stack.Screen
+                name="activity-form"
+                options={{
+                  // headerTitle: "",
+                  // headerBackTitle: 'Back',
+                  // headerStyle: { backgroundColor: theme.accent },
+                  // headerTintColor: theme.accent,
+                  // headerShadowVisible: false,
+                  headerShown: false,
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
+                name="select-semester"
+                options={{
+                  headerShown: false,
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
+                name="course-form"
+                options={{
+                  headerShown: false,
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
+                name="event-form"
+                options={{
+                  headerShown: false,
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
+                name="recurrence-modal"
+                options={{
+                  headerShown: false,
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
+                name="semester-form"
+                options={{
+                  headerShown: false,
+                  presentation: 'modal'
+                }}
+              />
+              <Stack.Screen
+                name="exam-form"
+                options={{
+                  headerShown: false,
+                  presentation: 'modal'
+                }}
+              />
+            </Stack>
+            :
+            <Auth />
+        }
+      </SQLiteProvider>
     </GestureHandlerRootView>
   )
 }
