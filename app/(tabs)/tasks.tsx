@@ -9,9 +9,10 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity';
 import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 import { useTheme } from '@/hooks';
-import { Activity } from '@/types';
+
 import { tasks } from '@/db/schema';
 import { db } from '@/db/init';
+import { toActivity } from '@/utils/database';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
@@ -21,20 +22,7 @@ export default function Tab() {
 
   const todayPattern = new Date().toISOString().slice(0, 10) + '%';
   const { data } = useLiveQuery(db.select().from(tasks).where(like(tasks.due, todayPattern)))
-
-  function toActivity(task: (typeof data)[number]): Activity {
-    return {
-      ...task,
-      description: task.description ?? undefined,
-      due: task.due ? new Date(task.due) : undefined,
-      course: task.course ?? undefined,
-      priority: task.priority ?? undefined
-    }
-  }
-
   const activityData = data.map(toActivity)
-
-  async function addTask() { }
 
   const handleSortBy = (sortBy: string) => {
     setSortBy(sortBy)
