@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, ScrollView, Pressable, Button } from 'react-nat
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
+import { drizzle } from "drizzle-orm/expo-sqlite";
+import { tasks } from '@/db/schema';
 
 import ActivityCard from '@/components/Activity/ActivityCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
@@ -16,16 +18,22 @@ export default function Tab() {
   const [sortBy, setSortBy] = useState<string | null>(null)
   const [filterBy, setFilterBy] = useState<string | null>(null)
   // const [tasks, setTasks] = useState<Activity[] | []>([])
-  const db = useSQLiteContext()
 
-  const tasks = db.getAllSync<Activity>('SELECT * FROM tasks')
+  const expo = useSQLiteContext()
+  // const tasks = expo.getAllSync<Activity>('SELECT * FROM tasks')
+  // const expo = openDatabaseSync("db.db");
+  const db = drizzle(expo);
+  const data = db.select().from(tasks).all()
 
   async function addTask() {
-    const result = await db.runAsync(
-      `CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY NOT NULL, title TEXT NOT NULL);
-       INSERT INTO tasks (title) VALUES ('Buy textbooks');`
-    )
-    console.log(result.lastInsertRowId, result.changes)
+    // const lol = await db.select().from(tasks);
+    // console.log(lol[0].title)
+    // const result = await db.runAsync(
+    //   `CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY NOT NULL, title TEXT NOT NULL);
+    //    INSERT INTO tasks (title) VALUES ('Buy textbooks');`
+    // )
+    // await db.runAsync(`INSERT INTO tasks (title) VALUES ('buy')`)
+    // console.log(result.lastInsertRowId, result.changes)
   }
 
   const handleSortBy = (sortBy: string) => {
@@ -74,7 +82,7 @@ export default function Tab() {
         }
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
-        {tasks.map((task) => <ActivityCard key={task.id} activity={task} />)}
+        {data.map((task) => <ActivityCard key={task.id} activity={task} />)}
         <Button title='Add Task' onPress={addTask} />
       </ScrollView>
     </View>
