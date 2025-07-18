@@ -4,12 +4,12 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
 import * as SplashScreen from 'expo-splash-screen';
-import * as SQLite from 'expo-sqlite';
 import { SQLiteProvider } from 'expo-sqlite';
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin"
 
 import { useTheme } from "@/hooks";
 import Auth from "@/components/Auth";
+import { sqlite } from "@/db/init";
 
 SplashScreen.preventAutoHideAsync()
 
@@ -21,8 +21,7 @@ export default function RootLayout() {
   const theme = useTheme()
   const [session, setSession] = useState<Session | null>(null)
   const [appIsReady, setAppIsReady] = useState(false)
-  const db = SQLite.openDatabaseSync('databaseName', { enableChangeListener: true })
-  useDrizzleStudio(db);
+  useDrizzleStudio(sqlite);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {

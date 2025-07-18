@@ -1,8 +1,7 @@
-import { View, Text, StyleSheet, ScrollView, Pressable, Button } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState } from 'react';
-import { useSQLiteContext } from 'expo-sqlite';
-import { drizzle, useLiveQuery } from "drizzle-orm/expo-sqlite";
+import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { like } from 'drizzle-orm';
 
 import ActivityCard from '@/components/Activity/ActivityCard';
@@ -12,6 +11,7 @@ import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 import { useTheme } from '@/hooks';
 import { Activity } from '@/types';
 import { tasks } from '@/db/schema';
+import { db } from '@/db/init';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
@@ -19,8 +19,6 @@ export default function Tab() {
   const [sortBy, setSortBy] = useState<string | null>(null)
   const [filterBy, setFilterBy] = useState<string | null>(null)
 
-  const sqlite = useSQLiteContext()
-  const db = drizzle(sqlite);
   const todayPattern = new Date().toISOString().slice(0, 10) + '%';
   const { data } = useLiveQuery(db.select().from(tasks).where(like(tasks.due, todayPattern)))
 
@@ -85,7 +83,6 @@ export default function Tab() {
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
         {activityData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
-        <Button title='Add Task' onPress={addTask} />
       </ScrollView>
     </View>
   );
