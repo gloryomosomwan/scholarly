@@ -21,7 +21,7 @@ export default function RootLayout() {
   const theme = useTheme()
   const [session, setSession] = useState<Session | null>(null)
   const [appIsReady, setAppIsReady] = useState(false)
-  const db = SQLite.openDatabaseSync('databaseName')
+  const db = SQLite.openDatabaseSync('databaseName', { enableChangeListener: true })
   useDrizzleStudio(db);
 
   useEffect(() => {

@@ -2,8 +2,8 @@ import { View, Text, StyleSheet, ScrollView, Pressable, Button } from 'react-nat
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
-import { drizzle } from "drizzle-orm/expo-sqlite";
-import { tasks } from '@/db/schema';
+import { drizzle, useLiveQuery } from "drizzle-orm/expo-sqlite";
+import { like } from 'drizzle-orm';
 
 import ActivityCard from '@/components/Activity/ActivityCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
@@ -11,6 +11,7 @@ import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 import { useTheme } from '@/hooks';
 import { Activity } from '@/types';
+import { tasks } from '@/db/schema';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
@@ -20,7 +21,8 @@ export default function Tab() {
 
   const sqlite = useSQLiteContext()
   const db = drizzle(sqlite);
-  const data = db.select().from(tasks).all()
+  const todayPattern = new Date().toISOString().slice(0, 10) + '%';
+  const { data } = useLiveQuery(db.select().from(tasks).where(like(tasks.due, todayPattern)))
 
   function toActivity(task: (typeof data)[number]): Activity {
     return {
