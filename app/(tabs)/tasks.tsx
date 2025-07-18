@@ -17,24 +17,24 @@ export default function Tab() {
   const theme = useTheme()
   const [sortBy, setSortBy] = useState<string | null>(null)
   const [filterBy, setFilterBy] = useState<string | null>(null)
-  // const [tasks, setTasks] = useState<Activity[] | []>([])
 
-  const expo = useSQLiteContext()
-  // const tasks = expo.getAllSync<Activity>('SELECT * FROM tasks')
-  // const expo = openDatabaseSync("db.db");
-  const db = drizzle(expo);
+  const sqlite = useSQLiteContext()
+  const db = drizzle(sqlite);
   const data = db.select().from(tasks).all()
 
-  async function addTask() {
-    // const lol = await db.select().from(tasks);
-    // console.log(lol[0].title)
-    // const result = await db.runAsync(
-    //   `CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY NOT NULL, title TEXT NOT NULL);
-    //    INSERT INTO tasks (title) VALUES ('Buy textbooks');`
-    // )
-    // await db.runAsync(`INSERT INTO tasks (title) VALUES ('buy')`)
-    // console.log(result.lastInsertRowId, result.changes)
+  function toActivity(task: (typeof data)[number]): Activity {
+    return {
+      ...task,
+      description: task.description ?? undefined,
+      due: task.due ? new Date(task.due) : undefined,
+      course: task.course ?? undefined,
+      priority: task.priority ?? undefined
+    }
   }
+
+  const activityData = data.map(toActivity)
+
+  async function addTask() { }
 
   const handleSortBy = (sortBy: string) => {
     setSortBy(sortBy)
@@ -82,7 +82,7 @@ export default function Tab() {
         }
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
-        {data.map((task) => <ActivityCard key={task.id} activity={task} />)}
+        {activityData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
         <Button title='Add Task' onPress={addTask} />
       </ScrollView>
     </View>
