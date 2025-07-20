@@ -1,11 +1,11 @@
 import { SymbolView } from 'expo-symbols'
 import { useRouter } from 'expo-router'
+import { eq } from 'drizzle-orm'
 
 import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon } from '@/components/Menus/Zeego'
-import { useTheme } from '../../hooks/useTheme'
+import { useTheme } from '@/hooks/useTheme'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
-import { eq } from 'drizzle-orm'
 
 type ActivityMenuProps = {
   activityID: number
@@ -16,8 +16,9 @@ export default function ActivityMenu({ activityID }: ActivityMenuProps) {
   const router = useRouter()
 
   const deleteActivity = async () => {
-    const result = await db.delete(tasks).where(eq(tasks.id, activityID))
+    await db.delete(tasks).where(eq(tasks.id, activityID))
   }
+
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
