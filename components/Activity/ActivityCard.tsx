@@ -9,6 +9,7 @@ import ActivityMenu from '@/components/Menus/ActivityMenu';
 
 type ActivityCardProps = {
   activity: {
+    id: number,
     title: string;
     course?: string;
     description?: string;
@@ -56,7 +57,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               {/* <Pressable style={styles.editButton}>
                 <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
               </Pressable> */}
-              <ActivityMenu />
+              <ActivityMenu activityID={activity.id} />
             </View>
 
             {/* Description */}
