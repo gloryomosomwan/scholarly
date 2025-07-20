@@ -3,22 +3,22 @@ import { StyleSheet, Text, View, TextInput, Keyboard } from 'react-native'
 import { SymbolView } from 'expo-symbols'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 
-import { useTheme, usePriorityPalette } from '@/hooks'
-
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import PriorityItem from '@/components/Modals/Items/PriorityItem'
 import CourseItem from '@/components/Modals/Items/CourseItem';
 
+import { useTheme, usePriorityPalette } from '@/hooks'
 import { DueType } from '@/types'
 import { courses } from '@/data/data'
+import { db } from '@/db/init'
+import { tasks } from '@/db/schema'
 
 export default function ActivityForm() {
   const theme = useTheme();
 
-  const [date, setDate] = useState(new Date());
-  const [addedDate, setAddedDate] = useState(false);
+  const [date, setDate] = useState<Date | null>(null);
   const [dueType, setDueType] = useState<DueType>('date');
   const [course, setCourse] = useState<string | null>(null);
   const [priority, setPriority] = useState<string | null>(null);
@@ -39,8 +39,20 @@ export default function ActivityForm() {
 
   const handleSetDate = (date: Date, dueType: DueType) => {
     setDate(date)
-    setAddedDate(true)
     setDueType(dueType)
+  }
+
+  const createTask = async () => {
+    if (title !== '') {
+      const result = await db.insert(tasks).values({
+        title: title,
+        course: course,
+        description: notes,
+        due: date ? date.toISOString() : null,
+        priority: priority,
+        completedAt: null
+      })
+    }
   }
 
   return (
@@ -64,7 +76,7 @@ export default function ActivityForm() {
           <PressableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
             <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
             {
-              !addedDate
+              !date
                 ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add date</Text>
                 : <Text style={[styles.detailText, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
             }
@@ -134,8 +146,8 @@ export default function ActivityForm() {
         </View>
         {/* Button Row */}
         <View style={[styles.buttonContainer, {}]}>
-          <PressableOpacity>
-            <Text style={[styles.buttonText, { color: theme.accent }]}>Mark completed</Text>
+          <PressableOpacity onPress={createTask}>
+            <Text style={[styles.buttonText, { color: theme.accent }]}>Save</Text>
           </PressableOpacity>
           <PressableOpacity>
             <Text style={[styles.buttonText, { color: theme.dangerText }]}>Delete</Text>
@@ -143,7 +155,7 @@ export default function ActivityForm() {
         </View>
 
         {/* Date Picker */}
-        <DateTimeModal initialDate={date} handleSetDate={handleSetDate} bottomSheetModalRef={datePickerModalRef} handleSheetChanges={handleSheetChanges} />
+        <DateTimeModal initialDate={new Date()} handleSetDate={handleSetDate} bottomSheetModalRef={datePickerModalRef} handleSheetChanges={handleSheetChanges} />
 
         {/* Course Modal */}
         <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable>

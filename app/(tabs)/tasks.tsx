@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SymbolView } from 'expo-symbols';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { like } from 'drizzle-orm';
@@ -22,7 +24,8 @@ export default function Tab() {
 
   // timezone bug
   const todayPattern = new Date().toISOString().slice(0, 10) + '%';
-  const { data } = useLiveQuery(db.select().from(tasks).where(like(tasks.due, todayPattern)))
+  const { data } = useLiveQuery(db.select().from(tasks))
+  // const { data } = useLiveQuery(db.select().from(tasks).where(like(tasks.due, todayPattern)))
   const activityData = data.map(toActivity)
 
   const handleSortBy = (sortBy: string) => {
@@ -38,6 +41,9 @@ export default function Tab() {
       <View style={styles.header}>
         <Text style={[styles.headerText, { color: theme.text }]}>Tasks</Text>
         <View style={styles.buttonsContainer}>
+          <PressableOpacity style={styles.buttonContainer} onPress={() => router.navigate('/activity-form')}>
+            <SymbolView name='plus' />
+          </PressableOpacity>
           <PressableOpacity style={styles.buttonContainer}>
             <TaskFilterMenu handleSelection={handleFilterBy} />
           </PressableOpacity>
