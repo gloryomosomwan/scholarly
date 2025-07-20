@@ -20,6 +20,7 @@ export default function Tab() {
   const [sortBy, setSortBy] = useState<string | null>(null)
   const [filterBy, setFilterBy] = useState<string | null>(null)
 
+  // timezone bug
   const todayPattern = new Date().toISOString().slice(0, 10) + '%';
   const { data } = useLiveQuery(db.select().from(tasks).where(like(tasks.due, todayPattern)))
   const activityData = data.map(toActivity)
