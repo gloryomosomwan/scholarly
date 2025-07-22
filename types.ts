@@ -1,14 +1,17 @@
 import { CourseColorMap } from './constants/coursePalettes';
 export type CourseColor = keyof typeof CourseColorMap;
 
+export type EventType = 'lecture' | 'lab' | 'seminar' | 'general'
+export type DueType = 'date' | 'datetime'
+
 export interface Event {
   id: number;
-  type: string;
-  course: string;
+  type: EventType;
   start: Date;
   end: Date;
+  course?: string;
   location?: string;
-  icon: string;
+  notes?: string;
 }
 
 export interface Activity {
