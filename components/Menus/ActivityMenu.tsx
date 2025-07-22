@@ -1,6 +1,7 @@
 import { SymbolView } from 'expo-symbols'
 import { useRouter } from 'expo-router'
 import { eq } from 'drizzle-orm'
+import { ActionSheetIOS } from 'react-native'
 
 import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon } from '@/components/Menus/Zeego'
 import { useTheme } from '@/hooks/useTheme'
@@ -15,8 +16,23 @@ export default function ActivityMenu({ activityID }: ActivityMenuProps) {
   const theme = useTheme()
   const router = useRouter()
 
-  const deleteActivity = async () => {
-    await db.delete(tasks).where(eq(tasks.id, activityID))
+  const confirmDelete = () => {
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: ['Cancel', 'Delete task'],
+        destructiveButtonIndex: 1,
+        cancelButtonIndex: 0,
+        userInterfaceStyle: 'light',
+      }
+      ,
+      async buttonIndex => {
+        if (buttonIndex === 0) {
+          // Cancel action
+        } else if (buttonIndex === 1) {
+          await db.delete(tasks).where(eq(tasks.id, activityID))
+        }
+      }
+    )
   }
 
   return (
@@ -24,7 +40,6 @@ export default function ActivityMenu({ activityID }: ActivityMenuProps) {
       <DropdownMenuTrigger>
         <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
       </DropdownMenuTrigger>
-
       <DropdownMenuContent>
         <DropdownMenuItem key="edit" onSelect={() => router.navigate('/activity-form')}>
           <DropdownMenuItemIcon ios={{
@@ -36,7 +51,7 @@ export default function ActivityMenu({ activityID }: ActivityMenuProps) {
           }} />
           <DropdownMenuItemTitle>Edit Activity</DropdownMenuItemTitle>
         </DropdownMenuItem>
-        <DropdownMenuItem key="delete" destructive onSelect={deleteActivity}>
+        <DropdownMenuItem key="delete" destructive onSelect={confirmDelete}>
           <DropdownMenuItemTitle>Delete Activity</DropdownMenuItemTitle>
           <DropdownMenuItemIcon ios={{
             name: 'trash',
