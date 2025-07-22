@@ -188,7 +188,7 @@ export default function ActivityForm() {
 
         {/* Button Row */}
         <View style={[styles.buttonContainer, {}]}>
-          <PressableOpacity onPress={id !== null ? updateTask : createTask} disabled={title.length > 0 ? false : true}>
+          <PressableOpacity onPress={id !== undefined ? updateTask : createTask} disabled={title.length > 0 ? false : true}>
             <Text style={[styles.buttonText, { color: title.length > 0 ? theme.accent : theme.accentInactive }]}>Save</Text>
           </PressableOpacity>
           <PressableOpacity>
