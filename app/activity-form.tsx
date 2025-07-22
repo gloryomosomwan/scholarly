@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react'
-import { StyleSheet, Text, View, TextInput, Keyboard } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Keyboard, ActionSheetIOS } from 'react-native'
 import { SymbolView } from 'expo-symbols'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
@@ -96,6 +96,26 @@ export default function ActivityForm() {
     }
   }
 
+  const confirmDelete = () => {
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: ['Cancel', 'Delete task'],
+        destructiveButtonIndex: 1,
+        cancelButtonIndex: 0,
+        userInterfaceStyle: 'light',
+      }
+      ,
+      async buttonIndex => {
+        if (buttonIndex === 0) {
+          // Cancel action
+        } else if (buttonIndex === 1) {
+          await db.delete(tasks).where(eq(tasks.id, convertedID))
+          router.back()
+        }
+      }
+    )
+  }
+
   return (
     <BottomSheetModalProvider>
       <View style={[styles.container, { backgroundColor: theme.secondary }]}>
@@ -188,11 +208,14 @@ export default function ActivityForm() {
 
         {/* Button Row */}
         <View style={[styles.buttonContainer, {}]}>
+          {
+            id !== undefined &&
+            <PressableOpacity onPress={confirmDelete}>
+              <Text style={[styles.buttonText, { color: theme.dangerText }]}>Delete</Text>
+            </PressableOpacity>
+          }
           <PressableOpacity onPress={id !== undefined ? updateTask : createTask} disabled={title.length > 0 ? false : true}>
             <Text style={[styles.buttonText, { color: title.length > 0 ? theme.accent : theme.accentInactive }]}>Save</Text>
-          </PressableOpacity>
-          <PressableOpacity>
-            <Text style={[styles.buttonText, { color: theme.dangerText }]}>Delete</Text>
           </PressableOpacity>
         </View>
 
