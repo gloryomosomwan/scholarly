@@ -33,19 +33,13 @@ export interface Exam {
 }
 
 export interface Course {
+  id: number;
   code: string;
+  color: CourseColor;
   name?: string;
   instructor?: string;
   credits?: number;
-  lectureSchedule?: string;
-  labSchedule?: string;
-  seminarSchedule?: string;
-  location?: string;
-  grade?: string;
-  color: CourseColor;
 }
-
-export type DueType = 'date' | 'datetime'
 
 export interface Semester {
   id: number;

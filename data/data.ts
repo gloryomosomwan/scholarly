@@ -6,78 +6,60 @@ export const semesters: Semester[] = [
     name: 'Fall 2025',
     start: new Date(2025, 8, 1),
     end: new Date(2025, 11, 15),
-    numberOfCourses: 4,
   },
   {
     id: 2,
     name: 'Spring 2025',
     start: new Date(2025, 0, 10),
     end: new Date(2025, 4, 20),
-    numberOfCourses: 5,
   },
   {
     id: 3,
     name: 'Summer 2024',
     start: new Date(2024, 5, 6),
     end: new Date(2024, 8, 2),
-    numberOfCourses: 2,
   },
 ]
 
 export const courses: Course[] = [
   {
+    id: 1,
     code: "MATH 119",
     name: "Precalculus Mathematics",
     instructor: "Dr. Sarah Chen",
     credits: 3,
-    lectureSchedule: "MWF 9:00-10:00 AM",
-    labSchedule: "T 1:00-3:00 PM",
-    location: "HSB 1-23",
-    grade: "B+",
     color: '#F59E0B'
   },
   {
+    id: 2,
     code: "PHYS 102",
     name: "General Physics II",
     instructor: "Dr. Michael Rodriguez",
     credits: 3,
-    lectureSchedule: "TTh 11:00-12:30 PM",
-    labSchedule: "W 2:00-5:00 PM",
-    location: "CL 2-09",
-    grade: "A-",
     color: '#10B981'
   },
   {
+    id: 3,
     code: "HIST 211",
     name: "Modern European History",
     instructor: "Dr. Emily Watson",
     credits: 3,
-    lectureSchedule: "MWF 2:00-3:00 PM",
-    seminarSchedule: "F 3:30-4:30 PM",
-    location: "HIS 2-17",
-    grade: "A",
     color: '#EF4444'
   },
   {
+    id: 4,
     code: "MARK 161",
     name: "Principles of Marketing",
     instructor: "Dr. James Thompson",
     credits: 3,
-    lectureSchedule: "TTh 1:00-2:30 PM",
-    seminarSchedule: "Th 3:00-4:00 PM",
-    location: "GMH 5-18",
-    grade: "B",
     color: '#8B5CF6'
   },
   {
+    id: 5,
     code: "CHEM 105",
     name: "General Chemistry I",
     instructor: "Dr. Lisa Park",
     credits: 3,
-    lectureSchedule: "MWF 10:00-11:00 AM",
-    labSchedule: "T 9:00-12:00 PM",
-    location: "DCC 1-07",
-    grade: "A-",
     color: '#007FFF'
   }
 ]
