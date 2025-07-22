@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Keyboard } from 'react-native'
 import { SymbolView } from 'expo-symbols'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { useLocalSearchParams } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import { useSQLiteContext } from 'expo-sqlite'
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
@@ -66,6 +66,7 @@ export default function ActivityForm() {
         priority: priority,
         completedAt: null
       })
+      router.back()
     }
   }
 
@@ -81,6 +82,7 @@ export default function ActivityForm() {
         completedAt: null
       })
         .where(eq(tasks.id, convertedID));
+      router.back()
     }
   }
 
@@ -173,6 +175,7 @@ export default function ActivityForm() {
           </View>
 
         </View>
+
         {/* Button Row */}
         <View style={[styles.buttonContainer, {}]}>
           <PressableOpacity onPress={id !== null ? updateTask : createTask} disabled={title.length > 0 ? false : true}>
