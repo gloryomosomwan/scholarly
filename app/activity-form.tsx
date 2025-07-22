@@ -16,15 +16,17 @@ import { Activity, DueType } from '@/types'
 import { courses } from '@/data/data'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
+import { eq } from 'drizzle-orm'
 
 export default function ActivityForm() {
   const theme = useTheme();
 
-  const { id } = useLocalSearchParams<{ id: string }>()
   let data = null;
+  const { id } = useLocalSearchParams<{ id: string }>()
+  let convertedID = Number(id)
   if (id) {
     const sqlite = useSQLiteContext()
-    data = sqlite.getFirstSync<Activity>(`SELECT * FROM tasks WHERE id = ${id}`)
+    data = sqlite.getFirstSync<Activity>(`SELECT * FROM tasks WHERE id = ${convertedID}`)
   }
   // console.log(data)
 
@@ -64,6 +66,21 @@ export default function ActivityForm() {
         priority: priority,
         completedAt: null
       })
+    }
+  }
+
+  const updateTask = async () => {
+    if (title !== '' && id !== null) {
+      const result = await db.update(tasks).set({
+        title: title,
+        course: course,
+        description: notes,
+        due: date ? date.toISOString() : null,
+        dueType: dueType,
+        priority: priority,
+        completedAt: null
+      })
+        .where(eq(tasks.id, convertedID));
     }
   }
 
@@ -158,7 +175,7 @@ export default function ActivityForm() {
         </View>
         {/* Button Row */}
         <View style={[styles.buttonContainer, {}]}>
-          <PressableOpacity onPress={createTask} disabled={title.length > 0 ? false : true}>
+          <PressableOpacity onPress={id !== null ? updateTask : createTask} disabled={title.length > 0 ? false : true}>
             <Text style={[styles.buttonText, { color: title.length > 0 ? theme.accent : theme.accentInactive }]}>Save</Text>
           </PressableOpacity>
           <PressableOpacity>
