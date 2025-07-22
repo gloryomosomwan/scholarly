@@ -19,6 +19,7 @@ export interface Activity {
   due?: Date;
   dueType?: DueType;
   priority?: string;
+  completedAt?: string;
 }
 export interface Exam {
   id: number

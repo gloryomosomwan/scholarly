@@ -24,8 +24,8 @@ type ActivityCardProps = {
 
 export default function ActivityCard({ activity }: ActivityCardProps) {
   const sqlite = useSQLiteContext()
-  const result = sqlite.getFirstSync<{ completedAt: string | null }>(`SELECT completedAt FROM tasks WHERE id = ${activity.id}`)
-  const [completed, setCompleted] = useState(result?.completedAt !== null);
+  const result = sqlite.getFirstSync<{ completed_at: string | null }>(`SELECT completed_at FROM tasks WHERE id = ${activity.id}`)
+  const [completed, setCompleted] = useState(result?.completed_at !== null);
   const [overdue, setOverdue] = useState(activity.due && isAfter(new Date(), activity.due))
   const color = activity.course && courses.find(course => course.code === activity.course)?.color
   const theme = useTheme()

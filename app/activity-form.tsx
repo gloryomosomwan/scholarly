@@ -26,9 +26,19 @@ export default function ActivityForm() {
   let convertedID = Number(id)
   if (id) {
     const sqlite = useSQLiteContext()
-    data = sqlite.getFirstSync<Activity>(`SELECT * FROM tasks WHERE id = ${convertedID}`)
+    data = sqlite.getFirstSync<Activity>(`
+      SELECT 
+      id,
+      title,
+      course,
+      due,
+      due_type as dueType,
+      description,
+      priority,
+      completed_at as completedAt
+      FROM tasks
+      WHERE id = ${convertedID}`)
   }
-  // console.log(data)
 
   const [date, setDate] = useState<Date | null>(data?.due ? new Date(data.due) : null);
   const [dueType, setDueType] = useState<DueType | null>(data?.dueType ? data.dueType : null);

@@ -8,8 +8,10 @@ type activity = {
   dueType: DueType | null;
   description: string | null;
   priority: string | null;
+  completedAt: string | null;
 }[]
 
+// convert from DB 
 export function toActivity(activity: (activity)[number]): Activity {
   return {
     ...activity,
@@ -17,6 +19,7 @@ export function toActivity(activity: (activity)[number]): Activity {
     due: activity.due ? new Date(activity.due) : undefined,
     dueType: activity.dueType ? activity.dueType : undefined,
     course: activity.course ?? undefined,
-    priority: activity.priority ?? undefined
+    priority: activity.priority ?? undefined,
+    completedAt: activity.completedAt ?? undefined
   }
 }

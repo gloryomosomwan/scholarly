@@ -8,5 +8,5 @@ export const tasks = sqliteTable('tasks', {
   dueType: text('due_type'),
   description: text('description'),
   priority: text('priority'),
-  completedAt: text('completedAt')
+  completedAt: text('completed_at')
 });
