@@ -5,6 +5,7 @@ export const tasks = sqliteTable('tasks', {
   title: text('title').notNull(),
   course: text('course'),
   due: text('due'), // Store as ISO string
+  dueType: text('due_type'),
   description: text('description'),
   priority: text('priority'),
   completedAt: text('completedAt')

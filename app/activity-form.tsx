@@ -2,6 +2,8 @@ import React, { useCallback, useRef, useState } from 'react'
 import { StyleSheet, Text, View, TextInput, Keyboard } from 'react-native'
 import { SymbolView } from 'expo-symbols'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { useLocalSearchParams } from 'expo-router'
+import { useSQLiteContext } from 'expo-sqlite'
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
@@ -14,8 +16,6 @@ import { Activity, DueType } from '@/types'
 import { courses } from '@/data/data'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
-import { useLocalSearchParams } from 'expo-router'
-import { useSQLiteContext } from 'expo-sqlite'
 
 export default function ActivityForm() {
   const theme = useTheme();
@@ -29,7 +29,7 @@ export default function ActivityForm() {
   // console.log(data)
 
   const [date, setDate] = useState<Date | null>(data?.due ? new Date(data.due) : null);
-  const [dueType, setDueType] = useState<DueType>('date');
+  const [dueType, setDueType] = useState<DueType | null>(data?.dueType ? data.dueType : null);
   const [course, setCourse] = useState<string | null>(data?.course ? data.course : null);
   const [priority, setPriority] = useState<string | null>(data?.priority ? data.priority : null);
   const [title, setTitle] = useState(data?.title ? data.title : '')
@@ -60,6 +60,7 @@ export default function ActivityForm() {
         course: course,
         description: notes,
         due: date ? date.toISOString() : null,
+        dueType: dueType,
         priority: priority,
         completedAt: null
       })

@@ -17,6 +17,7 @@ export interface Activity {
   course?: string;
   description?: string;
   due?: Date;
+  dueType?: DueType;
   priority?: string;
 }
 export interface Exam {
