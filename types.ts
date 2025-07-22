@@ -23,7 +23,7 @@ export interface Activity {
 }
 export interface Exam {
   id: number
-  title: string
+  name: string
   start: Date
   end: Date
   weight?: string

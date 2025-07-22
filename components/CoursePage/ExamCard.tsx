@@ -12,7 +12,7 @@ function getDateString(date: Date) {
   return day + ' at ' + time
 }
 
-export default function ExamCard({ title, notes, start, end, location, weight, grade }: Exam) {
+export default function ExamCard({ name, notes, start, end, location, weight, grade }: Exam) {
   const theme = useTheme();
   const [graded, setGraded] = useState(grade ? true : false)
 
@@ -23,7 +23,7 @@ export default function ExamCard({ title, notes, start, end, location, weight, g
           <SymbolView name={"doc.text"} size={20} tintColor={theme.text} />
         </View>
         <View style={styles.mainTextContainer}>
-          <Text style={[styles.titleText, { color: theme.text }]}>{title}</Text>
+          <Text style={[styles.titleText, { color: theme.text }]}>{name}</Text>
           <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
         </View>
       </View>
