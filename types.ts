@@ -52,5 +52,4 @@ export interface Semester {
   name: string;
   start: Date;
   end: Date;
-  numberOfCourses: number
 }

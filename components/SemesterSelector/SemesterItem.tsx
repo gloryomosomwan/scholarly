@@ -36,7 +36,7 @@ export default function SemesterItem({ item, onSelect }: SemesterItemProps) {
       </View>
       <View style={styles.courseCountContainer}>
         <Text style={[styles.courseCount, { color: theme.accent }]}>
-          {item.numberOfCourses} courses
+          {4} courses
         </Text>
       </View>
     </PressableOpacity>
