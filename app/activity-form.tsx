@@ -10,25 +10,36 @@ import PriorityItem from '@/components/Modals/Items/PriorityItem'
 import CourseItem from '@/components/Modals/Items/CourseItem';
 
 import { useTheme, usePriorityPalette } from '@/hooks'
-import { DueType } from '@/types'
+import { Activity, DueType } from '@/types'
 import { courses } from '@/data/data'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
+import { useLocalSearchParams } from 'expo-router'
+import { useSQLiteContext } from 'expo-sqlite'
 
 export default function ActivityForm() {
   const theme = useTheme();
 
-  const [date, setDate] = useState<Date | null>(null);
+  const { id } = useLocalSearchParams<{ id: string }>()
+  let data = null;
+  if (id) {
+    const sqlite = useSQLiteContext()
+    data = sqlite.getFirstSync<Activity>(`SELECT * FROM tasks WHERE id = ${id}`)
+  }
+  // console.log(data)
+
+  const [date, setDate] = useState<Date | null>(data?.due ? new Date(data.due) : null);
   const [dueType, setDueType] = useState<DueType>('date');
-  const [course, setCourse] = useState<string | null>(null);
-  const [priority, setPriority] = useState<string | null>(null);
-  const priorityPalette = usePriorityPalette(priority)
-  const [title, setTitle] = useState('')
-  const [notes, setNotes] = useState('')
+  const [course, setCourse] = useState<string | null>(data?.course ? data.course : null);
+  const [priority, setPriority] = useState<string | null>(data?.priority ? data.priority : null);
+  const [title, setTitle] = useState(data?.title ? data.title : '')
+  const [notes, setNotes] = useState(data?.description ? data.description : '')
 
   const datePickerModalRef = useRef<BottomSheetModal>(null);
   const courseSelectorModalRef = useRef<BottomSheetModal>(null);
   const prioritySelectorModalRef = useRef<BottomSheetModal>(null);
+
+  const priorityPalette = usePriorityPalette(priority)
 
   const handlePresentModalPress = useCallback(() => {
     Keyboard.dismiss()

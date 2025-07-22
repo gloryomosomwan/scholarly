@@ -41,7 +41,14 @@ export default function ActivityMenu({ activityID }: ActivityMenuProps) {
         <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem key="edit" onSelect={() => router.navigate('/activity-form')}>
+        <DropdownMenuItem key="edit" onSelect={() => router.navigate(
+          {
+            pathname: '/activity-form',
+            params: {
+              id: activityID
+            }
+          }
+        )}>
           <DropdownMenuItemIcon ios={{
             name: 'pencil',
             pointSize: 20,
