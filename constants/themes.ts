@@ -2,9 +2,10 @@ type theme = {
   primary: string,
   secondary: string,
   accent: string,
+  accentInactive: string,
   text: string,
   inverseText: string,
-  textOnDarkBackground: '#F9FAFB'
+  textOnDarkBackground: string,
   grey100: string
   grey200: string
   grey400: string,
@@ -26,6 +27,7 @@ export const lightTheme: theme = {
   primary: '#F9FAFB',
   secondary: '#FFFFFF',
   accent: "#0055FF",
+  accentInactive: "#b3ccff",
   text: '#374151',
   inverseText: '#FFFFFF',
   textOnDarkBackground: '#F9FAFB',
@@ -50,6 +52,7 @@ export const darkTheme: theme = {
   primary: '#111827',
   secondary: '#1F2937',
   accent: '#3B82F6',
+  accentInactive: "#b3ccff",
   text: '#F9FAFB',
   inverseText: '#111827',
   textOnDarkBackground: '#F9FAFB',
