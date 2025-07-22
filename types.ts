@@ -24,15 +24,10 @@ export interface Activity {
   priority?: string;
   completedAt?: string;
 }
-export interface Exam {
-  id: number
-  name: string
-  start: Date
-  end: Date
+
+export interface Exam extends Event {
   weight?: string
-  location?: string
   grade?: string
-  notes?: string
 }
 
 export interface Course {
