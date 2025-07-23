@@ -67,7 +67,7 @@ export default function ActivityForm() {
 
   const createTask = async () => {
     if (title !== '') {
-      const result = await db.insert(tasks).values({
+      await db.insert(tasks).values({
         title: title,
         course: course,
         description: notes,
@@ -82,7 +82,7 @@ export default function ActivityForm() {
 
   const updateTask = async () => {
     if (title !== '' && id !== null) {
-      const result = await db.update(tasks).set({
+      await db.update(tasks).set({
         title: title,
         course: course,
         description: notes,
