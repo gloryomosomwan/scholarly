@@ -73,7 +73,7 @@ export default function RootLayout() {
             }}
           />
           <Stack.Screen
-            name="exam-form"
+            name="test-form"
             options={{
               headerShown: false,
               presentation: 'modal'

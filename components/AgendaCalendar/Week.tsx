@@ -4,7 +4,7 @@ import { addDays, format, startOfWeek } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { events, assignments, tasks, exams } from '@/data/data';
+import { events, assignments, tasks, tests } from '@/data/data';
 import Day from './Day'
 
 type WeekProps = {
@@ -25,7 +25,7 @@ export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
 
   const itemsByDate = useMemo(() => {
     const map: Record<string, number> = {}
-      ;[...events, ...tasks, ...assignments, ...exams].forEach(item => {
+      ;[...events, ...tasks, ...assignments, ...tests].forEach(item => {
         let dateToUse: Date | undefined;
 
         if ('start' in item && item.start instanceof Date) {
@@ -40,7 +40,7 @@ export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
         }
       })
     return map
-  }, [events, tasks, assignments, exams])
+  }, [events, tasks, assignments, tests])
 
   const days = useMemo(() => {
     let firstDayOfWeek = startOfWeek(initialDay)

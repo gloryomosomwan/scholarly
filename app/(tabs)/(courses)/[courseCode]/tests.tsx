@@ -1,8 +1,8 @@
 import { StyleSheet, ScrollView } from 'react-native';
 
 import { useTheme } from '@/hooks';
-import { exams } from '@/data/data';
-import ExamCard from '@/components/CoursePage/ExamCard';
+import { tests } from '@/data/data';
+import TestCard from '@/components/CoursePage/TestCard';
 import AddButton from '@/components/Buttons/AddButton';
 
 export default function Exams() {
@@ -10,8 +10,8 @@ export default function Exams() {
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]}>
-      {exams.map(exam => <ExamCard key={exam.id} {...exam} />)}
-      <AddButton route='/exam-form' title='Add Exam' />
+      {tests.map(test => <TestCard key={test.id} {...test} />)}
+      <AddButton route='/test-form' title='Add Exam' />
     </ScrollView>
   );
 }

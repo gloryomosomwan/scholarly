@@ -15,10 +15,10 @@ export interface Event {
   notes?: string;
 }
 
-export interface Exam extends Event {
-  weight?: string
-  grade?: string
-}
+// export interface Exam extends Event {
+//   weight?: string
+//   grade?: string
+// }
 
 export interface Test {
   id: number;

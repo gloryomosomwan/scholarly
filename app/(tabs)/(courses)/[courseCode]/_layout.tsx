@@ -38,8 +38,8 @@ export default function TabLayout() {
           title: "Assignments",
           tabBarIcon: () => <SymbolView size={20} name="square.and.pencil" tintColor={color} />,
         }} />
-        <MaterialTopTabs.Screen name="exams" options={{
-          title: "Exams",
+        <MaterialTopTabs.Screen name="tests" options={{
+          title: "Tests",
           tabBarIcon: () => <SymbolView size={20} name="doc.text" tintColor={color} />,
         }} />
       </MaterialTopTabs>

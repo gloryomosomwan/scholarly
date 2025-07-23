@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/hooks';
-import { Exam } from '@/types';
+import { Test } from '@/types';
 import Graded from './Graded';
 
 function getDateString(date: Date) {
@@ -12,7 +12,7 @@ function getDateString(date: Date) {
   return day + ' at ' + time
 }
 
-export default function ExamCard({ name, notes, start, end, location, weight, grade }: Exam) {
+export default function ExamCard({ name, notes, start, end, location, weight, grade }: Test) {
   const theme = useTheme();
   const [graded, setGraded] = useState(grade ? true : false)
 

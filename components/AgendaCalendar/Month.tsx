@@ -4,7 +4,7 @@ import { startOfMonth, addDays, subDays, getDay, getDaysInMonth, format, isSameM
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { events, assignments, tasks, exams } from '@/data/data';
+import { events, assignments, tasks, tests } from '@/data/data';
 import Day from './Day'
 
 type MonthProps = {
@@ -37,7 +37,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
 
   const itemsByDate = useMemo(() => {
     const map: Record<string, number> = {}
-      ;[...events, ...tasks, ...assignments, ...exams].forEach(item => {
+      ;[...events, ...tasks, ...assignments, ...tests].forEach(item => {
         let dateToUse: Date | undefined;
 
         if ('start' in item && item.start instanceof Date) {
@@ -52,7 +52,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
         }
       })
     return map
-  }, [events, tasks, assignments, exams])
+  }, [events, tasks, assignments, tests])
 
 
   const days = useMemo(() => {
