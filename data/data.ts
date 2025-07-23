@@ -1,4 +1,4 @@
-import { Event, Activity, Exam, Course, Semester } from '@/types'
+import { Event, Activity, Test, Course, Semester } from '@/types'
 
 export const semesters: Semester[] = [
   {
@@ -64,34 +64,37 @@ export const courses: Course[] = [
   }
 ]
 
-export const exams: Exam[] = [
+export const tests: Test[] = [
   {
     id: 1,
     name: 'Midterm 1',
     start: new Date(2025, 5, 28, 10),
     end: new Date(2025, 5, 28, 11),
-    weight: '30%',
+    weight: 30,
     location: 'BSD 30-1',
     notes: 'Crush it!',
-    grade: '40/50'
+    grade: 40,
+    course: 'HIST 211'
   },
   {
     id: 2,
     name: 'Midterm 2',
     start: new Date(2025, 6, 12, 10),
     end: new Date(2025, 6, 12, 11),
-    weight: '40%',
+    weight: 40,
     location: 'BSD 30-1',
-    notes: 'Crush it again!'
+    notes: 'Crush it again!',
+    course: 'HIST 211'
   },
   {
     id: 3,
     name: 'Final',
     start: new Date(2025, 6, 28, 10),
     end: new Date(2025, 6, 28, 11),
-    weight: '40%',
+    weight: 40,
     location: 'BSD 30-1',
-    notes: 'Crush it again!'
+    notes: 'Crush it again!',
+    course: 'HIST 211'
   },
 ]
 
@@ -167,12 +170,6 @@ export const events: Event[] = [
     start: new Date(2025, 4, 20, 14, 0),
     end: new Date(2025, 4, 20, 15, 20),
     location: 'GMH 5-18',
-  },
-  {
-    id: 187, type: 'Exam', course: 'CHEM 105',
-    start: new Date(2025, 6, 29, 15, 0),
-    end: new Date(2025, 6, 29, 17, 0),
-    location: 'DCC 1-07',
   },
   {
     id: 6, type: 'lecture', course: 'MATH 119',
@@ -451,12 +448,6 @@ export const events: Event[] = [
     location: 'HIS 2-17',
   },
   {
-    id: 184, type: 'Midterm', course: 'MARK 161',
-    start: new Date(2025, 5, 19, 14, 0),
-    end: new Date(2025, 5, 19, 15, 30),
-    location: 'GMH 5-18',
-  },
-  {
     id: 147, type: 'lecture', course: 'MATH 119',
     start: new Date(2025, 6, 11, 9, 0),
     end: new Date(2025, 6, 11, 9, 50),
@@ -557,12 +548,6 @@ export const events: Event[] = [
     start: new Date(2025, 4, 14, 15, 0),
     end: new Date(2025, 4, 14, 15, 50),
     location: 'DCC 1-07',
-  },
-  {
-    id: 185, type: 'Exam', course: 'MATH 119',
-    start: new Date(2025, 6, 27, 9, 0),
-    end: new Date(2025, 6, 27, 11, 0),
-    location: 'HSB 1-23',
   },
   {
     id: 43, type: 'lecture', course: 'HIST 211',
@@ -703,34 +688,10 @@ export const events: Event[] = [
     location: 'GMH 5-18',
   },
   {
-    id: 189, type: 'Exam', course: 'MARK 161',
-    start: new Date(2025, 6, 31, 14, 0),
-    end: new Date(2025, 6, 31, 16, 0),
-    location: 'GMH 5-18',
-  },
-  {
     id: 117, type: 'lecture', course: 'MATH 119',
     start: new Date(2025, 5, 27, 9, 0),
     end: new Date(2025, 5, 27, 9, 50),
     location: 'HSB 1-23',
-  },
-  {
-    id: 188, type: 'Exam', course: 'PHYS 102',
-    start: new Date(2025, 6, 30, 10, 0),
-    end: new Date(2025, 6, 30, 12, 0),
-    location: 'CP 4-12',
-  },
-  {
-    id: 186, type: 'Exam', course: 'HIST 211',
-    start: new Date(2025, 6, 27, 11, 0),
-    end: new Date(2025, 6, 27, 13, 0),
-    location: 'HIS 2-17',
-  },
-  {
-    id: 182, type: 'Midterm', course: 'CHEM 105',
-    start: new Date(2025, 5, 18, 15, 0),
-    end: new Date(2025, 5, 18, 16, 30),
-    location: 'DCC 1-07',
   },
   {
     id: 157, type: 'lecture', course: 'HIST 211',
@@ -889,12 +850,6 @@ export const events: Event[] = [
     location: 'CP 4-12',
   },
   {
-    id: 181, type: 'Midterm', course: 'HIST 211',
-    start: new Date(2025, 5, 16, 11, 0),
-    end: new Date(2025, 5, 16, 12, 30),
-    location: 'HIS 2-17',
-  },
-  {
     id: 171, type: 'lecture', course: 'MATH 119',
     start: new Date(2025, 6, 23, 9, 0),
     end: new Date(2025, 6, 23, 9, 50),
@@ -1013,12 +968,6 @@ export const events: Event[] = [
     start: new Date(2025, 5, 30, 9, 0),
     end: new Date(2025, 5, 30, 9, 50),
     location: 'HSB 1-23',
-  },
-  {
-    id: 183, type: 'Midterm', course: 'PHYS 102',
-    start: new Date(2025, 5, 19, 10, 0),
-    end: new Date(2025, 5, 19, 11, 30),
-    location: 'CP 4-12',
   },
   {
     id: 126, type: 'lecture', course: 'MATH 119',
@@ -1150,12 +1099,6 @@ export const events: Event[] = [
     id: 135, type: 'lecture', course: 'MATH 119',
     start: new Date(2025, 6, 7, 9, 0),
     end: new Date(2025, 6, 7, 9, 50),
-    location: 'HSB 1-23',
-  },
-  {
-    id: 180, type: 'Midterm', course: 'MATH 119',
-    start: new Date(2025, 5, 16, 9, 0),
-    end: new Date(2025, 5, 16, 10, 30),
     location: 'HSB 1-23',
   },
   {

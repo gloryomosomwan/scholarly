@@ -9,9 +9,27 @@ export interface Event {
   type: EventType;
   start: Date;
   end: Date;
+  name?: string;
   course?: string;
   location?: string;
   notes?: string;
+}
+
+export interface Exam extends Event {
+  weight?: string
+  grade?: string
+}
+
+export interface Test {
+  id: number;
+  start: Date;
+  end: Date;
+  name: string;
+  course: string;
+  location?: string;
+  notes?: string;
+  weight?: number;
+  grade?: number
 }
 
 export interface Activity {
@@ -23,11 +41,6 @@ export interface Activity {
   dueType?: DueType;
   priority?: string;
   completedAt?: string;
-}
-
-export interface Exam extends Event {
-  weight?: string
-  grade?: string
 }
 
 export interface Course {
