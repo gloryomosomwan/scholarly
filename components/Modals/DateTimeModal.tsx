@@ -10,13 +10,12 @@ import { DueType } from '@/types';
 type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
   initialDate: Date | undefined
-  handleSheetChanges?: (index: number) => void
   handleSetDate: (date: Date, dueType: DueType) => void
 }
 
 type PickerMode = 'date' | 'datetime';
 
-export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetModalRef, handleSheetChanges }: DateTimeModalProps) {
+export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetModalRef }: DateTimeModalProps) {
   const theme = useTheme()
   const [internalDate, setInternalDate] = useState(initialDate === undefined ? new Date() : initialDate)
   const [pickerMode, setPickerMode] = useState<PickerMode>('date');
@@ -50,7 +49,6 @@ export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetM
   return (
     <BottomSheetModal
       ref={bottomSheetModalRef}
-      onChange={handleSheetChanges}
       backgroundStyle={{ backgroundColor: theme.primary }}
       handleComponent={() => <BottomSheetHandle />}
       backdropComponent={props => (

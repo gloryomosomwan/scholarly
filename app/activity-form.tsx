@@ -58,7 +58,6 @@ export default function ActivityForm() {
     datePickerModalRef.current?.present();
   }, []);
 
-  const handleSheetChanges = useCallback((index: number) => { }, []);
 
   const handleSetDate = (date: Date, dueType: DueType) => {
     setDate(date)
@@ -220,7 +219,7 @@ export default function ActivityForm() {
         </View>
 
         {/* Date Picker */}
-        <DateTimeModal initialDate={new Date()} handleSetDate={handleSetDate} bottomSheetModalRef={datePickerModalRef} handleSheetChanges={handleSheetChanges} />
+        <DateTimeModal initialDate={new Date()} handleSetDate={handleSetDate} bottomSheetModalRef={datePickerModalRef} />
 
         {/* Course Modal */}
         <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable>
