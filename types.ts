@@ -53,3 +53,26 @@ export interface Semester {
   start: Date;
   end: Date;
 }
+
+// export interface Task {
+//   id: number;
+//   title: string;
+//   course?: string;
+//   description?: string;
+//   due?: Date;
+//   dueType?: DueType;
+//   priority?: string;
+//   completedAt?: string;
+// }
+
+// export interface Assignment {
+//   id: number;
+//   title: string;
+//   course: string;
+//   description?: string;
+//   due: Date;
+//   dueType: DueType;
+//   completedAt?: string;
+//   weight?: number;
+//   grade?: number;
+// }
