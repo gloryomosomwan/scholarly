@@ -68,7 +68,7 @@ export default function Tab() {
         }
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
-        {/* {taskData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)} */}
+        {taskData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
       </ScrollView>
     </View>
   );
