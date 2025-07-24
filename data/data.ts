@@ -1,4 +1,4 @@
-import { Event, Activity, Test, Course, Semester } from '@/types'
+import { Event, Activity, Test, Course, Semester } from '@/types/types'
 
 export const semesters: Semester[] = [
   {

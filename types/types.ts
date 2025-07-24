@@ -1,4 +1,4 @@
-import { CourseColorMap } from './constants/coursePalettes';
+import { CourseColorMap } from '../constants/coursePalettes';
 export type CourseColor = keyof typeof CourseColorMap;
 
 export type EventType = 'lecture' | 'lab' | 'seminar' | 'general'

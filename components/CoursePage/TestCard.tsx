@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/hooks';
-import { Test } from '@/types';
+import { Test } from '@/types/types';
 import Graded from './Graded';
 
 function getDateString(date: Date) {

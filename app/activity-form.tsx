@@ -12,7 +12,7 @@ import PriorityItem from '@/components/Modals/Items/PriorityItem'
 import CourseItem from '@/components/Modals/Items/CourseItem';
 
 import { useTheme, usePriorityPalette } from '@/hooks'
-import { Activity, DueType } from '@/types'
+import { Activity, DueType } from '@/types/types'
 import { courses } from '@/data/data'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'

@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
-import { Semester } from '@/types'
+import { Semester } from '@/types/types'
 
 export type SemesterItemProps = {
   item: Semester

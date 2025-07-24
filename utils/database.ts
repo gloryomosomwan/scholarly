@@ -1,4 +1,4 @@
-import { Activity, DueType } from "@/types";
+import { Activity, DueType } from "@/types/types";
 import { SelectActivity } from "@/types/drizzle";
 
 export function convertRawActivity(activity: SelectActivity): Activity {
