@@ -7,7 +7,7 @@ import { useDrizzleStudio } from "expo-drizzle-studio-plugin"
 import { useTheme } from "@/hooks";
 import { sqlite } from "@/db/init";
 
-SplashScreen.preventAutoHideAsync()
+// SplashScreen.preventAutoHideAsync()
 
 SplashScreen.setOptions({
   duration: 500,
