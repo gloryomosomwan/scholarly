@@ -1,14 +1,14 @@
 import { Activity, DueType } from "@/types/types";
 import { rawActivity } from "@/types/drizzle";
 
-export function convertRawActivity(activity: rawActivity): Activity {
+export function convertRawActivity(rawActivity: rawActivity): Activity {
   return {
-    ...activity,
-    description: activity.description ?? undefined,
-    due: activity.due ? new Date(activity.due) : undefined,
-    dueType: activity.dueType ? activity.dueType as DueType : undefined,
-    course: activity.course ?? undefined,
-    priority: activity.priority ?? undefined,
-    completedAt: activity.completedAt ?? undefined
+    ...rawActivity,
+    description: rawActivity.description ?? undefined,
+    due: rawActivity.due ? new Date(rawActivity.due) : undefined,
+    dueType: rawActivity.dueType ? rawActivity.dueType as DueType : undefined,
+    course: rawActivity.course ?? undefined,
+    priority: rawActivity.priority ?? undefined,
+    completedAt: rawActivity.completedAt ?? undefined
   }
 }

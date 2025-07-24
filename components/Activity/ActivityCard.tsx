@@ -10,6 +10,7 @@ import { courses } from '@/data/data';
 import ActivityMenu from '@/components/Menus/ActivityMenu';
 import { db } from '@/db/init';
 import { tasks } from '@/db/schema';
+import { Activity } from '@/types/types';
 
 type ActivityCardProps = {
   activity: Activity;
