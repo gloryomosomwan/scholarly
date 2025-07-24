@@ -16,7 +16,6 @@ export default function Index() {
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
       <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
-        <TaskSection />
         <View style={styles.headerContainer}>
           <View style={styles.greetingDateContainer}>
             <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
@@ -50,6 +49,7 @@ export default function Index() {
           <ActivityCard activity={assignment2} />
           <ActivityCard activity={assignment3} /> */}
         </View>
+        <TaskSection />
       </ScrollView>
     </View>
   );
