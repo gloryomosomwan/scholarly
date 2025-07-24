@@ -18,10 +18,10 @@ type ActivityCardProps = {
 
 export default function ActivityCard({ activity }: ActivityCardProps) {
   const sqlite = useSQLiteContext()
-  const result = sqlite.getFirstSync<{ completed_at: string | null }>(`SELECT completed_at FROM tasks WHERE id = ${activity.id}`)
-  const [completed, setCompleted] = useState(result?.completed_at !== null);
+  const completedData = sqlite.getFirstSync<{ completed_at: string | null }>(`SELECT completed_at FROM tasks WHERE id = ${activity.id}`)
+  const [completed, setCompleted] = useState(completedData?.completed_at !== null);
   const overdue = activity.due && isAfter(new Date(), activity.due)
-  const color = activity.course && courses.find(course => course.code === activity.course)?.color
+  const courseColor = activity.course && courses.find(course => course.code === activity.course)?.color
   const theme = useTheme()
   const priorityPalette = usePriorityPalette(activity.priority)
 
@@ -77,7 +77,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               {/* Course tag */}
               {activity.course && (
                 <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
-                  {color && <View style={[styles.courseDot, { backgroundColor: color }]} />}
+                  {courseColor && <View style={[styles.courseDot, { backgroundColor: courseColor }]} />}
                   <Text style={[styles.courseText, { color: theme.text }]}>{activity.course}</Text>
                 </View>
               )}
