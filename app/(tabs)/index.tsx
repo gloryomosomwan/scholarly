@@ -111,23 +111,3 @@ const exam = {
   end: new Date(2025, 5, 21, 15, 0),
   location: 'GMH 5-18',
 }
-
-const assignment1 = {
-  id: 15, title: 'Problem Set 3: Thermodynamics', course: 'CHEM 105',
-  description: 'Show all work clearly',
-  due: new Date(2025, 9, 20, 23, 59),
-}
-
-const assignment2 =
-{
-  id: 35, title: 'Reading: Electromagnetism', course: 'PHYS 102',
-  description: 'Prepare questions',
-  due: new Date(2025, 9, 19, 20, 0),
-}
-
-const assignment3 =
-{
-  id: 50, title: 'Lab Report 12: Pendulum Experiment', course: 'PHYS 102',
-  description: 'Attach tables',
-  due: new Date(2025, 9, 19, 23, 59),
-}
