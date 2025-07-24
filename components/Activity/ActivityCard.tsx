@@ -12,14 +12,7 @@ import { db } from '@/db/init';
 import { tasks } from '@/db/schema';
 
 type ActivityCardProps = {
-  activity: {
-    id: number,
-    title: string;
-    course?: string;
-    description?: string;
-    due?: Date;
-    priority?: string;
-  };
+  activity: Activity;
 };
 
 export default function ActivityCard({ activity }: ActivityCardProps) {
