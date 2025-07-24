@@ -15,7 +15,6 @@ import { useTheme } from '@/hooks';
 import { tasks } from '@/db/schema';
 import { db } from '@/db/init';
 import { convertRawActivity } from '@/utils/database';
-import { rawActivity } from '@/types';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()

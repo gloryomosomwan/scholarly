@@ -37,16 +37,6 @@ export interface Activity {
   priority?: string;
   completedAt?: string;
 }
-export interface rawActivity {
-  id: number;
-  title: string;
-  course: string | null;
-  due: string | null;
-  dueType: string | null;
-  description: string | null;
-  priority: string | null;
-  completedAt: string | null;
-}
 
 export interface Course {
   id: number;
