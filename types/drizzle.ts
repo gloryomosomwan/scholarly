@@ -1,2 +1,2 @@
 import { tasks } from "@/db/schema";
-export type SelectActivity = typeof tasks.$inferSelect;
+export type rawActivity = typeof tasks.$inferSelect;
