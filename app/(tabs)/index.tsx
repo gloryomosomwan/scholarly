@@ -1,16 +1,19 @@
 import { Text, StyleSheet, ScrollView, View, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SymbolView } from "expo-symbols";
 
-import { useTheme } from "@/hooks";
 import ActivityCard from "@/components/Activity/ActivityCard";
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
 import EventCard from "@/components/Dashboard/EventCard";
-import { SymbolView } from "expo-symbols";
+
+import { useTheme } from "@/hooks";
+import { useTasks } from "@/hooks/useTasks";
 
 export default function Index() {
   const theme = useTheme()
   const insets = useSafeAreaInsets();
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
+  const activityData = useTasks()
 
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
@@ -58,9 +61,7 @@ export default function Index() {
               <Text style={[styles.subheaderText, { color: theme.grey500, fontWeight: 700 }]} > (1 overdue)</Text>
             </Text>
           </View>
-          <ActivityCard activity={task} />
-          <ActivityCard activity={task2} />
-          <ActivityCard activity={task3} />
+          {activityData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
         </View>
       </ScrollView>
     </View>
