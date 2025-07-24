@@ -17,7 +17,7 @@ export default function Tab() {
   const theme = useTheme()
   const [sortBy, setSortBy] = useState<string | null>(null)
   const [filterBy, setFilterBy] = useState<string | null>(null)
-  const activityData = useTasks()
+  const taskData = useTasks()
 
   const handleSortBy = (sortBy: string) => {
     setSortBy(sortBy)
@@ -68,7 +68,7 @@ export default function Tab() {
         }
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
-        {activityData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
+        {/* {taskData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)} */}
       </ScrollView>
     </View>
   );
