@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-import { useTasks } from '@/hooks/useTasks'
 import ActivityCard from '@/components/Activity/ActivityCard'
-import { useTheme } from '@/hooks'
+
+import { useTasks } from '@/hooks/useTasks'
+import { useTheme } from '@/hooks/useTheme'
 
 export default function TaskSection() {
   const theme = useTheme()
