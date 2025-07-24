@@ -8,6 +8,7 @@ import TaskSection from "@/components/Dashboard/TaskSection";
 import AssignmentSection from "@/components/Dashboard/AssignmentSection";
 
 import { useTheme } from "@/hooks/useTheme";
+import dayjs from "dayjs";
 
 export default function Index() {
   const theme = useTheme()
@@ -20,7 +21,7 @@ export default function Index() {
         <View style={styles.headerContainer}>
           <View style={styles.greetingDateContainer}>
             <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
-            <Text style={[styles.dateText, { color: theme.grey400 }]}>Friday, November 28</Text>
+            <Text style={[styles.dateText, { color: theme.grey400 }]}>{dayjs().format('dddd, MMMM D')}</Text>
           </View>
           <SymbolView style={styles.profileIcon} name={'person.crop.circle.fill'} size={45} tintColor={theme.grey400} />
         </View>
