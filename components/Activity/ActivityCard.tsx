@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { isAfter, format } from 'date-fns';
 import { eq } from 'drizzle-orm';
-import { useSQLiteContext } from 'expo-sqlite';
 
 import { useTheme, usePriorityPalette } from '@/hooks';
 import { courses } from '@/data/data';
@@ -17,9 +16,7 @@ type ActivityCardProps = {
 };
 
 export default function ActivityCard({ activity }: ActivityCardProps) {
-  const sqlite = useSQLiteContext()
-  const completedData = sqlite.getFirstSync<{ completed_at: string | null }>(`SELECT completed_at FROM tasks WHERE id = ${activity.id}`)
-  const [completed, setCompleted] = useState(completedData?.completed_at !== null);
+  const completed = activity.completedAt
   const overdue = activity.due && isAfter(new Date(), activity.due)
   const courseColor = activity.course && courses.find(course => course.code === activity.course)?.color
   const theme = useTheme()
@@ -28,11 +25,9 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
   const toggleCompleted = async () => {
     if (completed) {
       await db.update(tasks).set({ completedAt: null }).where(eq(tasks.id, activity.id))
-      setCompleted(false);
     }
     else if (!completed) {
       await db.update(tasks).set({ completedAt: new Date().toISOString() }).where(eq(tasks.id, activity.id))
-      setCompleted(true);
     }
   };
 

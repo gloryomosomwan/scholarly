@@ -2,22 +2,21 @@ import { Text, StyleSheet, ScrollView, View, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SymbolView } from "expo-symbols";
 
-import ActivityCard from "@/components/Activity/ActivityCard";
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
 import EventCard from "@/components/Dashboard/EventCard";
+import TaskSection from "@/components/Dashboard/TaskSection";
 
 import { useTheme } from "@/hooks";
-import { useTasks } from "@/hooks/useTasks";
 
 export default function Index() {
   const theme = useTheme()
   const insets = useSafeAreaInsets();
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
-  const activityData = useTasks()
 
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
       <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
+        <TaskSection />
         <View style={styles.headerContainer}>
           <View style={styles.greetingDateContainer}>
             <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
@@ -38,7 +37,7 @@ export default function Index() {
           <AssessmentCard assessment={exam} />
         </View>
         <View>
-          <View style={styles.tasksHeaderContainer}>
+          {/* <View style={styles.tasksHeaderContainer}>
             <View style={styles.tasksHeaderTopRowContainer}>
               <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Assignments:</Text>
             </View>
@@ -46,22 +45,10 @@ export default function Index() {
               3 assignments due today
               <Text style={[styles.subheaderText, { color: theme.grey500, fontWeight: 700 }]} > (1 overdue)</Text>
             </Text>
-          </View>
-          <ActivityCard activity={assignment1} />
+          </View> */}
+          {/* <ActivityCard activity={assignment1} />
           <ActivityCard activity={assignment2} />
-          <ActivityCard activity={assignment3} />
-        </View>
-        <View>
-          <View style={styles.tasksHeaderContainer}>
-            <View style={styles.tasksHeaderTopRowContainer}>
-              <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
-            </View>
-            <Text style={[styles.subheaderText, { color: theme.grey400 }]}>
-              3 tasks due today
-              <Text style={[styles.subheaderText, { color: theme.grey500, fontWeight: 700 }]} > (1 overdue)</Text>
-            </Text>
-          </View>
-          {activityData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
+          <ActivityCard activity={assignment3} /> */}
         </View>
       </ScrollView>
     </View>
@@ -88,24 +75,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     letterSpacing: 0.25
   },
-  taskHeaderText: {
-    fontSize: 20,
-    marginBottom: 3,
-    fontWeight: '600',
-    letterSpacing: 0.25
-  },
   subheaderText: {
     fontSize: 16,
     fontWeight: '600',
-  },
-  tasksHeaderContainer: {
-    marginTop: 12,
-    marginBottom: 12,
-  },
-  tasksHeaderTopRowContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
   },
   progressCards: {
     flexDirection: 'row',
@@ -150,32 +122,6 @@ const exam = {
   start: new Date(2025, 5, 21, 13, 0),
   end: new Date(2025, 5, 21, 15, 0),
   location: 'GMH 5-18',
-}
-
-const task = {
-  id: 50,
-  title: 'Record a voice memo explaining electromagnetic fields for PHYS 102',
-  course: 'PHYS 102',
-  due: new Date(2025, 9, 19, 23, 59),
-  priority: 'low',
-}
-const task2 =
-{
-  id: 73,
-  title: 'Storyboard a 30-second marketing video for MARK 161',
-  course: 'MARK 161',
-  description: 'Draft key messaging points',
-  due: new Date(2025, 9, 19, 21, 0),
-  priority: 'high',
-}
-const task3 =
-{
-  id: 74,
-  title: 'Compose a summary blog post on series convergence for MATH 119',
-  course: 'MATH 119',
-  description: 'Include references to lecture examples',
-  due: new Date(2025, 9, 19, 23, 59),
-  priority: 'medium',
 }
 
 const assignment1 = {
