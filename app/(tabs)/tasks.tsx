@@ -3,30 +3,21 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SymbolView } from 'expo-symbols';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { useLiveQuery } from "drizzle-orm/expo-sqlite";
-import { like } from 'drizzle-orm';
 
 import ActivityCard from '@/components/Activity/ActivityCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 
-import { useTheme } from '@/hooks';
-import { tasks } from '@/db/schema';
-import { db } from '@/db/init';
-import { convertRawActivity } from '@/utils/database';
+import { useTheme } from '@/hooks/useTheme';
+import { useTasks } from '@/hooks/useTasks';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
   const [sortBy, setSortBy] = useState<string | null>(null)
   const [filterBy, setFilterBy] = useState<string | null>(null)
-
-  // timezone bug
-  const todayPattern = new Date().toISOString().slice(0, 10) + '%';
-  const { data } = useLiveQuery(db.select().from(tasks))
-  // const { data } = useLiveQuery(db.select().from(tasks).where(like(tasks.due, todayPattern)))
-  const activityData = data.map(convertRawActivity)
+  const activityData = useTasks()
 
   const handleSortBy = (sortBy: string) => {
     setSortBy(sortBy)
