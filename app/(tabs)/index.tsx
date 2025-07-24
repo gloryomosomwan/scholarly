@@ -6,7 +6,7 @@ import AssessmentCard from "@/components/Dashboard/AssessmentCard";
 import EventCard from "@/components/Dashboard/EventCard";
 import TaskSection from "@/components/Dashboard/TaskSection";
 
-import { useTheme } from "@/hooks";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function Index() {
   const theme = useTheme()
