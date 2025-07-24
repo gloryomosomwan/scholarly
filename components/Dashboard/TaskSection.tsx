@@ -22,9 +22,9 @@ export default function TaskSection() {
 
   return (
     <View>
-      <View style={styles.tasksHeaderContainer}>
-        <View style={styles.tasksHeaderTopRowContainer}>
-          <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Tasks:</Text>
+      <View style={styles.headerContainer}>
+        <View style={styles.headerTopRowContainer}>
+          <Text style={[styles.headerText, { color: theme.text }]}>Today's Tasks:</Text>
         </View>
         <Text style={[styles.subheaderText, { color: theme.grey400 }]}>
           {activityData.length} tasks due today
@@ -41,17 +41,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-  taskHeaderText: {
+  headerText: {
     fontSize: 20,
     marginBottom: 3,
     fontWeight: '600',
     letterSpacing: 0.25
   },
-  tasksHeaderContainer: {
+  headerContainer: {
     marginTop: 12,
     marginBottom: 12,
   },
-  tasksHeaderTopRowContainer: {
+  headerTopRowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
