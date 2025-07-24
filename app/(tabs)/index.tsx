@@ -5,6 +5,7 @@ import { SymbolView } from "expo-symbols";
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
 import EventCard from "@/components/Dashboard/EventCard";
 import TaskSection from "@/components/Dashboard/TaskSection";
+import AssignmentSection from "@/components/Dashboard/AssignmentSection";
 
 import { useTheme } from "@/hooks/useTheme";
 
@@ -35,20 +36,7 @@ export default function Index() {
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
           <AssessmentCard assessment={exam} />
         </View>
-        <View>
-          {/* <View style={styles.tasksHeaderContainer}>
-            <View style={styles.tasksHeaderTopRowContainer}>
-              <Text style={[styles.taskHeaderText, { color: theme.text }]}>Today's Assignments:</Text>
-            </View>
-            <Text style={[styles.subheaderText, { color: theme.grey400 }]}>
-              3 assignments due today
-              <Text style={[styles.subheaderText, { color: theme.grey500, fontWeight: 700 }]} > (1 overdue)</Text>
-            </Text>
-          </View> */}
-          {/* <ActivityCard activity={assignment1} />
-          <ActivityCard activity={assignment2} />
-          <ActivityCard activity={assignment3} /> */}
-        </View>
+        <AssignmentSection />
         <TaskSection />
       </ScrollView>
     </View>
@@ -143,10 +131,3 @@ const assignment3 =
   description: 'Attach tables',
   due: new Date(2025, 9, 19, 23, 59),
 }
-
-const sampleProgressData = {
-  completedToday: 3,
-  totalTasks: 7,
-  totalEstimatedTime: 145,
-  overdueCount: 2
-};
