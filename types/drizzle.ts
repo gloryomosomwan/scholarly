@@ -1,2 +1,2 @@
-import { tasks } from "@/db/schema";
-export type rawActivity = typeof tasks.$inferSelect;
+import * as schema from "@/db/schema";
+export type rawActivity = typeof schema.tasks.$inferSelect;
