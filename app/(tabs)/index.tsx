@@ -36,7 +36,7 @@ export default function Index() {
           <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
           <AssessmentCard assessment={exam} />
         </View>
-        <AssignmentSection />
+        {/* <AssignmentSection /> */}
         <TaskSection />
       </ScrollView>
     </View>
