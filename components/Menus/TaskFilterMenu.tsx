@@ -17,16 +17,16 @@ export default function TaskFilterMenu({ handleSelection, filterBy }: TaskFilter
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
-        <DropdownMenuCheckboxItem key="course" value={filterBy === 'course' ? 'on' : 'off'} onSelect={() => handleSelection('course')}>
+        <DropdownMenuCheckboxItem key="course" value={filterBy === 'Course' ? 'on' : 'off'} onSelect={() => handleSelection('Course')}>
           <DropdownMenuItemIcon ios={{
-            name: 'book',
+            name: 'graduationcap',
             pointSize: 20,
             scale: 'medium',
             paletteColors: [{ dark: theme.text, light: theme.text, }],
           }} />
           <DropdownMenuItemTitle>Course</DropdownMenuItemTitle>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem key="priority" value={filterBy === 'priority' ? 'on' : 'off'} onSelect={() => handleSelection('priority')}>
+        <DropdownMenuCheckboxItem key="priority" value={filterBy === 'Priority' ? 'on' : 'off'} onSelect={() => handleSelection('Priority')}>
           <DropdownMenuItemTitle>Priority</DropdownMenuItemTitle>
           <DropdownMenuItemIcon ios={{
             name: 'flag.fill',
