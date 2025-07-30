@@ -36,7 +36,7 @@ export default function Tab() {
             <SymbolView name='plus' />
           </PressableOpacity>
           <PressableOpacity style={styles.buttonContainer}>
-            <TaskFilterMenu handleSelection={handleFilterBy} />
+            <TaskFilterMenu filterBy={filterBy} handleSelection={handleFilterBy} />
           </PressableOpacity>
           <PressableOpacity style={styles.buttonContainer}>
             <TaskSortMenu handleSelection={handleSortBy} />

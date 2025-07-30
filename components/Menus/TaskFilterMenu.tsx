@@ -1,13 +1,14 @@
 import { SymbolView } from 'expo-symbols'
 
-import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon } from '@/components/Menus/Zeego'
+import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem } from '@/components/Menus/Zeego'
 import { useTheme } from '@/hooks/useTheme'
 
 type TaskFilterMenuProps = {
   handleSelection: (filterBy: string) => void
+  filterBy: string | null
 }
 
-export default function TaskFilterMenu({ handleSelection }: TaskFilterMenuProps) {
+export default function TaskFilterMenu({ handleSelection, filterBy }: TaskFilterMenuProps) {
   const theme = useTheme()
   return (
     <DropdownMenuRoot>
@@ -16,7 +17,7 @@ export default function TaskFilterMenu({ handleSelection }: TaskFilterMenuProps)
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
-        <DropdownMenuItem key="course" onSelect={() => handleSelection('course')}>
+        <DropdownMenuCheckboxItem key="course" value={filterBy === 'course' ? 'on' : 'off'} onSelect={() => handleSelection('course')}>
           <DropdownMenuItemIcon ios={{
             name: 'book',
             pointSize: 20,
@@ -24,8 +25,8 @@ export default function TaskFilterMenu({ handleSelection }: TaskFilterMenuProps)
             paletteColors: [{ dark: theme.text, light: theme.text, }],
           }} />
           <DropdownMenuItemTitle>Course</DropdownMenuItemTitle>
-        </DropdownMenuItem>
-        <DropdownMenuItem key="priority" onSelect={() => handleSelection('priority')}>
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem key="priority" value={filterBy === 'priority' ? 'on' : 'off'} onSelect={() => handleSelection('priority')}>
           <DropdownMenuItemTitle>Priority</DropdownMenuItemTitle>
           <DropdownMenuItemIcon ios={{
             name: 'flag.fill',
@@ -33,7 +34,7 @@ export default function TaskFilterMenu({ handleSelection }: TaskFilterMenuProps)
             scale: 'medium',
             paletteColors: [{ dark: 'red', light: 'red', }],
           }} />
-        </DropdownMenuItem>
+        </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenuRoot>
   )
