@@ -1,13 +1,14 @@
 import { SymbolView } from 'expo-symbols'
 
-import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon } from '@/components/Menus/Zeego'
+import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem } from '@/components/Menus/Zeego'
 import { useTheme } from '@/hooks/useTheme'
 
 type TaskSortMenuProps = {
   handleSelection: (sortBy: string) => void
+  sortBy: string | null
 }
 
-export default function TaskSortMenu({ handleSelection }: TaskSortMenuProps) {
+export default function TaskSortMenu({ handleSelection, sortBy }: TaskSortMenuProps) {
   const theme = useTheme()
   return (
     <DropdownMenuRoot>
@@ -16,7 +17,7 @@ export default function TaskSortMenu({ handleSelection }: TaskSortMenuProps) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
-        <DropdownMenuItem key="course" onSelect={() => handleSelection('course')}>
+        <DropdownMenuCheckboxItem value={sortBy === 'Course' ? 'on' : 'off'} key="course" onSelect={() => handleSelection('Course')}>
           <DropdownMenuItemIcon ios={{
             name: 'book',
             pointSize: 20,
@@ -24,8 +25,8 @@ export default function TaskSortMenu({ handleSelection }: TaskSortMenuProps) {
             paletteColors: [{ dark: theme.text, light: theme.text, }],
           }} />
           <DropdownMenuItemTitle>Course</DropdownMenuItemTitle>
-        </DropdownMenuItem>
-        <DropdownMenuItem key="priority" onSelect={() => handleSelection('priority')}>
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem value={sortBy === 'Priority' ? 'on' : 'off'} key="priority" onSelect={() => handleSelection('Priority')}>
           <DropdownMenuItemTitle>Priority</DropdownMenuItemTitle>
           <DropdownMenuItemIcon ios={{
             name: 'flag.fill',
@@ -33,7 +34,7 @@ export default function TaskSortMenu({ handleSelection }: TaskSortMenuProps) {
             scale: 'medium',
             paletteColors: [{ dark: 'red', light: 'red', }],
           }} />
-        </DropdownMenuItem>
+        </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenuRoot>
   )
