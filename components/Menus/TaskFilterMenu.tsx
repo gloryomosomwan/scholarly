@@ -22,7 +22,7 @@ export default function TaskFilterMenu({ handleSelection, filterBy }: TaskFilter
             name: 'graduationcap.fill',
             pointSize: 20,
             scale: 'medium',
-            paletteColors: [{ dark: theme.text, light: theme.text, }],
+            paletteColors: [{ dark: theme.accent, light: theme.accent, }],
           }} />
           <DropdownMenuItemTitle>Course</DropdownMenuItemTitle>
         </DropdownMenuCheckboxItem>
