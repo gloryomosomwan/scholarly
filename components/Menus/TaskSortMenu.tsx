@@ -19,7 +19,7 @@ export default function TaskSortMenu({ handleSelection, sortBy }: TaskSortMenuPr
       <DropdownMenuContent>
         <DropdownMenuCheckboxItem value={sortBy === 'Course' ? 'on' : 'off'} key="course" onSelect={() => handleSelection('Course')}>
           <DropdownMenuItemIcon ios={{
-            name: 'book',
+            name: 'graduationcap.fill',
             pointSize: 20,
             scale: 'medium',
             paletteColors: [{ dark: theme.text, light: theme.text, }],

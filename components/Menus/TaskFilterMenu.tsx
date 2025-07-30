@@ -19,7 +19,7 @@ export default function TaskFilterMenu({ handleSelection, filterBy }: TaskFilter
       <DropdownMenuContent>
         <DropdownMenuCheckboxItem key="course" value={filterBy === 'Course' ? 'on' : 'off'} onSelect={() => handleSelection('Course')}>
           <DropdownMenuItemIcon ios={{
-            name: 'graduationcap',
+            name: 'graduationcap.fill',
             pointSize: 20,
             scale: 'medium',
             paletteColors: [{ dark: theme.text, light: theme.text, }],
