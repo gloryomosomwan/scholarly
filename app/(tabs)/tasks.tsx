@@ -28,28 +28,8 @@ export default function Tab() {
     setFilterBy(filterBy)
   }
 
-  function sortTasks(tasks: Array<Activity>) {
-    if (!sortBy) return tasks
-    const sortableTasks = tasks.filter((task): task is Activity & { course: string, priority: PriorityOption } => {
-      return task.course !== undefined && task.priority !== undefined
-    })
-
-    return [...sortableTasks].sort((a, b) => {
-      switch (sortBy) {
-        case 'Course':
-          return a.course.localeCompare(b.course)
-        case 'Priority':
-          let priorityMap = { 'low': 0, 'medium': 1, 'high': 2 }
-          if (priorityMap[a.priority] > priorityMap[b.priority]) return -1
-          else if (priorityMap[b.priority] > priorityMap[a.priority]) return 1
-          else return 0
-      }
-    })
-  }
-
-  const sortedTaskData = sortTasks(taskData)
+  const sortedTaskData = sortTasks(taskData, sortBy)
   for (const task of sortedTaskData) console.log(task.priority)
-
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]} >
@@ -150,3 +130,22 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
 });
+
+function sortTasks(tasks: Array<Activity>, sortBy: SortOption | null) {
+  if (!sortBy) return tasks
+  const sortableTasks = tasks.filter((task): task is Activity & { course: string, priority: PriorityOption } => {
+    return task.course !== undefined && task.priority !== undefined
+  })
+
+  return [...sortableTasks].sort((a, b) => {
+    switch (sortBy) {
+      case 'Course':
+        return a.course.localeCompare(b.course)
+      case 'Priority':
+        let priorityMap = { 'low': 0, 'medium': 1, 'high': 2 }
+        if (priorityMap[a.priority] > priorityMap[b.priority]) return -1
+        else if (priorityMap[b.priority] > priorityMap[a.priority]) return 1
+        else return 0
+    }
+  })
+}
