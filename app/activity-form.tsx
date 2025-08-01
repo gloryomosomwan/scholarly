@@ -12,7 +12,7 @@ import PriorityItem from '@/components/Modals/Items/PriorityItem'
 import CourseItem from '@/components/Modals/Items/CourseItem';
 
 import { useTheme, usePriorityPalette } from '@/hooks'
-import { Activity, DueType } from '@/types/types'
+import { Activity, DueType, PriorityOption } from '@/types/types'
 import { courses } from '@/data/data'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
@@ -43,7 +43,7 @@ export default function ActivityForm() {
   const [date, setDate] = useState<Date | null>(data?.due ? new Date(data.due) : null);
   const [dueType, setDueType] = useState<DueType | null>(data?.dueType ? data.dueType : null);
   const [course, setCourse] = useState<string | null>(data?.course ? data.course : null);
-  const [priority, setPriority] = useState<string | null>(data?.priority ? data.priority : null);
+  const [priority, setPriority] = useState<PriorityOption | null>(data?.priority ? data.priority : null);
   const [title, setTitle] = useState(data?.title ? data.title : '')
   const [notes, setNotes] = useState(data?.description ? data.description : '')
 

@@ -34,7 +34,7 @@ export interface Activity {
   description?: string;
   due?: Date;
   dueType?: DueType;
-  priority?: string;
+  priority?: PriorityOption;
   completedAt?: string;
 }
 
@@ -55,6 +55,7 @@ export interface Semester {
 }
 
 export type SortOption = 'Course' | 'Priority'
+export type PriorityOption = 'high' | 'medium' | 'low'
 
 // export interface Task {
 //   id: number;

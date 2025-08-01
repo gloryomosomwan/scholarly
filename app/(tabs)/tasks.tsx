@@ -11,7 +11,7 @@ import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 import { useTheme } from '@/hooks/useTheme';
 import { useTasks } from '@/hooks/useTasks';
 
-import { Activity, SortOption } from '@/types/types';
+import { Activity, PriorityOption, SortOption } from '@/types/types';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
@@ -30,7 +30,7 @@ export default function Tab() {
 
   function sortTasks(tasks: Array<Activity>) {
     if (!sortBy) return tasks
-    const sortableTasks = tasks.filter((task): task is Activity & { course: string, priority: 'low' | 'medium' | 'high' } => {
+    const sortableTasks = tasks.filter((task): task is Activity & { course: string, priority: PriorityOption } => {
       return task.course !== undefined && task.priority !== undefined
     })
 
