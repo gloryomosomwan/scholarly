@@ -19,6 +19,8 @@ export default function Tab() {
   const [sortBy, setSortBy] = useState<SortOption | null>('Priority')
   const [filterBy, setFilterBy] = useState<string | null>(null)
   const taskData = useTasks()
+  const sortedTaskData = sortTasks(taskData, sortBy)
+  for (const task of sortedTaskData) console.log(task.priority)
 
   const handleSortBy = (sortBy: SortOption) => {
     setSortBy(sortBy)
@@ -28,8 +30,6 @@ export default function Tab() {
     setFilterBy(filterBy)
   }
 
-  const sortedTaskData = sortTasks(taskData, sortBy)
-  for (const task of sortedTaskData) console.log(task.priority)
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]} >
@@ -74,7 +74,7 @@ export default function Tab() {
         }
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
-        {taskData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
+        {sortedTaskData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
       </ScrollView>
     </View>
   );
