@@ -18,7 +18,7 @@ export default function TaskSortMenu({ handleSelection, sortBy }: TaskSortMenuPr
 
       <DropdownMenuContent>
 
-        <DropdownMenuCheckboxItem value={sortBy === 'Course' ? 'on' : 'off'} key={'course'} onSelect={() => handleSelection('course')}>
+        <DropdownMenuCheckboxItem value={sortBy === 'Course' ? 'on' : 'off'} key="Course" onSelect={() => handleSelection('Course')}>
           <DropdownMenuItemIcon ios={{
             name: 'graduationcap.fill',
             pointSize: 20,
