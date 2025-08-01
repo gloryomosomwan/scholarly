@@ -8,15 +8,15 @@ import ActivityCard from '@/components/Activity/ActivityCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
-
 import { useTheme } from '@/hooks/useTheme';
 import { useTasks } from '@/hooks/useTasks';
-import { SortOption } from '@/types/types';
+
+import { Activity, SortOption } from '@/types/types';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
-  const [sortBy, setSortBy] = useState<SortOption | null>(null)
+  const [sortBy, setSortBy] = useState<SortOption | null>('Priority')
   const [filterBy, setFilterBy] = useState<string | null>(null)
   const taskData = useTasks()
 
@@ -27,6 +27,29 @@ export default function Tab() {
   const handleFilterBy = (filterBy: string) => {
     setFilterBy(filterBy)
   }
+
+  function sortTasks(tasks: Array<Activity>) {
+    if (!sortBy) return tasks
+    const sortableTasks = tasks.filter((task): task is Activity & { course: string, priority: 'low' | 'medium' | 'high' } => {
+      return task.course !== undefined && task.priority !== undefined
+    })
+
+    return [...sortableTasks].sort((a, b) => {
+      switch (sortBy) {
+        case 'Course':
+          return a.course.localeCompare(b.course)
+        case 'Priority':
+          let priorityMap = { 'low': 0, 'medium': 1, 'high': 2 }
+          if (priorityMap[a.priority] > priorityMap[b.priority]) return -1
+          else if (priorityMap[b.priority] > priorityMap[a.priority]) return 1
+          else return 0
+      }
+    })
+  }
+
+  const sortedTaskData = sortTasks(taskData)
+  for (const task of sortedTaskData) console.log(task.priority)
+
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]} >
