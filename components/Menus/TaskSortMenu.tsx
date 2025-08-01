@@ -1,14 +1,12 @@
 import { SymbolView } from 'expo-symbols'
 
-import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem } from '@/components/Menus/Zeego'
+import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem } from '@/components/Menus/Zeego'
 import { useTheme } from '@/hooks/useTheme'
 
 type TaskSortMenuProps = {
   handleSelection: (sortBy: string) => void
   sortBy: string | null
 }
-
-let courses = ['CHEM 105', 'MATH 123', 'MAX 023']
 
 export default function TaskSortMenu({ handleSelection, sortBy }: TaskSortMenuProps) {
   const theme = useTheme()
@@ -20,21 +18,15 @@ export default function TaskSortMenu({ handleSelection, sortBy }: TaskSortMenuPr
 
       <DropdownMenuContent>
 
-        {
-          courses.map((el) => {
-            return (
-              <DropdownMenuCheckboxItem value={sortBy === 'Course' ? 'on' : 'off'} key={el} onSelect={() => handleSelection(el)}>
-                <DropdownMenuItemIcon ios={{
-                  name: 'graduationcap.fill',
-                  pointSize: 20,
-                  scale: 'medium',
-                  paletteColors: [{ dark: theme.accent, light: theme.accent, }],
-                }} />
-                <DropdownMenuItemTitle>{el}</DropdownMenuItemTitle>
-              </DropdownMenuCheckboxItem>
-            )
-          })
-        }
+        <DropdownMenuCheckboxItem value={sortBy === 'Course' ? 'on' : 'off'} key={'course'} onSelect={() => handleSelection('course')}>
+          <DropdownMenuItemIcon ios={{
+            name: 'graduationcap.fill',
+            pointSize: 20,
+            scale: 'medium',
+            paletteColors: [{ dark: theme.accent, light: theme.accent, }],
+          }} />
+          <DropdownMenuItemTitle>Course</DropdownMenuItemTitle>
+        </DropdownMenuCheckboxItem>
 
         <DropdownMenuCheckboxItem value={sortBy === 'Priority' ? 'on' : 'off'} key="priority" onSelect={() => handleSelection('Priority')}>
           <DropdownMenuItemTitle>Priority</DropdownMenuItemTitle>
@@ -42,7 +34,7 @@ export default function TaskSortMenu({ handleSelection, sortBy }: TaskSortMenuPr
             name: 'flag.fill',
             pointSize: 20,
             scale: 'medium',
-            paletteColors: [{ dark: 'red', light: 'red', }],
+            paletteColors: [{ dark: theme.accent, light: theme.accent }],
           }} />
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
