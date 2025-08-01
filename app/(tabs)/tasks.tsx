@@ -11,15 +11,16 @@ import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 
 import { useTheme } from '@/hooks/useTheme';
 import { useTasks } from '@/hooks/useTasks';
+import { SortOption } from '@/types/types';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
-  const [sortBy, setSortBy] = useState<string | null>(null)
+  const [sortBy, setSortBy] = useState<SortOption | null>(null)
   const [filterBy, setFilterBy] = useState<string | null>(null)
   const taskData = useTasks()
 
-  const handleSortBy = (sortBy: string) => {
+  const handleSortBy = (sortBy: SortOption) => {
     setSortBy(sortBy)
   }
 
@@ -50,6 +51,7 @@ export default function Tab() {
             <View style={[styles.selectionPill, { backgroundColor: theme.grey100 }]}>
               <Text style={[styles.selectionText, { color: theme.text }]}>Filtered by: {filterBy}</Text>
             </View>
+            {/* Clear Button */}
             <Pressable style={[styles.clearSelectionContainer, { backgroundColor: theme.grey100 }]} onPress={() => setFilterBy(null)}>
               <Text style={[styles.clearSelectionText, { color: theme.text }]}>X</Text>
             </Pressable>
@@ -61,6 +63,7 @@ export default function Tab() {
             <View style={[styles.selectionPill, { backgroundColor: theme.grey100 }]}>
               <Text style={[styles.selectionText, { color: theme.text }]}>Sorted by: {sortBy}</Text>
             </View>
+            {/* Clear Button */}
             <Pressable style={[styles.clearSelectionContainer, { backgroundColor: theme.grey100 }]} onPress={() => setSortBy(null)}>
               <Text style={[styles.clearSelectionText, { color: theme.text }]}>X</Text>
             </Pressable>

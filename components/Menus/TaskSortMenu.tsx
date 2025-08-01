@@ -1,10 +1,12 @@
 import { SymbolView } from 'expo-symbols'
 
 import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem } from '@/components/Menus/Zeego'
+
 import { useTheme } from '@/hooks/useTheme'
+import { SortOption } from '@/types/types'
 
 type TaskSortMenuProps = {
-  handleSelection: (sortBy: string) => void
+  handleSelection: (sortBy: SortOption) => void
   sortBy: string | null
 }
 

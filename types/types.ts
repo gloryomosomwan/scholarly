@@ -54,6 +54,8 @@ export interface Semester {
   end: Date;
 }
 
+export type SortOption = 'Course' | 'Priority'
+
 // export interface Task {
 //   id: number;
 //   title: string;
