@@ -8,6 +8,8 @@ type TaskSortMenuProps = {
   sortBy: string | null
 }
 
+let courses = ['CHEM 105', 'MATH 123', 'MAX 023']
+
 export default function TaskSortMenu({ handleSelection, sortBy }: TaskSortMenuProps) {
   const theme = useTheme()
   return (
@@ -17,15 +19,23 @@ export default function TaskSortMenu({ handleSelection, sortBy }: TaskSortMenuPr
       </DropdownMenuTrigger>
 
       <DropdownMenuContent>
-        <DropdownMenuCheckboxItem value={sortBy === 'Course' ? 'on' : 'off'} key="course" onSelect={() => handleSelection('Course')}>
-          <DropdownMenuItemIcon ios={{
-            name: 'graduationcap.fill',
-            pointSize: 20,
-            scale: 'medium',
-            paletteColors: [{ dark: theme.accent, light: theme.accent, }],
-          }} />
-          <DropdownMenuItemTitle>Course</DropdownMenuItemTitle>
-        </DropdownMenuCheckboxItem>
+
+        {
+          courses.map((el) => {
+            return (
+              <DropdownMenuCheckboxItem value={sortBy === 'Course' ? 'on' : 'off'} key={el} onSelect={() => handleSelection(el)}>
+                <DropdownMenuItemIcon ios={{
+                  name: 'graduationcap.fill',
+                  pointSize: 20,
+                  scale: 'medium',
+                  paletteColors: [{ dark: theme.accent, light: theme.accent, }],
+                }} />
+                <DropdownMenuItemTitle>{el}</DropdownMenuItemTitle>
+              </DropdownMenuCheckboxItem>
+            )
+          })
+        }
+
         <DropdownMenuCheckboxItem value={sortBy === 'Priority' ? 'on' : 'off'} key="priority" onSelect={() => handleSelection('Priority')}>
           <DropdownMenuItemTitle>Priority</DropdownMenuItemTitle>
           <DropdownMenuItemIcon ios={{
