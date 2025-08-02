@@ -3,13 +3,16 @@ import { SymbolView } from 'expo-symbols'
 import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem, DropdownMenuGroup, DropdownMenuLabel } from '@/components/Menus/Zeego'
 import { useTheme } from '@/hooks/useTheme'
 import { courses } from '@/data/data'
+import { FilterOption } from '@/types/types'
 
 type TaskFilterMenuProps = {
-  handleSelection: (filterBy: string) => void
-  filterBy: string | null
+  filterBy: FilterOption | null
+  handleSetFilterBy: (filterBy: FilterOption) => void
+  filterValue: string | null
+  handleSetFilterValue: (filterValue: string) => void
 }
 
-export default function TaskFilterMenu({ handleSelection, filterBy }: TaskFilterMenuProps) {
+export default function TaskFilterMenu({ handleSetFilterBy, handleSetFilterValue, filterBy, filterValue }: TaskFilterMenuProps) {
   const theme = useTheme()
   return (
     <DropdownMenuRoot>
@@ -23,7 +26,10 @@ export default function TaskFilterMenu({ handleSelection, filterBy }: TaskFilter
           {
             courses.map((course) => {
               return (
-                <DropdownMenuCheckboxItem value={filterBy === course.code ? 'on' : 'off'} key={course.code} onSelect={() => handleSelection(course.code)}>
+                <DropdownMenuCheckboxItem value={filterBy === course.code ? 'on' : 'off'} key={course.code} onSelect={() => {
+                  handleSetFilterBy('Course')
+                  handleSetFilterValue(course.code)
+                }}>
                   <DropdownMenuItemIcon ios={{
                     name: 'circle.fill',
                     pointSize: 20,
@@ -39,7 +45,10 @@ export default function TaskFilterMenu({ handleSelection, filterBy }: TaskFilter
 
         <DropdownMenuGroup>
           <DropdownMenuLabel>Priority</DropdownMenuLabel>
-          <DropdownMenuCheckboxItem key="high-priority" value={filterBy === 'high-priority' ? 'on' : 'off'} onSelect={() => handleSelection('High Priority')}>
+          <DropdownMenuCheckboxItem key="high-priority" value={filterValue === 'high-priority' ? 'on' : 'off'} onSelect={() => {
+            handleSetFilterBy('Priority')
+            handleSetFilterValue('high')
+          }}>
             <DropdownMenuItemTitle>High</DropdownMenuItemTitle>
             <DropdownMenuItemIcon ios={{
               name: 'flag.fill',
@@ -48,7 +57,10 @@ export default function TaskFilterMenu({ handleSelection, filterBy }: TaskFilter
               paletteColors: [{ dark: theme.dangerText, light: theme.dangerText, }],
             }} />
           </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem key="medium-priority" value={filterBy === 'medium-priority' ? 'on' : 'off'} onSelect={() => handleSelection('Medium Priority')}>
+          <DropdownMenuCheckboxItem key="medium-priority" value={filterValue === 'medium-priority' ? 'on' : 'off'} onSelect={() => {
+            handleSetFilterBy('Priority')
+            handleSetFilterValue('medium')
+          }}>
             <DropdownMenuItemTitle>Medium</DropdownMenuItemTitle>
             <DropdownMenuItemIcon ios={{
               name: 'flag.fill',
@@ -57,7 +69,10 @@ export default function TaskFilterMenu({ handleSelection, filterBy }: TaskFilter
               paletteColors: [{ dark: theme.warningText, light: theme.warningText, }],
             }} />
           </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem key="low-priority" value={filterBy === 'low-priority' ? 'on' : 'off'} onSelect={() => handleSelection('Low Priority')}>
+          <DropdownMenuCheckboxItem key="low-priority" value={filterValue === 'low-priority' ? 'on' : 'off'} onSelect={() => {
+            handleSetFilterBy('Priority')
+            handleSetFilterValue('low')
+          }}>
             <DropdownMenuItemTitle>Low</DropdownMenuItemTitle>
             <DropdownMenuItemIcon ios={{
               name: 'flag.fill',

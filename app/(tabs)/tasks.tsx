@@ -11,14 +11,15 @@ import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 import { useTheme } from '@/hooks/useTheme';
 import { useTasks } from '@/hooks/useTasks';
 
-import { Activity, PriorityOption, SortOption } from '@/types/types';
+import { Activity, PriorityOption, SortOption, FilterOption } from '@/types/types';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
 
   const [sortBy, setSortBy] = useState<SortOption | null>('Priority')
-  const [filterBy, setFilterBy] = useState<string | null>(null)
+  const [filterBy, setFilterBy] = useState<FilterOption | null>(null)
+  const [filterValue, setFilterValue] = useState<string | null>(null)
   const taskData = useTasks()
   const sortedTaskData = sortTasks(taskData, sortBy)
   for (const task of sortedTaskData) console.log(task.priority)
@@ -27,8 +28,12 @@ export default function Tab() {
     setSortBy(sortBy)
   }
 
-  const handleFilterBy = (filterBy: string) => {
+  const handleSetFilterBy = (filterBy: FilterOption) => {
     setFilterBy(filterBy)
+  }
+
+  const handleSetFilterValue = (filterValue: string) => {
+    setFilterValue(filterValue)
   }
 
   return (
@@ -40,7 +45,7 @@ export default function Tab() {
             <SymbolView name='plus' />
           </PressableOpacity>
           <PressableOpacity style={styles.buttonContainer}>
-            <TaskFilterMenu filterBy={filterBy} handleSelection={handleFilterBy} />
+            <TaskFilterMenu filterBy={filterBy} filterValue={filterValue} handleSetFilterBy={handleSetFilterBy} handleSetFilterValue={handleSetFilterValue} />
           </PressableOpacity>
           <PressableOpacity style={styles.buttonContainer}>
             <TaskSortMenu sortBy={sortBy} handleSelection={handleSortBy} />
@@ -55,7 +60,10 @@ export default function Tab() {
               <Text style={[styles.selectionText, { color: theme.text }]}>Filtered by: {filterBy}</Text>
             </View>
             {/* Clear Button */}
-            <Pressable style={[styles.clearSelectionContainer, { backgroundColor: theme.grey100 }]} onPress={() => setFilterBy(null)}>
+            <Pressable style={[styles.clearSelectionContainer, { backgroundColor: theme.grey100 }]} onPress={() => {
+              setFilterBy(null)
+              setFilterValue(null)
+            }}>
               <Text style={[styles.clearSelectionText, { color: theme.text }]}>X</Text>
             </Pressable>
           </View>
