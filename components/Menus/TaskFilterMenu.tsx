@@ -26,7 +26,7 @@ export default function TaskFilterMenu({ handleSetFilterBy, handleSetFilterValue
           {
             courses.map((course) => {
               return (
-                <DropdownMenuCheckboxItem value={filterBy === course.code ? 'on' : 'off'} key={course.code} onSelect={() => {
+                <DropdownMenuCheckboxItem value={filterValue === course.code ? 'on' : 'off'} key={course.code} onSelect={() => {
                   handleSetFilterBy('Course')
                   handleSetFilterValue(course.code)
                 }}>
