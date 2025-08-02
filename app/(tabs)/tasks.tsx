@@ -16,6 +16,7 @@ import { Activity, PriorityOption, SortOption } from '@/types/types';
 export default function Tab() {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
+
   const [sortBy, setSortBy] = useState<SortOption | null>('Priority')
   const [filterBy, setFilterBy] = useState<string | null>(null)
   const taskData = useTasks()
@@ -29,7 +30,6 @@ export default function Tab() {
   const handleFilterBy = (filterBy: string) => {
     setFilterBy(filterBy)
   }
-
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]} >
