@@ -45,7 +45,7 @@ export default function TaskFilterMenu({ handleSetFilterBy, handleSetFilterValue
 
         <DropdownMenuGroup>
           <DropdownMenuLabel>Priority</DropdownMenuLabel>
-          <DropdownMenuCheckboxItem key="high-priority" value={filterValue === 'high-priority' ? 'on' : 'off'} onSelect={() => {
+          <DropdownMenuCheckboxItem key="high-priority" value={filterValue === 'high' ? 'on' : 'off'} onSelect={() => {
             handleSetFilterBy('Priority')
             handleSetFilterValue('high')
           }}>
@@ -57,7 +57,7 @@ export default function TaskFilterMenu({ handleSetFilterBy, handleSetFilterValue
               paletteColors: [{ dark: theme.dangerText, light: theme.dangerText, }],
             }} />
           </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem key="medium-priority" value={filterValue === 'medium-priority' ? 'on' : 'off'} onSelect={() => {
+          <DropdownMenuCheckboxItem key="medium-priority" value={filterValue === 'medium' ? 'on' : 'off'} onSelect={() => {
             handleSetFilterBy('Priority')
             handleSetFilterValue('medium')
           }}>
@@ -69,7 +69,7 @@ export default function TaskFilterMenu({ handleSetFilterBy, handleSetFilterValue
               paletteColors: [{ dark: theme.warningText, light: theme.warningText, }],
             }} />
           </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem key="low-priority" value={filterValue === 'low-priority' ? 'on' : 'off'} onSelect={() => {
+          <DropdownMenuCheckboxItem key="low-priority" value={filterValue === 'low' ? 'on' : 'off'} onSelect={() => {
             handleSetFilterBy('Priority')
             handleSetFilterValue('low')
           }}>

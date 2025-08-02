@@ -17,12 +17,13 @@ export default function Tab() {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
 
-  const [sortBy, setSortBy] = useState<SortOption | null>('Priority')
+  const [sortBy, setSortBy] = useState<SortOption | null>(null)
   const [filterBy, setFilterBy] = useState<FilterOption | null>(null)
   const [filterValue, setFilterValue] = useState<string | null>(null)
   const taskData = useTasks()
-  const sortedTaskData = sortTasks(taskData, sortBy)
-  for (const task of sortedTaskData) console.log(task.priority)
+
+  const filteredTaskData = filterTasks(taskData, filterBy, filterValue)
+  const sortedTaskData = sortTasks(filteredTaskData, sortBy)
 
   const handleSortBy = (sortBy: SortOption) => {
     setSortBy(sortBy)
@@ -141,6 +142,7 @@ const styles = StyleSheet.create({
 
 function sortTasks(tasks: Array<Activity>, sortBy: SortOption | null) {
   if (!sortBy) return tasks
+  // Filter out the tasks that don't have a course or priority
   const sortableTasks = tasks.filter((task): task is Activity & { course: string, priority: PriorityOption } => {
     return task.course !== undefined && task.priority !== undefined
   })
@@ -154,6 +156,18 @@ function sortTasks(tasks: Array<Activity>, sortBy: SortOption | null) {
         if (priorityMap[a.priority] > priorityMap[b.priority]) return -1
         else if (priorityMap[b.priority] > priorityMap[a.priority]) return 1
         else return 0
+    }
+  })
+}
+
+function filterTasks(tasks: Array<Activity>, filterBy: FilterOption | null, filterValue: string | null) {
+  if (!filterBy || !filterValue) return tasks
+  return [...tasks].filter((element) => {
+    switch (filterBy) {
+      case 'Course':
+        return element.course === filterValue
+      case 'Priority':
+        return element.priority === filterValue
     }
   })
 }
