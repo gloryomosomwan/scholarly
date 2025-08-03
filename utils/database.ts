@@ -1,5 +1,5 @@
-import { Activity, DueType } from "@/types/types";
-import { rawActivity } from "@/types/drizzle";
+import { Activity, Course, DueType } from "@/types/types";
+import { rawActivity, rawCourse } from "@/types/drizzle";
 
 export function convertRawActivity(rawActivity: rawActivity): Activity {
   return {
@@ -10,5 +10,15 @@ export function convertRawActivity(rawActivity: rawActivity): Activity {
     course: rawActivity.course ?? undefined,
     priority: rawActivity.priority ?? undefined,
     completedAt: rawActivity.completedAt ?? undefined
+  }
+}
+
+export function convertRawCourse(rawCourse: rawCourse): Course {
+  return {
+    ...rawCourse,
+    instructor: rawCourse.instructor ?? undefined,
+    lectureSchedule: rawCourse.lectureSchedule ?? undefined,
+    labSchedule: rawCourse.labSchedule ?? undefined,
+    seminarSchedule: rawCourse.seminarSchedule ?? undefined
   }
 }

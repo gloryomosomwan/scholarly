@@ -27,7 +27,6 @@ export const courses: Course[] = [
     code: "MATH 119",
     name: "Precalculus Mathematics",
     instructor: "Dr. Sarah Chen",
-    credits: 3,
     color: '#F59E0B'
   },
   {
@@ -35,7 +34,6 @@ export const courses: Course[] = [
     code: "PHYS 102",
     name: "General Physics II",
     instructor: "Dr. Michael Rodriguez",
-    credits: 3,
     color: '#10B981'
   },
   {
@@ -43,7 +41,6 @@ export const courses: Course[] = [
     code: "HIST 211",
     name: "Modern European History",
     instructor: "Dr. Emily Watson",
-    credits: 3,
     color: '#EF4444'
   },
   {
@@ -51,7 +48,6 @@ export const courses: Course[] = [
     code: "MARK 161",
     name: "Principles of Marketing",
     instructor: "Dr. James Thompson",
-    credits: 3,
     color: '#8B5CF6'
   },
   {
@@ -59,7 +55,6 @@ export const courses: Course[] = [
     code: "CHEM 105",
     name: "General Chemistry I",
     instructor: "Dr. Lisa Park",
-    credits: 3,
     color: '#007FFF'
   }
 ]

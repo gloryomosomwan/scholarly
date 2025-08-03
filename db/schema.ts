@@ -10,3 +10,14 @@ export const tasks = sqliteTable('tasks', {
   priority: text('priority'),
   completedAt: text('completed_at')
 });
+
+export const courses = sqliteTable('courses', {
+  id: integer('id').primaryKey(),
+  name: text('name').notNull(),
+  code: text('code').notNull(),
+  color: text('color').notNull(),
+  instructor: text('instructor'),
+  lectureSchedule: text('lectureSchedule'),
+  labSchedule: text('labSchedule'),
+  seminarSchedule: text('seminarSchedule')
+})

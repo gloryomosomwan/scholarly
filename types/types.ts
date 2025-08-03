@@ -41,10 +41,12 @@ export interface Activity {
 export interface Course {
   id: number;
   code: string;
-  color: CourseColor;
-  name?: string;
+  color: string;
+  name: string;
   instructor?: string;
-  credits?: number;
+  lectureSchedule?: string
+  labSchedule?: string
+  seminarSchedule?: string
 }
 
 export interface Semester {
