@@ -1,11 +1,13 @@
 import { Keyboard, StyleSheet, Text, View } from 'react-native'
 import React, { useCallback, useRef } from 'react'
-import { courses } from '@/data/data'
 import { SymbolView } from 'expo-symbols'
-import PressableOpacity from '@/components/Buttons/PressableOpacity'
-import { useTheme } from '@/hooks'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import CourseModal from '../Modals/CourseModal'
+
+import CourseModal from '@/components/Modals/CourseModal'
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
+
+import { courses } from '@/data/data'
+import { useTheme } from '@/hooks'
 
 type CoursePickerProps = {
   course: string | null

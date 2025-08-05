@@ -1,11 +1,13 @@
 import { Keyboard, StyleSheet, Text, View } from 'react-native'
 import React, { useCallback, useRef } from 'react'
-import { usePriorityPalette, useTheme } from '@/hooks'
 import { SymbolView } from 'expo-symbols'
-import PressableOpacity from '@/components/Buttons/PressableOpacity'
-import { PriorityOption } from '@/types/types'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import PriorityModal from '../Modals/PriorityModal'
+
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
+import PriorityModal from '@/components/Modals/PriorityModal'
+
+import { usePriorityPalette, useTheme } from '@/hooks'
+import { PriorityOption } from '@/types/types'
 
 type PriorityPickerProps = {
   priority: PriorityOption | null
