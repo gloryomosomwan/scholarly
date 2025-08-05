@@ -11,11 +11,12 @@ import { useTheme } from '@/hooks'
 
 type DateTimePickerProps = {
   date: Date | null
+  setDate: React.Dispatch<React.SetStateAction<Date | null>>
   dueType: DueType | null
-  handleSetDate: (date: Date, dueType: DueType) => void
+  setDueType: React.Dispatch<React.SetStateAction<DueType | null>>
 }
 
-export default function DateTimePicker({ date, dueType, handleSetDate }: DateTimePickerProps) {
+export default function DateTimePicker({ date, setDate, dueType, setDueType, }: DateTimePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
   const handlePresentModalPress = useCallback(() => {
@@ -32,7 +33,7 @@ export default function DateTimePicker({ date, dueType, handleSetDate }: DateTim
             : <Text style={[styles.detailText, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
         }
       </PressableOpacity>
-      <DateTimeModal initialDate={new Date()} handleSetDate={handleSetDate} bottomSheetModalRef={modalRef} />
+      <DateTimeModal initialDate={new Date()} setDate={setDate} setDueType={setDueType} bottomSheetModalRef={modalRef} />
     </View>
   )
 }

@@ -10,12 +10,13 @@ import { DueType } from '@/types/types';
 type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
   initialDate: Date | undefined
-  handleSetDate: (date: Date, dueType: DueType) => void
+  setDate: React.Dispatch<React.SetStateAction<Date | null>>
+  setDueType: React.Dispatch<React.SetStateAction<DueType | null>>
 }
 
 type PickerMode = 'date' | 'datetime';
 
-export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetModalRef }: DateTimeModalProps) {
+export default function DateTimeModal({ initialDate, setDate, setDueType, bottomSheetModalRef }: DateTimeModalProps) {
   const theme = useTheme()
   const [internalDate, setInternalDate] = useState(initialDate === undefined ? new Date() : initialDate)
   const [pickerMode, setPickerMode] = useState<PickerMode>('date');
@@ -28,10 +29,12 @@ export default function DateTimeModal({ initialDate, handleSetDate, bottomSheetM
   function handlePress() {
     if (pickerMode === 'date') {
       internalDate.setHours(0, 0, 0, 0)
-      handleSetDate(internalDate, 'date')
+      setDate(internalDate)
+      setDueType('date')
     }
     else if (pickerMode === 'datetime') {
-      handleSetDate(internalDate, 'datetime')
+      setDate(internalDate)
+      setDueType('datetime')
     }
     bottomSheetModalRef.current?.dismiss()
   }

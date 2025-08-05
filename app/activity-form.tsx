@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View, ActionSheetIOS } from 'react-native'
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { useSQLiteContext } from 'expo-sqlite'
 import { eq } from 'drizzle-orm'
@@ -45,11 +45,6 @@ export default function ActivityForm() {
   const [priority, setPriority] = useState<PriorityOption | null>(data?.priority ? data.priority : null);
   const [title, setTitle] = useState(data?.title ? data.title : '')
   const [notes, setNotes] = useState(data?.description ? data.description : '')
-
-  const handleSetDate = (date: Date, dueType: DueType) => {
-    setDate(date)
-    setDueType(dueType)
-  }
 
   const createTask = async () => {
     if (title !== '') {
@@ -110,7 +105,7 @@ export default function ActivityForm() {
           <PrimaryTextInput placeholder='Enter title' value={title} onChangeText={setTitle} />
 
           {/* Datetime */}
-          <DateTimePicker date={date} dueType={dueType} handleSetDate={handleSetDate} />
+          <DateTimePicker date={date} setDate={setDate} dueType={dueType} setDueType={setDueType} />
 
           {/* Course */}
           <CoursePicker course={course} setCourse={setCourse} />
