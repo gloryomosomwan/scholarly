@@ -19,13 +19,13 @@ type DateTimePickerProps = {
 export default function DateTimePicker({ date, setDate, dueType, setDueType, }: DateTimePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
-  const handlePresentModalPress = useCallback(() => {
+  const handlePresentModal = useCallback(() => {
     Keyboard.dismiss()
     modalRef.current?.present();
   }, []);
   return (
     <View>
-      <PressableOpacity style={styles.row} onPress={handlePresentModalPress}>
+      <PressableOpacity style={styles.row} onPress={handlePresentModal}>
         <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
         {
           !date

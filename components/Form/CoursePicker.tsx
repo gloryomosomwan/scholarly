@@ -1,5 +1,5 @@
 import { Keyboard, StyleSheet, Text, View } from 'react-native'
-import React, { useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { courses } from '@/data/data'
 import { SymbolView } from 'expo-symbols'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
@@ -15,12 +15,13 @@ type CoursePickerProps = {
 export default function CoursePicker({ course, setCourse }: CoursePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
+  const handlePresentModal = useCallback(() => {
+    Keyboard.dismiss()
+    modalRef.current?.present();
+  }, []);
   return (
     <View>
-      <PressableOpacity onPress={() => {
-        Keyboard.dismiss()
-        modalRef.current?.present()
-      }}>
+      <PressableOpacity onPress={handlePresentModal}>
         <View style={styles.row}>
           <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
           {course ?

@@ -1,5 +1,5 @@
 import { Keyboard, StyleSheet, Text, View } from 'react-native'
-import React, { useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { usePriorityPalette, useTheme } from '@/hooks'
 import { SymbolView } from 'expo-symbols'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
@@ -16,12 +16,13 @@ export default function PriorityPicker({ priority, setPriority }: PriorityPicker
   const theme = useTheme()
   const priorityPalette = usePriorityPalette(priority)
   const modalRef = useRef<BottomSheetModal>(null)
+  const handlePresentModal = useCallback(() => {
+    Keyboard.dismiss()
+    modalRef.current?.present();
+  }, []);
   return (
     <View>
-      <PressableOpacity onPress={() => {
-        Keyboard.dismiss()
-        modalRef.current?.present()
-      }}>
+      <PressableOpacity onPress={handlePresentModal}>
         <View style={styles.row}>
           <SymbolView name={'flag'} tintColor={theme.grey500} size={24} />
           {priority ?
