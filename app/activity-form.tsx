@@ -21,6 +21,7 @@ import PrimaryTextInput from '@/components/Form/PrimaryTextInput'
 import DateTimePicker from '@/components/Form/DateTimePicker'
 import CoursePicker from '@/components/Form/CoursePicker'
 import PriorityPicker from '@/components/Form/PriorityPicker'
+import TextInputField from '@/components/Form/TextInputField'
 
 export default function ActivityForm() {
   const theme = useTheme();
@@ -135,19 +136,7 @@ export default function ActivityForm() {
           <PriorityPicker priority={priority} prioritySelectorModalRef={prioritySelectorModalRef} />
 
           {/* Notes */}
-          <View style={styles.detailRow}>
-            <SymbolView name={'note.text'} tintColor={theme.grey500} size={24} />
-            <TextInput
-              placeholder="Add notes"
-              style={[styles.detailText, { color: theme.text, flex: 1 }]}
-              placeholderTextColor={theme.grey500}
-              multiline
-              returnKeyType='done'
-              blurOnSubmit
-              value={notes}
-              onChangeText={setNotes}
-            />
-          </View>
+          <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
 
         </View>
 
