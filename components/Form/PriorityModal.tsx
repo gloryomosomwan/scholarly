@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
-import { PriorityOption } from '@/types/types'
-import CustomBottomSheetModal from '../Modals/BottomSheetModal'
-import PriorityItem from '../Modals/Items/PriorityItem'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+
+import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
+import PriorityItem from '@/components/Modals/Items/PriorityItem'
+
+import { PriorityOption } from '@/types/types'
 
 type PriorityModalProps = {
   setPriority: (value: React.SetStateAction<PriorityOption | null>) => void
