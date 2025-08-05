@@ -19,6 +19,7 @@ import { tasks } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import PrimaryTextInput from '@/components/Form/PrimaryTextInput'
 import DateTimePicker from '@/components/Form/DateTimePicker'
+import CoursePicker from '@/components/Form/CoursePicker'
 
 export default function ActivityForm() {
   const theme = useTheme();
@@ -129,27 +130,7 @@ export default function ActivityForm() {
           <DateTimePicker handlePresentModalPress={handlePresentModalPress} date={date} dueType={dueType} />
 
           {/* Course */}
-          <PressableOpacity onPress={() => {
-            Keyboard.dismiss()
-            courseSelectorModalRef.current?.present()
-          }}>
-            <View style={styles.detailRow}>
-              <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
-              {course ?
-                (() => {
-                  const selected = courses.find(c => c.code === course)
-                  return (
-                    <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
-                      <View style={[styles.courseDot, { backgroundColor: selected?.color ?? 'grey' }]} />
-                      <Text style={[styles.courseText, { color: theme.text }]}>{course}</Text>
-                    </View>
-                  )
-                })()
-                :
-                <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
-              }
-            </View>
-          </PressableOpacity>
+          <CoursePicker course={course} courseSelectorModalRef={courseSelectorModalRef} />
 
           {/* Priority */}
           <PressableOpacity onPress={() => {
@@ -281,23 +262,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
-  courseTag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    gap: 6,
-  },
-  courseDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  courseText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
   priorityTag: {
     borderRadius: 12,
     paddingHorizontal: 10,
