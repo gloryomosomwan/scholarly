@@ -17,7 +17,8 @@ import { courses } from '@/data/data'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
 import { eq } from 'drizzle-orm'
-import PrimaryTextInput from '@/components/Forms/PrimaryTextInput'
+import PrimaryTextInput from '@/components/Form/PrimaryTextInput'
+import DateTimePicker from '@/components/Form/DateTimePicker'
 
 export default function ActivityForm() {
   const theme = useTheme();
@@ -125,14 +126,7 @@ export default function ActivityForm() {
           <PrimaryTextInput placeholder='Enter title' value={title} onChangeText={setTitle} />
 
           {/* Datetime */}
-          <PressableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
-            <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
-            {
-              !date
-                ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add date</Text>
-                : <Text style={[styles.detailText, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
-            }
-          </PressableOpacity>
+          <DateTimePicker handlePresentModalPress={handlePresentModalPress} date={date} dueType={dueType} />
 
           {/* Course */}
           <PressableOpacity onPress={() => {
