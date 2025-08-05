@@ -194,9 +194,4 @@ const styles = StyleSheet.create({
   formContainer: {
     gap: 24,
   },
-  titleInput: {
-    fontSize: 30,
-    fontWeight: '600',
-    paddingBottom: 8,
-  },
 })
