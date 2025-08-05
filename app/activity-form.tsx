@@ -13,13 +13,13 @@ import CoursePicker from '@/components/Form/CoursePicker'
 import PriorityPicker from '@/components/Form/PriorityPicker'
 import TextInputField from '@/components/Form/TextInputField'
 import ButtonRow from '@/components/Form/ButtonRow'
+import PriorityModal from '@/components/Form/PriorityModal'
+import CourseModal from '@/components/Form/CourseModal'
 
 import { useTheme } from '@/hooks'
 import { Activity, DueType, PriorityOption } from '@/types/types'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
-import PriorityModal from '@/components/Form/PriorityModal'
-import CourseModal from '@/components/Form/CourseModal'
 
 export default function ActivityForm() {
   const theme = useTheme();
@@ -58,7 +58,6 @@ export default function ActivityForm() {
     Keyboard.dismiss()
     datePickerModalRef.current?.present();
   }, []);
-
 
   const handleSetDate = (date: Date, dueType: DueType) => {
     setDate(date)
