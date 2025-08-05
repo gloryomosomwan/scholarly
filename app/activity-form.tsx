@@ -17,6 +17,7 @@ import { courses } from '@/data/data'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
 import { eq } from 'drizzle-orm'
+import PrimaryTextInput from '@/components/Forms/PrimaryTextInput'
 
 export default function ActivityForm() {
   const theme = useTheme();
@@ -121,16 +122,7 @@ export default function ActivityForm() {
         <View style={styles.formContainer}>
 
           {/* Title */}
-          <TextInput
-            placeholder="Enter title"
-            style={[styles.titleInput, { color: theme.text }]}
-            placeholderTextColor={theme.grey500}
-            returnKeyType='done'
-            multiline
-            blurOnSubmit
-            value={title}
-            onChangeText={setTitle}
-          />
+          <PrimaryTextInput placeholder='Enter title' value={title} onChangeText={setTitle} />
 
           {/* Datetime */}
           <PressableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
