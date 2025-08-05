@@ -101,23 +101,12 @@ export default function ActivityForm() {
     <BottomSheetModalProvider>
       <View style={[styles.container, { backgroundColor: theme.secondary }]}>
         <View style={styles.formContainer}>
-          {/* Title */}
           <PrimaryTextInputField placeholder='Enter title' value={title} onChangeText={setTitle} />
-
-          {/* Datetime */}
           <DateTimePicker date={date} setDate={setDate} dueType={dueType} setDueType={setDueType} />
-
-          {/* Course */}
           <CoursePicker course={course} setCourse={setCourse} />
-
-          {/* Priority */}
           <PriorityPicker priority={priority} setPriority={setPriority} />
-
-          {/* Notes */}
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
         </View>
-
-        {/* Button Row */}
         <ButtonRow delete1={confirmDelete} create={createTask} update={updateTask} id={id} field={title} />
       </View >
     </BottomSheetModalProvider>
