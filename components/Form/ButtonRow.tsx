@@ -4,20 +4,20 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import { useTheme } from '@/hooks'
 
 type ButtonRowProps = {
-  delete1: () => void
+  remove: () => void
   create: () => void
   update: () => void
   id: string
   field: string
 }
 
-export default function ButtonRow({ id, field, create, delete1, update }: ButtonRowProps) {
+export default function ButtonRow({ id, field, create, remove, update }: ButtonRowProps) {
   const theme = useTheme()
   return (
     <View style={[styles.buttonContainer, {}]}>
       {
         id !== undefined &&
-        <PressableOpacity onPress={delete1}>
+        <PressableOpacity onPress={remove}>
           <Text style={[styles.buttonText, { color: theme.dangerText }]}>Delete</Text>
         </PressableOpacity>
       }
