@@ -11,7 +11,7 @@ import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import PriorityItem from '@/components/Modals/Items/PriorityItem'
 import CourseItem from '@/components/Modals/Items/CourseItem';
 
-import { useTheme, usePriorityPalette } from '@/hooks'
+import { useTheme } from '@/hooks'
 import { Activity, DueType, PriorityOption } from '@/types/types'
 import { courses } from '@/data/data'
 import { db } from '@/db/init'
@@ -20,6 +20,7 @@ import { eq } from 'drizzle-orm'
 import PrimaryTextInput from '@/components/Form/PrimaryTextInput'
 import DateTimePicker from '@/components/Form/DateTimePicker'
 import CoursePicker from '@/components/Form/CoursePicker'
+import PriorityPicker from '@/components/Form/PriorityPicker'
 
 export default function ActivityForm() {
   const theme = useTheme();
@@ -53,8 +54,6 @@ export default function ActivityForm() {
   const datePickerModalRef = useRef<BottomSheetModal>(null);
   const courseSelectorModalRef = useRef<BottomSheetModal>(null);
   const prioritySelectorModalRef = useRef<BottomSheetModal>(null);
-
-  const priorityPalette = usePriorityPalette(priority)
 
   const handlePresentModalPress = useCallback(() => {
     Keyboard.dismiss()
@@ -133,27 +132,7 @@ export default function ActivityForm() {
           <CoursePicker course={course} courseSelectorModalRef={courseSelectorModalRef} />
 
           {/* Priority */}
-          <PressableOpacity onPress={() => {
-            Keyboard.dismiss()
-            prioritySelectorModalRef.current?.present()
-          }}>
-            <View style={styles.detailRow}>
-              <SymbolView name={'flag'} tintColor={theme.grey500} size={24} />
-              {priority ?
-                (() => {
-                  return (
-                    <View style={[styles.priorityTag, { backgroundColor: priorityPalette.backgroundColor }]}>
-                      <Text style={[styles.priorityText, { color: priorityPalette.color }]}>
-                        {priority.toUpperCase()}
-                      </Text>
-                    </View>
-                  )
-                })()
-                :
-                <Text style={[styles.detailText, { color: theme.grey500 }]}>Add priority</Text>
-              }
-            </View>
-          </PressableOpacity>
+          <PriorityPicker priority={priority} prioritySelectorModalRef={prioritySelectorModalRef} />
 
           {/* Notes */}
           <View style={styles.detailRow}>
@@ -262,14 +241,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
-  priorityTag: {
-    borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    // borderWidth: 1,
-  },
-  priorityText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
 })
