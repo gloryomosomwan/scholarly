@@ -6,9 +6,6 @@ import { useSQLiteContext } from 'expo-sqlite'
 import { eq } from 'drizzle-orm'
 
 import DateTimeModal from '@/components/Modals/DateTimeModal'
-import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
-import PriorityItem from '@/components/Modals/Items/PriorityItem'
-import CourseItem from '@/components/Modals/Items/CourseItem';
 
 import PrimaryTextInput from '@/components/Form/PrimaryTextInput'
 import DateTimePicker from '@/components/Form/DateTimePicker'
@@ -19,10 +16,10 @@ import ButtonRow from '@/components/Form/ButtonRow'
 
 import { useTheme } from '@/hooks'
 import { Activity, DueType, PriorityOption } from '@/types/types'
-import { courses } from '@/data/data'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
 import PriorityModal from '@/components/Form/PriorityModal'
+import CourseModal from '@/components/Form/CourseModal'
 
 export default function ActivityForm() {
   const theme = useTheme();
@@ -146,20 +143,7 @@ export default function ActivityForm() {
         <DateTimeModal initialDate={new Date()} handleSetDate={handleSetDate} bottomSheetModalRef={datePickerModalRef} />
 
         {/* Course Modal */}
-        <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable>
-          {courses.map(course => (
-            <CourseItem
-              key={course.code}
-              code={course.code}
-              name={course.name ?? ''}
-              color={course.color}
-              onSelect={({ code }) => {
-                setCourse(code)
-                courseSelectorModalRef.current?.dismiss()
-              }}
-            />
-          ))}
-        </CustomBottomSheetModal>
+        <CourseModal setCourse={setCourse} courseSelectorModalRef={courseSelectorModalRef} />
 
         {/* Priority Selector */}
         <PriorityModal setPriority={setPriority} prioritySelectorModalRef={prioritySelectorModalRef} />
