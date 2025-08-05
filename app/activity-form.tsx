@@ -1,11 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react'
-import { StyleSheet, Text, View, Keyboard, ActionSheetIOS } from 'react-native'
+import { StyleSheet, View, Keyboard, ActionSheetIOS } from 'react-native'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { useSQLiteContext } from 'expo-sqlite'
 import { eq } from 'drizzle-orm'
 
-import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import PriorityItem from '@/components/Modals/Items/PriorityItem'
@@ -16,13 +15,14 @@ import DateTimePicker from '@/components/Form/DateTimePicker'
 import CoursePicker from '@/components/Form/CoursePicker'
 import PriorityPicker from '@/components/Form/PriorityPicker'
 import TextInputField from '@/components/Form/TextInputField'
+import ButtonRow from '@/components/Form/ButtonRow'
 
 import { useTheme } from '@/hooks'
 import { Activity, DueType, PriorityOption } from '@/types/types'
 import { courses } from '@/data/data'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
-import ButtonRow from '@/components/Form/ButtonRow'
+import PriorityModal from '@/components/Form/PriorityModal'
 
 export default function ActivityForm() {
   const theme = useTheme();
@@ -123,7 +123,6 @@ export default function ActivityForm() {
     <BottomSheetModalProvider>
       <View style={[styles.container, { backgroundColor: theme.secondary }]}>
         <View style={styles.formContainer}>
-
           {/* Title */}
           <PrimaryTextInput placeholder='Enter title' value={title} onChangeText={setTitle} />
 
@@ -163,20 +162,7 @@ export default function ActivityForm() {
         </CustomBottomSheetModal>
 
         {/* Priority Selector */}
-        <CustomBottomSheetModal bottomSheetModalRef={prioritySelectorModalRef} showHandle={false}>
-          <PriorityItem level={'high'} onSelect={() => {
-            setPriority('high')
-            prioritySelectorModalRef.current?.dismiss()
-          }} />
-          <PriorityItem level={'medium'} onSelect={() => {
-            setPriority('medium')
-            prioritySelectorModalRef.current?.dismiss()
-          }} />
-          <PriorityItem level={'low'} onSelect={() => {
-            setPriority('low')
-            prioritySelectorModalRef.current?.dismiss()
-          }} />
-        </CustomBottomSheetModal>
+        <PriorityModal setPriority={setPriority} prioritySelectorModalRef={prioritySelectorModalRef} />
 
       </View >
     </BottomSheetModalProvider>
