@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Pressable } from 'react-native'
 import React, { useState } from 'react'
-import { courses } from '@/data/data'
 import { useRouter } from 'expo-router'
 
+import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
+import TextInputField from '@/components/Form/TextInputField'
+import ColorPicker from '@/components/Form/ColorPicker'
+
 import { useTheme } from '@/hooks'
-import { SymbolView } from 'expo-symbols'
 
 export default function CourseForm() {
   const theme = useTheme()
@@ -13,55 +15,13 @@ export default function CourseForm() {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const router = useRouter()
 
-  const courseColors = courses.map(course => course.color);
-
   return (
     <View style={[styles.container, {}]}>
       <View style={[styles.formContainer, {}]}>
-        <View style={[styles.fieldContainer, {}]}>
-          <TextInput
-            placeholder="Enter code"
-            style={[styles.titleText, { color: theme.text }]}
-            placeholderTextColor={theme.grey500}
-            returnKeyType='done'
-            multiline
-            blurOnSubmit
-            value={courseCode}
-            onChangeText={setCourseCode}
-          />
-        </View>
-        <View style={[styles.fieldContainer, {}]}>
-          <SymbolView name={'graduationcap.fill'} tintColor={theme.grey500} />
-          <TextInput
-            placeholder="Enter name"
-            style={[styles.detailText, { color: theme.text }]}
-            placeholderTextColor={theme.grey500}
-            returnKeyType='done'
-            multiline
-            blurOnSubmit
-            value={courseName}
-            onChangeText={setCourseName}
-          />
-        </View>
-        <View style={[styles.colorPickerField, { flexDirection: 'column' }]}>
-          <View style={[styles.fieldContainer]}>
-            <SymbolView name={'paintpalette'} tintColor={theme.grey500} />
-            <Text style={[styles.detailText, { color: theme.grey500 }]}>Choose color</Text>
-          </View>
-          <View style={styles.colorPickerContainer}>
-            {courseColors.map((color, index) => (
-              <Pressable
-                key={index}
-                style={[
-                  styles.colorCircle,
-                  { backgroundColor: color },
-                  selectedColor === color && styles.selectedColorCircle,
-                ]}
-                onPress={() => setSelectedColor(color)}
-              />
-            ))}
-          </View>
-        </View>
+        <PrimaryTextInputField placeholder='Enter course code' value={courseCode} onChangeText={setCourseCode} />
+        <TextInputField placeholder="Enter course name" value={courseName} onChangeText={setCourseName} />
+        <ColorPicker selectedColor={selectedColor} setSelectedColor={setSelectedColor} />
+
       </View>
       <View style={styles.buttonRowContainer}>
         <Pressable
@@ -102,36 +62,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 16
   },
-  titleText: {
-    fontSize: 30,
-    fontWeight: '600',
-    paddingBottom: 8,
-  },
-  detailText: {
-    fontSize: 20,
-    fontWeight: '500',
-    paddingTop: 0,
-  },
-  colorPickerContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
-    marginTop: 10,
-    alignSelf: 'center'
-  },
-  colorCircle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: 'transparent',
-  },
-  selectedColorCircle: {
-    borderColor: 'black',
-  },
-  colorPickerField: {
-    gap: 8
-  },
+
   buttonRowContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
