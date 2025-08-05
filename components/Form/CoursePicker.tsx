@@ -5,7 +5,7 @@ import { SymbolView } from 'expo-symbols'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import { useTheme } from '@/hooks'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import CourseModal from './CourseModal'
+import CourseModal from '../Modals/CourseModal'
 
 type CoursePickerProps = {
   course: string | null

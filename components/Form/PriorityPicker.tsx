@@ -5,7 +5,7 @@ import { SymbolView } from 'expo-symbols'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import { PriorityOption } from '@/types/types'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import PriorityModal from './PriorityModal'
+import PriorityModal from '../Modals/PriorityModal'
 
 type PriorityPickerProps = {
   priority: PriorityOption | null
