@@ -5,8 +5,6 @@ import { router, useLocalSearchParams } from 'expo-router'
 import { useSQLiteContext } from 'expo-sqlite'
 import { eq } from 'drizzle-orm'
 
-import DateTimeModal from '@/components/Modals/DateTimeModal'
-
 import PrimaryTextInput from '@/components/Form/PrimaryTextInput'
 import DateTimePicker from '@/components/Form/DateTimePicker'
 import CoursePicker from '@/components/Form/CoursePicker'
@@ -15,6 +13,7 @@ import TextInputField from '@/components/Form/TextInputField'
 import ButtonRow from '@/components/Form/ButtonRow'
 import PriorityModal from '@/components/Form/PriorityModal'
 import CourseModal from '@/components/Form/CourseModal'
+import DateTimeModal from '@/components/Modals/DateTimeModal'
 
 import { useTheme } from '@/hooks'
 import { Activity, DueType, PriorityOption } from '@/types/types'

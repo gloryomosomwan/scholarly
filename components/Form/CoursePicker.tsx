@@ -2,7 +2,7 @@ import { Keyboard, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { courses } from '@/data/data'
 import { SymbolView } from 'expo-symbols'
-import PressableOpacity from '../Buttons/PressableOpacity'
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import { useTheme } from '@/hooks'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
