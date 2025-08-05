@@ -1,5 +1,5 @@
-import React, { useCallback, useRef, useState } from 'react'
-import { StyleSheet, View, Keyboard, ActionSheetIOS } from 'react-native'
+import React, { useRef, useState } from 'react'
+import { StyleSheet, View, ActionSheetIOS } from 'react-native'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { useSQLiteContext } from 'expo-sqlite'
@@ -13,7 +13,6 @@ import TextInputField from '@/components/Form/TextInputField'
 import ButtonRow from '@/components/Form/ButtonRow'
 import PriorityModal from '@/components/Form/PriorityModal'
 import CourseModal from '@/components/Form/CourseModal'
-import DateTimeModal from '@/components/Modals/DateTimeModal'
 
 import { useTheme } from '@/hooks'
 import { Activity, DueType, PriorityOption } from '@/types/types'
@@ -49,14 +48,8 @@ export default function ActivityForm() {
   const [title, setTitle] = useState(data?.title ? data.title : '')
   const [notes, setNotes] = useState(data?.description ? data.description : '')
 
-  const datePickerModalRef = useRef<BottomSheetModal>(null);
   const courseSelectorModalRef = useRef<BottomSheetModal>(null);
   const prioritySelectorModalRef = useRef<BottomSheetModal>(null);
-
-  const handlePresentModalPress = useCallback(() => {
-    Keyboard.dismiss()
-    datePickerModalRef.current?.present();
-  }, []);
 
   const handleSetDate = (date: Date, dueType: DueType) => {
     setDate(date)
@@ -122,7 +115,7 @@ export default function ActivityForm() {
           <PrimaryTextInput placeholder='Enter title' value={title} onChangeText={setTitle} />
 
           {/* Datetime */}
-          <DateTimePicker handlePresentModalPress={handlePresentModalPress} date={date} dueType={dueType} />
+          <DateTimePicker date={date} dueType={dueType} handleSetDate={handleSetDate} />
 
           {/* Course */}
           <CoursePicker course={course} courseSelectorModalRef={courseSelectorModalRef} />
@@ -136,9 +129,6 @@ export default function ActivityForm() {
 
         {/* Button Row */}
         <ButtonRow delete1={confirmDelete} create={createTask} update={updateTask} id={id} field={title} />
-
-        {/* Date Picker */}
-        <DateTimeModal initialDate={new Date()} handleSetDate={handleSetDate} bottomSheetModalRef={datePickerModalRef} />
 
         {/* Course Modal */}
         <CourseModal setCourse={setCourse} courseSelectorModalRef={courseSelectorModalRef} />
