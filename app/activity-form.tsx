@@ -11,7 +11,6 @@ import CoursePicker from '@/components/Form/CoursePicker'
 import PriorityPicker from '@/components/Form/PriorityPicker'
 import TextInputField from '@/components/Form/TextInputField'
 import ButtonRow from '@/components/Form/ButtonRow'
-import PriorityModal from '@/components/Form/PriorityModal'
 
 import { useTheme } from '@/hooks'
 import { Activity, DueType, PriorityOption } from '@/types/types'
@@ -46,8 +45,6 @@ export default function ActivityForm() {
   const [priority, setPriority] = useState<PriorityOption | null>(data?.priority ? data.priority : null);
   const [title, setTitle] = useState(data?.title ? data.title : '')
   const [notes, setNotes] = useState(data?.description ? data.description : '')
-
-  const prioritySelectorModalRef = useRef<BottomSheetModal>(null);
 
   const handleSetDate = (date: Date, dueType: DueType) => {
     setDate(date)
@@ -119,7 +116,7 @@ export default function ActivityForm() {
           <CoursePicker course={course} setCourse={setCourse} />
 
           {/* Priority */}
-          <PriorityPicker priority={priority} prioritySelectorModalRef={prioritySelectorModalRef} />
+          <PriorityPicker priority={priority} setPriority={setPriority} />
 
           {/* Notes */}
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
@@ -127,10 +124,6 @@ export default function ActivityForm() {
 
         {/* Button Row */}
         <ButtonRow delete1={confirmDelete} create={createTask} update={updateTask} id={id} field={title} />
-
-        {/* Priority Selector */}
-        <PriorityModal setPriority={setPriority} prioritySelectorModalRef={prioritySelectorModalRef} />
-
       </View >
     </BottomSheetModalProvider>
   )
