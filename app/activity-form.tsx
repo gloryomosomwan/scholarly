@@ -5,7 +5,7 @@ import { router, useLocalSearchParams } from 'expo-router'
 import { useSQLiteContext } from 'expo-sqlite'
 import { eq } from 'drizzle-orm'
 
-import PrimaryTextInput from '@/components/Form/PrimaryTextInput'
+import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import DateTimePicker from '@/components/Form/DateTimePicker'
 import CoursePicker from '@/components/Form/CoursePicker'
 import PriorityPicker from '@/components/Form/PriorityPicker'
@@ -102,7 +102,7 @@ export default function ActivityForm() {
       <View style={[styles.container, { backgroundColor: theme.secondary }]}>
         <View style={styles.formContainer}>
           {/* Title */}
-          <PrimaryTextInput placeholder='Enter title' value={title} onChangeText={setTitle} />
+          <PrimaryTextInputField placeholder='Enter title' value={title} onChangeText={setTitle} />
 
           {/* Datetime */}
           <DateTimePicker date={date} setDate={setDate} dueType={dueType} setDueType={setDueType} />

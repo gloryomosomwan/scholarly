@@ -1,13 +1,13 @@
 import { useTheme } from "@/hooks";
 import { StyleSheet, TextInput } from "react-native";
 
-type PrimaryTextInputProps = {
+type PrimaryTextInputFieldProps = {
   placeholder: string;
   value: string;
   onChangeText: ((text: string) => void)
 }
 
-export default function PrimaryTextInput({ placeholder, value, onChangeText }: PrimaryTextInputProps) {
+export default function PrimaryTextInputField({ placeholder, value, onChangeText }: PrimaryTextInputFieldProps) {
   const theme = useTheme()
   return (
     <TextInput
