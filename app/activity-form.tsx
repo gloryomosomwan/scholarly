@@ -199,15 +199,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     paddingBottom: 8,
   },
-  detailRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 16,
-  },
-  detailText: {
-    fontSize: 20,
-    fontWeight: '500',
-    paddingTop: 0,
-  },
-
 })
