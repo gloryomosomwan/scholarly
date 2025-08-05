@@ -1,40 +1,45 @@
 import { Keyboard, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 import { courses } from '@/data/data'
 import { SymbolView } from 'expo-symbols'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import { useTheme } from '@/hooks'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import CourseModal from './CourseModal'
 
 type CoursePickerProps = {
   course: string | null
-  courseSelectorModalRef: React.RefObject<BottomSheetModal>
+  setCourse: React.Dispatch<React.SetStateAction<string | null>>
 }
 
-export default function CoursePicker({ course, courseSelectorModalRef }: CoursePickerProps) {
+export default function CoursePicker({ course, setCourse }: CoursePickerProps) {
   const theme = useTheme()
+  const modalRef = useRef<BottomSheetModal>(null)
   return (
-    <PressableOpacity onPress={() => {
-      Keyboard.dismiss()
-      courseSelectorModalRef.current?.present()
-    }}>
-      <View style={styles.detailRow}>
-        <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
-        {course ?
-          (() => {
-            const selected = courses.find(c => c.code === course)
-            return (
-              <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
-                <View style={[styles.courseDot, { backgroundColor: selected?.color ?? 'grey' }]} />
-                <Text style={[styles.courseText, { color: theme.text }]}>{course}</Text>
-              </View>
-            )
-          })()
-          :
-          <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
-        }
-      </View>
-    </PressableOpacity>
+    <View>
+      <PressableOpacity onPress={() => {
+        Keyboard.dismiss()
+        modalRef.current?.present()
+      }}>
+        <View style={styles.detailRow}>
+          <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
+          {course ?
+            (() => {
+              const selected = courses.find(c => c.code === course)
+              return (
+                <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
+                  <View style={[styles.courseDot, { backgroundColor: selected?.color ?? 'grey' }]} />
+                  <Text style={[styles.courseText, { color: theme.text }]}>{course}</Text>
+                </View>
+              )
+            })()
+            :
+            <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
+          }
+        </View>
+      </PressableOpacity>
+      <CourseModal setCourse={setCourse} courseSelectorModalRef={modalRef} />
+    </View>
   )
 }
 
