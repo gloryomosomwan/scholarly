@@ -11,11 +11,11 @@ type TextInputFieldProps = {
 export default function TextInputField({ placeholder, value, onChangeText }: TextInputFieldProps) {
   const theme = useTheme()
   return (
-    <View style={styles.detailRow}>
+    <View style={styles.row}>
       <SymbolView name={'note.text'} tintColor={theme.grey500} size={24} />
       <TextInput
         placeholder={placeholder}
-        style={[styles.detailText, { color: theme.text, flex: 1 }]}
+        style={[styles.text, { color: theme.text, flex: 1 }]}
         placeholderTextColor={theme.grey500}
         multiline
         returnKeyType='done'
@@ -28,12 +28,12 @@ export default function TextInputField({ placeholder, value, onChangeText }: Tex
 }
 
 const styles = StyleSheet.create({
-  detailRow: {
+  row: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 16,
   },
-  detailText: {
+  text: {
     fontSize: 20,
     fontWeight: '500',
     paddingTop: 0,

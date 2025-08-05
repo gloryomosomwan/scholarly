@@ -25,12 +25,12 @@ export default function DateTimePicker({ date, setDate, dueType, setDueType, }: 
   }, []);
   return (
     <View>
-      <PressableOpacity style={styles.detailRow} onPress={handlePresentModalPress}>
+      <PressableOpacity style={styles.row} onPress={handlePresentModalPress}>
         <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
         {
           !date
-            ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add date</Text>
-            : <Text style={[styles.detailText, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
+            ? <Text style={[styles.text, { color: theme.grey500 }]}>Add date</Text>
+            : <Text style={[styles.text, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
         }
       </PressableOpacity>
       <DateTimeModal initialDate={new Date()} setDate={setDate} setDueType={setDueType} bottomSheetModalRef={modalRef} />
@@ -39,12 +39,12 @@ export default function DateTimePicker({ date, setDate, dueType, setDueType, }: 
 }
 
 const styles = StyleSheet.create({
-  detailRow: {
+  row: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 16,
   },
-  detailText: {
+  text: {
     fontSize: 20,
     fontWeight: '500',
     paddingTop: 0,

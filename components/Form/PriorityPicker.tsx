@@ -22,12 +22,12 @@ export default function PriorityPicker({ priority, setPriority }: PriorityPicker
         Keyboard.dismiss()
         modalRef.current?.present()
       }}>
-        <View style={styles.detailRow}>
+        <View style={styles.row}>
           <SymbolView name={'flag'} tintColor={theme.grey500} size={24} />
           {priority ?
             (() => {
               return (
-                <View style={[styles.priorityTag, { backgroundColor: priorityPalette.backgroundColor }]}>
+                <View style={[styles.tag, { backgroundColor: priorityPalette.backgroundColor }]}>
                   <Text style={[styles.priorityText, { color: priorityPalette.color }]}>
                     {priority.toUpperCase()}
                   </Text>
@@ -35,7 +35,7 @@ export default function PriorityPicker({ priority, setPriority }: PriorityPicker
               )
             })()
             :
-            <Text style={[styles.detailText, { color: theme.grey500 }]}>Add priority</Text>
+            <Text style={[styles.text, { color: theme.grey500 }]}>Add priority</Text>
           }
         </View>
       </PressableOpacity>
@@ -45,17 +45,17 @@ export default function PriorityPicker({ priority, setPriority }: PriorityPicker
 }
 
 const styles = StyleSheet.create({
-  detailRow: {
+  row: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 16,
   },
-  detailText: {
+  text: {
     fontSize: 20,
     fontWeight: '500',
     paddingTop: 0,
   },
-  priorityTag: {
+  tag: {
     borderRadius: 12,
     paddingHorizontal: 10,
     paddingVertical: 4,

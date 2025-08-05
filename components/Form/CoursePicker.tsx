@@ -21,20 +21,20 @@ export default function CoursePicker({ course, setCourse }: CoursePickerProps) {
         Keyboard.dismiss()
         modalRef.current?.present()
       }}>
-        <View style={styles.detailRow}>
+        <View style={styles.row}>
           <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
           {course ?
             (() => {
               const selected = courses.find(c => c.code === course)
               return (
-                <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
-                  <View style={[styles.courseDot, { backgroundColor: selected?.color ?? 'grey' }]} />
+                <View style={[styles.tag, { backgroundColor: theme.grey100 }]}>
+                  <View style={[styles.dot, { backgroundColor: selected?.color ?? 'grey' }]} />
                   <Text style={[styles.courseText, { color: theme.text }]}>{course}</Text>
                 </View>
               )
             })()
             :
-            <Text style={[styles.detailText, { color: theme.grey500 }]}>Add course</Text>
+            <Text style={[styles.text, { color: theme.grey500 }]}>Add course</Text>
           }
         </View>
       </PressableOpacity>
@@ -44,17 +44,17 @@ export default function CoursePicker({ course, setCourse }: CoursePickerProps) {
 }
 
 const styles = StyleSheet.create({
-  detailRow: {
+  row: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 16,
   },
-  detailText: {
+  text: {
     fontSize: 20,
     fontWeight: '500',
     paddingTop: 0,
   },
-  courseTag: {
+  tag: {
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 12,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     gap: 6,
   },
-  courseDot: {
+  dot: {
     width: 8,
     height: 8,
     borderRadius: 4,
