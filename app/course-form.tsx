@@ -71,7 +71,7 @@ export default function CourseForm() {
         labSchedule: labSchedule
       })
         .where(eq(courses.id, convertedID));
-      router.back()
+      router.dismissTo({ pathname: './[courseCode]', params: { id: id, courseCode: code, courseName: name, instructor: instructor, color: color } })
     }
   }
 
