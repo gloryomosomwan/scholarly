@@ -18,8 +18,8 @@ export default function EventForm() {
       <View style={[styles.container, {}]}>
         <View style={[styles.formContainer, {}]}>
           <TextInputField placeholder='Add name' value={title} onChangeText={setTitle} />
-          <DateTimePicker placeholder='' date={start} setDate={setStart} dueType={'date'} setDueType={() => void} />
-          <DateTimePicker placeholder='' date={end} setDate={setEnd} dueType={'date'} setDueType={() => void} />
+          <DateTimePicker placeholder='' date={start} setDate={setStart} dueType={'date'} />
+          <DateTimePicker placeholder='' date={end} setDate={setEnd} dueType={'date'} />
         </View>
         {/* <ButtonRow /> */}
       </View>

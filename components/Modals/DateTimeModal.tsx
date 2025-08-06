@@ -11,7 +11,7 @@ type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
   initialDate: Date | undefined
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
-  setDueType: React.Dispatch<React.SetStateAction<DueType | null>>
+  setDueType?: React.Dispatch<React.SetStateAction<DueType | null>>
 }
 
 type PickerMode = 'date' | 'datetime';
@@ -30,11 +30,11 @@ export default function DateTimeModal({ initialDate, setDate, setDueType, bottom
     if (pickerMode === 'date') {
       internalDate.setHours(0, 0, 0, 0)
       setDate(internalDate)
-      setDueType('date')
+      if (setDueType) setDueType('date')
     }
     else if (pickerMode === 'datetime') {
       setDate(internalDate)
-      setDueType('datetime')
+      if (setDueType) setDueType('datetime')
     }
     bottomSheetModalRef.current?.dismiss()
   }

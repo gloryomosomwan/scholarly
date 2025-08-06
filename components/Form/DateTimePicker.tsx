@@ -14,7 +14,7 @@ type DateTimePickerProps = {
   date: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
   dueType: DueType | null
-  setDueType: React.Dispatch<React.SetStateAction<DueType | null>>
+  setDueType?: React.Dispatch<React.SetStateAction<DueType | null>>
 }
 
 export default function DateTimePicker({ date, setDate, dueType, setDueType, placeholder }: DateTimePickerProps) {
