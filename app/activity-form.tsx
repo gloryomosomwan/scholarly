@@ -107,7 +107,7 @@ export default function ActivityForm() {
           <PriorityPicker priority={priority} setPriority={setPriority} />
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
         </View>
-        <ButtonRow remove={confirmDelete} create={createTask} update={updateTask} id={id} field={title} />
+        <ButtonRow confirmDelete={confirmDelete} create={createTask} update={updateTask} isCreateForm={id === undefined} disabled={title.length === 0} />
       </View >
     </BottomSheetModalProvider>
   )
