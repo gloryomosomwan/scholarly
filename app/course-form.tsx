@@ -36,8 +36,4 @@ const styles = StyleSheet.create({
   formContainer: {
     gap: 24,
   },
-  fieldContainer: {
-    flexDirection: 'row',
-    gap: 16
-  },
 })
