@@ -6,6 +6,7 @@ import { useTheme } from "@/hooks";
 type CourseRouteParams = {
   courseCode?: string;
   color?: string
+  id?: string
 };
 
 export default function Layout() {
@@ -25,7 +26,10 @@ export default function Layout() {
           headerLargeTitleShadowVisible: false,
           headerLargeTitle: true,
           headerTitleStyle: { color: theme.text },
-          headerRight: () => (<Button color={route.params?.color} title='Edit Course' onPress={() => router.navigate('/course-form')}></Button>),
+          headerRight: () => (<Button color={route.params?.color} title='Edit Course' onPress={() => router.navigate({
+            pathname: '/course-form',
+            params: { id: route.params?.id }
+          })} />),
         })}
       />
     </Stack>

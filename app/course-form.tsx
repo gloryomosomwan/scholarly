@@ -1,6 +1,8 @@
-import { StyleSheet, View } from 'react-native'
+import { ActionSheetIOS, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
-import { router } from 'expo-router'
+import { eq } from 'drizzle-orm'
+import { useSQLiteContext } from 'expo-sqlite'
+import { router, useLocalSearchParams } from 'expo-router'
 
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import TextInputField from '@/components/Form/TextInputField'
@@ -11,16 +13,37 @@ import { useTheme } from '@/hooks'
 import { db } from '@/db/init'
 import { courses } from '@/db/schema'
 import { Button } from 'react-native'
+import { Course } from '@/types/types'
 
 export default function CourseForm() {
   const theme = useTheme()
-  const [code, setCode] = useState<string | null>(null)
-  const [name, setName] = useState<string | null>(null)
-  const [color, setColor] = useState<string | null>(null);
-  const [instructor, setInstructor] = useState<string | null>(null)
-  const [lectureSchedule, setLectureSchedule] = useState<string | null>(null)
-  const [seminarSchedule, setSeminarSchedule] = useState<string | null>(null)
-  const [labSchedule, setLabSchedule] = useState<string | null>(null)
+
+  let data = null;
+  const { id } = useLocalSearchParams<{ id: string }>()
+  let convertedID = Number(id)
+  if (id) {
+    const sqlite = useSQLiteContext()
+    data = sqlite.getFirstSync<Course>(`
+      SELECT 
+      id,
+      code,
+      name,
+      color,
+      instructor,
+      lectureSchedule,
+      seminarSchedule,
+      labSchedule
+      FROM courses 
+      WHERE id = ${convertedID}`)
+  }
+
+  const [code, setCode] = useState<string | null>(data?.code ?? null)
+  const [name, setName] = useState<string | null>(data?.name ?? null)
+  const [color, setColor] = useState<string | null>(data?.color ?? null);
+  const [instructor, setInstructor] = useState<string | null>(data?.instructor ?? null)
+  const [lectureSchedule, setLectureSchedule] = useState<string | null>(data?.lectureSchedule ?? null)
+  const [seminarSchedule, setSeminarSchedule] = useState<string | null>(data?.seminarSchedule ?? null)
+  const [labSchedule, setLabSchedule] = useState<string | null>(data?.labSchedule ?? null)
 
   const createCourse = async () => {
     if (code !== null && name !== null && color !== null) {
@@ -37,6 +60,42 @@ export default function CourseForm() {
     }
   }
 
+  const updateCourse = async () => {
+    if (name !== null && code !== null && color !== null && id !== null) {
+      await db.update(courses).set({
+        name: name,
+        code: code,
+        color: color,
+        instructor: instructor,
+        lectureSchedule: lectureSchedule,
+        seminarSchedule: seminarSchedule,
+        labSchedule: labSchedule
+      })
+        .where(eq(courses.id, convertedID));
+      router.back()
+    }
+  }
+
+  const confirmDelete = () => {
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: ['Cancel', 'Delete course'],
+        destructiveButtonIndex: 1,
+        cancelButtonIndex: 0,
+        userInterfaceStyle: 'light',
+      }
+      ,
+      async buttonIndex => {
+        if (buttonIndex === 0) {
+          // Cancel action
+        } else if (buttonIndex === 1) {
+          await db.delete(courses).where(eq(courses.id, convertedID))
+          router.back()
+        }
+      }
+    )
+  }
+
   return (
     <View style={[styles.container, {}]}>
       <View style={[styles.formContainer, {}]}>
@@ -49,7 +108,7 @@ export default function CourseForm() {
         <ColorPicker selectedColor={color} setSelectedColor={setColor} />
         <Button title='Create' onPress={createCourse} />
       </View>
-      {/* <ButtonRow /> */}
+      <ButtonRow create={createCourse} update={updateCourse} confirmDelete={confirmDelete} disabled={!(name !== null && code !== null && color !== null)} isCreateForm={id === undefined} />
     </View>
   )
 }
