@@ -9,7 +9,7 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity';
 import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 import { useTheme } from '@/hooks/useTheme';
-import { useTasks } from '@/hooks/useTasks';
+import { useTasks } from '@/hooks/useDatabase';
 
 import { Activity, PriorityOption, TaskSortOption, TaskFilterOption } from '@/types/types';
 
