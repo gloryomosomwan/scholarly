@@ -81,7 +81,7 @@ export default function CourseForm() {
         options: ['Cancel', 'Delete course'],
         destructiveButtonIndex: 1,
         cancelButtonIndex: 0,
-        userInterfaceStyle: 'dark',
+        userInterfaceStyle: 'light',
       }
       ,
       async buttonIndex => {
