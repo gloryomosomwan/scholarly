@@ -56,7 +56,7 @@ export interface Semester {
   end: Date;
 }
 
-export type SortOption = 'Course' | 'Priority'
+export type TaskSortOption = 'Course' | 'Priority'
 export type TaskFilterOption = 'Course' | 'Priority'
 export type PriorityOption = 'high' | 'medium' | 'low'
 

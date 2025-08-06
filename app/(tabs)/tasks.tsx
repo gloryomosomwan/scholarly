@@ -11,13 +11,13 @@ import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 import { useTheme } from '@/hooks/useTheme';
 import { useTasks } from '@/hooks/useTasks';
 
-import { Activity, PriorityOption, SortOption, TaskFilterOption } from '@/types/types';
+import { Activity, PriorityOption, TaskSortOption, TaskFilterOption } from '@/types/types';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
 
-  const [sortBy, setSortBy] = useState<SortOption | null>(null)
+  const [sortBy, setSortBy] = useState<TaskSortOption | null>(null)
   const [filterBy, setFilterBy] = useState<TaskFilterOption | null>(null)
   const [filterValue, setFilterValue] = useState<string | null>(null)
   const taskData = useTasks()
@@ -25,7 +25,7 @@ export default function Tab() {
   const filteredTaskData = filterTasks(taskData, filterBy, filterValue)
   const sortedTaskData = sortTasks(filteredTaskData, sortBy)
 
-  const handleSortBy = (sortBy: SortOption) => {
+  const handleSortBy = (sortBy: TaskSortOption) => {
     setSortBy(sortBy)
   }
 
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function sortTasks(tasks: Array<Activity>, sortBy: SortOption | null) {
+function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null) {
   if (!sortBy) return tasks
   // Filter out the tasks that don't have a course or priority
   const sortableTasks = tasks.filter((task): task is Activity & { course: string, priority: PriorityOption } => {
