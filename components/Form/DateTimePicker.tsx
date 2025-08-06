@@ -10,13 +10,14 @@ import { DueType } from '@/types/types'
 import { useTheme } from '@/hooks'
 
 type DateTimePickerProps = {
+  placeholder?: string
   date: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
   dueType: DueType | null
   setDueType: React.Dispatch<React.SetStateAction<DueType | null>>
 }
 
-export default function DateTimePicker({ date, setDate, dueType, setDueType, }: DateTimePickerProps) {
+export default function DateTimePicker({ date, setDate, dueType, setDueType, placeholder }: DateTimePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
   const handlePresentModal = useCallback(() => {
@@ -29,7 +30,7 @@ export default function DateTimePicker({ date, setDate, dueType, setDueType, }: 
         <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
         {
           !date
-            ? <Text style={[styles.text, { color: theme.grey500 }]}>Add date</Text>
+            ? <Text style={[styles.text, { color: theme.grey500 }]}>{placeholder ? placeholder : 'Add date'}</Text>
             : <Text style={[styles.text, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
         }
       </PressableOpacity>
