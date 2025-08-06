@@ -3,7 +3,7 @@ import { StyleSheet, TextInput } from "react-native";
 
 type PrimaryTextInputFieldProps = {
   placeholder: string;
-  value: string;
+  value: string | null;
   onChangeText: ((text: string) => void)
 }
 
@@ -17,7 +17,7 @@ export default function PrimaryTextInputField({ placeholder, value, onChangeText
       returnKeyType='done'
       multiline
       blurOnSubmit
-      value={value}
+      value={value ? value : ''}
       onChangeText={onChangeText}
     />
   )
