@@ -12,7 +12,6 @@ import ButtonRow from '@/components/Form/ButtonRow'
 import { useTheme } from '@/hooks'
 import { db } from '@/db/init'
 import { courses } from '@/db/schema'
-import { Button } from 'react-native'
 import { Course } from '@/types/types'
 
 export default function CourseForm() {
@@ -106,7 +105,6 @@ export default function CourseForm() {
         <TextInputField icon='flask' placeholder="Add lab schedule" value={labSchedule} onChangeText={setLabSchedule} />
         <TextInputField icon='bubble.left.and.bubble.right' placeholder="Add seminar schedule" value={seminarSchedule} onChangeText={setSeminarSchedule} />
         <ColorPicker selectedColor={color} setSelectedColor={setColor} />
-        <Button title='Create' onPress={createCourse} />
       </View>
       <ButtonRow create={createCourse} update={updateCourse} confirmDelete={confirmDelete} disabled={!(name !== null && code !== null && color !== null)} isCreateForm={id === undefined} />
     </View>
