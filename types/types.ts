@@ -57,7 +57,7 @@ export interface Semester {
 }
 
 export type SortOption = 'Course' | 'Priority'
-export type FilterOption = 'Course' | 'Priority'
+export type TaskFilterOption = 'Course' | 'Priority'
 export type PriorityOption = 'high' | 'medium' | 'low'
 
 // export interface Task {

@@ -11,14 +11,14 @@ import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 import { useTheme } from '@/hooks/useTheme';
 import { useTasks } from '@/hooks/useTasks';
 
-import { Activity, PriorityOption, SortOption, FilterOption } from '@/types/types';
+import { Activity, PriorityOption, SortOption, TaskFilterOption } from '@/types/types';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
 
   const [sortBy, setSortBy] = useState<SortOption | null>(null)
-  const [filterBy, setFilterBy] = useState<FilterOption | null>(null)
+  const [filterBy, setFilterBy] = useState<TaskFilterOption | null>(null)
   const [filterValue, setFilterValue] = useState<string | null>(null)
   const taskData = useTasks()
 
@@ -29,7 +29,7 @@ export default function Tab() {
     setSortBy(sortBy)
   }
 
-  const handleSetFilterBy = (filterBy: FilterOption) => {
+  const handleSetFilterBy = (filterBy: TaskFilterOption) => {
     setFilterBy(filterBy)
   }
 
@@ -160,7 +160,7 @@ function sortTasks(tasks: Array<Activity>, sortBy: SortOption | null) {
   })
 }
 
-function filterTasks(tasks: Array<Activity>, filterBy: FilterOption | null, filterValue: string | null) {
+function filterTasks(tasks: Array<Activity>, filterBy: TaskFilterOption | null, filterValue: string | null) {
   if (!filterBy || !filterValue) return tasks
   return [...tasks].filter((element) => {
     switch (filterBy) {

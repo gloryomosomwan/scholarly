@@ -3,11 +3,11 @@ import { SymbolView } from 'expo-symbols'
 import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem, DropdownMenuGroup, DropdownMenuLabel } from '@/components/Menus/Zeego'
 import { useTheme } from '@/hooks/useTheme'
 import { courses } from '@/data/data'
-import { FilterOption } from '@/types/types'
+import { TaskFilterOption } from '@/types/types'
 
 type TaskFilterMenuProps = {
-  filterBy: FilterOption | null
-  handleSetFilterBy: (filterBy: FilterOption) => void
+  filterBy: TaskFilterOption | null
+  handleSetFilterBy: (filterBy: TaskFilterOption) => void
   filterValue: string | null
   handleSetFilterValue: (filterValue: string) => void
 }
