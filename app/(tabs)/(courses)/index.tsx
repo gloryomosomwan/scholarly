@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -13,6 +13,7 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity';
 export default function CoursesPage() {
   const theme = useTheme();
   const { semesterName } = useLocalSearchParams<{ semesterName: string }>()
+  const courses = useCourses()
   return (
     <SafeAreaView style={[styles.safeAreaContainer, { backgroundColor: theme.primary }]}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
@@ -27,18 +28,6 @@ export default function CoursesPage() {
               <SymbolView name="calendar" size={35} tintColor={theme.text} />
             </PressableOpacity>
           </View>
-
-          {/* Stats Row */}
-          {/* <View style={[styles.statRowContainer, { backgroundColor: theme.primary }]}>
-            <View style={[styles.statContainer, { backgroundColor: theme.grey100 }]}>
-              <Text style={[styles.statLabelText, { color: theme.grey600 }]}>GPA: </Text>
-              <Text style={[styles.statValueText, { color: theme.text }]}>3.7</Text>
-            </View>
-            <View style={[styles.statContainer, { backgroundColor: theme.grey100 }]}>
-              <Text style={[styles.statLabelText, { color: theme.grey600 }]}>Credits: </Text>
-              <Text style={[styles.statValueText, { color: theme.text }]}>10</Text>
-            </View>
-          </View> */}
         </View>
 
         {/* Course */}
