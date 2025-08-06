@@ -81,7 +81,7 @@ export default function CourseForm() {
         options: ['Cancel', 'Delete course'],
         destructiveButtonIndex: 1,
         cancelButtonIndex: 0,
-        userInterfaceStyle: 'light',
+        userInterfaceStyle: 'dark',
       }
       ,
       async buttonIndex => {
@@ -89,7 +89,7 @@ export default function CourseForm() {
           // Cancel action
         } else if (buttonIndex === 1) {
           await db.delete(courses).where(eq(courses.id, convertedID))
-          router.back()
+          router.replace('/(tabs)/(courses)')
         }
       }
     )
