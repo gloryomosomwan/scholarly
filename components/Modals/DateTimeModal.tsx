@@ -9,7 +9,7 @@ import { DueType } from '@/types/types';
 
 type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
-  initialDate: Date | undefined
+  initialDate: Date
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
   setDueType?: React.Dispatch<React.SetStateAction<DueType | null>>
 }

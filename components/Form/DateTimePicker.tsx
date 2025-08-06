@@ -34,7 +34,7 @@ export default function DateTimePicker({ date, setDate, dueType, setDueType, pla
             : <Text style={[styles.text, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
         }
       </PressableOpacity>
-      <DateTimeModal initialDate={new Date()} setDate={setDate} setDueType={setDueType} bottomSheetModalRef={modalRef} />
+      <DateTimeModal initialDate={date ? date : new Date()} setDate={setDate} setDueType={setDueType} bottomSheetModalRef={modalRef} />
     </View>
   )
 }
