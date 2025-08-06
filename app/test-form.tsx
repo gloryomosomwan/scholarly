@@ -1,129 +1,30 @@
-import { StyleSheet, Text, View, TextInput, Pressable, Keyboard } from 'react-native'
-import React, { useCallback, useRef, useState } from 'react'
-import { useRouter } from 'expo-router'
+import { StyleSheet, View, } from 'react-native'
+import React, { useState } from 'react'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 
-import { SymbolView } from 'expo-symbols'
+import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
+import DateTimePicker from '@/components/Form/DateTimePicker'
+import TextInputField from '@/components/Form/TextInputField'
+import ButtonRow from '@/components/Form/ButtonRow'
 
 import { useTheme } from '@/hooks'
-import DateTimeModal from '@/components/Modals/DateTimeModal'
-import PressableOpacity from '@/components/Buttons/PressableOpacity'
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 
 export default function EventForm() {
   const theme = useTheme()
-  const router = useRouter()
-
   const [title, setTitle] = useState('Add title')
-  const [start, setStart] = useState<Date>()
-  const [end, setEnd] = useState<Date>()
+  const [start, setStart] = useState<Date | null>(null)
+  const [end, setEnd] = useState<Date | null>(null)
   const [location, setLocation] = useState('')
-
-  const startDatePickerModalRef = useRef<BottomSheetModal>(null);
-  const endDatePickerModalRef = useRef<BottomSheetModal>(null);
-
-  const handleStartPress = useCallback(() => {
-    Keyboard.dismiss()
-    startDatePickerModalRef.current?.present();
-  }, []);
-
-  const handleEndPress = useCallback(() => {
-    Keyboard.dismiss()
-    endDatePickerModalRef.current?.present();
-  }, []);
-
-  const handleSetStart = (date: Date) => {
-    setStart(date)
-  }
-
-  const handleSetEnd = (date: Date) => {
-    setEnd(date)
-  }
-
   return (
     <BottomSheetModalProvider>
       <View style={[styles.container, {}]}>
         <View style={[styles.formContainer, {}]}>
-          <View style={[styles.fieldContainer, {}]}>
-            <TextInput
-              placeholder="Enter code"
-              style={[styles.titleText, { color: theme.text }]}
-              placeholderTextColor={theme.grey500}
-              returnKeyType='done'
-              multiline
-              blurOnSubmit
-              value={title}
-              onChangeText={setTitle}
-            />
-          </View>
-
-          {/* Start */}
-          <View style={[styles.fieldContainer]}>
-            <SymbolView name={'clock'} tintColor={theme.grey500} size={24} />
-            <PressableOpacity onPress={handleStartPress}>
-              {
-                start === undefined
-                  ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add start date</Text>
-                  : <Text style={[styles.detailText, { color: theme.grey500 }]}>{start.toLocaleString()}</Text>
-              }
-            </PressableOpacity>
-          </View>
-
-          {/* End */}
-          <View style={[styles.fieldContainer]}>
-            <SymbolView name={'clock'} tintColor={theme.grey500} size={24} />
-            <PressableOpacity onPress={handleEndPress}>
-              {
-                end === undefined
-                  ? <Text style={[styles.detailText, { color: theme.grey500 }]}>Add end date</Text>
-                  : <Text style={[styles.detailText, { color: theme.grey500 }]}>{end.toLocaleString()}</Text>
-              }
-            </PressableOpacity>
-          </View>
-
-          {/* Location */}
-          <View style={styles.fieldContainer}>
-            <SymbolView name={'mappin.circle.fill'} tintColor={theme.grey500} size={24} />
-            <TextInput
-              placeholder="Add location"
-              style={[styles.detailText, { color: theme.text, flex: 1 }]}
-              placeholderTextColor={theme.grey500}
-              multiline
-              returnKeyType='done'
-              blurOnSubmit
-              value={location}
-              onChangeText={setLocation}
-            />
-          </View>
-
+          <PrimaryTextInputField placeholder='Add name' value={title} onChangeText={setTitle} />
+          <DateTimePicker placeholder='Add start date' date={start} setDate={setStart} dueType={'date'} />
+          <DateTimePicker placeholder='Add end date' date={end} setDate={setEnd} dueType={'date'} />
+          <TextInputField placeholder='Add location' value={location} onChangeText={setLocation} />
         </View>
-
-        {/* Button Row */}
-        <View style={styles.buttonRowContainer}>
-          <Pressable
-            style={[styles.closeButton, { backgroundColor: '#eee' }]}
-            onPress={() => {
-              router.back()
-            }}
-            accessibilityLabel="Close"
-          >
-            <Text style={[styles.closeButtonText, { color: '#333' }]}> × </Text>
-          </Pressable>
-          <Pressable
-            style={[styles.saveButton, { backgroundColor: '#007AFF' }]}
-            onPress={() => {
-              console.log('Title:', title, 'Start:', start, 'End:', end, 'Location:', location);
-              router.back()
-            }}
-            accessibilityLabel="Save"
-          >
-            <Text style={[styles.saveButtonText, { color: '#fff' }]}> Save </Text>
-          </Pressable>
-        </View>
-
-        {/* Date Pickers */}
-        <DateTimeModal initialDate={start} handleSetDate={handleSetStart} bottomSheetModalRef={startDatePickerModalRef} />
-        <DateTimeModal initialDate={end} handleSetDate={handleSetEnd} bottomSheetModalRef={endDatePickerModalRef} />
-
+        {/* <ButtonRow /> */}
       </View>
     </BottomSheetModalProvider>
   )
@@ -138,57 +39,5 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     gap: 24,
-  },
-  fieldContainer: {
-    flexDirection: 'row',
-    gap: 16
-  },
-  titleText: {
-    fontSize: 30,
-    fontWeight: '600',
-    paddingBottom: 8,
-  },
-  detailText: {
-    fontSize: 20,
-    fontWeight: '500',
-    paddingTop: 0,
-  },
-
-  // Button row
-  buttonRowContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginTop: 32,
-    paddingHorizontal: 20,
-    paddingBottom: 40
-  },
-  closeButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 16,
-    elevation: 2,
-  },
-  closeButtonText: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    lineHeight: 28,
-  },
-  saveButton: {
-    paddingHorizontal: 20,
-    height: 44,
-    borderRadius: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 16,
-    elevation: 2,
-  },
-  saveButtonText: {
-    fontSize: 18,
-    fontWeight: '600',
-    letterSpacing: 1,
   },
 })
