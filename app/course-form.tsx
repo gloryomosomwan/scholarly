@@ -106,7 +106,7 @@ export default function CourseForm() {
         <TextInputField icon='bubble.left.and.bubble.right' placeholder="Add seminar schedule" value={seminarSchedule} onChangeText={setSeminarSchedule} />
         <ColorPicker selectedColor={color} setSelectedColor={setColor} />
       </View>
-      <ButtonRow create={createCourse} update={updateCourse} confirmDelete={confirmDelete} disabled={!(name !== null && code !== null && color !== null)} isCreateForm={id === undefined} />
+      <ButtonRow create={createCourse} update={updateCourse} confirmDelete={confirmDelete} disabled={name === null || code === null || color === null} isCreateForm={id === undefined} />
     </View>
   )
 }
