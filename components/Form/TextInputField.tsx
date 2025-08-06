@@ -1,18 +1,19 @@
 import { useTheme } from "@/hooks";
-import { SymbolView } from "expo-symbols";
+import { SFSymbol, SymbolView } from "expo-symbols";
 import { StyleSheet, TextInput, View } from "react-native";
 
 type TextInputFieldProps = {
+  icon?: SFSymbol
   placeholder: string;
   value: string;
   onChangeText: ((text: string) => void)
 }
 
-export default function TextInputField({ placeholder, value, onChangeText }: TextInputFieldProps) {
+export default function TextInputField({ icon, placeholder, value, onChangeText }: TextInputFieldProps) {
   const theme = useTheme()
   return (
     <View style={styles.row}>
-      <SymbolView name={'note.text'} tintColor={theme.grey500} size={24} />
+      <SymbolView name={icon ? icon : 'note.text'} tintColor={theme.grey500} size={24} />
       <TextInput
         placeholder={placeholder}
         style={[styles.text, { color: theme.text, flex: 1 }]}
