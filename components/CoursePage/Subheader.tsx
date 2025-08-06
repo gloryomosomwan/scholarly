@@ -2,29 +2,22 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import { useTheme } from '@/hooks'
+import { useLiveQuery } from 'drizzle-orm/expo-sqlite'
+import { courses } from '@/db/schema'
+import { eq } from 'drizzle-orm'
+import { db } from '@/db/init'
 
 type SubheaderProps = {
-  courseName?: string
-  credits?: string
-  grade?: string
+  id: string
 }
 
-export default function Subheader({ courseName, grade, credits }: SubheaderProps) {
+export default function Subheader({ id }: SubheaderProps) {
   const theme = useTheme()
-
+  let converted = Number(id)
+  const { data } = useLiveQuery(db.select().from(courses).where(eq(courses.id, converted)))
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary }]}>
-      <Text style={[styles.courseNameText, { color: theme.grey600 }]}>{courseName}</Text>
-      {/* <View style={styles.statRowContainer}>
-        <View style={[styles.statContainer, { backgroundColor: theme.grey200 }]}>
-          <Text style={[styles.statLabelText, { color: theme.grey500 }]}>Grade: </Text>
-          <Text style={[styles.statValueText, { color: theme.text }]}>{grade}</Text>
-        </View>
-        <View style={[styles.statContainer, { backgroundColor: theme.grey200 }]}>
-          <Text style={[styles.statLabelText, { color: theme.grey500 }]}>Credits: </Text>
-          <Text style={[styles.statValueText, { color: theme.text }]}>{credits}</Text>
-        </View>
-      </View> */}
+      <Text style={[styles.courseNameText, { color: theme.grey600 }]}>{data[0]?.name}</Text>
     </View>
   )
 }

@@ -17,12 +17,11 @@ export const MaterialTopTabs = withLayoutContext<
 >(Navigator);
 
 export default function TabLayout() {
-  const { courseName, credits, grade, color } = useLocalSearchParams<{ courseName: string, credits: string, grade: string, color: string }>()
+  const { id, color } = useLocalSearchParams<{ id: string, color: string }>()
   const theme = useTheme()
-
   return (
     <SafeAreaView style={styles.container}>
-      <Subheader courseName={courseName} credits={credits} grade={grade} />
+      <Subheader id={id} />
       <MaterialTopTabs screenOptions={{
         tabBarStyle: { backgroundColor: theme.secondary },
         tabBarLabelStyle: { color: theme.text },

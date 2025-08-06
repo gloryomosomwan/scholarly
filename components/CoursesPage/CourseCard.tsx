@@ -15,7 +15,7 @@ export default function CourseCard({ id, code, name, instructor, color }: Course
   const borderColor = getColorWithOpacity(theme.text, 0.06);
 
   const onPress = () => {
-    router.navigate({ pathname: './[courseCode]', params: { id: id, courseCode: code, courseName: name, instructor: instructor, color: color } })
+    router.navigate({ pathname: './[courseCode]', params: { id: id, color: color } })
   }
 
   return (
