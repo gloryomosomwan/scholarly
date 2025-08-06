@@ -3,6 +3,8 @@ import { like } from 'drizzle-orm';
 import { courses, tasks } from '@/db/schema';
 import { db } from '@/db/init';
 import { convertRawActivity, convertRawCourse } from '@/utils/database';
+import { Course } from "@/types/types";
+import { useSQLiteContext } from "expo-sqlite";
 
 export function useTasks() {
   const todayPattern = new Date().toISOString().slice(0, 10) + '%'; // timezone bug
@@ -16,4 +18,20 @@ export function useCourses() {
   const { data } = useLiveQuery(db.select().from(courses))
   const courseData = data.map(convertRawCourse)
   return courseData
+}
+
+export function getCourseById(id: number) {
+  let data = useSQLiteContext().getFirstSync<Course>(`
+      SELECT 
+      code,
+      name,
+      color,
+      instructor,
+      lectureSchedule,
+      seminarSchedule,
+      labSchedule
+      FROM courses 
+      WHERE id = ${id}
+      `)
+  return data
 }

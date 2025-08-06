@@ -5,18 +5,19 @@ import { useTheme } from '@/hooks'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 type CourseItemProps = {
+  id: number
   code: string
   name: string
   color: string
-  onSelect?: (course: { code: string }) => void
+  onSelect?: (course: { id: number }) => void
 }
 
-export default function CourseItem({ name, code, color, onSelect }: CourseItemProps) {
+export default function CourseItem({ id, name, code, color, onSelect }: CourseItemProps) {
   const theme = useTheme()
   return (
     <PressableOpacity
       style={[styles.container, { backgroundColor: theme.secondary }]}
-      onPress={() => onSelect?.({ code })}
+      onPress={() => onSelect?.({ id })}
     >
       <View style={[styles.tag, { backgroundColor: color }]}>
         <Text style={[styles.codeText, { color: 'white' }]}>{code}</Text>

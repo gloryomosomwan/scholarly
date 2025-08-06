@@ -10,11 +10,11 @@ import { courses } from '@/data/data'
 import { useTheme } from '@/hooks'
 
 type CoursePickerProps = {
-  course: string | null
-  setCourse: React.Dispatch<React.SetStateAction<string | null>>
+  initialCourseID: number | null
+  setCourseID: React.Dispatch<React.SetStateAction<number | null>>
 }
 
-export default function CoursePicker({ course, setCourse }: CoursePickerProps) {
+export default function CoursePicker({ initialCourseID, setCourseID }: CoursePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
   const handlePresentModal = useCallback(() => {
@@ -26,13 +26,13 @@ export default function CoursePicker({ course, setCourse }: CoursePickerProps) {
       <PressableOpacity onPress={handlePresentModal}>
         <View style={styles.row}>
           <SymbolView name={'graduationcap.fill'} tintColor={theme.grey500} size={24} />
-          {course ?
+          {initialCourseID ?
             (() => {
-              const selected = courses.find(c => c.code === course)
+              const selected = courses.find(c => c.id === initialCourseID)
               return (
                 <View style={[styles.tag, { backgroundColor: theme.grey100 }]}>
                   <View style={[styles.dot, { backgroundColor: selected?.color ?? 'grey' }]} />
-                  <Text style={[styles.courseText, { color: theme.text }]}>{course}</Text>
+                  <Text style={[styles.courseText, { color: theme.text }]}>{initialCourseID}</Text>
                 </View>
               )
             })()
@@ -41,7 +41,7 @@ export default function CoursePicker({ course, setCourse }: CoursePickerProps) {
           }
         </View>
       </PressableOpacity>
-      <CourseModal setCourse={setCourse} courseSelectorModalRef={modalRef} />
+      <CourseModal setCourseID={setCourseID} courseSelectorModalRef={modalRef} />
     </View>
   )
 }

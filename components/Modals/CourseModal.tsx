@@ -9,20 +9,21 @@ import { courses } from '@/data/data'
 
 type CourseModalProps = {
   courseSelectorModalRef: React.RefObject<BottomSheetModal>
-  setCourse: React.Dispatch<React.SetStateAction<string | null>>
+  setCourseID: React.Dispatch<React.SetStateAction<number | null>>
 }
 
-export default function CourseModal({ courseSelectorModalRef, setCourse }: CourseModalProps) {
+export default function CourseModal({ courseSelectorModalRef, setCourseID }: CourseModalProps) {
   return (
     <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable>
       {courses.map(course => (
         <CourseItem
           key={course.code}
+          id={course.id}
           code={course.code}
           name={course.name ?? ''}
           color={course.color}
-          onSelect={({ code }) => {
-            setCourse(code)
+          onSelect={({ id }) => {
+            setCourseID(id)
             courseSelectorModalRef.current?.dismiss()
           }}
         />

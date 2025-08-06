@@ -41,7 +41,7 @@ export default function ActivityForm() {
 
   const [date, setDate] = useState<Date | null>(data?.due ? new Date(data.due) : null);
   const [dueType, setDueType] = useState<DueType | null>(data?.dueType ? data.dueType : null);
-  const [course, setCourse] = useState<string | null>(data?.course ? data.course : null);
+  const [courseID, setCourseID] = useState<number | null>(data?.courseID ? data.courseID : null);
   const [priority, setPriority] = useState<PriorityOption | null>(data?.priority ? data.priority : null);
   const [title, setTitle] = useState(data?.title ? data.title : '')
   const [notes, setNotes] = useState(data?.description ? data.description : '')
@@ -50,7 +50,7 @@ export default function ActivityForm() {
     if (title !== '') {
       await db.insert(tasks).values({
         title: title,
-        course: course,
+        course_id: courseID,
         description: notes,
         due: date ? date.toISOString() : null,
         dueType: dueType,
@@ -65,7 +65,7 @@ export default function ActivityForm() {
     if (title !== '' && id !== null) {
       await db.update(tasks).set({
         title: title,
-        course: course,
+        course_id: courseID,
         description: notes,
         due: date ? date.toISOString() : null,
         dueType: dueType,
@@ -103,7 +103,7 @@ export default function ActivityForm() {
         <View style={styles.formContainer}>
           <PrimaryTextInputField placeholder='Enter title' value={title} onChangeText={setTitle} />
           <DateTimePicker date={date} setDate={setDate} dueType={dueType} setDueType={setDueType} />
-          <CoursePicker course={course} setCourse={setCourse} />
+          <CoursePicker initialCourseID={courseID} setCourseID={setCourseID} />
           <PriorityPicker priority={priority} setPriority={setPriority} />
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
         </View>

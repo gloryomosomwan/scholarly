@@ -8,9 +8,9 @@ import ActivityCard from '@/components/Activity/ActivityCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
-import { useTheme } from '@/hooks/useTheme';
-import { useTasks } from '@/hooks/useDatabase';
 
+import { useTheme } from '@/hooks/useTheme';
+import { getCourseById, useTasks } from '@/hooks/useDatabase';
 import { Activity, PriorityOption, TaskSortOption, TaskFilterOption } from '@/types/types';
 
 export default function Tab() {
@@ -143,14 +143,16 @@ const styles = StyleSheet.create({
 function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null) {
   if (!sortBy) return tasks
   // Filter out the tasks that don't have a course or priority
-  const sortableTasks = tasks.filter((task): task is Activity & { course: string, priority: PriorityOption } => {
-    return task.course !== undefined && task.priority !== undefined
+  const sortableTasks = tasks.filter((task): task is Activity & { courseID: number, priority: PriorityOption } => {
+    return task.courseID !== undefined && task.priority !== undefined
   })
 
   return [...sortableTasks].sort((a, b) => {
     switch (sortBy) {
       case 'Course':
-        return a.course.localeCompare(b.course)
+        const courseAName = getCourseById(a.courseID)?.name || ''
+        const courseBName = getCourseById(b.courseID)?.name || ''
+        return courseAName?.localeCompare(courseBName)
       case 'Priority':
         let priorityMap = { 'low': 0, 'medium': 1, 'high': 2 }
         if (priorityMap[a.priority] > priorityMap[b.priority]) return -1
@@ -162,12 +164,18 @@ function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null) {
 
 function filterTasks(tasks: Array<Activity>, filterBy: TaskFilterOption | null, filterValue: string | null) {
   if (!filterBy || !filterValue) return tasks
-  return [...tasks].filter((element) => {
+  return [...tasks].filter((task) => {
     switch (filterBy) {
       case 'Course':
-        return element.course === filterValue
+        if (task.courseID) {
+          const courseName = getCourseById(task.courseID)?.name
+          return courseName === filterValue
+        }
+        else {
+          return false
+        }
       case 'Priority':
-        return element.priority === filterValue
+        return task.priority === filterValue
     }
   })
 }

@@ -30,7 +30,7 @@ export interface Test {
 export interface Activity {
   id: number;
   title: string;
-  course?: string;
+  courseID?: number;
   description?: string;
   due?: Date;
   dueType?: DueType;

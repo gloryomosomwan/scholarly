@@ -4,12 +4,13 @@ import { SymbolView } from 'expo-symbols';
 import { isAfter, format } from 'date-fns';
 import { eq } from 'drizzle-orm';
 
-import { useTheme, usePriorityPalette } from '@/hooks';
-import { courses } from '@/data/data';
 import ActivityMenu from '@/components/Menus/ActivityMenu';
+
+import { Activity } from '@/types/types';
+import { useTheme, usePriorityPalette } from '@/hooks';
+import { getCourseById } from '@/hooks/useDatabase';
 import { db } from '@/db/init';
 import { tasks } from '@/db/schema';
-import { Activity } from '@/types/types';
 
 type ActivityCardProps = {
   activity: Activity;
@@ -18,8 +19,9 @@ type ActivityCardProps = {
 export default function ActivityCard({ activity }: ActivityCardProps) {
   const completed = activity.completedAt
   const overdue = activity.due && isAfter(new Date(), activity.due)
-  const courseColor = activity.course && courses.find(course => course.code === activity.course)?.color
-  const theme = useTheme()
+  const course = activity.courseID !== undefined ? getCourseById(activity.courseID) : null
+  const courseColor = course ? course.color : null;
+  const theme = useTheme();
   const priorityPalette = usePriorityPalette(activity.priority)
 
   const toggleCompleted = async () => {
@@ -70,10 +72,10 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
             {/* Tags */}
             <View style={styles.tagsContainer}>
               {/* Course tag */}
-              {activity.course && (
+              {course && (
                 <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
                   {courseColor && <View style={[styles.courseDot, { backgroundColor: courseColor }]} />}
-                  <Text style={[styles.courseText, { color: theme.text }]}>{activity.course}</Text>
+                  <Text style={[styles.courseText, { color: theme.text }]}>{course.code}</Text>
                 </View>
               )}
 
