@@ -5,7 +5,7 @@ import { StyleSheet, TextInput, View } from "react-native";
 type TextInputFieldProps = {
   icon?: SFSymbol
   placeholder: string;
-  value: string;
+  value: string | null;
   onChangeText: ((text: string) => void)
 }
 
@@ -21,7 +21,7 @@ export default function TextInputField({ icon, placeholder, value, onChangeText 
         multiline
         returnKeyType='done'
         blurOnSubmit
-        value={value}
+        value={value ? value : ''}
         onChangeText={onChangeText}
       />
     </View>
