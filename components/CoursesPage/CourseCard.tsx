@@ -7,7 +7,7 @@ import { useTheme } from '@/hooks';
 import { getColorWithOpacity, getCoursePalette } from '@/utils/utility';
 import { Course } from '@/types/types';
 
-export default function CourseCard({ code, name, instructor, credits, grade, color }: Course) {
+export default function CourseCard({ id, code, name, instructor, color }: Course) {
   const theme = useTheme();
   const scheme = useColorScheme()
   const { light, medium, dark, darker } = getCoursePalette(color)
@@ -15,7 +15,7 @@ export default function CourseCard({ code, name, instructor, credits, grade, col
   const borderColor = getColorWithOpacity(theme.text, 0.06);
 
   const onPress = () => {
-    router.navigate({ pathname: './[courseCode]', params: { courseCode: code, courseName: name, instructor: instructor, credits: credits, grade: grade, color: color } })
+    router.navigate({ pathname: './[courseCode]', params: { id: id, courseCode: code, courseName: name, instructor: instructor, color: color } })
   }
 
   return (
@@ -32,12 +32,12 @@ export default function CourseCard({ code, name, instructor, credits, grade, col
             </Text>
             <Text style={[styles.instructorText, { color: theme.grey600 }]}>{instructor}</Text>
           </View>
-          <View style={styles.gradeContainer}>
+          {/* <View style={styles.gradeContainer}>
             <View style={[styles.gradeCircleContainer, { backgroundColor: dark }]}>
               <Text style={[styles.gradeText, { color: theme.textOnDarkBackground }]}>{grade}</Text>
             </View>
             <Text style={[styles.creditsText, { color: scheme === 'light' ? darker : light }]}>{credits} credits</Text>
-          </View>
+          </View> */}
         </View>
       </View>
 
