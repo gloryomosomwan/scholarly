@@ -22,7 +22,7 @@ export default function ButtonRow({ create, confirmDelete, update, disabled, isC
         </PressableOpacity>
       }
       <PressableOpacity onPress={isCreateForm ? create : update} disabled={disabled}>
-        <Text style={[styles.buttonText, { color: disabled ? theme.accent : theme.accentInactive }]}>Save</Text>
+        <Text style={[styles.buttonText, { color: disabled ? theme.accentInactive : theme.accent }]}>Save</Text>
       </PressableOpacity>
     </View>
   )
