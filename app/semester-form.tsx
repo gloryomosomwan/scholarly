@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 
 import DateTimePicker from '@/components/Form/DateTimePicker'
-import TextInputField from '@/components/Form/TextInputField'
-import ButtonRow from '@/components/Form/ButtonRow'
+import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 
 import { useTheme } from '@/hooks'
 
@@ -17,9 +16,9 @@ export default function EventForm() {
     <BottomSheetModalProvider>
       <View style={[styles.container, {}]}>
         <View style={[styles.formContainer, {}]}>
-          <TextInputField placeholder='Add name' value={title} onChangeText={setTitle} />
-          <DateTimePicker placeholder='' date={start} setDate={setStart} dueType={'date'} />
-          <DateTimePicker placeholder='' date={end} setDate={setEnd} dueType={'date'} />
+          <PrimaryTextInputField placeholder='Add semester name' value={title} onChangeText={setTitle} />
+          <DateTimePicker placeholder='Add start date' date={start} setDate={setStart} dueType={'date'} />
+          <DateTimePicker placeholder='Add end date' date={end} setDate={setEnd} dueType={'date'} />
         </View>
         {/* <ButtonRow /> */}
       </View>
