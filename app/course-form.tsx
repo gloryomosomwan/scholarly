@@ -1,6 +1,5 @@
 import { StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
-import { useRouter } from 'expo-router'
 
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import TextInputField from '@/components/Form/TextInputField'
@@ -14,7 +13,6 @@ export default function CourseForm() {
   const [courseCode, setCourseCode] = useState('')
   const [courseName, setCourseName] = useState('')
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  const router = useRouter()
 
   return (
     <View style={[styles.container, {}]}>
