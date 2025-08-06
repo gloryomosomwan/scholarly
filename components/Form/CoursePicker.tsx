@@ -25,7 +25,7 @@ export default function CoursePicker({ course, setCourse }: CoursePickerProps) {
     <View>
       <PressableOpacity onPress={handlePresentModal}>
         <View style={styles.row}>
-          <SymbolView name={'bookmark'} tintColor={theme.grey500} size={24} />
+          <SymbolView name={'graduationcap.fill'} tintColor={theme.grey500} size={24} />
           {course ?
             (() => {
               const selected = courses.find(c => c.code === course)
