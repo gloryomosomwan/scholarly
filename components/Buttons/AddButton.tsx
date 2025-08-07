@@ -4,7 +4,7 @@ import { useRouter, Href } from 'expo-router'
 import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks'
-import { getColorWithOpacity } from '@/utils/utility'
+import { getColorWithOpacity } from '@/utils'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 type AddButtonProps = {

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/hooks';
-import { getColorWithOpacity } from '@/utils/utility';
+import { getColorWithOpacity } from '@/utils';
 
 export type AssignmentCardProps = {
   assignment: {

@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import { router, useLocalSearchParams } from 'expo-router';
 
 import { useTheme } from '@/hooks';
-import { getColorWithOpacity } from '@/utils/utility';
+import { getColorWithOpacity } from '@/utils';
 import { useCourses } from '@/hooks/useDatabase';
 
 import CourseCard from '@/components/CoursesPage/CourseCard';

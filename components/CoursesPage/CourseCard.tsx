@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import { router } from 'expo-router'
 
 import { useTheme } from '@/hooks';
-import { getColorWithOpacity, getCoursePalette } from '@/utils/utility';
+import { getColorWithOpacity, getCoursePalette } from '@/utils';
 import { Course } from '@/types';
 
 export default function CourseCard({ id, code, name, instructor, color }: Course) {
