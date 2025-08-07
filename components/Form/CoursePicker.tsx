@@ -6,8 +6,8 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import CourseModal from '@/components/Modals/CourseModal'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
-import { courses } from '@/data/data'
 import { useTheme } from '@/hooks'
+import { getCourseById } from '@/hooks/useDatabase'
 
 type CoursePickerProps = {
   initialCourseID: number | null
@@ -17,6 +17,7 @@ type CoursePickerProps = {
 export default function CoursePicker({ initialCourseID, setCourseID }: CoursePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
+  const course = getCourseById(initialCourseID)
   const handlePresentModal = useCallback(() => {
     Keyboard.dismiss()
     modalRef.current?.present();
@@ -26,13 +27,12 @@ export default function CoursePicker({ initialCourseID, setCourseID }: CoursePic
       <PressableOpacity onPress={handlePresentModal}>
         <View style={styles.row}>
           <SymbolView name={'graduationcap.fill'} tintColor={theme.grey500} size={24} />
-          {initialCourseID ?
+          {course ?
             (() => {
-              const selected = courses.find(c => c.id === initialCourseID)
               return (
                 <View style={[styles.tag, { backgroundColor: theme.grey100 }]}>
-                  <View style={[styles.dot, { backgroundColor: selected?.color ?? 'grey' }]} />
-                  <Text style={[styles.courseText, { color: theme.text }]}>{initialCourseID}</Text>
+                  <View style={[styles.dot, { backgroundColor: course.color ?? 'grey' }]} />
+                  <Text style={[styles.courseText, { color: theme.text }]}>{course.code}</Text>
                 </View>
               )
             })()

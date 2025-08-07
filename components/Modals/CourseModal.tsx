@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import CourseItem from '@/components/Modals/Items/CourseItem'
 
-import { courses } from '@/data/data'
+import { useCourses } from '@/hooks/useDatabase'
 
 type CourseModalProps = {
   courseSelectorModalRef: React.RefObject<BottomSheetModal>
@@ -13,6 +13,7 @@ type CourseModalProps = {
 }
 
 export default function CourseModal({ courseSelectorModalRef, setCourseID }: CourseModalProps) {
+  const courses = useCourses()
   return (
     <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable>
       {courses.map(course => (
@@ -22,7 +23,7 @@ export default function CourseModal({ courseSelectorModalRef, setCourseID }: Cou
           code={course.code}
           name={course.name ?? ''}
           color={course.color}
-          onSelect={({ id }) => {
+          onSelect={(id) => {
             setCourseID(id)
             courseSelectorModalRef.current?.dismiss()
           }}
