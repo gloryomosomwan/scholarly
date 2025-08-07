@@ -13,23 +13,25 @@ import TextInputField from '@/components/Form/TextInputField'
 import ButtonRow from '@/components/Form/ButtonRow'
 
 import { useTheme } from '@/hooks'
-import { Activity, DueType, PriorityOption } from '@/types/types'
+import { DueType, PriorityOption } from '@/types/types'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
+import { rawActivity } from '@/types/drizzle'
+import { convertRawActivity } from '@/utils/database'
 
 export default function ActivityForm() {
   const theme = useTheme();
 
-  let data = null;
+  let rawData = null;
   const { id } = useLocalSearchParams<{ id: string }>()
   let convertedID = Number(id)
   if (id) {
     const sqlite = useSQLiteContext()
-    data = sqlite.getFirstSync<Activity>(`
+    rawData = sqlite.getFirstSync<rawActivity>(`
       SELECT 
       id,
       title,
-      course,
+      course_id,
       due,
       due_type as dueType,
       description,
@@ -38,6 +40,7 @@ export default function ActivityForm() {
       FROM tasks
       WHERE id = ${convertedID}`)
   }
+  const data = rawData ? convertRawActivity(rawData) : null
 
   const [date, setDate] = useState<Date | null>(data?.due ? new Date(data.due) : null);
   const [dueType, setDueType] = useState<DueType | null>(data?.dueType ? data.dueType : null);
