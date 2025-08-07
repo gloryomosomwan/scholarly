@@ -47,7 +47,7 @@ export default function ActivityForm() {
   const [courseID, setCourseID] = useState<number | null>(data?.courseID ? data.courseID : null);
   const [priority, setPriority] = useState<PriorityOption | null>(data?.priority ? data.priority : null);
   const [title, setTitle] = useState(data?.title ? data.title : null)
-  const [notes, setNotes] = useState(data?.description ? data.description : '')
+  const [notes, setNotes] = useState(data?.description ? data.description : null)
 
   const createTask = async () => {
     try {
