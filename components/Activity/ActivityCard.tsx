@@ -19,8 +19,8 @@ type ActivityCardProps = {
 export default function ActivityCard({ activity }: ActivityCardProps) {
   const completed = activity.completedAt
   const overdue = activity.due && isAfter(new Date(), activity.due)
-  const course = activity.courseID !== undefined ? getCourseById(activity.courseID) : null
-  const courseColor = course ? course.color : null;
+  const course = activity.courseID !== undefined ? getCourseById(activity.courseID) : undefined
+  const courseColor = course ? course.color : undefined;
   const theme = useTheme();
   const priorityPalette = usePriorityPalette(activity.priority)
 
