@@ -20,8 +20,8 @@ export function useCourses() {
   return courseData
 }
 
-export function getCourseById(id: number) {
-  let data = useSQLiteContext().getFirstSync<Course>(`
+export function getCourseById(id: number | null) {
+  const data = useSQLiteContext().getFirstSync<Course>(`
       SELECT 
       code,
       name,
@@ -33,5 +33,5 @@ export function getCourseById(id: number) {
       FROM courses 
       WHERE id = ${id}
       `)
-  return data
+  return data // If id is null, data is null too
 }
