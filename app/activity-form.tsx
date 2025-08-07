@@ -111,7 +111,7 @@ export default function ActivityForm() {
         <View style={styles.formContainer}>
           <PrimaryTextInputField placeholder='Enter title' value={title} onChangeText={setTitle} />
           <DateTimePicker date={date} setDate={setDate} dueType={dueType} setDueType={setDueType} />
-          <CoursePicker initialCourseID={courseID} setCourseID={setCourseID} />
+          <CoursePicker courseID={courseID} setCourseID={setCourseID} />
           <PriorityPicker priority={priority} setPriority={setPriority} />
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
         </View>

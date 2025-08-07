@@ -10,14 +10,14 @@ import { useTheme } from '@/hooks'
 import { getCourseById } from '@/hooks/useDatabase'
 
 type CoursePickerProps = {
-  initialCourseID: number | null
+  courseID: number | null
   setCourseID: React.Dispatch<React.SetStateAction<number | null>>
 }
 
-export default function CoursePicker({ initialCourseID, setCourseID }: CoursePickerProps) {
+export default function CoursePicker({ courseID, setCourseID }: CoursePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
-  const course = getCourseById(initialCourseID)
+  const course = getCourseById(courseID)
   const handlePresentModal = useCallback(() => {
     Keyboard.dismiss()
     modalRef.current?.present();
