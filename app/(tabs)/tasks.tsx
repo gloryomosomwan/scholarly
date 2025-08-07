@@ -149,15 +149,17 @@ function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null) {
 
   return [...sortableTasks].sort((a, b) => {
     switch (sortBy) {
-      case 'Course':
+      case 'Course': {
         const courseAName = getCourseById(a.courseID)?.name || ''
         const courseBName = getCourseById(b.courseID)?.name || ''
         return courseAName?.localeCompare(courseBName)
-      case 'Priority':
-        let priorityMap = { 'low': 0, 'medium': 1, 'high': 2 }
+      }
+      case 'Priority': {
+        const priorityMap = { 'low': 0, 'medium': 1, 'high': 2 }
         if (priorityMap[a.priority] > priorityMap[b.priority]) return -1
         else if (priorityMap[b.priority] > priorityMap[a.priority]) return 1
         else return 0
+      }
     }
   })
 }
