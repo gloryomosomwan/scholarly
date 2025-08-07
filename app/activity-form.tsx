@@ -46,12 +46,12 @@ export default function ActivityForm() {
   const [dueType, setDueType] = useState<DueType | null>(data?.dueType ? data.dueType : null);
   const [courseID, setCourseID] = useState<number | null>(data?.courseID ? data.courseID : null);
   const [priority, setPriority] = useState<PriorityOption | null>(data?.priority ? data.priority : null);
-  const [title, setTitle] = useState(data?.title ? data.title : '')
+  const [title, setTitle] = useState(data?.title ? data.title : null)
   const [notes, setNotes] = useState(data?.description ? data.description : '')
 
   const createTask = async () => {
     try {
-      if (title !== '') {
+      if (title !== null) {
         await db.insert(tasks).values({
           title: title,
           course_id: courseID,
@@ -70,7 +70,7 @@ export default function ActivityForm() {
   }
 
   const updateTask = async () => {
-    if (title !== '' && id !== null) {
+    if (title !== null && id !== null) {
       await db.update(tasks).set({
         title: title,
         course_id: courseID,
@@ -115,7 +115,7 @@ export default function ActivityForm() {
           <PriorityPicker priority={priority} setPriority={setPriority} />
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
         </View>
-        <ButtonRow confirmDelete={confirmDelete} create={createTask} update={updateTask} isCreateForm={id === undefined} disabled={title.length === 0} />
+        <ButtonRow confirmDelete={confirmDelete} create={createTask} update={updateTask} isCreateForm={id === undefined} disabled={title?.length === 0} />
       </View >
     </BottomSheetModalProvider>
   )
