@@ -47,17 +47,22 @@ export default function ActivityForm() {
   const [notes, setNotes] = useState(data?.description ? data.description : '')
 
   const createTask = async () => {
-    if (title !== '') {
-      await db.insert(tasks).values({
-        title: title,
-        course_id: courseID,
-        description: notes,
-        due: date ? date.toISOString() : null,
-        dueType: dueType,
-        priority: priority,
-        completedAt: null
-      })
-      router.back()
+    try {
+      if (title !== '') {
+        await db.insert(tasks).values({
+          title: title,
+          course_id: courseID,
+          description: notes,
+          due: date ? date.toISOString() : null,
+          dueType: dueType,
+          priority: priority,
+          completedAt: null
+        })
+        router.back()
+      }
+    }
+    catch (error) {
+      console.log(error)
     }
   }
 
