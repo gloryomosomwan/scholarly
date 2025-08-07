@@ -1,0 +1,13 @@
+appId: com.gloryomos.scholarly
+---
+- launchApp
+- tapOn: "tasks.*"
+- tapOn:
+    id: "add task button"
+- tapOn: "Enter title"
+- inputText:
+    text: "Test task"
+- tapOn: "done"
+- tapOn: "Save"
+- scroll
+- assertVisible: "Test task"

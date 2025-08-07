@@ -42,7 +42,7 @@ export default function Tab() {
       <View style={styles.header}>
         <Text style={[styles.headerText, { color: theme.text }]}>Tasks</Text>
         <View style={styles.buttonsContainer}>
-          <PressableOpacity style={styles.buttonContainer} onPress={() => router.navigate('/activity-form')}>
+          <PressableOpacity style={styles.buttonContainer} onPress={() => router.navigate('/activity-form')} testID='add task button'>
             <SymbolView name='plus' />
           </PressableOpacity>
           <PressableOpacity style={styles.buttonContainer}>
