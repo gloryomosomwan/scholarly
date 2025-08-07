@@ -57,10 +57,6 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               <Text style={[styles.title, { color: theme.text }, completed && [styles.completedTitle, { color: theme.grey500 }]]}>
                 {activity.title}
               </Text>
-              {/* Edit Button */}
-              {/* <Pressable style={styles.editButton}>
-                <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
-              </Pressable> */}
               <ActivityMenu activityID={activity.id} />
             </View>
 
