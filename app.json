@@ -39,6 +39,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "8d7f38ac-05aa-4437-a9d8-4bb46a89802c"
+      }
+    },
+    "owner": "gloryomos-org"
   }
 }
