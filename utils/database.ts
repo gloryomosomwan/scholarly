@@ -7,7 +7,7 @@ export function convertRawActivity(rawActivity: rawActivity): Activity {
     description: rawActivity.description ?? undefined,
     due: rawActivity.due ? new Date(rawActivity.due) : undefined,
     dueType: rawActivity.dueType ? rawActivity.dueType as DueType : undefined,
-    course: rawActivity.course_id ?? undefined,
+    courseID: rawActivity.course_id ?? undefined,
     priority: rawActivity.priority ?? undefined,
     completedAt: rawActivity.completedAt ?? undefined
   }
