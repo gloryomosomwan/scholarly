@@ -3,7 +3,7 @@ import React from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
-import CourseItem from '@/components/Modals/Items/CourseItem'
+import CourseModalItem from '@/components/Modals/Items/CourseModalItem'
 
 import { useCourses } from '@/hooks/useDatabase'
 
@@ -17,7 +17,7 @@ export default function CourseModal({ courseSelectorModalRef, setCourseID }: Cou
   return (
     <CustomBottomSheetModal bottomSheetModalRef={courseSelectorModalRef} scrollable>
       {courses.map(course => (
-        <CourseItem
+        <CourseModalItem
           key={course.code}
           id={course.id}
           code={course.code}

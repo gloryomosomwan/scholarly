@@ -4,7 +4,7 @@ import React from 'react'
 import { useTheme } from '@/hooks'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
-type CourseItemProps = {
+type CourseModalItemProps = {
   id: number
   code: string
   name: string
@@ -12,7 +12,7 @@ type CourseItemProps = {
   onSelect: (id: number) => void
 }
 
-export default function CourseItem({ id, name, code, color, onSelect }: CourseItemProps) {
+export default function CourseModalItem({ id, name, code, color, onSelect }: CourseModalItemProps) {
   const theme = useTheme()
   return (
     <PressableOpacity
