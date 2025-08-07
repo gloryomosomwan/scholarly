@@ -3,7 +3,7 @@ import React from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
-import PriorityItem from '@/components/Modals/Items/PriorityItem'
+import PriorityModalItem from '@/components/Modals/Items/PriorityModalItem'
 
 import { PriorityOption } from '@/types'
 
@@ -15,15 +15,15 @@ type PriorityModalProps = {
 export default function PriorityModal({ setPriority, prioritySelectorModalRef }: PriorityModalProps) {
   return (
     <CustomBottomSheetModal bottomSheetModalRef={prioritySelectorModalRef} showHandle={false}>
-      <PriorityItem level={'high'} onSelect={() => {
+      <PriorityModalItem level={'high'} onSelect={() => {
         setPriority('high')
         prioritySelectorModalRef.current?.dismiss()
       }} />
-      <PriorityItem level={'medium'} onSelect={() => {
+      <PriorityModalItem level={'medium'} onSelect={() => {
         setPriority('medium')
         prioritySelectorModalRef.current?.dismiss()
       }} />
-      <PriorityItem level={'low'} onSelect={() => {
+      <PriorityModalItem level={'low'} onSelect={() => {
         setPriority('low')
         prioritySelectorModalRef.current?.dismiss()
       }} />

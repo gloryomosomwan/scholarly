@@ -4,12 +4,12 @@ import React from 'react'
 import { usePriorityPalette } from '@/hooks'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
-type PriorityItemProps = {
+type PriorityModalItemProps = {
   level: string
   onSelect: () => void
 }
 
-export default function PriorityItem({ level, onSelect }: PriorityItemProps) {
+export default function PriorityModalItem({ level, onSelect }: PriorityModalItemProps) {
   const priorityPalette = usePriorityPalette(level)
   const levelText = level.toUpperCase()
 
