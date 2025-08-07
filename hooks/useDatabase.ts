@@ -3,7 +3,7 @@ import { like } from 'drizzle-orm';
 import { courses, tasks } from '@/db/schema';
 import { db } from '@/db/init';
 import { convertRawActivity, convertRawCourse } from '@/utils/database';
-import { Course } from "@/types/types";
+import { Course } from "@/types";
 import { useSQLiteContext } from "expo-sqlite";
 
 export function useTasks() {

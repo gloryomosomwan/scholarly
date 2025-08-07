@@ -13,7 +13,7 @@ import TextInputField from '@/components/Form/TextInputField'
 import ButtonRow from '@/components/Form/ButtonRow'
 
 import { useTheme } from '@/hooks'
-import { DueType, PriorityOption } from '@/types/types'
+import { DueType, PriorityOption } from '@/types'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
 import { rawActivity } from '@/types/drizzle'

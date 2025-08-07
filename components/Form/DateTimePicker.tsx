@@ -6,7 +6,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import DateTimeModal from '@/components/Modals/DateTimeModal'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
-import { DueType } from '@/types/types'
+import { DueType } from '@/types'
 import { useTheme } from '@/hooks'
 
 type DateTimePickerProps = {

@@ -5,7 +5,7 @@ import { router } from 'expo-router'
 
 import { useTheme } from '@/hooks';
 import { getColorWithOpacity, getCoursePalette } from '@/utils/utility';
-import { Course } from '@/types/types';
+import { Course } from '@/types';
 
 export default function CourseCard({ id, code, name, instructor, color }: Course) {
   const theme = useTheme();

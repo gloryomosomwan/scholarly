@@ -8,7 +8,7 @@ import TextInputField from '@/components/Form/TextInputField'
 import ButtonRow from '@/components/Form/ButtonRow'
 
 import { useTheme } from '@/hooks'
-import { DueType } from '@/types/types'
+import { DueType } from '@/types'
 
 export default function EventForm() {
   const theme = useTheme()

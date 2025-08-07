@@ -6,7 +6,7 @@ import { eq } from 'drizzle-orm';
 
 import ActivityMenu from '@/components/Menus/ActivityMenu';
 
-import { Activity } from '@/types/types';
+import { Activity } from '@/types';
 import { useTheme, usePriorityPalette } from '@/hooks';
 import { getCourseById } from '@/hooks/useDatabase';
 import { db } from '@/db/init';

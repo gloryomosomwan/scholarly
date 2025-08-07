@@ -12,7 +12,7 @@ import ButtonRow from '@/components/Form/ButtonRow'
 import { useTheme } from '@/hooks'
 import { db } from '@/db/init'
 import { courses } from '@/db/schema'
-import { Course } from '@/types/types'
+import { Course } from '@/types'
 
 export default function CourseForm() {
   const theme = useTheme()

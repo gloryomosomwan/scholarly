@@ -3,7 +3,7 @@ import { SymbolView } from 'expo-symbols'
 import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem } from '@/components/Menus/Zeego'
 
 import { useTheme } from '@/hooks/useTheme'
-import { TaskSortOption } from '@/types/types'
+import { TaskSortOption } from '@/types'
 
 type TaskSortMenuProps = {
   handleSelection: (sortBy: TaskSortOption) => void

@@ -11,7 +11,7 @@ import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 
 import { useTheme } from '@/hooks/useTheme';
 import { getCourseById, useTasks } from '@/hooks/useDatabase';
-import { Activity, PriorityOption, TaskSortOption, TaskFilterOption } from '@/types/types';
+import { Activity, PriorityOption, TaskSortOption, TaskFilterOption } from '@/types';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()

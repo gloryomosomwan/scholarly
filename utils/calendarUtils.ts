@@ -1,5 +1,5 @@
 import { compareAsc } from "date-fns"
-import { Event, Activity } from "@/types/types"
+import { Event, Activity } from "@/types"
 
 export const compareEventTimes = (eventA: Event, eventB: Event): number => {
   return compareAsc(eventA.start, eventB.start)

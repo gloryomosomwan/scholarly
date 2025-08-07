@@ -1,5 +1,5 @@
 import { CourseColorMap } from "@/constants/coursePalettes";
-import { CourseColor } from "@/types/types";
+import { CourseColor } from "@/types";
 
 export function formatTime(date: Date) {
   return date.toLocaleTimeString('en-US', {

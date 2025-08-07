@@ -3,7 +3,7 @@ import { SymbolView } from 'expo-symbols'
 import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem, DropdownMenuGroup, DropdownMenuLabel } from '@/components/Menus/Zeego'
 import { useTheme } from '@/hooks/useTheme'
 import { courses } from '@/data/data'
-import { TaskFilterOption } from '@/types/types'
+import { TaskFilterOption } from '@/types'
 
 type TaskFilterMenuProps = {
   filterBy: TaskFilterOption | null

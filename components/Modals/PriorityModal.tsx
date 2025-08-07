@@ -5,7 +5,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import PriorityItem from '@/components/Modals/Items/PriorityItem'
 
-import { PriorityOption } from '@/types/types'
+import { PriorityOption } from '@/types'
 
 type PriorityModalProps = {
   setPriority: (value: React.SetStateAction<PriorityOption | null>) => void

@@ -5,7 +5,7 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 
 import { useTheme } from '@/hooks'
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
-import { DueType } from '@/types/types';
+import { DueType } from '@/types';
 
 type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>

@@ -7,7 +7,7 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import PriorityModal from '@/components/Modals/PriorityModal'
 
 import { usePriorityPalette, useTheme } from '@/hooks'
-import { PriorityOption } from '@/types/types'
+import { PriorityOption } from '@/types'
 
 type PriorityPickerProps = {
   priority: PriorityOption | null

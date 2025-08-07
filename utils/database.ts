@@ -1,4 +1,4 @@
-import { Activity, Course, DueType, PriorityOption } from "@/types/types";
+import { Activity, Course, DueType, PriorityOption } from "@/types";
 import { rawActivity, rawCourse } from "@/types/drizzle";
 
 export function convertRawActivity(rawActivity: rawActivity): Activity {
