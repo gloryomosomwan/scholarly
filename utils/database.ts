@@ -1,4 +1,4 @@
-import { Activity, Course, DueType } from "@/types/types";
+import { Activity, Course, DueType, PriorityOption } from "@/types/types";
 import { rawActivity, rawCourse } from "@/types/drizzle";
 
 export function convertRawActivity(rawActivity: rawActivity): Activity {
@@ -8,7 +8,7 @@ export function convertRawActivity(rawActivity: rawActivity): Activity {
     due: rawActivity.due ? new Date(rawActivity.due) : undefined,
     dueType: rawActivity.dueType ? rawActivity.dueType as DueType : undefined,
     courseID: rawActivity.course_id ?? undefined,
-    priority: rawActivity.priority ?? undefined,
+    priority: rawActivity.priority ? rawActivity.priority as PriorityOption : undefined,
     completedAt: rawActivity.completedAt ?? undefined
   }
 }
