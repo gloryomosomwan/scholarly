@@ -24,7 +24,7 @@ export default function ActivityForm() {
 
   let rawData = null;
   const { id } = useLocalSearchParams<{ id: string }>()
-  let convertedID = Number(id)
+  const convertedID = Number(id)
   if (id) {
     const sqlite = useSQLiteContext()
     rawData = sqlite.getFirstSync<rawActivity>(`
