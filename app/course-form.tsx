@@ -17,7 +17,6 @@ import { Course } from '@/types'
 export default function CourseForm() {
   const theme = useTheme()
 
-  let data = null;
   const { id } = useLocalSearchParams<{ id: string }>()
   let data = null;
   let convertedID = Number(id)
