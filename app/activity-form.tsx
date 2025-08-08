@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { StyleSheet, View, ActionSheetIOS } from 'react-native'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
-import { useSQLiteContext } from 'expo-sqlite'
 import { eq } from 'drizzle-orm'
 
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
@@ -16,38 +15,21 @@ import { useTheme } from '@/hooks'
 import { DueType, PriorityOption } from '@/types'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
-import { rawActivity } from '@/types/drizzle'
-import { convertRawActivity } from '@/utils/database'
+import { getActivityById } from '@/hooks/database'
 
 export default function ActivityForm() {
   const theme = useTheme();
 
-  let rawData = null;
   const { id } = useLocalSearchParams<{ id: string }>()
   const convertedID = Number(id)
-  if (id) {
-    const sqlite = useSQLiteContext()
-    rawData = sqlite.getFirstSync<rawActivity>(`
-      SELECT 
-      id,
-      title,
-      course_id,
-      due,
-      due_type as dueType,
-      description,
-      priority,
-      completed_at as completedAt
-      FROM tasks
-      WHERE id = ${convertedID}`)
-  }
-  const data = rawData ? convertRawActivity(rawData) : null
+  const activity = id ? getActivityById(convertedID) : null
 
-  const [date, setDate] = useState<Date | null>(data?.due ? new Date(data.due) : null);
-  const [dueType, setDueType] = useState<DueType | null>(data?.dueType ? data.dueType : null);
-  const [courseID, setCourseID] = useState<number | null>(data?.courseID ? data.courseID : null);
-  const [priority, setPriority] = useState<PriorityOption | null>(data?.priority ? data.priority : null);
-  const [title, setTitle] = useState(data?.title ? data.title : null)
-  const [notes, setNotes] = useState(data?.description ? data.description : null)
+  const [date, setDate] = useState<Date | null>(activity?.due ? new Date(activity.due) : null);
+  const [dueType, setDueType] = useState<DueType | null>(activity?.dueType ? activity.dueType : null);
+  const [courseID, setCourseID] = useState<number | null>(activity?.courseID ? activity.courseID : null);
+  const [priority, setPriority] = useState<PriorityOption | null>(activity?.priority ? activity.priority : null);
+  const [title, setTitle] = useState(activity?.title ? activity.title : null)
+  const [notes, setNotes] = useState(activity?.description ? activity.description : null)
 
   const createTask = async () => {
     try {

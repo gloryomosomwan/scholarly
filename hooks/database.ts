@@ -3,7 +3,7 @@ import { eq, like } from 'drizzle-orm';
 import { courses, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
 import { convertRawActivity, convertRawCourse, convertRawSemester } from '@/utils/database';
-import { Course } from "@/types";
+import { Activity, Course } from "@/types";
 import { useSQLiteContext } from "expo-sqlite";
 
 export function useTasks() {
@@ -12,6 +12,22 @@ export function useTasks() {
   const { data } = useLiveQuery(db.select().from(tasks))
   const activityData = data.map(convertRawActivity)
   return activityData
+}
+
+export function getActivityById(id: number | null) {
+  const data = useSQLiteContext().getFirstSync<Activity>(`
+      SELECT 
+      id,
+      title,
+      course_id,
+      due,
+      due_type as dueType,
+      description,
+      priority,
+      completed_at as completedAt
+      FROM tasks
+      WHERE id = ${id}`)
+  return data // If id is null, data is null too
 }
 
 export function useCourses() {
