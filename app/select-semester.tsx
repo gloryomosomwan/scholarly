@@ -6,10 +6,11 @@ import SemesterItem from '@/components/SemesterSelector/SemesterItem'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks'
-import { semesters } from '@/data/data'
+import { useSemesters } from '@/hooks/useDatabase'
 
 export default function SelectSemester() {
   const theme = useTheme()
+  const semesters = useSemesters()
 
   function handleSetSemester(name: string) {
     router.replace({ pathname: './(tabs)/(courses)', params: { semesterName: name } })
