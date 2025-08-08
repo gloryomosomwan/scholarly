@@ -19,6 +19,7 @@ export default function CourseForm() {
 
   let data = null;
   const { id } = useLocalSearchParams<{ id: string }>()
+  let data = null;
   let convertedID = Number(id)
   if (id) {
     const sqlite = useSQLiteContext()
