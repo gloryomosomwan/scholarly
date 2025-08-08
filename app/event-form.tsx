@@ -20,7 +20,7 @@ export default function EventForm() {
   const [end, setEnd] = useState<Date | null>(null)
   const [dueType, setDueType] = useState<DueType | null>(null)
   const [location, setLocation] = useState('')
-  const [course, setCourse] = useState<string | null>(null)
+  const [courseID, setCourseID] = useState<number | null>(null)
   const [recurring, setRecurring] = useState(false)
 
   return (
@@ -31,7 +31,7 @@ export default function EventForm() {
           <DateTimePicker placeholder='Add start date' date={start} setDate={setStart} dueType={dueType} setDueType={setDueType} />
           <DateTimePicker placeholder='Add end date' date={end} setDate={setEnd} dueType={dueType} setDueType={setDueType} />
           <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />
-          <CoursePicker course={course} setCourse={setCourse} />
+          <CoursePicker courseID={courseID} setCourseID={setCourseID} />
           <RecurringPicker />
         </View>
         {/* <ButtonRow /> */}
