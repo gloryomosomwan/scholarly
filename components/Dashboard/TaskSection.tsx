@@ -4,7 +4,7 @@ import { isBefore } from 'date-fns'
 
 import ActivityCard from '@/components/Activity/ActivityCard'
 
-import { useTasks } from '@/hooks/useDatabase'
+import { useTasks } from '@/hooks/database'
 import { useTheme } from '@/hooks/useTheme'
 
 export default function TaskSection() {

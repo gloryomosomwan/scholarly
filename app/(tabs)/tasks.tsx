@@ -10,7 +10,7 @@ import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 
 import { useTheme } from '@/hooks/useTheme';
-import { getCourseById, useTasks } from '@/hooks/useDatabase';
+import { getCourseById, useTasks } from '@/hooks/database';
 import { Activity, PriorityOption, TaskSortOption, TaskFilterOption } from '@/types';
 
 export default function Tab() {

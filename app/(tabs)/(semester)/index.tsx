@@ -5,7 +5,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 
 import { useTheme } from '@/hooks';
 import { getColorWithOpacity } from '@/utils';
-import { useCourses } from '@/hooks/useDatabase';
+import { useCourses } from '@/hooks/database';
 
 import CourseCard from '@/components/SemesterPage/CourseCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';

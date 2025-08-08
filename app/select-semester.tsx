@@ -6,7 +6,7 @@ import SemesterItem from '@/components/SemesterSelector/SemesterItem'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks'
-import { useSemesters } from '@/hooks/useDatabase'
+import { useSemesters } from '@/hooks/database'
 
 export default function SelectSemester() {
   const theme = useTheme()
