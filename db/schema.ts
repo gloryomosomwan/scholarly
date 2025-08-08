@@ -21,3 +21,10 @@ export const courses = sqliteTable('courses', {
   labSchedule: text('labSchedule'),
   seminarSchedule: text('seminarSchedule')
 })
+
+export const semesters = sqliteTable('semesters', {
+  id: integer('id').primaryKey(),
+  name: text('name').notNull(),
+  start: text('start').notNull(), // ISO 8601 
+  end: text('end').notNull() // ISO 8601 
+})

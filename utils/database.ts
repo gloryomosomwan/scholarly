@@ -1,5 +1,5 @@
-import { Activity, Course, DueType, PriorityOption } from "@/types";
-import { rawActivity, rawCourse } from "@/types/drizzle";
+import { Activity, Course, DueType, PriorityOption, Semester } from "@/types";
+import { rawActivity, rawCourse, rawSemester } from "@/types/drizzle";
 
 export function convertRawActivity(rawActivity: rawActivity): Activity {
   return {
@@ -20,5 +20,13 @@ export function convertRawCourse(rawCourse: rawCourse): Course {
     lectureSchedule: rawCourse.lectureSchedule ?? undefined,
     labSchedule: rawCourse.labSchedule ?? undefined,
     seminarSchedule: rawCourse.seminarSchedule ?? undefined
+  }
+}
+
+export function convertRawSemester(rawSemester: rawSemester): Semester {
+  return {
+    ...rawSemester,
+    start: new Date(rawSemester.start),
+    end: new Date(rawSemester.end)
   }
 }
