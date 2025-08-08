@@ -18,8 +18,8 @@ export default function CourseForm() {
   const theme = useTheme()
 
   const { id } = useLocalSearchParams<{ id: string }>()
-  let data = null;
   let convertedID = Number(id)
+  let data = null;
   if (id) {
     const sqlite = useSQLiteContext()
     data = sqlite.getFirstSync<Course>(`
