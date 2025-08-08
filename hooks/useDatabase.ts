@@ -1,5 +1,5 @@
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
-import { like } from 'drizzle-orm';
+import { eq, like } from 'drizzle-orm';
 import { courses, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
 import { convertRawActivity, convertRawCourse, convertRawSemester } from '@/utils/database';
@@ -15,7 +15,7 @@ export function useTasks() {
 }
 
 export function useCourses() {
-  const { data } = useLiveQuery(db.select().from(courses))
+  const { data } = useLiveQuery(db.select().from(courses).where(eq(courses.semester_id, 1)))
   const courseData = data.map(convertRawCourse)
   return courseData
 }
