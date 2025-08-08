@@ -13,7 +13,7 @@ export default function SelectSemester() {
   const semesters = useSemesters()
 
   function handleSetSemester(name: string) {
-    router.replace({ pathname: './(tabs)/(courses)', params: { semesterName: name } })
+    router.replace({ pathname: '/(tabs)/(semester)', params: { semesterName: name } })
   }
 
   return (

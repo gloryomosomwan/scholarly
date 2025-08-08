@@ -89,7 +89,7 @@ export default function CourseForm() {
           // Cancel action
         } else if (buttonIndex === 1) {
           await db.delete(courses).where(eq(courses.id, convertedID))
-          router.replace('/(tabs)/(courses)')
+          router.replace('/(tabs)/(semester)')
         }
       }
     )

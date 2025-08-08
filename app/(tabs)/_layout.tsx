@@ -37,7 +37,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="(courses)"
+        name="(semester)"
         options={{
           tabBarIcon: ({ color }) => <SymbolView size={35} name="graduationcap.fill" tintColor={color} />,
         }}
