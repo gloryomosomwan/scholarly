@@ -3,7 +3,7 @@ import { eq, like } from 'drizzle-orm';
 import { courses, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
 import { convertRawActivity, convertRawCourse, convertRawSemester } from '@/utils/database';
-import { Activity, Course } from "@/types";
+import { Activity, Course, Semester } from "@/types";
 import { useSQLiteContext } from "expo-sqlite";
 
 export function useTasks() {
@@ -57,4 +57,16 @@ export function useSemesters() {
   const { data } = useLiveQuery(db.select().from(semesters))
   const semesterData = data.map(convertRawSemester)
   return semesterData
+}
+
+export function getSemesterById(id: number | null) {
+  const data = useSQLiteContext().getFirstSync<Semester>(`
+   SELECT
+   name,
+   start,
+   end
+   FROM semesters
+   WHERE id = ${id} 
+    `)
+  return data
 }

@@ -2,7 +2,6 @@ import { ActionSheetIOS, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
-import { useSQLiteContext } from 'expo-sqlite'
 import { eq } from 'drizzle-orm'
 
 import DateTimePicker from '@/components/Form/DateTimePicker'
@@ -12,30 +11,19 @@ import ButtonRow from '@/components/Form/ButtonRow'
 import { useTheme } from '@/hooks'
 import { semesters } from '@/db/schema'
 import { db } from '@/db/init'
-import { Semester } from '@/types'
 import { semesterInsertSchema } from '@/db/drizzle-zod'
+import { getSemesterById } from '@/hooks/database'
 
 export default function SemesterForm() {
   const theme = useTheme()
 
-  let data = null;
   const { id } = useLocalSearchParams<{ id: string }>()
   const convertedID = Number(id)
-  if (id) {
-    const sqlite = useSQLiteContext()
-    data = sqlite.getFirstSync<Semester>(`
-      SELECT 
-      id,
-      name,
-      start,
-      end
-      FROM semesters 
-      WHERE id = ${convertedID}`)
-  }
+  const semesterData = id ? getSemesterById(convertedID) : null
 
-  const [name, setName] = useState<string | null>(data?.name ?? null)
-  const [start, setStart] = useState<Date | null>(data?.start ?? null)
-  const [end, setEnd] = useState<Date | null>(data?.end ?? null)
+  const [name, setName] = useState<string | null>(semesterData?.name ?? null)
+  const [start, setStart] = useState<Date | null>(semesterData?.start ?? null)
+  const [end, setEnd] = useState<Date | null>(semesterData?.end ?? null)
 
   const semester = {
     name: name,
