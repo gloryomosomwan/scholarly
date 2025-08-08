@@ -1,7 +1,6 @@
 import { ActionSheetIOS, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import { eq } from 'drizzle-orm'
-import { useSQLiteContext } from 'expo-sqlite'
 import { router, useLocalSearchParams } from 'expo-router'
 
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
@@ -12,37 +11,22 @@ import ButtonRow from '@/components/Form/ButtonRow'
 import { useTheme } from '@/hooks'
 import { db } from '@/db/init'
 import { courses } from '@/db/schema'
-import { Course } from '@/types'
+import { getCourseById } from '@/hooks/database'
 
 export default function CourseForm() {
   const theme = useTheme()
 
   const { id } = useLocalSearchParams<{ id: string }>()
   let convertedID = Number(id)
-  let data = null;
-  if (id) {
-    const sqlite = useSQLiteContext()
-    data = sqlite.getFirstSync<Course>(`
-      SELECT 
-      id,
-      code,
-      name,
-      color,
-      instructor,
-      lectureSchedule,
-      seminarSchedule,
-      labSchedule
-      FROM courses 
-      WHERE id = ${convertedID}`)
-  }
+  const course = id ? getCourseById(convertedID) : null
 
-  const [code, setCode] = useState<string | null>(data?.code ?? null)
-  const [name, setName] = useState<string | null>(data?.name ?? null)
-  const [color, setColor] = useState<string | null>(data?.color ?? null);
-  const [instructor, setInstructor] = useState<string | null>(data?.instructor ?? null)
-  const [lectureSchedule, setLectureSchedule] = useState<string | null>(data?.lectureSchedule ?? null)
-  const [seminarSchedule, setSeminarSchedule] = useState<string | null>(data?.seminarSchedule ?? null)
-  const [labSchedule, setLabSchedule] = useState<string | null>(data?.labSchedule ?? null)
+  const [code, setCode] = useState<string | null>(course?.code ?? null)
+  const [name, setName] = useState<string | null>(course?.name ?? null)
+  const [color, setColor] = useState<string | null>(course?.color ?? null);
+  const [instructor, setInstructor] = useState<string | null>(course?.instructor ?? null)
+  const [lectureSchedule, setLectureSchedule] = useState<string | null>(course?.lectureSchedule ?? null)
+  const [seminarSchedule, setSeminarSchedule] = useState<string | null>(course?.seminarSchedule ?? null)
+  const [labSchedule, setLabSchedule] = useState<string | null>(course?.labSchedule ?? null)
 
   const createCourse = async () => {
     if (code !== null && name !== null && color !== null) {
