@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { useSQLiteContext } from 'expo-sqlite'
+import { eq } from 'drizzle-orm'
 
 import DateTimePicker from '@/components/Form/DateTimePicker'
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
@@ -12,7 +13,7 @@ import { useTheme } from '@/hooks'
 import { semesters } from '@/db/schema'
 import { db } from '@/db/init'
 import { Semester } from '@/types'
-import { eq } from 'drizzle-orm'
+import { semesterInsertSchema } from '@/db/drizzle-zod'
 
 export default function SemesterForm() {
   const theme = useTheme()
@@ -36,15 +37,16 @@ export default function SemesterForm() {
   const [start, setStart] = useState<Date | null>(data?.start ?? null)
   const [end, setEnd] = useState<Date | null>(data?.end ?? null)
 
+  const semester = {
+    name: name,
+    start: start?.toISOString(),
+    end: end?.toISOString()
+  }
+
   const createSemester = async () => {
     try {
-      if (name !== null && start !== null && end !== null) {
-        await db.insert(semesters).values({
-          name: name,
-          start: start.toISOString(),
-          end: end.toISOString()
-        })
-      }
+      const parsed = semesterInsertSchema.parse(semester)
+      await db.insert(semesters).values(parsed)
       router.back()
     } catch (error) {
       console.log(error)
