@@ -26,6 +26,7 @@ export function getCourseById(id: number | null) {
       code,
       name,
       color,
+      semester_id
       instructor,
       lectureSchedule,
       seminarSchedule,
