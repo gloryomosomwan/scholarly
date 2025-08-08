@@ -43,6 +43,7 @@ export interface Course {
   code: string;
   color: string;
   name: string;
+  semesterID: number
   instructor?: string;
   lectureSchedule?: string
   labSchedule?: string

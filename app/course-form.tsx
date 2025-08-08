@@ -50,6 +50,7 @@ export default function CourseForm() {
         name: name,
         code: code,
         color: color,
+        semester_id: 1,
         instructor: instructor,
         lectureSchedule: lectureSchedule,
         seminarSchedule: seminarSchedule,

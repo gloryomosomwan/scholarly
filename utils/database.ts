@@ -16,6 +16,7 @@ export function convertRawActivity(rawActivity: rawActivity): Activity {
 export function convertRawCourse(rawCourse: rawCourse): Course {
   return {
     ...rawCourse,
+    semesterID: rawCourse.semester_id,
     instructor: rawCourse.instructor ?? undefined,
     lectureSchedule: rawCourse.lectureSchedule ?? undefined,
     labSchedule: rawCourse.labSchedule ?? undefined,

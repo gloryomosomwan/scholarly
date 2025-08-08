@@ -16,6 +16,7 @@ export const courses = sqliteTable('courses', {
   name: text('name').notNull(),
   code: text('code').notNull(),
   color: text('color').notNull(),
+  semester_id: integer('semester_id').notNull().references(() => semesters.id),
   instructor: text('instructor'),
   lectureSchedule: text('lectureSchedule'),
   labSchedule: text('labSchedule'),
