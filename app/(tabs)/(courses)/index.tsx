@@ -7,7 +7,7 @@ import { useTheme } from '@/hooks';
 import { getColorWithOpacity } from '@/utils';
 import { useCourses } from '@/hooks/useDatabase';
 
-import CourseCard from '@/components/CoursesPage/CourseCard';
+import CourseCard from '@/components/SemesterPage/CourseCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 
 export default function CoursesPage() {
