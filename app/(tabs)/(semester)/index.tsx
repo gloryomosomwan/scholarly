@@ -65,61 +65,10 @@ const styles = StyleSheet.create({
   semesterInfoContainer: {
     flex: 1,
   },
-  semesterBadgeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 16,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    alignSelf: 'flex-start',
-    marginBottom: 12,
-  },
-  semesterBadgeText: {
-    fontSize: 12,
-    fontWeight: '600',
-    marginLeft: 6,
-  },
   semesterText: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 4,
-  },
-  headerSubtitleText: {
-    fontSize: 14,
-    fontWeight: '400',
-  },
-  statRowContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-  statIconContainer: {
-    paddingTop: 12,
-    paddingBottom: 12,
-    paddingLeft: 12,
-    paddingRight: 12,
-    borderRadius: 12,
-    marginRight: 12,
-  },
-  statContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 10,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 20,
-  },
-  statLabelText: {
-    fontSize: 11,
-    fontWeight: '400',
-  },
-  statValueText: {
-    fontSize: 11,
-    fontWeight: 'bold',
-  },
-  statDivider: {
-    width: 1,
-    height: 32,
-    marginHorizontal: 16,
   },
   coursesContainer: {
     paddingTop: 20,
