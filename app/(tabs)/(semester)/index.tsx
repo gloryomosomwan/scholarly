@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { router, useLocalSearchParams } from 'expo-router';
 
 import { useTheme } from '@/hooks';
-import { getColorWithOpacity } from '@/utils';
 import { useCourses } from '@/hooks/database';
 
 import CourseCard from '@/components/SemesterPage/CourseCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
+import AddCourseButton from '@/components/SemesterPage/AddCourseButton';
 
 export default function CoursesPage() {
   const theme = useTheme();
@@ -30,25 +30,12 @@ export default function CoursesPage() {
           </View>
         </View>
 
-        {/* Course */}
+        {/* Courses */}
         <View style={styles.coursesContainer}>
           {courses.map(course => <CourseCard key={course.code}{...course} />)}
         </View>
 
-        {/* Add Course Button */}
-        <View style={styles.addCourseContainer}>
-          <TouchableOpacity style={[styles.addCourseButtonContainer, { backgroundColor: theme.secondary, borderColor: theme.grey400 }]} onPress={() => { router.navigate('/course-form') }}>
-            <View style={styles.addCourseContentContainer}>
-              <View style={[styles.addCourseIconContainer, { backgroundColor: getColorWithOpacity(theme.accent, 0.05) }]}>
-                <SymbolView name="plus" size={20} tintColor={theme.accent} />
-              </View>
-              <View style={styles.addCourseTextContainer}>
-                <Text style={[styles.addCourseText, { color: theme.text }]}>Add Course</Text>
-                <Text style={[styles.addCourseSubtitleText, { color: theme.grey500 }]}>Enroll in a new course</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        </View>
+        <AddCourseButton />
 
         {/* Bottom spacing */}
         <View style={styles.bottomSpacingContainer} />
@@ -138,42 +125,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 16,
     paddingBottom: 4,
-  },
-  addCourseContainer: {
-    paddingTop: 12,
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-  },
-  addCourseButtonContainer: {
-    borderWidth: 2,
-    borderStyle: 'dashed',
-    borderRadius: 16,
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingHorizontal: 16,
-  },
-  addCourseContentContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  addCourseIconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 16,
-  },
-  addCourseTextContainer: {
-    flex: 1,
-  },
-  addCourseText: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 2,
-  },
-  addCourseSubtitleText: {
-    fontSize: 14,
   },
   bottomSpacingContainer: {
     height: 20,
