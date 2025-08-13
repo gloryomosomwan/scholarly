@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import DateTimePicker from '@/components/Form/DateTimePicker'
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
@@ -31,10 +32,31 @@ export default function SemesterForm() {
     end: end?.toISOString()
   }
 
+  const setSemester = async (id: number) => {
+    try {
+      await AsyncStorage.setItem('semester', id.toString());
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const getSemester = async () => {
+    try {
+      const value = await AsyncStorage.getItem('semester');
+      return value
+    } catch (e) {
+      console.log(e)
+    }
+  };
+
   const createSemester = async () => {
     try {
       const parsed = semesterInsertSchema.parse(semester)
-      await db.insert(semesters).values(parsed)
+      const semesterData = await db.insert(semesters).values(parsed)
+      const selectedSemester = await getSemester()
+      if (selectedSemester === null) {
+        setSemester(semesterData.lastInsertRowId)
+      }
       router.back()
     } catch (error) {
       console.log(error)

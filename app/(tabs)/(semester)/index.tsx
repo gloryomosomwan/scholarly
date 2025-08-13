@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { Button } from '@rneui/themed';
+import { router, useFocusEffect } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useTheme } from '@/hooks';
 import { useCourses } from '@/hooks/database';
@@ -10,15 +13,34 @@ import Header from '@/components/SemesterPage/Header';
 
 export default function CoursesPage() {
   const theme = useTheme();
-  const courses = useCourses()
+  const [semester, setSemester] = useState<string | null>(null)
+  const courses = useCourses(semester)
+
+  useFocusEffect(() => {
+    AsyncStorage.getItem('semester').then((sem) => { setSemester(sem) })
+  })
+
+  // function removeItem() {
+  //   AsyncStorage.removeItem('semester')
+  // }
+
   return (
     <SafeAreaView style={[styles.safeAreaContainer, { backgroundColor: theme.primary }]}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         <Header />
-        <View style={styles.coursesContainer}>
-          {courses.map(course => <CourseCard key={course.code}{...course} />)}
-        </View>
-        <AddCourseButton />
+        {semester ?
+          <View>
+            <View style={styles.coursesContainer}>
+              {courses.map(course => <CourseCard key={course.code}{...course} />)}
+            </View>
+            <AddCourseButton />
+          </View>
+          :
+          <View>
+            <Button title={'Add semester'} onPress={() => router.push('/semester-form')} />
+          </View>
+        }
+        {/* <Button title={'remove'} onPress={() => removeItem()} /> */}
         <View style={styles.bottomSpacingContainer} />
       </ScrollView>
     </SafeAreaView>

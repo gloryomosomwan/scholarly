@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { router } from 'expo-router'
 import { SymbolView } from 'expo-symbols'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import SemesterItem from '@/components/SemesterSelector/SemesterItem'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
@@ -12,9 +13,13 @@ export default function SelectSemester() {
   const theme = useTheme()
   const semesters = useSemesters()
 
-  function handleSetSemester(name: string) {
-    router.replace({ pathname: '/(tabs)/(semester)', params: { semesterName: name } })
-  }
+  const selectSemester = async (id: string) => {
+    try {
+      await AsyncStorage.setItem('semester', id);
+    } catch (e) {
+      // saving error
+    }
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary }]}>
@@ -30,7 +35,8 @@ export default function SelectSemester() {
             key={item.id}
             item={item}
             onSelect={({ name }) => {
-              handleSetSemester(name)
+              selectSemester(item.id.toString())
+              router.back()
             }}
           />
         ))}
