@@ -25,7 +25,7 @@ const zustandStorage: StateStorage = {
 export const useUserStore = create<UserStore>()(
   persist(
     (set, get) => ({
-      semesterID: 1,
+      semesterID: undefined,
       setSemesterID: (newSemesterID) => set({ semesterID: newSemesterID })
     }),
     {
