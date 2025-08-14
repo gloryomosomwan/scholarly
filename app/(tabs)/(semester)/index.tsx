@@ -11,7 +11,7 @@ import CourseCard from '@/components/SemesterPage/CourseCard';
 import AddCourseButton from '@/components/SemesterPage/AddCourseButton';
 import Header from '@/components/SemesterPage/Header';
 
-export default function CoursesPage() {
+export default function SemesterPage() {
   const theme = useTheme();
   const semesterID = useUserStore((state) => state.semesterID)
   const courses = useCourses(semesterID)
