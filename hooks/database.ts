@@ -31,7 +31,7 @@ export function getActivityById(id: number | null) {
   return data // If id is null, data is null too
 }
 
-export function useCourses(id: string | null) {
+export function useCourses(id: number | undefined) {
   const { data } = useLiveQuery(db.select().from(courses).where(eq(courses.semester_id, Number(id))), [id])
   const courseData = data.map(convertRawCourse)
   return courseData
