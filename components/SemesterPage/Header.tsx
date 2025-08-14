@@ -12,7 +12,7 @@ import { getSemesterById } from '@/hooks/database'
 export default function Header() {
   const theme = useTheme()
   const semesterID = useUserStore((state) => state.semesterID)
-  const semester = getSemesterById(Number(semesterID))
+  const semester = getSemesterById(semesterID ? semesterID : null)
   return (
     <View style={[styles.headerContainer, { backgroundColor: theme.primary }]}>
       <View style={styles.headerTopContainer}>
