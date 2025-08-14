@@ -3,18 +3,17 @@ import React, { useState } from 'react'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import DateTimePicker from '@/components/Form/DateTimePicker'
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import ButtonRow from '@/components/Form/ButtonRow'
 
-import { storage } from '@/stores'
+import { useUserStore } from '@/stores'
 import { useTheme } from '@/hooks'
+import { getSemesterById } from '@/hooks/database'
 import { semesters } from '@/db/schema'
 import { db } from '@/db/init'
 import { semesterInsertSchema } from '@/db/drizzle-zod'
-import { getSemesterById } from '@/hooks/database'
 
 export default function SemesterForm() {
   const theme = useTheme()
@@ -27,27 +26,21 @@ export default function SemesterForm() {
   const [start, setStart] = useState<Date | null>(semesterData?.start ?? null)
   const [end, setEnd] = useState<Date | null>(semesterData?.end ?? null)
 
+  const currentSemesterID = useUserStore((state) => state.semesterID)
+  const setSemesterID = useUserStore((state) => state.setSemesterID)
+
   const semester = {
     name: name,
     start: start?.toISOString(),
     end: end?.toISOString()
   }
 
-  const setSemester = (id: number) => {
-    storage.set('semester', id)
-  }
-
-  const getSemester = () => {
-    return storage.getNumber('semester')
-  };
-
   const createSemester = async () => {
     try {
       const parsed = semesterInsertSchema.parse(semester)
       const semesterData = await db.insert(semesters).values(parsed)
-      const selectedSemester = getSemester()
-      if (selectedSemester === null) {
-        setSemester(semesterData.lastInsertRowId)
+      if (currentSemesterID === undefined) {
+        setSemesterID(semesterData.lastInsertRowId)
       }
       router.back()
     } catch (error) {

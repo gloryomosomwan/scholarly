@@ -5,18 +5,17 @@ import { SymbolView } from 'expo-symbols'
 import SemesterItem from '@/components/SemesterSelector/SemesterItem'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
-import { storage } from '@/stores'
+import { useUserStore } from '@/stores'
 import { useTheme } from '@/hooks'
 import { useSemesters } from '@/hooks/database'
 
 export default function SelectSemester() {
   const theme = useTheme()
   const semesters = useSemesters()
-
+  const setSemester = useUserStore((state) => state.setSemesterID)
   const selectSemester = (id: number) => {
-    storage.set('semester', id)
+    setSemester(id)
   }
-
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary }]}>
       <View style={[styles.header]}>

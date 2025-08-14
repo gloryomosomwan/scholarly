@@ -1,29 +1,23 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
-import { router, useFocusEffect } from 'expo-router'
+import React from 'react'
+import { router } from 'expo-router'
 import { SymbolView } from 'expo-symbols'
-import { useTheme } from '@/hooks'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
+
+import { useUserStore } from '@/stores';
+import { useTheme } from '@/hooks'
 import { getSemesterById } from '@/hooks/database'
 
 export default function Header() {
   const theme = useTheme()
-
-  const [semester, setSemester] = useState<string | null>(null)
-  const sem = getSemesterById(Number(semester))
-
-  useFocusEffect(() => {
-    AsyncStorage.getItem('semester').then((sem) => { setSemester(sem) })
-  })
-
+  const semesterID = useUserStore((state) => state.semesterID)
+  const semester = getSemesterById(Number(semesterID))
   return (
     <View style={[styles.headerContainer, { backgroundColor: theme.primary }]}>
-      {/* Top Row */}
       <View style={styles.headerTopContainer}>
         <View style={styles.semesterInfoContainer}>
-          <Text style={[styles.semesterText, { color: theme.text }]}>{sem ? sem.name : ''}</Text>
+          <Text style={[styles.semesterText, { color: theme.text }]}>{semester ? semester.name : ''}</Text>
         </View>
         <PressableOpacity onPress={() => router.navigate('/select-semester')}>
           <SymbolView name="calendar" size={35} tintColor={theme.text} />
