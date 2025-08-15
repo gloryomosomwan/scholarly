@@ -1,5 +1,5 @@
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
-import { eq, like } from 'drizzle-orm';
+import { eq, getTableColumns, like } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 
 import { courses, semesters, tasks } from '@/db/schema';
@@ -11,7 +11,12 @@ import { useUserStore } from "@/stores";
 export function useTasks() {
   // const todayPattern = new Date().toISOString().slice(0, 10) + '%'; // timezone bug
   // const { data } = useLiveQuery(db.select().from(tasks).where(like(tasks.due, todayPattern)))
-  const { data } = useLiveQuery(db.select().from(tasks))
+  const semesterID = useUserStore((state) => state.semesterID)
+  const { data } = useLiveQuery(db.select({
+    ...getTableColumns(tasks)
+  }).from(tasks)
+    .innerJoin(courses, eq(tasks.course_id, courses.id))
+    .where(eq(courses.semester_id, Number(semesterID))));
   const activityData = data.map(convertRawActivity)
   return activityData
 }

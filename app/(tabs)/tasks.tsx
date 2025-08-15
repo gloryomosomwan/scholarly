@@ -10,7 +10,7 @@ import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 
 import { useTheme } from '@/hooks/useTheme';
-import { getCourseById, useCourses, useTasks } from '@/hooks/database';
+import { useCourses, useTasks } from '@/hooks/database';
 import { Activity, PriorityOption, TaskSortOption, TaskFilterOption, Course } from '@/types';
 
 export default function Tab() {
@@ -24,7 +24,7 @@ export default function Tab() {
   const courses = useCourses()
 
   if (filterValue && filterBy) taskData = filterTasks(taskData, filterBy, filterValue, courses)
-  // const sortedTaskData = sortTasks(filteredTaskData, sortBy)
+  if (sortBy) taskData = sortTasks(taskData, sortBy, courses)
 
   const handleSortBy = (sortBy: TaskSortOption) => {
     setSortBy(sortBy)
@@ -90,19 +90,23 @@ export default function Tab() {
   );
 }
 
-function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null) {
-  if (!sortBy) return tasks
+function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null, courses: Array<Course>) {
   // Filter out the tasks that don't have a course or priority
   const sortableTasks = tasks.filter((task): task is Activity & { courseID: number, priority: PriorityOption } => {
     return task.courseID !== undefined && task.priority !== undefined
   })
 
+  const courseMap = new Map()
+  for (let course of courses) {
+    courseMap.set(course.id, course.code)
+  }
+
   return [...sortableTasks].sort((a, b) => {
     switch (sortBy) {
       case 'Course': {
-        const courseAName = getCourseById(a.courseID)?.name || ''
-        const courseBName = getCourseById(b.courseID)?.name || ''
-        return courseAName?.localeCompare(courseBName)
+        const courseACode = courseMap.get(a.courseID) || ''
+        const courseBCode = courseMap.get(b.courseID) || ''
+        return courseACode?.localeCompare(courseBCode)
       }
       case 'Priority': {
         const priorityMap = { 'low': 0, 'medium': 1, 'high': 2 }
