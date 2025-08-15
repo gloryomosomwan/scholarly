@@ -46,9 +46,9 @@ export default function Tab() {
           <PressableOpacity style={styles.buttonContainer} onPress={() => router.navigate('/activity-form')} testID='add task button'>
             <SymbolView name='plus' />
           </PressableOpacity>
-          <PressableOpacity style={styles.buttonContainer}>
-            <TaskFilterMenu filterBy={filterBy} filterValue={filterValue} handleSetFilterBy={handleSetFilterBy} handleSetFilterValue={handleSetFilterValue} />
-          </PressableOpacity>
+
+          <TaskFilterMenu filterBy={filterBy} filterValue={filterValue} handleSetFilterBy={handleSetFilterBy} handleSetFilterValue={handleSetFilterValue} />
+
           <PressableOpacity style={styles.buttonContainer}>
             <TaskSortMenu sortBy={sortBy} handleSelection={handleSortBy} />
           </PressableOpacity>
