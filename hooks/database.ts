@@ -7,7 +7,7 @@ import { db } from '@/db/init';
 import { convertRawTask, convertRawCourse, convertRawSemester } from '@/utils/database';
 import { Course, Semester } from "@/types";
 import { useUserStore } from "@/stores";
-import { rawTask } from "@/types/drizzle";
+import { rawCourse, rawTask } from "@/types/drizzle";
 
 export function useTasks() {
   // const todayPattern = new Date().toISOString().slice(0, 10) + '%'; // timezone bug
@@ -54,7 +54,7 @@ export function getCourseById(id: number | null) {
       code,
       name,
       color,
-      semester_id
+      semester_id,
       instructor,
       lectureSchedule,
       seminarSchedule,
