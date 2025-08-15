@@ -22,7 +22,7 @@ export default function TaskForm() {
 
   const { id } = useLocalSearchParams<{ id: string }>()
   const convertedID = Number(id)
-  const task = id ? getTaskById(convertedID) : null
+  const task = id ? getTaskById(convertedID) : null // should this violate hook rules?
 
   const [date, setDate] = useState<Date | null>(task?.due ? new Date(task.due) : null);
   const [dueType, setDueType] = useState<DueType | null>(task?.dueType ? task.dueType : null);
