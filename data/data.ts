@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { Event, Activity, Test, Course, Semester } from '@/types'
+import { Event, Test, Course, Semester } from '@/types'
 
 export const semesters: Semester[] = [
   {

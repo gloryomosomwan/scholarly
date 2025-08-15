@@ -6,7 +6,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { getWeekOfMonth } from "date-fns";
 
 import { CalendarProvider } from "@/components/AgendaCalendar/CalendarContext";
-import { useTheme } from "@/hooks";
 import Header from "@/components/AgendaCalendar/Header";
 import WeekPager from "@/components/AgendaCalendar/WeekPager";
 import MonthPager from "@/components/AgendaCalendar/MonthPager";
@@ -14,6 +13,8 @@ import Agenda from "@/components/AgendaCalendar/Agenda";
 import TodayButton from "@/components/AgendaCalendar/TodayButton";
 import { CalendarAppearanceProvider } from "@/components/AgendaCalendar/CalendarAppearanceContext";
 import { useCalendarAppearance } from '@/components/AgendaCalendar/CalendarAppearanceContext'
+
+import { useTheme } from "@/hooks";
 
 export default function App() {
   return (

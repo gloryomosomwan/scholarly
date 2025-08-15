@@ -1,17 +1,17 @@
 import { compareAsc } from "date-fns"
-import { Event, Activity } from "@/types"
+import { Event, Task } from "@/types"
 
 export const compareEventTimes = (eventA: Event, eventB: Event): number => {
   return compareAsc(eventA.start, eventB.start)
 }
 
-export const compareActivityTimes = (activityA: Activity, activityB: Activity): number => {
-  if (!activityA.due || !activityB.due) {
+export const compareTaskTimes = (taskA: Task, taskB: Task): number => {
+  if (!taskA.due || !taskB.due) {
     return 0
   }
-  const result = compareAsc(activityA.due, activityB.due)
+  const result = compareAsc(taskA.due, taskB.due)
   if (result !== 0) {
     return result
   }
-  return activityA.title.localeCompare(activityB.title)
+  return taskA.title.localeCompare(taskB.title)
 }

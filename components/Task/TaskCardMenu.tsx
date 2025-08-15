@@ -8,11 +8,11 @@ import { useTheme } from '@/hooks/useTheme'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
 
-type ActivityMenuProps = {
-  activityID: number
+type TaskCardMenuProps = {
+  taskID: number
 }
 
-export default function ActivityMenu({ activityID }: ActivityMenuProps) {
+export default function TaskCardMenu({ taskID }: TaskCardMenuProps) {
   const theme = useTheme()
   const router = useRouter()
 
@@ -29,7 +29,7 @@ export default function ActivityMenu({ activityID }: ActivityMenuProps) {
         if (buttonIndex === 0) {
           // Cancel action
         } else if (buttonIndex === 1) {
-          await db.delete(tasks).where(eq(tasks.id, activityID))
+          await db.delete(tasks).where(eq(tasks.id, taskID))
         }
       }
     )
@@ -43,9 +43,9 @@ export default function ActivityMenu({ activityID }: ActivityMenuProps) {
       <DropdownMenuContent>
         <DropdownMenuItem key="edit" onSelect={() => router.navigate(
           {
-            pathname: '/activity-form',
+            pathname: '/task-form',
             params: {
-              id: activityID
+              id: taskID
             }
           }
         )}>
@@ -56,10 +56,10 @@ export default function ActivityMenu({ activityID }: ActivityMenuProps) {
             scale: 'medium',
             paletteColors: [{ dark: theme.text, light: theme.text, }],
           }} />
-          <DropdownMenuItemTitle>Edit Activity</DropdownMenuItemTitle>
+          <DropdownMenuItemTitle>Edit Task</DropdownMenuItemTitle>
         </DropdownMenuItem>
         <DropdownMenuItem key="delete" destructive onSelect={confirmDelete}>
-          <DropdownMenuItemTitle>Delete Activity</DropdownMenuItemTitle>
+          <DropdownMenuItemTitle>Delete Task</DropdownMenuItemTitle>
           <DropdownMenuItemIcon ios={{
             name: 'trash',
             pointSize: 20,

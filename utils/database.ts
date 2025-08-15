@@ -1,15 +1,15 @@
-import { Activity, Course, DueType, PriorityOption, Semester } from "@/types";
-import { rawActivity, rawCourse, rawSemester } from "@/types/drizzle";
+import { Task, Course, DueType, PriorityOption, Semester } from "@/types";
+import { rawTask, rawCourse, rawSemester } from "@/types/drizzle";
 
-export function convertRawActivity(rawActivity: rawActivity): Activity {
+export function convertRawTask(rawTask: rawTask): Task {
   return {
-    ...rawActivity,
-    description: rawActivity.description ?? undefined,
-    due: rawActivity.due ? new Date(rawActivity.due) : undefined,
-    dueType: rawActivity.dueType ? rawActivity.dueType as DueType : undefined,
-    courseID: rawActivity.course_id ?? undefined,
-    priority: rawActivity.priority ? rawActivity.priority as PriorityOption : undefined,
-    completedAt: rawActivity.completedAt ?? undefined
+    ...rawTask,
+    description: rawTask.description ?? undefined,
+    due: rawTask.due ? new Date(rawTask.due) : undefined,
+    dueType: rawTask.dueType ? rawTask.dueType as DueType : undefined,
+    courseID: rawTask.course_id ?? undefined,
+    priority: rawTask.priority ? rawTask.priority as PriorityOption : undefined,
+    completedAt: rawTask.completedAt ?? undefined
   }
 }
 

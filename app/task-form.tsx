@@ -15,21 +15,21 @@ import { useTheme } from '@/hooks'
 import { DueType, PriorityOption } from '@/types'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
-import { getActivityById } from '@/hooks/database'
+import { getTaskById } from '@/hooks/database'
 
-export default function ActivityForm() {
+export default function TaskForm() {
   const theme = useTheme();
 
   const { id } = useLocalSearchParams<{ id: string }>()
   const convertedID = Number(id)
-  const activity = id ? getActivityById(convertedID) : null
+  const task = id ? getTaskById(convertedID) : null
 
-  const [date, setDate] = useState<Date | null>(activity?.due ? new Date(activity.due) : null);
-  const [dueType, setDueType] = useState<DueType | null>(activity?.dueType ? activity.dueType : null);
-  const [courseID, setCourseID] = useState<number | null>(activity?.courseID ? activity.courseID : null);
-  const [priority, setPriority] = useState<PriorityOption | null>(activity?.priority ? activity.priority : null);
-  const [title, setTitle] = useState(activity?.title ? activity.title : null)
-  const [notes, setNotes] = useState(activity?.description ? activity.description : null)
+  const [date, setDate] = useState<Date | null>(task?.due ? new Date(task.due) : null);
+  const [dueType, setDueType] = useState<DueType | null>(task?.dueType ? task.dueType : null);
+  const [courseID, setCourseID] = useState<number | null>(task?.courseID ? task.courseID : null);
+  const [priority, setPriority] = useState<PriorityOption | null>(task?.priority ? task.priority : null);
+  const [title, setTitle] = useState(task?.title ? task.title : null)
+  const [notes, setNotes] = useState(task?.description ? task.description : null)
 
   const createTask = async () => {
     try {

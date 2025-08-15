@@ -17,7 +17,7 @@ export default function Assignments() {
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]}>
       <AssignmentCard assignment={assignment1} />
-      <AddButton title='Add Assignment' route='/activity-form' />
+      <AddButton title='Add Assignment' route='/task-form' />
     </ScrollView>
   );
 }

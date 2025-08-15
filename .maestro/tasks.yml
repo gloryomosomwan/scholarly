@@ -3,18 +3,18 @@ appId: com.gloryomos.scholarly
 - launchApp
 - tapOn: tasks.*
 - tapOn:
-    id: add task button
+      id: add task button
 - tapOn: Enter title
 - inputText:
-    text: Test task
+      text: Test task
 - tapOn: done
 - tapOn: Save
 - scroll
 - assertVisible: Test task
 - tapOn:
-    text: More
-    index: 4
-- tapOn: Edit Activity
+      text: More
+      index: 4
+- tapOn: Edit Task
 - tapOn: Test task
 - eraseText
 - inputText: Edited task
@@ -23,9 +23,9 @@ appId: com.gloryomos.scholarly
 - scroll
 - assertVisible: Edited task
 - tapOn:
-    text: More
-    index: 4
-- tapOn: Delete Activity
+      text: More
+      index: 4
+- tapOn: Delete Task
 - tapOn: Delete task
 - assertNotVisible: Edited task
 # - tapOn:

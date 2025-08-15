@@ -4,32 +4,32 @@ import { SymbolView } from 'expo-symbols';
 import { isAfter, format } from 'date-fns';
 import { eq } from 'drizzle-orm';
 
-import ActivityMenu from '@/components/Activity/ActivityMenu';
+import TaskCardMenu from '@/components/Task/TaskCardMenu';
 
-import { Activity } from '@/types';
+import { Task } from '@/types';
 import { useTheme, usePriorityPalette } from '@/hooks';
 import { getCourseById } from '@/hooks/database';
 import { db } from '@/db/init';
 import { tasks } from '@/db/schema';
 
-type ActivityCardProps = {
-  activity: Activity;
+type TaskCardProps = {
+  task: Task;
 };
 
-export default function ActivityCard({ activity }: ActivityCardProps) {
-  const completed = activity.completedAt
-  const overdue = activity.due && isAfter(new Date(), activity.due)
-  const course = getCourseById(activity.courseID === undefined ? null : activity.courseID)
+export default function TaskCard({ task }: TaskCardProps) {
+  const completed = task.completedAt
+  const overdue = task.due && isAfter(new Date(), task.due)
+  const course = getCourseById(task.courseID === undefined ? null : task.courseID)
   const courseColor = course ? course.color : undefined;
   const theme = useTheme();
-  const priorityPalette = usePriorityPalette(activity.priority)
+  const priorityPalette = usePriorityPalette(task.priority)
 
   const toggleCompleted = async () => {
     if (completed) {
-      await db.update(tasks).set({ completedAt: null }).where(eq(tasks.id, activity.id))
+      await db.update(tasks).set({ completedAt: null }).where(eq(tasks.id, task.id))
     }
     else if (!completed) {
-      await db.update(tasks).set({ completedAt: new Date().toISOString() }).where(eq(tasks.id, activity.id))
+      await db.update(tasks).set({ completedAt: new Date().toISOString() }).where(eq(tasks.id, task.id))
     }
   };
 
@@ -55,14 +55,14 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
           <View style={styles.content}>
             <View style={styles.titleRow}>
               <Text style={[styles.title, { color: theme.text }, completed && [styles.completedTitle, { color: theme.grey500 }]]}>
-                {activity.title}
+                {task.title}
               </Text>
-              <ActivityMenu activityID={activity.id} />
+              <TaskCardMenu taskID={task.id} />
             </View>
 
             {/* Description */}
-            {activity.description && (
-              <Text style={[styles.description, { color: theme.grey500 }]}>{activity.description}</Text>
+            {task.description && (
+              <Text style={[styles.description, { color: theme.grey500 }]}>{task.description}</Text>
             )}
 
             {/* Tags */}
@@ -76,10 +76,10 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               )}
 
               {/* Priority tag */}
-              {activity.priority && (
+              {task.priority && (
                 <View style={[styles.priorityTag, { backgroundColor: priorityPalette.backgroundColor, borderColor: priorityPalette.borderColor }]}>
                   <Text style={[styles.priorityText, { color: priorityPalette.color }]}>
-                    {activity.priority.toUpperCase()}
+                    {task.priority.toUpperCase()}
                   </Text>
                 </View>
               )}
@@ -91,15 +91,15 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               </View>
             </View>
 
-            {activity.due &&
+            {task.due &&
               <View style={styles.dueContainer}>
                 <View style={styles.dueDateContainer}>
                   <SymbolView name="calendar" size={15} tintColor={theme.grey500} />
-                  <Text style={[styles.dueText, { color: theme.grey600 }]}>{format(activity.due, 'MMM d')}</Text>
+                  <Text style={[styles.dueText, { color: theme.grey600 }]}>{format(task.due, 'MMM d')}</Text>
                 </View>
                 <View style={styles.dueTimeContainer}>
                   <SymbolView name="clock" size={15} tintColor={theme.grey500} />
-                  <Text style={[styles.dueText, { color: theme.grey600 }]}>{format(activity.due, 'h:mm a')}</Text>
+                  <Text style={[styles.dueText, { color: theme.grey600 }]}>{format(task.due, 'h:mm a')}</Text>
                 </View>
               </View>
             }

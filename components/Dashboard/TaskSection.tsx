@@ -2,17 +2,17 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { isBefore } from 'date-fns'
 
-import ActivityCard from '@/components/Activity/ActivityCard'
+import TaskCard from '@/components/Task/TaskCard'
 
 import { useTasks } from '@/hooks/database'
 import { useTheme } from '@/hooks/useTheme'
 
 export default function TaskSection() {
   const theme = useTheme()
-  const activityData = useTasks()
+  const taskData = useTasks()
 
   let numberOfOverdueTasks = 0;
-  for (const el of activityData) {
+  for (const el of taskData) {
     if (el.due && el.completedAt === undefined) {
       if (isBefore(el.due, new Date())) {
         numberOfOverdueTasks += 1
@@ -27,11 +27,11 @@ export default function TaskSection() {
           <Text style={[styles.headerText, { color: theme.text }]}>Today's Tasks:</Text>
         </View>
         <Text style={[styles.subheaderText, { color: theme.grey400 }]}>
-          {activityData.length} tasks due today
+          {taskData.length} tasks due today
           <Text style={[styles.subheaderText, { color: theme.grey500, fontWeight: 700 }]}> ({numberOfOverdueTasks} overdue)</Text>
         </Text>
       </View>
-      {activityData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
+      {taskData.map((task) => <TaskCard key={task.id} task={task} />)}
     </View>
   )
 }

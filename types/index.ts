@@ -27,7 +27,18 @@ export interface Test {
   grade?: number
 }
 
-export interface Activity {
+// export interface Activity {
+//   id: number;
+//   title: string;
+//   courseID?: number;
+//   description?: string;
+//   due?: Date;
+//   dueType?: DueType;
+//   priority?: PriorityOption;
+//   completedAt?: string;
+// }
+
+export interface Task {
   id: number;
   title: string;
   courseID?: number;
@@ -36,6 +47,18 @@ export interface Activity {
   dueType?: DueType;
   priority?: PriorityOption;
   completedAt?: string;
+}
+
+export interface Assignment {
+  id: number;
+  title: string;
+  courseID: number;
+  description?: string;
+  due: Date;
+  dueType: DueType;
+  completedAt?: string;
+  weight?: number;
+  grade?: number;
 }
 
 export interface Course {
@@ -60,26 +83,3 @@ export interface Semester {
 export type TaskSortOption = 'Course' | 'Priority'
 export type TaskFilterOption = 'Course' | 'Priority'
 export type PriorityOption = 'high' | 'medium' | 'low'
-
-// export interface Task {
-//   id: number;
-//   title: string;
-//   course?: string;
-//   description?: string;
-//   due?: Date;
-//   dueType?: DueType;
-//   priority?: string;
-//   completedAt?: string;
-// }
-
-// export interface Assignment {
-//   id: number;
-//   title: string;
-//   course: string;
-//   description?: string;
-//   due: Date;
-//   dueType: DueType;
-//   completedAt?: string;
-//   weight?: number;
-//   grade?: number;
-// }

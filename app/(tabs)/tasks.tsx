@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import { router } from 'expo-router';
 import { useState } from 'react';
 
-import ActivityCard from '@/components/Activity/ActivityCard';
+import TaskCard from '@/components/Task/TaskCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 import TaskSortMenu from '@/components/TasksPage/TaskSortMenu';
 import TaskFilterMenu from '@/components/TasksPage/TaskFilterMenu';
@@ -13,7 +13,7 @@ import SortPill from '@/components/TasksPage/SortPill';
 
 import { useTheme } from '@/hooks/useTheme';
 import { useCourses, useTasks } from '@/hooks/database';
-import { Activity, PriorityOption, TaskSortOption, TaskFilterOption, Course } from '@/types';
+import { Task, PriorityOption, TaskSortOption, TaskFilterOption, Course } from '@/types';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
@@ -45,7 +45,7 @@ export default function Tab() {
       <View style={styles.header}>
         <Text style={[styles.headerText, { color: theme.text }]}>Tasks</Text>
         <View style={styles.buttonsContainer}>
-          <PressableOpacity style={styles.buttonContainer} onPress={() => router.navigate('/activity-form')} testID='add task button'>
+          <PressableOpacity style={styles.buttonContainer} onPress={() => router.navigate('/task-form')} testID='add task button'>
             <SymbolView name='plus' />
           </PressableOpacity>
           <TaskFilterMenu filterValue={filterValue} handleSetFilterBy={handleSetFilterBy} handleSetFilterValue={handleSetFilterValue} />
@@ -63,15 +63,15 @@ export default function Tab() {
         }
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
-        {taskData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
+        {taskData.map((task) => <TaskCard key={task.id} task={task} />)}
       </ScrollView>
     </View>
   );
 }
 
-function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null, courses: Array<Course>) {
+function sortTasks(tasks: Array<Task>, sortBy: TaskSortOption | null, courses: Array<Course>) {
   // Filter out the tasks that don't have a course or priority
-  const sortableTasks = tasks.filter((task): task is Activity & { courseID: number, priority: PriorityOption } => {
+  const sortableTasks = tasks.filter((task): task is Task & { courseID: number, priority: PriorityOption } => {
     return task.courseID !== undefined && task.priority !== undefined
   })
   const courseMap = new Map()
@@ -95,7 +95,7 @@ function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null, course
   })
 }
 
-function filterTasks(tasks: Array<Activity>, filterBy: TaskFilterOption | null, filterValue: string | null, courses: Array<Course>) {
+function filterTasks(tasks: Array<Task>, filterBy: TaskFilterOption | null, filterValue: string | null, courses: Array<Course>) {
   return [...tasks].filter((task) => {
     switch (filterBy) {
       case 'Course':

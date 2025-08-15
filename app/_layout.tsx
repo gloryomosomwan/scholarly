@@ -26,7 +26,7 @@ export default function RootLayout() {
             name="(tabs)"
             options={{ headerShown: false }} />
           <Stack.Screen
-            name="activity-form"
+            name="task-form"
             options={{
               // headerTitle: "",
               // headerBackTitle: 'Back',

@@ -4,8 +4,8 @@ import { useSQLiteContext } from "expo-sqlite";
 
 import { courses, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
-import { convertRawActivity, convertRawCourse, convertRawSemester } from '@/utils/database';
-import { Activity, Course, Semester } from "@/types";
+import { convertRawTask, convertRawCourse, convertRawSemester } from '@/utils/database';
+import { Task, Course, Semester } from "@/types";
 import { useUserStore } from "@/stores";
 
 export function useTasks() {
@@ -17,12 +17,12 @@ export function useTasks() {
   }).from(tasks)
     .innerJoin(courses, eq(tasks.course_id, courses.id))
     .where(eq(courses.semester_id, Number(semesterID))));
-  const activityData = data.map(convertRawActivity)
-  return activityData
+  const taskData = data.map(convertRawTask)
+  return taskData
 }
 
-export function getActivityById(id: number | null) {
-  const data = useSQLiteContext().getFirstSync<Activity>(`
+export function getTaskById(id: number | null) {
+  const data = useSQLiteContext().getFirstSync<Task>(`
       SELECT 
       id,
       title,

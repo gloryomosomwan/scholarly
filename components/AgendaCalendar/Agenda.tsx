@@ -10,8 +10,8 @@ import Event from "@/components/AgendaCalendar/Event";
 import { events, assignments, tasks } from '@/data/data'
 import { useTheme } from '@/hooks'
 import { useCalendar } from './CalendarContext';
-import { compareEventTimes, compareActivityTimes } from '@/utils/calendarUtils';
-import ActivityCard from '../Activity/ActivityCard';
+import { compareEventTimes, compareTaskTimes } from '@/utils/calendarUtils';
+import TaskCard from '@/components/Task/TaskCard';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -49,7 +49,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
 
   const currentAssignments = useMemo(() => {
     const filteredAssignments = assignments.filter(isActivityCurrent);
-    filteredAssignments.sort(compareActivityTimes);
+    filteredAssignments.sort(compareTaskTimes);
     return filteredAssignments;
   }, [calendarState.currentDate]);
 
@@ -59,12 +59,12 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
 
   const currentTasks = useMemo(() => {
     const filteredTasks = tasks.filter(isActivityCurrent);
-    filteredTasks.sort(compareActivityTimes);
+    filteredTasks.sort(compareTaskTimes);
     return filteredTasks;
   }, [calendarState.currentDate]);
 
   const currentTaskElements = useMemo(() => {
-    return currentTasks.map(task => <ActivityCard key={task.id} activity={task} />);
+    return currentTasks.map(task => <TaskCard key={task.id} task={task} />);
   }, [currentTasks]);
 
   useEffect(() => {
