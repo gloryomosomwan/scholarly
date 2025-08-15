@@ -3,13 +3,16 @@ export type CourseColor = keyof typeof CourseColorMap;
 
 export type EventType = 'lecture' | 'lab' | 'seminar' | 'general'
 export type DueType = 'date' | 'datetime'
+export type TaskSortOption = 'Course' | 'Priority'
+export type TaskFilterOption = 'Course' | 'Priority'
+export type PriorityOption = 'high' | 'medium' | 'low'
 
 export interface Event {
   id: number;
+  name?: string;
   type: EventType;
   start: Date;
   end: Date;
-  name?: string;
   course?: string;
   location?: string;
   notes?: string;
@@ -80,6 +83,3 @@ export interface Semester {
   end: Date;
 }
 
-export type TaskSortOption = 'Course' | 'Priority'
-export type TaskFilterOption = 'Course' | 'Priority'
-export type PriorityOption = 'high' | 'medium' | 'low'
