@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SymbolView } from 'expo-symbols';
 import { router } from 'expo-router';
@@ -8,6 +8,8 @@ import ActivityCard from '@/components/Activity/ActivityCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
+import FilterPill from '@/components/TasksPage/FilterPill';
+import SortPill from '@/components/TasksPage/SortPill';
 
 import { useTheme } from '@/hooks/useTheme';
 import { useCourses, useTasks } from '@/hooks/database';
@@ -46,39 +48,18 @@ export default function Tab() {
           <PressableOpacity style={styles.buttonContainer} onPress={() => router.navigate('/activity-form')} testID='add task button'>
             <SymbolView name='plus' />
           </PressableOpacity>
-
           <TaskFilterMenu filterBy={filterBy} filterValue={filterValue} handleSetFilterBy={handleSetFilterBy} handleSetFilterValue={handleSetFilterValue} />
           <TaskSortMenu sortBy={sortBy} handleSelection={handleSortBy} />
-
         </View>
       </View>
-      <View style={[styles.selectionsContainer]}>
+      <View style={[styles.pillContainer]}>
         {
           filterBy &&
-          <View style={[styles.selectionContainer, {}]}>
-            <View style={[styles.selectionPill, { backgroundColor: theme.grey100 }]}>
-              <Text style={[styles.selectionText, { color: theme.text }]}>Filtered by: {filterBy}</Text>
-            </View>
-            {/* Clear Button */}
-            <Pressable style={[styles.clearSelectionContainer, { backgroundColor: theme.grey100 }]} onPress={() => {
-              setFilterBy(null)
-              setFilterValue(null)
-            }}>
-              <Text style={[styles.clearSelectionText, { color: theme.text }]}>X</Text>
-            </Pressable>
-          </View>
+          <FilterPill filterValue={filterValue} clear={() => { setFilterBy(null); setFilterValue(null) }} />
         }
         {
           sortBy &&
-          <View style={[styles.selectionContainer, {}]}>
-            <View style={[styles.selectionPill, { backgroundColor: theme.grey100 }]}>
-              <Text style={[styles.selectionText, { color: theme.text }]}>Sorted by: {sortBy}</Text>
-            </View>
-            {/* Clear Button */}
-            <Pressable style={[styles.clearSelectionContainer, { backgroundColor: theme.grey100 }]} onPress={() => setSortBy(null)}>
-              <Text style={[styles.clearSelectionText, { color: theme.text }]}>X</Text>
-            </Pressable>
-          </View>
+          <SortPill sortBy={sortBy} clear={() => setSortBy(null)} />
         }
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
@@ -93,12 +74,10 @@ function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null, course
   const sortableTasks = tasks.filter((task): task is Activity & { courseID: number, priority: PriorityOption } => {
     return task.courseID !== undefined && task.priority !== undefined
   })
-
   const courseMap = new Map()
   for (let course of courses) {
     courseMap.set(course.id, course.code)
   }
-
   return [...sortableTasks].sort((a, b) => {
     switch (sortBy) {
       case 'Course': {
@@ -161,29 +140,9 @@ const styles = StyleSheet.create({
   tasksContainer: {
     paddingHorizontal: 20,
   },
-  selectionsContainer: {
+  pillContainer: {
     flexDirection: 'row',
     paddingHorizontal: 20,
     gap: 10
-  },
-  selectionContainer: {
-    flexDirection: 'row',
-    gap: 5
-  },
-  selectionPill: {
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    justifyContent: 'center'
-  },
-  selectionText: {
-    fontWeight: '600'
-  },
-  clearSelectionContainer: {
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
-  clearSelectionText: {
-    fontWeight: '600'
   },
 });
