@@ -6,8 +6,8 @@ import { useState } from 'react';
 
 import ActivityCard from '@/components/Activity/ActivityCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
-import TaskSortMenu from '@/components/Menus/TaskSortMenu';
-import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
+import TaskSortMenu from '@/components/TasksPage/TaskSortMenu';
+import TaskFilterMenu from '@/components/TasksPage/TaskFilterMenu';
 import FilterPill from '@/components/TasksPage/FilterPill';
 import SortPill from '@/components/TasksPage/SortPill';
 

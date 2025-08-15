@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import { isAfter, format } from 'date-fns';
 import { eq } from 'drizzle-orm';
 
-import ActivityMenu from '@/components/Menus/ActivityMenu';
+import ActivityMenu from '@/components/Activity/ActivityMenu';
 
 import { Activity } from '@/types';
 import { useTheme, usePriorityPalette } from '@/hooks';

@@ -1,6 +1,6 @@
 import { SymbolView } from 'expo-symbols'
 
-import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem, DropdownMenuGroup, DropdownMenuLabel } from '@/components/Menus/Zeego'
+import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem, DropdownMenuGroup, DropdownMenuLabel } from '@/components/Zeego'
 import { useTheme } from '@/hooks/useTheme'
 import { TaskFilterOption } from '@/types'
 import { useCourses } from '@/hooks/database'

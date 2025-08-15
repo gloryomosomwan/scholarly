@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router'
 import { eq } from 'drizzle-orm'
 import { ActionSheetIOS } from 'react-native'
 
-import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon } from '@/components/Menus/Zeego'
+import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon } from '@/components/Zeego'
 import { useTheme } from '@/hooks/useTheme'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
