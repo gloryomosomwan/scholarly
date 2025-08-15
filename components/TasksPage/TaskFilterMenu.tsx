@@ -8,13 +8,12 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import { StyleSheet } from 'react-native'
 
 type TaskFilterMenuProps = {
-  filterBy: TaskFilterOption | null
   handleSetFilterBy: (filterBy: TaskFilterOption) => void
   filterValue: string | null
   handleSetFilterValue: (filterValue: string) => void
 }
 
-export default function TaskFilterMenu({ handleSetFilterBy, handleSetFilterValue, filterBy, filterValue }: TaskFilterMenuProps) {
+export default function TaskFilterMenu({ handleSetFilterBy, handleSetFilterValue, filterValue }: TaskFilterMenuProps) {
   const theme = useTheme()
   const courses = useCourses()
   return (
@@ -29,9 +28,9 @@ export default function TaskFilterMenu({ handleSetFilterBy, handleSetFilterValue
             {
               courses.map((course) => {
                 return (
-                  <DropdownMenuCheckboxItem value={filterValue === course.code ? 'on' : 'off'} key={course.code} onSelect={() => {
+                  <DropdownMenuCheckboxItem value={filterValue === course.code ? 'on' : 'off'} key={course.id.toString()} onSelect={() => {
                     handleSetFilterBy('Course')
-                    handleSetFilterValue(course.code)
+                    handleSetFilterValue(course.id.toString())
                   }}>
                     <DropdownMenuItemIcon ios={{
                       name: 'circle.fill',

@@ -48,7 +48,7 @@ export default function Tab() {
           <PressableOpacity style={styles.buttonContainer} onPress={() => router.navigate('/activity-form')} testID='add task button'>
             <SymbolView name='plus' />
           </PressableOpacity>
-          <TaskFilterMenu filterBy={filterBy} filterValue={filterValue} handleSetFilterBy={handleSetFilterBy} handleSetFilterValue={handleSetFilterValue} />
+          <TaskFilterMenu filterValue={filterValue} handleSetFilterBy={handleSetFilterBy} handleSetFilterValue={handleSetFilterValue} />
           <TaskSortMenu sortBy={sortBy} handleSelection={handleSortBy} />
         </View>
       </View>
@@ -96,16 +96,11 @@ function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null, course
 }
 
 function filterTasks(tasks: Array<Activity>, filterBy: TaskFilterOption | null, filterValue: string | null, courses: Array<Course>) {
-  const courseMap = new Map()
-  for (let course of courses) {
-    courseMap.set(course.id, course.code)
-  }
   return [...tasks].filter((task) => {
     switch (filterBy) {
       case 'Course':
         if (task.courseID) {
-          const courseCode = courseMap.get(task.courseID)
-          return courseCode === filterValue
+          return task.courseID.toString() === filterValue
         }
         else {
           return false
