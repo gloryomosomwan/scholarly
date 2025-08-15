@@ -48,10 +48,8 @@ export default function Tab() {
           </PressableOpacity>
 
           <TaskFilterMenu filterBy={filterBy} filterValue={filterValue} handleSetFilterBy={handleSetFilterBy} handleSetFilterValue={handleSetFilterValue} />
+          <TaskSortMenu sortBy={sortBy} handleSelection={handleSortBy} />
 
-          <PressableOpacity style={styles.buttonContainer}>
-            <TaskSortMenu sortBy={sortBy} handleSelection={handleSortBy} />
-          </PressableOpacity>
         </View>
       </View>
       <View style={[styles.selectionsContainer]}>
