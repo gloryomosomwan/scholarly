@@ -6,6 +6,7 @@ import { courses, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
 import { convertRawActivity, convertRawCourse, convertRawSemester } from '@/utils/database';
 import { Activity, Course, Semester } from "@/types";
+import { useUserStore } from "@/stores";
 
 export function useTasks() {
   // const todayPattern = new Date().toISOString().slice(0, 10) + '%'; // timezone bug
@@ -31,7 +32,8 @@ export function getActivityById(id: number | null) {
   return data // If id is null, data is null too
 }
 
-export function useCourses(semesterID: number | undefined) {
+export function useCourses() {
+  const semesterID = useUserStore((state) => state.semesterID)
   const { data } = useLiveQuery(db.select().from(courses).where(eq(courses.semester_id, Number(semesterID))), [semesterID])
   const courseData = data.map(convertRawCourse)
   return courseData

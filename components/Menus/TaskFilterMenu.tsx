@@ -2,8 +2,8 @@ import { SymbolView } from 'expo-symbols'
 
 import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem, DropdownMenuGroup, DropdownMenuLabel } from '@/components/Menus/Zeego'
 import { useTheme } from '@/hooks/useTheme'
-import { courses } from '@/data/data'
 import { TaskFilterOption } from '@/types'
+import { useCourses } from '@/hooks/database'
 
 type TaskFilterMenuProps = {
   filterBy: TaskFilterOption | null
@@ -14,6 +14,7 @@ type TaskFilterMenuProps = {
 
 export default function TaskFilterMenu({ handleSetFilterBy, handleSetFilterValue, filterBy, filterValue }: TaskFilterMenuProps) {
   const theme = useTheme()
+  const courses = useCourses()
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>

@@ -14,7 +14,7 @@ import Header from '@/components/SemesterPage/Header';
 export default function SemesterPage() {
   const theme = useTheme();
   const semesterID = useUserStore((state) => state.semesterID)
-  const courses = useCourses(semesterID)
+  const courses = useCourses()
   return (
     <SafeAreaView style={[styles.safeAreaContainer, { backgroundColor: theme.primary }]}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>

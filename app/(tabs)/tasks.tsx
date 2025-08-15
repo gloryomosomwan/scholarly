@@ -10,8 +10,8 @@ import TaskSortMenu from '@/components/Menus/TaskSortMenu';
 import TaskFilterMenu from '@/components/Menus/TaskFilterMenu';
 
 import { useTheme } from '@/hooks/useTheme';
-import { getCourseById, useTasks } from '@/hooks/database';
-import { Activity, PriorityOption, TaskSortOption, TaskFilterOption } from '@/types';
+import { getCourseById, useCourses, useTasks } from '@/hooks/database';
+import { Activity, PriorityOption, TaskSortOption, TaskFilterOption, Course } from '@/types';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
@@ -20,10 +20,11 @@ export default function Tab() {
   const [sortBy, setSortBy] = useState<TaskSortOption | null>(null)
   const [filterBy, setFilterBy] = useState<TaskFilterOption | null>(null)
   const [filterValue, setFilterValue] = useState<string | null>(null)
-  const taskData = useTasks()
+  let taskData = useTasks()
+  const courses = useCourses()
 
-  const filteredTaskData = filterTasks(taskData, filterBy, filterValue)
-  const sortedTaskData = sortTasks(filteredTaskData, sortBy)
+  if (filterValue && filterBy) taskData = filterTasks(taskData, filterBy, filterValue, courses)
+  // const sortedTaskData = sortTasks(filteredTaskData, sortBy)
 
   const handleSortBy = (sortBy: TaskSortOption) => {
     setSortBy(sortBy)
@@ -83,10 +84,55 @@ export default function Tab() {
         }
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
-        {sortedTaskData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
+        {taskData.map((activity) => <ActivityCard key={activity.id} activity={activity} />)}
       </ScrollView>
     </View>
   );
+}
+
+function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null) {
+  if (!sortBy) return tasks
+  // Filter out the tasks that don't have a course or priority
+  const sortableTasks = tasks.filter((task): task is Activity & { courseID: number, priority: PriorityOption } => {
+    return task.courseID !== undefined && task.priority !== undefined
+  })
+
+  return [...sortableTasks].sort((a, b) => {
+    switch (sortBy) {
+      case 'Course': {
+        const courseAName = getCourseById(a.courseID)?.name || ''
+        const courseBName = getCourseById(b.courseID)?.name || ''
+        return courseAName?.localeCompare(courseBName)
+      }
+      case 'Priority': {
+        const priorityMap = { 'low': 0, 'medium': 1, 'high': 2 }
+        if (priorityMap[a.priority] > priorityMap[b.priority]) return -1
+        else if (priorityMap[b.priority] > priorityMap[a.priority]) return 1
+        else return 0
+      }
+    }
+  })
+}
+
+function filterTasks(tasks: Array<Activity>, filterBy: TaskFilterOption | null, filterValue: string | null, courses: Array<Course>) {
+  const courseMap = new Map()
+  for (let course of courses) {
+    courseMap.set(course.id, course.code)
+  }
+  return [...tasks].filter((task) => {
+    switch (filterBy) {
+      case 'Course':
+        if (task.courseID) {
+          const courseCode = courseMap.get(task.courseID)
+          return courseCode === filterValue
+        }
+        else {
+          return false
+        }
+      case 'Priority':
+        return task.priority === filterValue
+    }
+  })
 }
 
 const styles = StyleSheet.create({
@@ -139,45 +185,3 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
 });
-
-function sortTasks(tasks: Array<Activity>, sortBy: TaskSortOption | null) {
-  if (!sortBy) return tasks
-  // Filter out the tasks that don't have a course or priority
-  const sortableTasks = tasks.filter((task): task is Activity & { courseID: number, priority: PriorityOption } => {
-    return task.courseID !== undefined && task.priority !== undefined
-  })
-
-  return [...sortableTasks].sort((a, b) => {
-    switch (sortBy) {
-      case 'Course': {
-        const courseAName = getCourseById(a.courseID)?.name || ''
-        const courseBName = getCourseById(b.courseID)?.name || ''
-        return courseAName?.localeCompare(courseBName)
-      }
-      case 'Priority': {
-        const priorityMap = { 'low': 0, 'medium': 1, 'high': 2 }
-        if (priorityMap[a.priority] > priorityMap[b.priority]) return -1
-        else if (priorityMap[b.priority] > priorityMap[a.priority]) return 1
-        else return 0
-      }
-    }
-  })
-}
-
-function filterTasks(tasks: Array<Activity>, filterBy: TaskFilterOption | null, filterValue: string | null) {
-  if (!filterBy || !filterValue) return tasks
-  return [...tasks].filter((task) => {
-    switch (filterBy) {
-      case 'Course':
-        if (task.courseID) {
-          const courseName = getCourseById(task.courseID)?.name
-          return courseName === filterValue
-        }
-        else {
-          return false
-        }
-      case 'Priority':
-        return task.priority === filterValue
-    }
-  })
-}
