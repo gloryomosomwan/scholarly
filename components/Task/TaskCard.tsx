@@ -4,14 +4,14 @@ import { isAfter } from 'date-fns';
 import { eq } from 'drizzle-orm';
 
 import TaskCardMenu from '@/components/Task/TaskCardMenu';
-import Checkbox from '@/components/Card/Checkbox';
-import Description from '@/components/Card/Description';
-import Title from '@/components/Card/Title';
-import CourseTag from '@/components/Card/CourseTag';
-import PriorityTag from '@/components/Card/PriorityTag';
-import TimeTag from '@/components/Card/TimeTag';
-import Due from '@/components/Card/Due';
-import Completion from '@/components/Card/Completion';
+import Checkbox from '@/components/ActivityCard/Checkbox';
+import Description from '@/components/ActivityCard/Description';
+import Title from '@/components/ActivityCard/Title';
+import CourseTag from '@/components/ActivityCard/CourseTag';
+import PriorityTag from '@/components/ActivityCard/PriorityTag';
+import TimeTag from '@/components/ActivityCard/TimeTag';
+import Due from '@/components/ActivityCard/Due';
+import Completion from '@/components/ActivityCard/Completion';
 
 import { Task } from '@/types';
 import { useTheme } from '@/hooks';
