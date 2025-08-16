@@ -1,13 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { SymbolView } from 'expo-symbols';
-import { isAfter, format } from 'date-fns';
+import { View, StyleSheet } from 'react-native';
+import { isAfter } from 'date-fns';
 import { eq } from 'drizzle-orm';
 
 import TaskCardMenu from '@/components/Task/TaskCardMenu';
+import Checkbox from '@/components/Card/Checkbox';
+import Description from '@/components/Card/Description';
+import Title from '@/components/Card/Title';
+import CourseTag from '@/components/Card/CourseTag';
+import PriorityTag from '@/components/Card/PriorityTag';
+import TimeTag from '@/components/Card/TimeTag';
+import Due from '@/components/Card/Due';
+import Completion from '@/components/Card/Completion';
 
 import { Task } from '@/types';
-import { useTheme, usePriorityPalette } from '@/hooks';
+import { useTheme } from '@/hooks';
 import { getCourseById } from '@/hooks/database';
 import { db } from '@/db/init';
 import { tasks } from '@/db/schema';
@@ -17,18 +24,16 @@ type TaskCardProps = {
 };
 
 export default function TaskCard({ task }: TaskCardProps) {
-  const completed = task.completedAt
+  const theme = useTheme();
+  const completedAt = task.completedAt
   const overdue = task.due && isAfter(new Date(), task.due)
   const course = getCourseById(task.courseID === undefined ? null : task.courseID)
-  const courseColor = course ? course.color : undefined;
-  const theme = useTheme();
-  const priorityPalette = usePriorityPalette(task.priority)
 
   const toggleCompleted = async () => {
-    if (completed) {
+    if (completedAt) {
       await db.update(tasks).set({ completedAt: null }).where(eq(tasks.id, task.id))
     }
-    else if (!completed) {
+    else if (!completedAt) {
       await db.update(tasks).set({ completedAt: new Date().toISOString() }).where(eq(tasks.id, task.id))
     }
   };
@@ -38,89 +43,34 @@ export default function TaskCard({ task }: TaskCardProps) {
       styles.card,
       { backgroundColor: theme.secondary, borderColor: theme.grey200 },
       overdue && [{ backgroundColor: theme.dangerBackground, borderColor: theme.dangerBorder }],
-      completed && [{ backgroundColor: theme.successBackground, borderColor: theme.successBorder }]
+      completedAt && [{ backgroundColor: theme.successBackground, borderColor: theme.successBorder }]
     ]}>
       <View style={styles.cardContent}>
         <View style={styles.header}>
-          {/* Checkbox */}
-          <TouchableOpacity onPress={toggleCompleted} style={styles.checkbox}>
-            <SymbolView
-              name={completed ? "checkmark.circle.fill" : "circle"}
-              size={20}
-              tintColor={completed ? theme.success : theme.grey400}
-            />
-          </TouchableOpacity>
-
-          {/* Content */}
+          <Checkbox completed={completedAt} toggleCompleted={toggleCompleted} />
           <View style={styles.content}>
+
             <View style={styles.titleRow}>
-              <Text style={[styles.title, { color: theme.text }, completed && [styles.completedTitle, { color: theme.grey500 }]]}>
-                {task.title}
-              </Text>
+              <Title title={task.title} completed={completedAt} />
               <TaskCardMenu taskID={task.id} />
             </View>
 
-            {/* Description */}
-            {task.description && (
-              <Text style={[styles.description, { color: theme.grey500 }]}>{task.description}</Text>
-            )}
+            {task.description && (<Description description={task.description} />)}
 
-            {/* Tags */}
             <View style={styles.tagsContainer}>
-              {/* Course tag */}
-              {course && (
-                <View style={[styles.courseTag, { backgroundColor: theme.grey100 }]}>
-                  {courseColor && <View style={[styles.courseDot, { backgroundColor: courseColor }]} />}
-                  <Text style={[styles.courseText, { color: theme.text }]}>{course.code}</Text>
-                </View>
-              )}
-
-              {/* Priority tag */}
-              {task.priority && (
-                <View style={[styles.priorityTag, { backgroundColor: priorityPalette.backgroundColor, borderColor: priorityPalette.borderColor }]}>
-                  <Text style={[styles.priorityText, { color: priorityPalette.color }]}>
-                    {task.priority.toUpperCase()}
-                  </Text>
-                </View>
-              )}
-
-              {/* Estimated time */}
-              <View style={styles.timeTag}>
-                <SymbolView name="clock" size={12} tintColor={theme.grey500} />
-                <Text style={[styles.timeText, { color: theme.text }]}>30 min</Text>
-              </View>
+              {course && (<CourseTag courseCode={course.code} courseColor={course.color} />)}
+              {task.priority && (<PriorityTag priority={task.priority} />)}
+              <TimeTag />
             </View>
 
-            {task.due &&
-              <View style={styles.dueContainer}>
-                <View style={styles.dueDateContainer}>
-                  <SymbolView name="calendar" size={15} tintColor={theme.grey500} />
-                  <Text style={[styles.dueText, { color: theme.grey600 }]}>{format(task.due, 'MMM d')}</Text>
-                </View>
-                <View style={styles.dueTimeContainer}>
-                  <SymbolView name="clock" size={15} tintColor={theme.grey500} />
-                  <Text style={[styles.dueText, { color: theme.grey600 }]}>{format(task.due, 'h:mm a')}</Text>
-                </View>
-              </View>
-            }
+            {task.due && <Due due={task.due} />}
           </View>
         </View>
-
-        {/* Completion indicator */}
-        {completed && (
-          <View style={styles.completionIndicator}>
-            <View style={[styles.completionDivider, { backgroundColor: theme.grey200 }]} />
-            <View style={styles.completionContent}>
-              <SymbolView name="checkmark.circle.fill" size={16} tintColor={theme.success} />
-              <Text style={[styles.completionText, { color: theme.successText }]}>Completed</Text>
-            </View>
-          </View>
-        )}
+        {completedAt && (<Completion />)}
       </View>
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   card: {
@@ -145,9 +95,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     gap: 12,
   },
-  checkbox: {
-    marginTop: 4,
-  },
   content: {
     flex: 1,
   },
@@ -157,23 +104,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginBottom: 6,
   },
-  title: {
-    flex: 1,
-    fontSize: 16,
-    fontWeight: '500',
-    lineHeight: 20,
-    marginRight: 12,
-  },
-  completedTitle: {
-    textDecorationLine: 'line-through',
-  },
-  editButton: {
-    transform: [{ rotate: '90deg' }]
-  },
-  description: {
-    fontSize: 14,
-    marginBottom: 8,
-  },
   tagsContainer: {
     marginTop: 6,
     marginBottom: 12,
@@ -181,74 +111,4 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
   },
-  courseTag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    gap: 6,
-  },
-  courseDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  courseText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  priorityTag: {
-    borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderWidth: 1,
-  },
-  priorityText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  timeTag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  timeText: {
-    fontSize: 12,
-  },
-  completionIndicator: {
-    marginTop: 12,
-  },
-  completionDivider: {
-    height: 1,
-    marginBottom: 12,
-  },
-  completionContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  completionText: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  dueContainer: {
-    flexDirection: 'row',
-    gap: 4
-  },
-  dueDateContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 3,
-    marginRight: 5
-  },
-  dueTimeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 3,
-    marginRight: 5
-  },
-  dueText: {
-    fontSize: 13
-  }
 });
