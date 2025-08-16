@@ -1,5 +1,5 @@
-import { Task, Course, DueType, PriorityOption, Semester } from "@/types";
-import { rawTask, rawCourse, rawSemester } from "@/types/drizzle";
+import { Task, Course, DueType, PriorityOption, Semester, Assignment } from "@/types";
+import { rawTask, rawCourse, rawSemester, rawAssignment } from "@/types/drizzle";
 
 export function convertRawTask(rawTask: rawTask): Task {
   return {
@@ -29,5 +29,18 @@ export function convertRawSemester(rawSemester: rawSemester): Semester {
     ...rawSemester,
     start: new Date(rawSemester.start),
     end: new Date(rawSemester.end)
+  }
+}
+
+export function convertRawAssignment(rawAssignment: rawAssignment): Assignment {
+  return {
+    ...rawAssignment,
+    courseID: rawAssignment.course_id,
+    due: new Date(rawAssignment.due),
+    dueType: rawAssignment.due_type as DueType,
+    description: rawAssignment.description ?? undefined,
+    completedAt: rawAssignment.completed_at ?? undefined,
+    grade: rawAssignment.grade ?? undefined,
+    weight: rawAssignment.weight ?? undefined
   }
 }

@@ -1,4 +1,4 @@
-import { sqliteTable, integer, text } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, integer, text, real } from 'drizzle-orm/sqlite-core';
 
 export const tasks = sqliteTable('tasks', {
   id: integer('id').primaryKey(),
@@ -28,4 +28,16 @@ export const semesters = sqliteTable('semesters', {
   name: text('name').notNull(),
   start: text('start').notNull(), // ISO 8601 
   end: text('end').notNull() // ISO 8601 
+})
+
+export const assignments = sqliteTable('assignments', {
+  id: integer('id').primaryKey(),
+  title: text('title').notNull(),
+  course_id: integer('course_id').references(() => courses.id).notNull(),
+  description: text('description'),
+  due: text('due').notNull(),
+  due_type: text('due_type').notNull(),
+  completed_at: text('completed_at'),
+  weight: real('weight'),
+  grade: real('grade')
 })
