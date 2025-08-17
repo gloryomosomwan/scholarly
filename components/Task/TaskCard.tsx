@@ -31,10 +31,10 @@ export default function TaskCard({ task }: TaskCardProps) {
 
   const toggleCompleted = async () => {
     if (completedAt) {
-      await db.update(tasks).set({ completedAt: null }).where(eq(tasks.id, task.id))
+      await db.update(tasks).set({ completed_at: null }).where(eq(tasks.id, task.id))
     }
     else if (!completedAt) {
-      await db.update(tasks).set({ completedAt: new Date().toISOString() }).where(eq(tasks.id, task.id))
+      await db.update(tasks).set({ completed_at: new Date().toISOString() }).where(eq(tasks.id, task.id))
     }
   };
 
