@@ -9,7 +9,7 @@ export function convertRawTask(rawTask: rawTask): Task {
     dueType: rawTask.dueType ? rawTask.dueType as DueType : undefined,
     courseID: rawTask.course_id ?? undefined,
     priority: rawTask.priority ? rawTask.priority as PriorityOption : undefined,
-    completedAt: rawTask.completedAt ?? undefined
+    completedAt: rawTask.completed_at ?? undefined
   }
 }
 

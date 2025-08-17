@@ -41,7 +41,7 @@ export default function TaskForm() {
           due: date ? date.toISOString() : null,
           dueType: dueType,
           priority: priority,
-          completedAt: null
+          completed_at: null
         })
         router.back()
       }
@@ -60,7 +60,7 @@ export default function TaskForm() {
         due: date ? date.toISOString() : null,
         dueType: dueType,
         priority: priority,
-        completedAt: null
+        completed_at: null
       })
         .where(eq(tasks.id, convertedID));
       router.back()
