@@ -97,8 +97,8 @@ export function getAssignmentById(id: number | null) {
       course_id,
       description,
       due,
-      due_type as dueType,
-      completed_at as completedAt
+      due_type,
+      completed_at
       FROM assignments 
       WHERE id = ${id}`)
   if (data === null) return null
