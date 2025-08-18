@@ -15,7 +15,7 @@ import { useTheme } from '@/hooks'
 import { DueType, PriorityOption } from '@/types'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
-import { getTaskById } from '@/hooks/database'
+import { getTaskById } from '@/hooks/useDatabase'
 
 export default function TaskForm() {
   const theme = useTheme();

@@ -4,7 +4,7 @@ import { isBefore } from 'date-fns'
 
 import AssignmentCard from '@/components/Assignment/AssignmentCard'
 
-import { useAssignments } from '@/hooks/database'
+import { useAssignments } from '@/hooks/useDatabase'
 import { useTheme } from '@/hooks/useTheme'
 
 export default function AssignmentSection() {

@@ -3,7 +3,7 @@ import { SymbolView } from 'expo-symbols'
 import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItemTitle, DropdownMenuItemIcon, DropdownMenuCheckboxItem, DropdownMenuGroup, DropdownMenuLabel } from '@/components/Zeego'
 import { useTheme } from '@/hooks/useTheme'
 import { TaskFilterOption } from '@/types'
-import { useCourses } from '@/hooks/database'
+import { useCourses } from '@/hooks/useDatabase'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import { StyleSheet } from 'react-native'
 

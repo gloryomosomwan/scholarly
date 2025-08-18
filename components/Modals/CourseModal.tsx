@@ -5,7 +5,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import CourseModalItem from '@/components/Modals/Items/CourseModalItem'
 
-import { useCourses } from '@/hooks/database'
+import { useCourses } from '@/hooks/useDatabase'
 
 type CourseModalProps = {
   courseSelectorModalRef: React.RefObject<BottomSheetModal>

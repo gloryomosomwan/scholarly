@@ -10,7 +10,7 @@ import ButtonRow from '@/components/Form/ButtonRow'
 
 import { useUserStore } from '@/stores'
 import { useTheme } from '@/hooks'
-import { getSemesterById } from '@/hooks/database'
+import { getSemesterById } from '@/hooks/useDatabase'
 import { semesters } from '@/db/schema'
 import { db } from '@/db/init'
 import { semesterInsertSchema } from '@/db/drizzle-zod'

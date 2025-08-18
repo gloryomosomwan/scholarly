@@ -7,7 +7,7 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useUserStore } from '@/stores'
 import { useTheme } from '@/hooks'
-import { useSemesters } from '@/hooks/database'
+import { useSemesters } from '@/hooks/useDatabase'
 
 export default function SelectSemester() {
   const theme = useTheme()

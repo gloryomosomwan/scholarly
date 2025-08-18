@@ -12,7 +12,7 @@ import FilterPill from '@/components/TasksPage/FilterPill';
 import SortPill from '@/components/TasksPage/SortPill';
 
 import { useTheme } from '@/hooks/useTheme';
-import { useCourses, useTasks } from '@/hooks/database';
+import { useCourses, useTasks } from '@/hooks/useDatabase';
 import { Task, PriorityOption, TaskSortOption, TaskFilterOption, Course } from '@/types';
 
 export default function Tab() {

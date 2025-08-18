@@ -7,7 +7,7 @@ import CourseModal from '@/components/Modals/CourseModal'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks'
-import { getCourseById } from '@/hooks/database'
+import { getCourseById } from '@/hooks/useDatabase'
 
 type CoursePickerProps = {
   courseID: number | null

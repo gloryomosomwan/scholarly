@@ -4,7 +4,7 @@ import { Button } from '@rneui/themed';
 import { router } from 'expo-router';
 
 import { useTheme } from '@/hooks';
-import { useCourses } from '@/hooks/database';
+import { useCourses } from '@/hooks/useDatabase';
 import { useUserStore } from '@/stores';
 
 import CourseCard from '@/components/SemesterPage/CourseCard';

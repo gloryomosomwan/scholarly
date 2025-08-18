@@ -14,7 +14,7 @@ import Completion from '@/components/ActivityCard/Completion';
 
 import { Assignment } from '@/types';
 import { useTheme } from '@/hooks';
-import { getCourseById } from '@/hooks/database';
+import { getCourseById } from '@/hooks/useDatabase';
 import { db } from '@/db/init';
 import { assignments } from '@/db/schema';
 

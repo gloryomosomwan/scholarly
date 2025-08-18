@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import { useTheme } from '@/hooks'
-import { getCourseById } from '@/hooks/database'
+import { getCourseById } from '@/hooks/useDatabase'
 
 type FilterPillProps = {
   filterValue: string | null

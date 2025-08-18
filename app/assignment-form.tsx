@@ -14,7 +14,7 @@ import { useTheme } from '@/hooks'
 import { DueType } from '@/types'
 import { db } from '@/db/init'
 import { assignments } from '@/db/schema'
-import { getAssignmentById } from '@/hooks/database'
+import { getAssignmentById } from '@/hooks/useDatabase'
 
 export default function AssignmentForm() {
   const theme = useTheme();
