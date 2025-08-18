@@ -79,6 +79,13 @@ export default function RootLayout() {
               presentation: 'modal'
             }}
           />
+          <Stack.Screen
+            name="assignment-form"
+            options={{
+              headerShown: false,
+              presentation: 'modal'
+            }}
+          />
         </Stack>
       </SQLiteProvider>
     </GestureHandlerRootView>

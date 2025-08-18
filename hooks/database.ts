@@ -2,12 +2,12 @@ import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { eq, getTableColumns, like } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 
-import { courses, semesters, tasks } from '@/db/schema';
+import { assignments, courses, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
-import { convertRawTask, convertRawCourse, convertRawSemester } from '@/utils/database';
+import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment } from '@/utils/database';
 import { Course, Semester } from "@/types";
 import { useUserStore } from "@/stores";
-import { rawCourse, rawTask } from "@/types/drizzle";
+import { rawAssignment, rawCourse, rawTask } from "@/types/drizzle";
 
 export function useTasks() {
   // const todayPattern = new Date().toISOString().slice(0, 10) + '%'; // timezone bug
@@ -81,4 +81,27 @@ export function getSemesterById(id: number | null) {
    WHERE id = ${id} 
     `)
   return data
+}
+
+export function useAssignments() {
+  const { data } = useLiveQuery(db.select().from(assignments))
+  const assignmentData = data.map(convertRawAssignment)
+  return assignmentData
+}
+
+export function getAssignmentById(id: number | null) {
+  const data = useSQLiteContext().getFirstSync<rawAssignment>(`
+      SELECT 
+      id,
+      title,
+      course_id,
+      description,
+      due,
+      due_type as dueType,
+      completed_at as completedAt
+      FROM assignments 
+      WHERE id = ${id}`)
+  if (data === null) return null
+  const assignment = convertRawAssignment(data)
+  return assignment// If id is null, data is null too
 }
