@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { useRouter, Href } from 'expo-router'
 import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks'
@@ -8,17 +7,16 @@ import { getColorWithOpacity } from '@/utils'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 type AddButtonProps = {
-  route: Href
+  handlePress: () => void
   title: string
   description?: string
 }
 
-export default function AddButton({ route, title, description }: AddButtonProps) {
+export default function AddButton({ handlePress, title, description }: AddButtonProps) {
   const theme = useTheme()
-  const router = useRouter()
   return (
     <View style={styles.addCourseContainer}>
-      <PressableOpacity style={[styles.addCourseButtonContainer, { backgroundColor: theme.secondary, borderColor: theme.grey400 }]} onPress={() => { router.navigate(route) }}>
+      <PressableOpacity style={[styles.addCourseButtonContainer, { backgroundColor: theme.secondary, borderColor: theme.grey400 }]} onPress={handlePress}>
         <View style={styles.addCourseContentContainer}>
           <View style={[styles.addCourseIconContainer, { backgroundColor: getColorWithOpacity(theme.accent, 0.05) }]}>
             <SymbolView name="plus" size={20} tintColor={theme.accent} />

@@ -1,5 +1,6 @@
 import { StyleSheet, ScrollView } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
+import { router } from 'expo-router';
 
 import AssignmentCard from '@/components/CoursePage/AssignmentCard';
 import AddButton from '@/components/Buttons/AddButton';
@@ -17,7 +18,7 @@ export default function Assignments() {
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]}>
       {assignments.map((assignment) => <AssignmentCard key={assignment.id} assignment={assignment} />)}
-      <AddButton title='Add Assignment' route='/assignment-form' />
+      <AddButton title='Add Assignment' handlePress={() => router.navigate({ pathname: '/assignment-form', params: { id: courseID } })} />
     </ScrollView>
   );
 }
