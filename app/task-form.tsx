@@ -16,54 +16,49 @@ import { DueType, PriorityOption } from '@/types'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
 import { getTaskById } from '@/hooks/useDatabase'
+import { taskInsertSchema, taskUpdateSchema } from '@/db/drizzle-zod'
 
 export default function TaskForm() {
   const theme = useTheme();
 
   const { id } = useLocalSearchParams<{ id: string }>()
   const convertedID = Number(id)
-  const task = id ? getTaskById(convertedID) : null // should this violate hook rules?
+  const taskData = id ? getTaskById(convertedID) : null // should this violate hook rules?
 
-  const [date, setDate] = useState<Date | null>(task?.due ? new Date(task.due) : null);
-  const [dueType, setDueType] = useState<DueType | null>(task?.dueType ? task.dueType : null);
-  const [courseID, setCourseID] = useState<number | null>(task?.courseID ? task.courseID : null);
-  const [priority, setPriority] = useState<PriorityOption | null>(task?.priority ? task.priority : null);
-  const [title, setTitle] = useState(task?.title ? task.title : null)
-  const [notes, setNotes] = useState(task?.description ? task.description : null)
+  const [date, setDate] = useState<Date | null>(taskData?.due ? new Date(taskData.due) : null);
+  const [dueType, setDueType] = useState<DueType | null>(taskData?.dueType ? taskData.dueType : null);
+  const [courseID, setCourseID] = useState<number | null>(taskData?.courseID ? taskData.courseID : null);
+  const [priority, setPriority] = useState<PriorityOption | null>(taskData?.priority ? taskData.priority : null);
+  const [title, setTitle] = useState(taskData?.title ? taskData.title : null)
+  const [notes, setNotes] = useState(taskData?.description ? taskData.description : null)
+
+  const task = {
+    title: title,
+    course_id: courseID,
+    description: notes,
+    due: date ? date.toISOString() : null,
+    dueType: dueType,
+    priority: priority,
+    completed_at: null
+  }
 
   const createTask = async () => {
     try {
-      if (title !== null) {
-        await db.insert(tasks).values({
-          title: title,
-          course_id: courseID,
-          description: notes,
-          due: date ? date.toISOString() : null,
-          dueType: dueType,
-          priority: priority,
-          completed_at: null
-        })
-        router.back()
-      }
-    }
-    catch (error) {
+      const parsed = taskInsertSchema.parse(task)
+      await db.insert(tasks).values(parsed)
+      router.back()
+    } catch (error) {
       console.log(error)
     }
   }
 
   const updateTask = async () => {
-    if (title !== null && id !== null) {
-      await db.update(tasks).set({
-        title: title,
-        course_id: courseID,
-        description: notes,
-        due: date ? date.toISOString() : null,
-        dueType: dueType,
-        priority: priority,
-        completed_at: null
-      })
-        .where(eq(tasks.id, convertedID));
+    try {
+      const parsed = taskUpdateSchema.parse(task)
+      await db.update(tasks).set(parsed).where(eq(tasks.id, convertedID))
       router.back()
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -97,7 +92,7 @@ export default function TaskForm() {
           <PriorityPicker priority={priority} setPriority={setPriority} />
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
         </View>
-        <ButtonRow confirmDelete={confirmDelete} create={createTask} update={updateTask} isCreateForm={id === undefined} disabled={title?.length === 0} />
+        <ButtonRow confirmDelete={confirmDelete} create={createTask} update={updateTask} isCreateForm={id === undefined} disabled={!taskInsertSchema.safeParse(task).success} />
       </View >
     </BottomSheetModalProvider>
   )

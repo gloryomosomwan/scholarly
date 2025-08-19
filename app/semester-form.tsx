@@ -13,7 +13,7 @@ import { useTheme } from '@/hooks'
 import { getSemesterById } from '@/hooks/useDatabase'
 import { semesters } from '@/db/schema'
 import { db } from '@/db/init'
-import { semesterInsertSchema } from '@/db/drizzle-zod'
+import { semesterInsertSchema, semesterUpdateSchema } from '@/db/drizzle-zod'
 
 export default function SemesterForm() {
   const theme = useTheme()
@@ -50,14 +50,15 @@ export default function SemesterForm() {
   }
 
   const updateSemester = async () => {
-    if (name !== null && start !== null && end !== null) {
-      await db.update(semesters).set({
-        name: name,
-        start: start.toISOString(),
-        end: end.toISOString()
-      })
-        .where((eq(semesters.id, convertedID)));
+    try {
+      const parsed = semesterUpdateSchema.parse(semester)
+      await db
+        .update(semesters)
+        .set(parsed)
+        .where(eq(semesters.id, convertedID))
       router.back()
+    } catch (error) {
+      console.log(error)
     }
   }
 
