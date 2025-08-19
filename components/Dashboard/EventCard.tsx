@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import EventTypePill from '@/components/EventCard/EventTypePill';
+import EventPill from '@/components/EventCard/EventPill';
 import EventTimeRange from '@/components/EventCard/EventTimeRange';
 import ProgressBar from '@/components/EventCard/ProgressBar';
 import ProgressBarLabels from '@/components/EventCard/ProgressBarLabels';
@@ -26,11 +26,11 @@ export default function EventCard({ event }: EventCardProps) {
     <View style={styles.container}>
       <View style={[styles.card, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
         <View style={styles.topRowContainer}>
-          <EventTypePill type={event.type} courseColor={course?.color} />
+          <EventPill text={course ? course.code : event.type} courseColor={course?.color} />
           <EventTimeRange startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} />
         </View>
         <View style={styles.mainContentContainer}>
-          <EventHeader text={course?.code ? course.code : event.name} courseColor={course?.color} />
+          <EventHeader text={course ? event.type : event.name} courseColor={course?.color} />
           <EventLocation location={event.location} courseColor={course?.color} />
         </View>
         <View style={styles.progressSection}>
