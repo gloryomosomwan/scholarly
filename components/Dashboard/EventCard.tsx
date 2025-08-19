@@ -23,17 +23,13 @@ export default function EventCard({ event }: EventCardProps) {
   return (
     <View style={styles.container}>
       <View style={[styles.card, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
-        {/* Top row */}
         <View style={styles.topRowContainer}>
           <EventTypePill type={event.type} />
           <EventTimeRange startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} />
         </View>
-        {/* Main Content */}
         <View style={styles.mainContentContainer}>
-          <View style={styles.courseInfoContainer}>
-            <EventHeader courseID={event.courseID} />
-            <EventLocation location={event.location} />
-          </View>
+          <EventHeader courseID={event.courseID} />
+          <EventLocation location={event.location} />
         </View>
         <View style={styles.progressSection}>
           <ProgressBar startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} />
@@ -71,12 +67,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   mainContentContainer: {
-    flexDirection: 'row',
+    flex: 1,
     alignItems: 'flex-start',
     marginBottom: 16,
-  },
-  courseInfoContainer: {
-    flex: 1,
   },
   progressSection: {
     marginTop: 8,
