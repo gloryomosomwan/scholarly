@@ -24,7 +24,7 @@ export default function ProgressBar({ startDate, endDate, isCurrentEvent, course
           <View
             style={[
               styles.fill,
-              { width: `${progressPercentage}%`, backgroundColor: courseColor },
+              { width: `${progressPercentage}%`, backgroundColor: courseColor ?? theme.grey500 },
             ]}
           >
           </View>
