@@ -16,7 +16,7 @@ export default function Assignments() {
   const assignments = useAssignmentsByCourse(parseInt(courseID))
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]}>
-      {assignments.map((assignment) => <AssignmentCard assignment={assignment} />)}
+      {assignments.map((assignment) => <AssignmentCard key={assignment.id} assignment={assignment} />)}
       <AddButton title='Add Assignment' route='/assignment-form' />
     </ScrollView>
   );
