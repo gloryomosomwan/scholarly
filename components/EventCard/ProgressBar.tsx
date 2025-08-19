@@ -3,18 +3,16 @@ import React from 'react'
 import tinycolor from 'tinycolor2'
 
 import { useTheme } from '@/hooks/useTheme'
-import dayjs from '@/utils/dayjs'
 
 type ProgressBarProps = {
   startDate: Date
   endDate: Date
+  isCurrentEvent: boolean
 }
 
-export default function ProgressBar({ startDate, endDate }: ProgressBarProps) {
+export default function ProgressBar({ startDate, endDate, isCurrentEvent }: ProgressBarProps) {
   const theme = useTheme()
   const courseColor = 'red'
-  const nowDayJS = dayjs()
-  const isCurrentEvent = nowDayJS.isBetween(startDate, endDate)
   const now = new Date()
   const elapsed = now.getTime() - startDate.getTime();
   const totalDuration = endDate.getTime() - startDate.getTime();

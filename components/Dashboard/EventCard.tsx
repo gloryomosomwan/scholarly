@@ -18,15 +18,15 @@ type EventCardProps = {
 
 export default function EventCard({ event }: EventCardProps) {
   const theme = useTheme()
-  const nowDayJS = dayjs()
-  const isCurrentEvent = event ? nowDayJS.isBetween(event.startDate, event.endDate) : false
+  const now = dayjs()
+  const isCurrentEvent = now.isBetween(event.startDate, event.endDate)
   return (
     <View style={styles.container}>
       <View style={[styles.card, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
         {/* Top row */}
         <View style={styles.topRowContainer}>
           <EventTypePill type={event.type} />
-          <EventTimeRange startDate={event.startDate} endDate={event.endDate} />
+          <EventTimeRange startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} />
         </View>
         {/* Main Content */}
         <View style={styles.mainContentContainer}>
@@ -36,7 +36,7 @@ export default function EventCard({ event }: EventCardProps) {
           </View>
         </View>
         <View style={styles.progressSection}>
-          <ProgressBar startDate={event.startDate} endDate={event.endDate} />
+          <ProgressBar startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} />
           {
             isCurrentEvent &&
             <ProgressBarLabels startDate={event.startDate} endDate={event.endDate} />

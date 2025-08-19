@@ -8,12 +8,12 @@ import dayjs from '@/utils/dayjs'
 type EventTimeRangeProps = {
   startDate: Date
   endDate: Date
+  isCurrentEvent: boolean
 }
 
-export default function EventTimeRange({ startDate, endDate }: EventTimeRangeProps) {
+export default function EventTimeRange({ startDate, endDate, isCurrentEvent }: EventTimeRangeProps) {
   const theme = useTheme()
   const nowDayJS = dayjs()
-  const isCurrentEvent = nowDayJS.isBetween(startDate, endDate)
   const isUpNext = nowDayJS.isBefore(startDate)
   let timeFromNowString
   if (isUpNext) {
