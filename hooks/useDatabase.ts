@@ -1,6 +1,7 @@
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { eq, getTableColumns, like } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
+import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
 
 import { assignments, courses, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
@@ -111,3 +112,12 @@ export function getAssignmentById(id: number | null) {
   const assignment = convertRawAssignment(data)
   return assignment// If id is null, data is null too
 }
+
+export async function toggleCompleted(id: number, completedAt: string | undefined, table: AnySQLiteTable) {
+  if (completedAt) {
+    await db.update(assignments).set({ completed_at: null }).where(eq(assignments.id, id))
+  }
+  else if (!completedAt) {
+    await db.update(assignments).set({ completed_at: new Date().toISOString() }).where(eq(assignments.id, id))
+  }
+};

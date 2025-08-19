@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/hooks';
 import { getColorWithOpacity } from '@/utils';
 import { Assignment } from '@/types';
+import { assignments } from '@/db/schema';
+import { toggleCompleted } from '@/hooks/useDatabase';
 
 export type AssignmentCardProps = {
   assignment: Assignment
@@ -18,12 +20,7 @@ function getDateString(date: Date) {
 
 export default function AssignmentCard({ assignment }: AssignmentCardProps) {
   const theme = useTheme();
-  const [completed, setCompleted] = useState(false)
-
-  const onPress = () => {
-    setCompleted(true)
-  }
-
+  const completedAt = assignment.completedAt
   return (
     <View style={[styles.cardContainer, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]}>
       <View style={styles.mainContentContainer}>
@@ -51,13 +48,13 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{assignment.description}</Text>
       </View>
       {
-        completed ?
+        completedAt ?
           <View style={[styles.completionContent, { backgroundColor: theme.successBackground }]}>
             <SymbolView name="checkmark.circle.fill" size={16} tintColor={theme.success} style={styles.completionIcon} />
             <Text style={[styles.completionText, { color: theme.successText }]}>Completed</Text>
           </View>
           :
-          <TouchableOpacity onPress={onPress} style={[styles.doneButton, { backgroundColor: getColorWithOpacity(theme.accent, 0.15) }]}>
+          <TouchableOpacity onPress={() => toggleCompleted(assignment.id, completedAt, assignments)} style={[styles.doneButton, { backgroundColor: getColorWithOpacity(theme.accent, 0.15) }]}>
             <Text style={[styles.doneText, { color: theme.accent }]}>Mark Done</Text>
           </TouchableOpacity>
       }
