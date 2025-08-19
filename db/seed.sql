@@ -40,6 +40,18 @@ create table assignments (
     FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
+create table events (
+    id INTEGER PRIMARY KEY,
+    type TEXT NOT NULL,
+    startDate TEXT NOT NULL,
+    endDate TEXT NOT NULL,
+    name TEXT,
+    course_id INTEGER,
+    location TEXT,
+    notes TEXT,
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+)
+
 INSERT INTO semesters (id, name, start, end) VALUES
 (1, 'Summer 2025', '2025-07-04T06:00:00.000Z', '2025-08-21T06:00:00.000Z'),
 (2, 'Spring 2025', '2025-05-07T06:00:00.000Z', '2025-06-23T06:00:00.000Z');
@@ -57,3 +69,4 @@ INSERT INTO tasks (id, title, course_id, description, due, priority, completed_a
 INSERT INTO assignments (id, title, course_id, description, due, due_type, completed_at, weight, grade) VALUES
 (1, 'Assignment 2', 1, 'Check with jeff', '2025-08-29T06:00:00.000Z', 'date', NULL, 50, NULL);
 
+INSERT INTO events (type, startDate, endDate, name, course_id, location, notes) VALUES ('general', '2025-08-29T06:00:00.000Z', '2025-08-29T09:00:00.000Z', 'Go to gym', NULL, NULL, NULL)
