@@ -71,9 +71,6 @@ export interface Course {
   name: string;
   semesterID: number
   instructor?: string;
-  lectureSchedule?: string
-  labSchedule?: string
-  seminarSchedule?: string
 }
 
 export interface Semester {

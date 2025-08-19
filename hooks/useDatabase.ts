@@ -56,10 +56,7 @@ export function getCourseById(id: number | null) {
       name,
       color,
       semester_id,
-      instructor,
-      lectureSchedule,
-      seminarSchedule,
-      labSchedule
+      instructor
       FROM courses 
       WHERE id = ${id}
       `)

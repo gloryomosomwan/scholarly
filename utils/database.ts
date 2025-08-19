@@ -18,9 +18,6 @@ export function convertRawCourse(rawCourse: rawCourse): Course {
     ...rawCourse,
     semesterID: rawCourse.semester_id,
     instructor: rawCourse.instructor ?? undefined,
-    lectureSchedule: rawCourse.lectureSchedule ?? undefined,
-    labSchedule: rawCourse.labSchedule ?? undefined,
-    seminarSchedule: rawCourse.seminarSchedule ?? undefined
   }
 }
 
