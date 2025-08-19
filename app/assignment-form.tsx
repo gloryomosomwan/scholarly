@@ -19,13 +19,13 @@ import { getAssignmentById } from '@/hooks/useDatabase'
 export default function AssignmentForm() {
   const theme = useTheme();
 
-  const { id } = useLocalSearchParams<{ id: string }>()
+  const { id, initialCourseID } = useLocalSearchParams<{ id: string, initialCourseID: string }>()
   const convertedID = Number(id)
   const assignment = id ? getAssignmentById(convertedID) : null // should this violate hook rules?
 
   const [date, setDate] = useState<Date | null>(assignment?.due ? new Date(assignment.due) : null);
   const [dueType, setDueType] = useState<DueType | null>(assignment?.dueType ? assignment.dueType : null);
-  const [courseID, setCourseID] = useState<number | null>(assignment?.courseID ? assignment.courseID : null);
+  const [courseID, setCourseID] = useState<number | null>(assignment?.courseID ? assignment.courseID : (initialCourseID ? parseInt(initialCourseID) : null))
   const [title, setTitle] = useState(assignment?.title ? assignment.title : null)
   const [notes, setNotes] = useState(assignment?.description ? assignment.description : null)
 

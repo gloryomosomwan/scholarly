@@ -18,7 +18,7 @@ export default function Assignments() {
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]}>
       {assignments.map((assignment) => <AssignmentCard key={assignment.id} assignment={assignment} />)}
-      <AddButton title='Add Assignment' handlePress={() => router.navigate({ pathname: '/assignment-form', params: { id: courseID } })} />
+      <AddButton title='Add Assignment' handlePress={() => router.navigate({ pathname: '/assignment-form', params: { initialCourseID: courseID } })} />
     </ScrollView>
   );
 }
