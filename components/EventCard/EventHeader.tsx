@@ -15,25 +15,25 @@ export default function EventHeader({ courseID }: EventHeaderProps) {
   // const course = getCourseById(courseID)
   const courseCode = 'HIST 211'
   return (
-    <View style={styles.courseTitleContainer}>
-      <SymbolView name={'book'} size={28} tintColor={courseColor} style={[styles.courseIcon]} />
-      <Text style={[styles.courseTitleText, { color: theme.text }]}>{courseCode}</Text>
+    <View style={styles.container}>
+      <SymbolView name={'book'} size={28} tintColor={courseColor} style={[styles.icon]} />
+      <Text style={[styles.text, { color: theme.text }]}>{courseCode}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  courseTitleContainer: {
+  container: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 4
   },
-  courseTitleText: {
+  text: {
     fontSize: 30,
     fontWeight: '600',
     // marginBottom: 4,
   },
-  courseIcon: {
+  icon: {
     marginRight: 5
   },
 })
