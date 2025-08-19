@@ -2,12 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 
+import AssignmentCardMenu from '@/components/Assignment/AssignmentCardMenu';
+
 import { useTheme } from '@/hooks';
 import { getColorWithOpacity } from '@/utils';
 import { Assignment } from '@/types';
 import { assignments } from '@/db/schema';
 import { toggleCompleted } from '@/hooks/useDatabase';
-import AssignmentCardMenu from '../Assignment/AssignmentCardMenu';
 
 export type AssignmentCardProps = {
   assignment: Assignment
