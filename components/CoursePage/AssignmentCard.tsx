@@ -43,11 +43,14 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Weight: '}</Text>
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{assignment.courseWeight}</Text>
       </View> */}
-      <View style={styles.detailRowContainer}>
-        <SymbolView name={'note.text'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
-        <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Notes: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{assignment.description}</Text>
-      </View>
+      {
+        assignment.description &&
+        <View style={styles.detailRowContainer}>
+          <SymbolView name={'note.text'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
+          <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Notes: '}</Text>
+          <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{assignment.description}</Text>
+        </View>
+      }
       {
         completedAt ?
           <View style={[styles.completionContent, { backgroundColor: theme.successBackground }]}>
