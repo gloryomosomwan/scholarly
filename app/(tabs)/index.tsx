@@ -4,7 +4,7 @@ import { SymbolView } from "expo-symbols";
 import dayjs from "dayjs";
 
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
-import EventCard from "@/components/Dashboard/EventCard";
+import EventCard from "@/components/EventCard/EventCard";
 import TaskSection from "@/components/Dashboard/TaskSection";
 import AssignmentSection from "@/components/Dashboard/AssignmentSection";
 
