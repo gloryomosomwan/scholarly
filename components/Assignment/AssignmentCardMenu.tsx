@@ -7,7 +7,7 @@ import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMen
 
 import { useTheme } from '@/hooks/useTheme'
 import { db } from '@/db/init'
-import { tasks } from '@/db/schema'
+import { assignments, tasks } from '@/db/schema'
 
 type AssignmentCardMenuProps = {
   assignmentID: number
@@ -30,7 +30,7 @@ export default function AssignmentCardMenu({ assignmentID }: AssignmentCardMenuP
         if (buttonIndex === 0) {
           // Cancel action
         } else if (buttonIndex === 1) {
-          await db.delete(tasks).where(eq(tasks.id, assignmentID))
+          await db.delete(assignments).where(eq(assignments.id, assignmentID))
         }
       }
     )
