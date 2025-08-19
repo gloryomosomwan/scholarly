@@ -6,14 +6,13 @@ import { getColorWithOpacity } from '@/utils'
 
 type EventTypePillProps = {
   type: string
+  courseColor: string | undefined
 }
 
-export default function EventTypePill({ type }: EventTypePillProps) {
+export default function EventTypePill({ type, courseColor }: EventTypePillProps) {
   const theme = useTheme()
-  // const courseColor = courses.find(course => course.code === event.course)?.color ?? theme.grey400
-  const courseColor = 'red'
   return (
-    <View style={[styles.background, { backgroundColor: getColorWithOpacity(courseColor, 0.25) }]}>
+    <View style={[styles.background, { backgroundColor: courseColor ? getColorWithOpacity(courseColor, 0.25) : theme.grey200 }]}>
       <Text style={[styles.text, { color: courseColor }]}>{type}</Text>
     </View>
   )

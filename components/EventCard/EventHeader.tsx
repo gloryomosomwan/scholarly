@@ -3,17 +3,14 @@ import React from 'react'
 import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks/useTheme'
-import { getCourseById } from '@/hooks/useDatabase'
 
 type EventHeaderProps = {
-  courseID: number | undefined
+  courseCode: string | undefined
+  courseColor: string | undefined
 }
 
-export default function EventHeader({ courseID }: EventHeaderProps) {
+export default function EventHeader({ courseCode, courseColor }: EventHeaderProps) {
   const theme = useTheme()
-  const courseColor = 'red'
-  // const course = getCourseById(courseID)
-  const courseCode = 'HIST 211'
   return (
     <View style={styles.container}>
       <SymbolView name={'book'} size={28} tintColor={courseColor} style={[styles.icon]} />

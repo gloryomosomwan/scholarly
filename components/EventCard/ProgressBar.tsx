@@ -8,11 +8,11 @@ type ProgressBarProps = {
   startDate: Date
   endDate: Date
   isCurrentEvent: boolean
+  courseColor: string | undefined
 }
 
-export default function ProgressBar({ startDate, endDate, isCurrentEvent }: ProgressBarProps) {
+export default function ProgressBar({ startDate, endDate, isCurrentEvent, courseColor }: ProgressBarProps) {
   const theme = useTheme()
-  const courseColor = 'red'
   const now = new Date()
   const elapsed = now.getTime() - startDate.getTime();
   const totalDuration = endDate.getTime() - startDate.getTime();

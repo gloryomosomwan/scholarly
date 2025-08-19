@@ -6,11 +6,11 @@ import { useTheme } from '@/hooks/useTheme'
 
 type EventLocationProps = {
   location: string | undefined
+  courseColor: string | undefined
 }
 
-export default function EventLocation({ location }: EventLocationProps) {
+export default function EventLocation({ location, courseColor }: EventLocationProps) {
   const theme = useTheme()
-  const courseColor = 'red'
   return (
     <View style={styles.container}>
       <SymbolView style={styles.icon} name={'mappin.circle.fill'} tintColor={courseColor} size={15} />
