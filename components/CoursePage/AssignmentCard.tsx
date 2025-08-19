@@ -7,6 +7,7 @@ import { getColorWithOpacity } from '@/utils';
 import { Assignment } from '@/types';
 import { assignments } from '@/db/schema';
 import { toggleCompleted } from '@/hooks/useDatabase';
+import AssignmentCardMenu from '../Assignment/AssignmentCardMenu';
 
 export type AssignmentCardProps = {
   assignment: Assignment
@@ -29,7 +30,7 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
         </View>
         <View style={styles.mainTextContainer}>
           <Text style={[styles.titleText, { color: theme.text }]}>{assignment.title}</Text>
-          <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
+          <AssignmentCardMenu assignmentID={assignment.id} />
         </View>
       </View>
       <View style={styles.detailRowContainer}>
