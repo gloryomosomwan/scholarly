@@ -1,126 +1,45 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { SymbolView } from 'expo-symbols';
-import tinycolor from 'tinycolor2';
+import { View, StyleSheet } from 'react-native';
+
+import EventTypePill from '@/components/EventCard/EventTypePill';
+import EventTimeRange from '@/components/EventCard/EventTimeRange';
+import ProgressBar from '@/components/EventCard/ProgressBar';
+import ProgressBarLabels from '@/components/EventCard/ProgressBarLabels';
+import EventLocation from '@/components/EventCard/EventLocation';
+import EventHeader from '@/components/EventCard/EventHeader';
 
 import dayjs from '@/utils/dayjs'
-import { formatTime, getColorWithOpacity } from '@/utils'
 import { useTheme } from '@/hooks';
-import { courses } from '@/data/data';
+import { Event } from '@/types';
 
 type EventCardProps = {
-  event: {
-    type: string;
-    course: string;
-    emoji: string;
-    location: string;
-    start: Date;
-    end: Date;
-  };
+  event: Event;
 };
 
 export default function EventCard({ event }: EventCardProps) {
-  const { type, course, location, start, end } = event;
   const theme = useTheme()
-  const courseColor = courses.find(course => course.code === event.course)?.color ?? theme.grey400
-
-  const now = new Date();
-  const totalDuration = end.getTime() - start.getTime();
-  const elapsed = now.getTime() - start.getTime();
-  const remaining = end.getTime() - now.getTime();
-
   const nowDayJS = dayjs()
-  const isCurrentEvent = nowDayJS.isBetween(event.start, event.end)
-  const isUpNext = nowDayJS.isBefore(event.start)
-  let timeFromNowString
-  if (isUpNext) {
-    timeFromNowString = dayjs(event.start).fromNow()
-    timeFromNowString = timeFromNowString.charAt(0).toUpperCase() + timeFromNowString.slice(1)
-  }
-
-  const progressPercentage = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
-
-  const formatRemainingTime = (milliseconds: number) => {
-    const minutes = Math.floor(milliseconds / (1000 * 60));
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-
-    if (hours > 0) {
-      return `${hours}h ${remainingMinutes}m left`;
-    }
-    return `${remainingMinutes} minutes left`;
-  };
-
-  const formatElapsedTime = (milliseconds: number) => {
-    const minutes = Math.floor(milliseconds / (1000 * 60));
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-
-    if (hours > 0) {
-      return `${hours}h ${remainingMinutes}m elapsed`;
-    }
-    return `${remainingMinutes}m elapsed`;
-  };
-
+  const isCurrentEvent = event ? nowDayJS.isBetween(event.startDate, event.endDate) : false
   return (
     <View style={styles.container}>
-
       <View style={[styles.card, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
-        {/* Header */}
+        {/* Top row */}
         <View style={styles.topRowContainer}>
-          <View style={[styles.eventTypeBackground, { backgroundColor: getColorWithOpacity(courseColor, 0.25) }]}>
-            <Text style={[styles.eventTypeText, { color: courseColor }]}>{type}</Text>
-          </View>
-          <View style={styles.timeContainer}>
-            <Text style={[styles.timeRangeText, { color: theme.grey600 }]}>
-              {formatTime(start)} - {formatTime(end)}
-            </Text>
-            <Text style={[styles.timeAgoText, { color: theme.grey400 }]}>
-              {!isCurrentEvent && timeFromNowString}
-            </Text>
-          </View>
+          <EventTypePill type={event.type} />
+          <EventTimeRange startDate={event.startDate} endDate={event.endDate} />
         </View>
-
         {/* Main Content */}
         <View style={styles.mainContentContainer}>
           <View style={styles.courseInfoContainer}>
-            <View style={styles.courseTitleContainer}>
-              <SymbolView name={'book'} size={28} tintColor={courseColor} style={[styles.courseIcon]} />
-              <Text style={[styles.courseTitleText, { color: theme.text }]}>{course}</Text>
-            </View>
-            <View style={styles.locationContainer}>
-              <SymbolView style={styles.locationIcon} name={'mappin.circle.fill'} tintColor={courseColor} size={15} />
-              <Text style={[styles.locationText, { color: theme.grey500 }]}>{location}</Text>
-            </View>
+            <EventHeader courseID={event.courseID} />
+            <EventLocation location={event.location} />
           </View>
         </View>
-
-        {/* Progress Bar */}
-
         <View style={styles.progressSection}>
-          <View style={styles.progressContainer}>
-            <View style={[styles.progressBackground, { backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }]}>
-              {isCurrentEvent &&
-                <View
-                  style={[
-                    styles.progressFill,
-                    { width: `${progressPercentage}%`, backgroundColor: courseColor },
-                  ]}
-                >
-                </View>
-              }
-            </View>
-          </View>
+          <ProgressBar startDate={event.startDate} endDate={event.endDate} />
           {
             isCurrentEvent &&
-            <View style={styles.progressLabels}>
-              <Text style={[styles.progressLabel, { color: theme.grey500 }]}>
-                {formatElapsedTime(elapsed)}
-              </Text>
-              <Text style={[styles.progressLabel, { color: theme.grey500 }]}>
-                {remaining > 0 ? formatRemainingTime(remaining) : 'Complete'}
-              </Text>
-            </View>
+            <ProgressBarLabels startDate={event.startDate} endDate={event.endDate} />
           }
         </View>
       </View>
@@ -151,94 +70,15 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginBottom: 16,
   },
-  eventTypeBackground: {
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 20,
-  },
-  eventTypeText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-
-  // Time
-  timeContainer: {
-    alignItems: 'flex-end',
-  },
-  timeRangeText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  timeAgoText: {
-    fontSize: 13,
-    opacity: 0.7,
-    marginTop: 2,
-  },
-
-  // Main Content
   mainContentContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginBottom: 16,
   },
-  courseIcon: {
-    marginRight: 5
-  },
   courseInfoContainer: {
     flex: 1,
   },
-  courseTitleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4
-  },
-  courseTitleText: {
-    fontSize: 30,
-    fontWeight: '600',
-    // marginBottom: 4,
-  },
-
-  // Location
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  locationIcon: {
-    marginRight: 4,
-    opacity: 0.7
-  },
-  locationText: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-
-  // Progress
   progressSection: {
     marginTop: 8,
-  },
-  progressContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  progressBackground: {
-    flex: 1,
-    height: 8,
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  progressFill: {
-    height: 8,
-    borderRadius: 4,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  progressLabels: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  progressLabel: {
-    fontSize: 12,
   },
 });

@@ -1,11 +1,11 @@
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
-import { eq, getTableColumns, like } from 'drizzle-orm';
+import { and, eq, getTableColumns, gte, like, lte } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
 
-import { assignments, courses, semesters, tasks } from '@/db/schema';
+import { assignments, courses, events, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
-import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment } from '@/utils/database';
+import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent } from '@/utils/database';
 import { Course, Semester } from "@/types";
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawTask } from "@/types/drizzle";
@@ -82,6 +82,17 @@ export function getSemesterById(id: number | null) {
    WHERE id = ${id} 
     `)
   return data
+}
+
+export function useCurrentEvent() {
+  const { data } = useLiveQuery(db.select().from(events).where(
+    and(
+      lte(events.start_date, new Date().toISOString()),
+      gte(events.end_date, new Date().toISOString())
+    )
+  ))
+  const eventData = data.map(convertRawEvent)
+  return eventData
 }
 
 export function useAssignments() {

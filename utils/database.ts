@@ -47,8 +47,8 @@ export function convertRawAssignment(rawAssignment: rawAssignment): Assignment {
 
 export function convertRawEvent(rawEvent: rawEvent): Event {
   return {
-    ...rawEvent,
-    courseID: rawEvent.course_id,
+    id: rawEvent.id,
+    courseID: rawEvent.course_id ?? undefined,
     type: rawEvent.type as EventType,
     name: rawEvent.name ?? undefined,
     startDate: new Date(rawEvent.start_date),

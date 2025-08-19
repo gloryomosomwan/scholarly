@@ -1,0 +1,58 @@
+import { StyleSheet, View } from 'react-native'
+import React from 'react'
+import tinycolor from 'tinycolor2'
+
+import { useTheme } from '@/hooks/useTheme'
+import dayjs from '@/utils/dayjs'
+
+type ProgressBarProps = {
+  startDate: Date
+  endDate: Date
+}
+
+export default function ProgressBar({ startDate, endDate }: ProgressBarProps) {
+  const theme = useTheme()
+  const courseColor = 'red'
+  const nowDayJS = dayjs()
+  const isCurrentEvent = nowDayJS.isBetween(startDate, endDate)
+  const now = new Date()
+  const elapsed = now.getTime() - startDate.getTime();
+  const totalDuration = endDate.getTime() - startDate.getTime();
+  const progressPercentage = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
+  return (
+    <View style={styles.container}>
+      <View style={[styles.background, { backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }]}>
+        {isCurrentEvent &&
+          <View
+            style={[
+              styles.fill,
+              { width: `${progressPercentage}%`, backgroundColor: courseColor },
+            ]}
+          >
+          </View>
+        }
+      </View>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  background: {
+    flex: 1,
+    height: 8,
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  fill: {
+    height: 8,
+    borderRadius: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+})

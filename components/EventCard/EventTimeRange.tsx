@@ -1,0 +1,48 @@
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+
+import { useTheme } from '@/hooks/useTheme'
+import { formatTime } from '@/utils'
+import dayjs from '@/utils/dayjs'
+
+type EventTimeRangeProps = {
+  startDate: Date
+  endDate: Date
+}
+
+export default function EventTimeRange({ startDate, endDate }: EventTimeRangeProps) {
+  const theme = useTheme()
+  const nowDayJS = dayjs()
+  const isCurrentEvent = nowDayJS.isBetween(startDate, endDate)
+  const isUpNext = nowDayJS.isBefore(startDate)
+  let timeFromNowString
+  if (isUpNext) {
+    timeFromNowString = dayjs(startDate).fromNow()
+    timeFromNowString = timeFromNowString.charAt(0).toUpperCase() + timeFromNowString.slice(1)
+  }
+  return (
+    <View style={styles.timeContainer}>
+      <Text style={[styles.timeRangeText, { color: theme.grey600 }]}>
+        {formatTime(startDate)} - {formatTime(endDate)}
+      </Text>
+      <Text style={[styles.timeAgoText, { color: theme.grey400 }]}>
+        {!isCurrentEvent && timeFromNowString}
+      </Text>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  timeContainer: {
+    alignItems: 'flex-end',
+  },
+  timeRangeText: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  timeAgoText: {
+    fontSize: 13,
+    opacity: 0.7,
+    marginTop: 2,
+  },
+})
