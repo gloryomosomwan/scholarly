@@ -19,7 +19,7 @@ export default function ProgressBar({ startDate, endDate, isCurrentEvent, course
   const progressPercentage = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
   return (
     <View style={styles.container}>
-      <View style={[styles.background, { backgroundColor: tinycolor(courseColor).setAlpha(0.15).toRgbString() }]}>
+      <View style={[styles.background, { backgroundColor: courseColor ? tinycolor(courseColor).setAlpha(0.15).toRgbString() : theme.grey200 }]}>
         {isCurrentEvent &&
           <View
             style={[
