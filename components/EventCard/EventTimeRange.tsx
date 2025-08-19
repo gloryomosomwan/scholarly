@@ -13,8 +13,8 @@ type EventTimeRangeProps = {
 
 export default function EventTimeRange({ startDate, endDate, isCurrentEvent }: EventTimeRangeProps) {
   const theme = useTheme()
-  const nowDayJS = dayjs()
-  const isUpNext = nowDayJS.isBefore(startDate)
+  const now = dayjs()
+  const isUpNext = now.isBefore(startDate)
   let timeFromNowString
   if (isUpNext) {
     timeFromNowString = dayjs(startDate).fromNow()
