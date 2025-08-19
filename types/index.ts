@@ -11,8 +11,8 @@ export interface Event {
   id: number;
   name?: string;
   type: EventType;
-  start: Date;
-  end: Date;
+  startDate: Date;
+  endDate: Date;
   course?: string;
   location?: string;
   notes?: string;
