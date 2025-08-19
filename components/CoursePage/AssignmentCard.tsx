@@ -4,15 +4,10 @@ import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/hooks';
 import { getColorWithOpacity } from '@/utils';
+import { Assignment } from '@/types';
 
 export type AssignmentCardProps = {
-  assignment: {
-    id: number
-    title: string
-    description: string
-    due: Date
-    courseWeight: string
-  };
+  assignment: Assignment
 };
 
 function getDateString(date: Date) {
@@ -45,11 +40,11 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Due: '}</Text>
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(assignment.due)}</Text>
       </View>
-      <View style={styles.detailRowContainer}>
+      {/* <View style={styles.detailRowContainer}>
         <SymbolView name={'scalemass'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Weight: '}</Text>
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{assignment.courseWeight}</Text>
-      </View>
+      </View> */}
       <View style={styles.detailRowContainer}>
         <SymbolView name={'note.text'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Notes: '}</Text>

@@ -89,6 +89,12 @@ export function useAssignments() {
   return assignmentData
 }
 
+export function useAssignmentsByCourse(courseID: number) {
+  const { data } = useLiveQuery(db.select().from(assignments).where(eq(assignments.course_id, courseID)))
+  const assignmentData = data.map(convertRawAssignment)
+  return assignmentData
+}
+
 export function getAssignmentById(id: number | null) {
   const data = useSQLiteContext().getFirstSync<rawAssignment>(`
       SELECT 

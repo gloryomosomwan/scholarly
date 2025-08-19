@@ -1,23 +1,23 @@
 import { StyleSheet, ScrollView } from 'react-native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 
-import { useTheme } from '@/hooks';
 import AssignmentCard from '@/components/CoursePage/AssignmentCard';
 import AddButton from '@/components/Buttons/AddButton';
 
-const assignment1 = {
-  id: 1,
-  title: 'Problem Set 4',
-  description: 'Check with John',
-  due: new Date(2025, 5, 30),
-  courseWeight: '15%'
-}
+import { useTheme } from '@/hooks/useTheme';
+import { useAssignmentsByCourse } from '@/hooks/useDatabase';
+import { CourseTabsParamList } from '@/types/navigation';
+
+type AssignmentsRoute = RouteProp<CourseTabsParamList, 'Assignments'>;
 
 export default function Assignments() {
   const theme = useTheme()
+  const { params: { courseID } } = useRoute<AssignmentsRoute>()
+  const assignments = useAssignmentsByCourse(parseInt(courseID))
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]}>
-      <AssignmentCard assignment={assignment1} />
-      <AddButton title='Add Assignment' route='/task-form' />
+      {assignments.map((assignment) => <AssignmentCard assignment={assignment} />)}
+      <AddButton title='Add Assignment' route='/assignment-form' />
     </ScrollView>
   );
 }
