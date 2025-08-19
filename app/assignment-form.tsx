@@ -92,7 +92,9 @@ export default function AssignmentForm() {
           <CoursePicker courseID={courseID} setCourseID={setCourseID} />
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
         </View>
-        <ButtonRow confirmDelete={confirmDelete} create={createAssignment} update={updateTask} isCreateForm={id === undefined} disabled={title?.length === 0} />
+        <ButtonRow confirmDelete={confirmDelete} create={createAssignment} update={updateTask} isCreateForm={id === undefined} disabled={
+          title?.length === 0 || date === null || courseID === null || dueType === null
+        } />
       </View >
     </BottomSheetModalProvider>
   )
