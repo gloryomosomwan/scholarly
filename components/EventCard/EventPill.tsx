@@ -15,7 +15,7 @@ export default function EventPill({ text, courseColor }: EventPillProps) {
   if (!eventHasCourse) text = text?.replace(/\w/, c => c.toUpperCase())
   return (
     <View style={[styles.background, { backgroundColor: courseColor ? getColorWithOpacity(courseColor, 0.25) : theme.grey200 }]}>
-      <Text style={[styles.text, { color: courseColor }]}>{text}</Text>
+      <Text style={[styles.text, { color: courseColor ?? theme.grey400 }]}>{text}</Text>
     </View>
   )
 }
