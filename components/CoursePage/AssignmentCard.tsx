@@ -54,10 +54,10 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
       }
       {
         completedAt ?
-          <View style={[styles.completionContent, { backgroundColor: theme.successBackground }]}>
+          <TouchableOpacity onPress={() => toggleCompleted(assignment.id, completedAt, assignments)} style={[styles.completionContent, { backgroundColor: theme.successBackground }]}>
             <SymbolView name="checkmark.circle.fill" size={16} tintColor={theme.success} style={styles.completionIcon} />
             <Text style={[styles.completionText, { color: theme.successText }]}>Completed</Text>
-          </View>
+          </TouchableOpacity>
           :
           <TouchableOpacity onPress={() => toggleCompleted(assignment.id, completedAt, assignments)} style={[styles.doneButton, { backgroundColor: getColorWithOpacity(theme.accent, 0.15) }]}>
             <Text style={[styles.doneText, { color: theme.accent }]}>Mark Done</Text>
