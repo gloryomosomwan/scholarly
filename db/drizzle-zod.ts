@@ -1,4 +1,5 @@
-import { semesters, tasks } from "./schema";
+import { create } from "zustand";
+import { assignments, semesters, tasks } from "./schema";
 import { createInsertSchema, createUpdateSchema } from 'drizzle-zod'
 
 export const semesterInsertSchema = createInsertSchema(semesters, {
@@ -14,5 +15,13 @@ export const taskInsertSchema = createInsertSchema(tasks, {
 })
 
 export const taskUpdateSchema = createUpdateSchema(tasks, {
+  title: (schema) => schema.min(1)
+})
+
+export const assignmentInsertSchema = createInsertSchema(assignments, {
+  title: (schema) => schema.min(1)
+})
+
+export const assignmentUpdateSchema = createUpdateSchema(assignments, {
   title: (schema) => schema.min(1)
 })

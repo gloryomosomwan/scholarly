@@ -15,33 +15,35 @@ import { DueType } from '@/types'
 import { db } from '@/db/init'
 import { assignments } from '@/db/schema'
 import { getAssignmentById } from '@/hooks/useDatabase'
+import { assignmentInsertSchema, assignmentUpdateSchema } from '@/db/drizzle-zod'
 
 export default function AssignmentForm() {
   const theme = useTheme();
 
   const { id, initialCourseID } = useLocalSearchParams<{ id: string, initialCourseID: string }>()
   const convertedID = Number(id)
-  const assignment = id ? getAssignmentById(convertedID) : null // should this violate hook rules?
+  const assignmentData = id ? getAssignmentById(convertedID) : null // should this violate hook rules?
 
-  const [date, setDate] = useState<Date | null>(assignment?.due ? new Date(assignment.due) : null);
-  const [dueType, setDueType] = useState<DueType | null>(assignment?.dueType ? assignment.dueType : null);
-  const [courseID, setCourseID] = useState<number | null>(assignment?.courseID ? assignment.courseID : (initialCourseID ? parseInt(initialCourseID) : null))
-  const [title, setTitle] = useState(assignment?.title ? assignment.title : null)
-  const [notes, setNotes] = useState(assignment?.description ? assignment.description : null)
+  const [date, setDate] = useState<Date | null>(assignmentData?.due ? new Date(assignmentData.due) : null);
+  const [dueType, setDueType] = useState<DueType | null>(assignmentData?.dueType ? assignmentData.dueType : null);
+  const [courseID, setCourseID] = useState<number | null>(assignmentData?.courseID ? assignmentData.courseID : (initialCourseID ? parseInt(initialCourseID) : null))
+  const [title, setTitle] = useState(assignmentData?.title ? assignmentData.title : null)
+  const [notes, setNotes] = useState(assignmentData?.description ? assignmentData.description : null)
+
+  const assignment = {
+    title: title,
+    course_id: courseID,
+    description: notes,
+    due: date?.toISOString(),
+    due_type: dueType,
+    completed_at: null
+  }
 
   const createAssignment = async () => {
     try {
-      if (title !== null && courseID !== null && date !== null && dueType !== null) {
-        await db.insert(assignments).values({
-          title: title,
-          course_id: courseID,
-          description: notes,
-          due: date.toISOString(),
-          due_type: dueType,
-          completed_at: null,
-        })
-        router.back()
-      }
+      const parsed = assignmentInsertSchema.parse(assignment)
+      await db.insert(assignments).values(parsed)
+      router.back()
     }
     catch (error) {
       console.log(error)
@@ -49,17 +51,12 @@ export default function AssignmentForm() {
   }
 
   const updateAssignment = async () => {
-    if (title !== null && id !== null && courseID !== null && date !== null && dueType !== null) {
-      await db.update(assignments).set({
-        title: title,
-        course_id: courseID,
-        description: notes,
-        due: date.toISOString(),
-        due_type: dueType,
-        completed_at: null
-      })
-        .where(eq(assignments.id, convertedID));
+    try {
+      const parsed = assignmentUpdateSchema.parse(assignment)
+      await db.update(assignments).set(parsed).where(eq(assignments.id, convertedID))
       router.back()
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -92,9 +89,7 @@ export default function AssignmentForm() {
           <CoursePicker courseID={courseID} setCourseID={setCourseID} />
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
         </View>
-        <ButtonRow confirmDelete={confirmDelete} create={createAssignment} update={updateAssignment} isCreateForm={id === undefined} disabled={
-          title?.length === 0 || date === null || courseID === null || dueType === null
-        } />
+        <ButtonRow confirmDelete={confirmDelete} create={createAssignment} update={updateAssignment} isCreateForm={id === undefined} disabled={!assignmentInsertSchema.safeParse(assignment).success} />
       </View >
     </BottomSheetModalProvider>
   )
