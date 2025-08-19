@@ -5,6 +5,10 @@ CREATE TABLE semesters (
     end TEXT NOT NULL
 );
 
+INSERT INTO semesters (id, name, start, end) VALUES
+(1, 'Summer 2025', '2025-07-04T06:00:00.000Z', '2025-08-21T06:00:00.000Z'),
+(2, 'Spring 2025', '2025-05-07T06:00:00.000Z', '2025-06-23T06:00:00.000Z');
+
 CREATE TABLE courses (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
@@ -14,6 +18,11 @@ CREATE TABLE courses (
     instructor TEXT,
     FOREIGN KEY (semester_id) REFERENCES semesters(id) 
 );
+
+INSERT INTO courses (id, name, code, color, semester_id, instructor) VALUES
+(1, 'Social Media Marketing', 'MARK 203', '#007FFF', 1, 'Jeff Bernstein'),
+(2, 'Build Systems', 'DEV 319', '#EF4444', 1, 'Dr. Linda Chou'),
+(3, 'Introduction to Product Development', 'PROD 101', '#8B5CF6', 2, 'Bill Hawley');
 
 CREATE TABLE tasks (
     id INTEGER PRIMARY KEY,
@@ -26,6 +35,11 @@ CREATE TABLE tasks (
     due_type TEXT,
     FOREIGN KEY (course_id) REFERENCES courses(id)
 );
+
+INSERT INTO tasks (id, title, course_id, description, due, priority, completed_at, due_type) VALUES
+(1, 'Research GitHub Actions', 1, 'Talk to Prof. Evans', '2025-08-29T06:00:00.000Z', 'high', NULL, 'date'),
+(2, 'Learn about Hevy positioning', 2, 'Check their subreddit', '2025-08-20T06:00:00.000Z', 'medium', '2025-08-14T02:29:01.842Z', 'date'),
+(3, 'Review lecture slides', NULL, 'Go through slides', '2025-08-30T06:00:00.000Z', 'low', NULL, 'date');
 
 create table assignments (
     id INTEGER PRIMARY KEY,
@@ -40,33 +54,20 @@ create table assignments (
     FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
+INSERT INTO assignments (id, title, course_id, description, due, due_type, completed_at, weight, grade) VALUES
+(1, 'Assignment 2', 1, 'Check with jeff', '2025-08-29T06:00:00.000Z', 'date', NULL, 50, NULL);
+
+
 create table events (
     id INTEGER PRIMARY KEY,
     type TEXT NOT NULL,
-    startDate TEXT NOT NULL,
-    endDate TEXT NOT NULL,
+    start_date TEXT NOT NULL,
+    end_date TEXT NOT NULL,
     name TEXT,
     course_id INTEGER,
     location TEXT,
     notes TEXT,
     FOREIGN KEY (course_id) REFERENCES courses(id)
-)
+);
 
-INSERT INTO semesters (id, name, start, end) VALUES
-(1, 'Summer 2025', '2025-07-04T06:00:00.000Z', '2025-08-21T06:00:00.000Z'),
-(2, 'Spring 2025', '2025-05-07T06:00:00.000Z', '2025-06-23T06:00:00.000Z');
-
-INSERT INTO courses (id, name, code, color, semester_id, instructor) VALUES
-(1, 'Social Media Marketing', 'MARK 203', '#007FFF', 1, 'Jeff Bernstein'),
-(2, 'Build Systems', 'DEV 319', '#EF4444', 1, 'Dr. Linda Chou'),
-(3, 'Introduction to Product Development', 'PROD 101', '#8B5CF6', 2, 'Bill Hawley');
-
-INSERT INTO tasks (id, title, course_id, description, due, priority, completed_at, due_type) VALUES
-(1, 'Research GitHub Actions', 1, 'Talk to Prof. Evans', '2025-08-29T06:00:00.000Z', 'high', NULL, 'date'),
-(2, 'Learn about Hevy positioning', 2, 'Check their subreddit', '2025-08-20T06:00:00.000Z', 'medium', '2025-08-14T02:29:01.842Z', 'date'),
-(3, 'Review lecture slides', NULL, 'Go through slides', '2025-08-30T06:00:00.000Z', 'low', NULL, 'date');
-
-INSERT INTO assignments (id, title, course_id, description, due, due_type, completed_at, weight, grade) VALUES
-(1, 'Assignment 2', 1, 'Check with jeff', '2025-08-29T06:00:00.000Z', 'date', NULL, 50, NULL);
-
-INSERT INTO events (type, startDate, endDate, name, course_id, location, notes) VALUES ('general', '2025-08-29T06:00:00.000Z', '2025-08-29T09:00:00.000Z', 'Go to gym', NULL, NULL, NULL)
+INSERT INTO events (type, start_date, end_date, name, course_id, location, notes) VALUES ('general', '2025-08-29T06:00:00.000Z', '2025-08-29T09:00:00.000Z', 'Go to gym', NULL, NULL, NULL);
