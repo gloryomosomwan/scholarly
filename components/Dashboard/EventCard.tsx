@@ -30,7 +30,7 @@ export default function EventCard({ event }: EventCardProps) {
           <EventTimeRange startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} />
         </View>
         <View style={styles.mainContentContainer}>
-          <EventHeader courseCode={course?.code} courseColor={course?.color} />
+          <EventHeader text={course?.code ? course.code : event.name} courseColor={course?.color} />
           <EventLocation location={event.location} courseColor={course?.color} />
         </View>
         <View style={styles.progressSection}>

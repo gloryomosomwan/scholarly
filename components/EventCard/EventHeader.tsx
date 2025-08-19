@@ -5,16 +5,17 @@ import { SymbolView } from 'expo-symbols'
 import { useTheme } from '@/hooks/useTheme'
 
 type EventHeaderProps = {
-  courseCode: string | undefined
+  text: string | undefined
   courseColor: string | undefined
 }
 
-export default function EventHeader({ courseCode, courseColor }: EventHeaderProps) {
+export default function EventHeader({ text, courseColor }: EventHeaderProps) {
   const theme = useTheme()
+  const eventHasCourse: boolean = courseColor !== undefined
   return (
     <View style={styles.container}>
-      <SymbolView name={'book'} size={28} tintColor={courseColor} style={[styles.icon]} />
-      <Text style={[styles.text, { color: theme.text }]}>{courseCode}</Text>
+      {eventHasCourse && <SymbolView name={'book'} size={28} tintColor={courseColor} style={[styles.icon]} />}
+      <Text style={[styles.text, { color: theme.text }]}>{text}</Text>
     </View>
   )
 }
