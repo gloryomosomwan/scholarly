@@ -45,6 +45,7 @@ export default function SemesterForm() {
       router.back()
     } catch (error) {
       console.log(error)
+      router.back()
     }
   }
 
@@ -88,7 +89,7 @@ export default function SemesterForm() {
           <DateTimePicker placeholder='Add start date' date={start} setDate={setStart} dueType={'date'} />
           <DateTimePicker placeholder='Add end date' date={end} setDate={setEnd} dueType={'date'} />
         </View>
-        <ButtonRow create={createSemester} update={updateSemester} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={name === null || start === null || end === null} />
+        <ButtonRow create={createSemester} update={updateSemester} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={!semesterInsertSchema.safeParse(semester).success} />
       </View>
     </BottomSheetModalProvider>
   )
