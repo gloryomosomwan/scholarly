@@ -21,11 +21,11 @@ export default function EventTimeRange({ startDate, endDate, isCurrentEvent }: E
     timeFromNowString = timeFromNowString.charAt(0).toUpperCase() + timeFromNowString.slice(1)
   }
   return (
-    <View style={styles.timeContainer}>
-      <Text style={[styles.timeRangeText, { color: theme.grey600 }]}>
+    <View style={styles.container}>
+      <Text style={[styles.rangeText, { color: theme.grey600 }]}>
         {formatTime(startDate)} - {formatTime(endDate)}
       </Text>
-      <Text style={[styles.timeAgoText, { color: theme.grey400 }]}>
+      <Text style={[styles.agoText, { color: theme.grey400 }]}>
         {!isCurrentEvent && timeFromNowString}
       </Text>
     </View>
@@ -33,14 +33,14 @@ export default function EventTimeRange({ startDate, endDate, isCurrentEvent }: E
 }
 
 const styles = StyleSheet.create({
-  timeContainer: {
+  container: {
     alignItems: 'flex-end',
   },
-  timeRangeText: {
+  rangeText: {
     fontSize: 14,
     fontWeight: '600',
   },
-  timeAgoText: {
+  agoText: {
     fontSize: 13,
     opacity: 0.7,
     marginTop: 2,
