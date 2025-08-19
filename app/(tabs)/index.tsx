@@ -16,6 +16,7 @@ export default function Index() {
   const insets = useSafeAreaInsets();
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
   const events = useCurrentEvent()
+
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
       <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
@@ -28,10 +29,7 @@ export default function Index() {
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
-          {
-            events[0] &&
-            <EventCard event={events[0]} />
-          }
+          {events.map((event) => <EventCard key={event.id} event={event} />)}
         </View>
         <View>
           <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
