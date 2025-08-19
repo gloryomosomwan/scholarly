@@ -13,7 +13,7 @@ export default function EventLocation({ location, courseColor }: EventLocationPr
   const theme = useTheme()
   return (
     <View style={styles.container}>
-      <SymbolView style={styles.icon} name={'mappin.circle.fill'} tintColor={courseColor} size={15} />
+      <SymbolView style={styles.icon} name={'mappin.circle.fill'} tintColor={courseColor ?? theme.grey400} size={15} />
       <Text style={[styles.text, { color: theme.grey500 }]}>{location}</Text>
     </View>
   )
