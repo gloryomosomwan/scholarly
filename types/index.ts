@@ -13,7 +13,7 @@ export interface Event {
   type: EventType;
   startDate: Date;
   endDate: Date;
-  course?: string;
+  courseID?: number;
   location?: string;
   notes?: string;
 }
