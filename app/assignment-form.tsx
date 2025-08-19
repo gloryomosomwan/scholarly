@@ -48,7 +48,7 @@ export default function AssignmentForm() {
     }
   }
 
-  const updateTask = async () => {
+  const updateAssignment = async () => {
     if (title !== null && id !== null && courseID !== null && date !== null && dueType !== null) {
       await db.update(assignments).set({
         title: title,
@@ -92,7 +92,7 @@ export default function AssignmentForm() {
           <CoursePicker courseID={courseID} setCourseID={setCourseID} />
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
         </View>
-        <ButtonRow confirmDelete={confirmDelete} create={createAssignment} update={updateTask} isCreateForm={id === undefined} disabled={
+        <ButtonRow confirmDelete={confirmDelete} create={createAssignment} update={updateAssignment} isCreateForm={id === undefined} disabled={
           title?.length === 0 || date === null || courseID === null || dueType === null
         } />
       </View >
