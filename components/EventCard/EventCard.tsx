@@ -23,23 +23,21 @@ export default function EventCard({ event }: EventCardProps) {
   const isCurrentEvent = now.isBetween(event.startDate, event.endDate)
   const course = getCourseById(event.courseID ? event.courseID : null)
   return (
-    <View style={styles.container}>
-      <View style={[styles.card, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
-        <View style={styles.topRowContainer}>
-          <EventPill text={course ? course.code : event.type} courseColor={course?.color} />
-          <EventTimeRange startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} />
-        </View>
-        <View style={styles.mainContentContainer}>
-          <EventHeader text={course ? event.type : event.name} courseColor={course?.color} />
-          <EventLocation location={event.location} courseColor={course?.color} />
-        </View>
-        <View style={styles.progressSection}>
-          <ProgressBar startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} courseColor={course?.color} />
-          {
-            isCurrentEvent &&
-            <ProgressBarLabels startDate={event.startDate} endDate={event.endDate} />
-          }
-        </View>
+    <View style={[styles.container, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
+      <View style={styles.topRowContainer}>
+        <EventPill text={course ? course.code : event.type} courseColor={course?.color} />
+        <EventTimeRange startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} />
+      </View>
+      <View style={styles.mainContentContainer}>
+        <EventHeader text={course ? event.type : event.name} courseColor={course?.color} />
+        <EventLocation location={event.location} courseColor={course?.color} />
+      </View>
+      <View style={styles.progressSection}>
+        <ProgressBar startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} courseColor={course?.color} />
+        {
+          isCurrentEvent &&
+          <ProgressBarLabels startDate={event.startDate} endDate={event.endDate} />
+        }
       </View>
     </View>
   );
@@ -47,9 +45,6 @@ export default function EventCard({ event }: EventCardProps) {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 32,
-  },
-  card: {
     borderRadius: 24,
     padding: 24,
     shadowColor: '#000',
@@ -61,6 +56,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
+    marginBottom: 32,
   },
   topRowContainer: {
     flexDirection: 'row',
