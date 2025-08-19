@@ -7,6 +7,7 @@ import ProgressBar from '@/components/EventCard/ProgressBar';
 import ProgressBarLabels from '@/components/EventCard/ProgressBarLabels';
 import EventLocation from '@/components/EventCard/EventLocation';
 import EventHeader from '@/components/EventCard/EventHeader';
+import GlowingDot from '@/components/EventCard/GlowingDot';
 
 import dayjs from '@/utils/dayjs'
 import { useTheme } from '@/hooks';
@@ -39,6 +40,7 @@ export default function EventCard({ event }: EventCardProps) {
           <ProgressBarLabels startDate={event.startDate} endDate={event.endDate} />
         }
       </View>
+      <GlowingDot />
     </View>
   );
 };
