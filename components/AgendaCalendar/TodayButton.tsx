@@ -1,13 +1,13 @@
 import { Platform, Pressable, StyleSheet, Text } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import Animated, { SharedValue, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
-import { isSameDay, isSameMonth, isSameWeek } from 'date-fns'
-
-import { useCalendar } from './CalendarContext'
+import React from 'react'
+import Animated, { SharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated'
+import { isSameDay } from 'date-fns'
 import tinycolor from 'tinycolor2'
 import { SymbolView } from 'expo-symbols'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
 import { useTheme } from '@/hooks'
+import { useCalendarStore } from '@/stores/CalendarState'
 
 type TodayButtonProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -15,61 +15,18 @@ type TodayButtonProps = {
 }
 
 export default function TodayButton({ bottomSheetTranslationY, calendarBottom }: TodayButtonProps) {
-  const { calendarState } = useCalendar()
-  const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
+  const theme = useTheme()
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
-  const isSelectedToday = useSharedValue(true)
-  const theme = useTheme()
 
-  useEffect(() => {
-    isSelectedToday.value = isSameDay(calendarState.currentDate, calendarState.todayDate)
-  }, [selectedDate])
-
-  useEffect(() => {
-    const dayUnsubscribe = calendarState.daySubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
-    })
-    return dayUnsubscribe
-  }), []
-
-  useEffect(() => {
-    const weekUnsubscribe = calendarState.weekSubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
-    });
-    return weekUnsubscribe;
-  }, [])
-
-  useEffect(() => {
-    const unsubscribe = calendarState.monthSubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
-    });
-    return unsubscribe;
-  }, [])
-
-  useEffect(() => {
-    const todayUnsubscribe = calendarState.todaySubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
-    })
-    return todayUnsubscribe
-  }, [])
-
-  const setToday = () => {
-    if (isSameDay(calendarState.currentDate, calendarState.todayDate)) return;
-    calendarState.selectPreviousDate(calendarState.currentDate)
-    calendarState.selectToday()
-  }
+  const { currentDate, selectToday, todayDate } = useCalendarStore()
+  const todayIsCurrent = isSameDay(currentDate, todayDate)
 
   const todayButtonStyle = useAnimatedStyle(() => {
     let opacity;
-    let fadeOut = withTiming(0, { duration: 100 })
-    let fadeIn = withTiming(1, { duration: 100 })
-    if (isSelectedToday.value) {
-      opacity = fadeOut
-    }
-    else {
-      opacity = fadeIn
-    }
+    const fadeOut = withTiming(0, { duration: 100 })
+    const fadeIn = withTiming(1, { duration: 100 })
+    todayIsCurrent ? opacity = fadeOut : opacity = fadeIn
     return {
       opacity: opacity,
       pointerEvents: bottomSheetTranslationY.value === calendarBottom.value - 235 || bottomSheetTranslationY.value === calendarBottom.value ? "auto" : "none"
@@ -77,28 +34,28 @@ export default function TodayButton({ bottomSheetTranslationY, calendarBottom }:
   })
 
   return (
-    <Animated.View style={[todayButtonStyle, styles.todayButtonView, { top: paddingTop }]}>
-      <Pressable onPress={setToday} style={({ pressed }) => [
-        styles.todayButtonContainer,
+    <Animated.View style={[todayButtonStyle, styles.container, { top: paddingTop }]}>
+      <Pressable onPress={selectToday} style={({ pressed }) => [
+        styles.buttonContainer,
         { backgroundColor: tinycolor(theme.accent).setAlpha(0.15).toRgbString() },
         pressed && { opacity: 0.9 }
       ]}>
         <SymbolView name="arrow.uturn.backward" style={styles.icon} size={12} type="monochrome" tintColor={theme.accent} />
-        <Text style={[styles.todayText, { color: theme.accent }]}>{'TODAY'}</Text>
+        <Text style={[styles.text, { color: theme.accent }]}>{'TODAY'}</Text>
       </Pressable>
     </Animated.View>
   )
 }
 
 const styles = StyleSheet.create({
-  todayButtonView: {
+  container: {
     position: 'absolute',
     zIndex: 3,
     right: 20,
     justifyContent: 'center',
     height: 30,
   },
-  todayButtonContainer: {
+  buttonContainer: {
     height: 20,
     width: 65,
     flexDirection: 'row',
@@ -111,7 +68,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  todayText: {
+  text: {
     fontSize: 12,
   },
   icon: {
