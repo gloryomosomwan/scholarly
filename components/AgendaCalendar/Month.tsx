@@ -69,7 +69,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
 
     // Start padding
     const padStart = getDay(firstOfMonth)
-    for (let i = padStart; i > 0; i--) {
+    for (let i = 1; i <= padStart; i++) {
       rawDates.unshift(subDays(firstOfMonth, i))
     }
 
