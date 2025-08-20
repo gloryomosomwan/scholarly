@@ -20,15 +20,7 @@ export default function EventItem({ event }: EventItemProps) {
   const today = new Date()
   const course = getCourseById(event.courseID ?? null)
   const courseColor = theme.accent
-  const eventHasCourse = course !== null
-
-  const eventWasEarlierToday = (() => {
-    if (isSameDay(event.startDate, today) && isBefore(event.endDate, Date.now())) {
-      return true
-    }
-    return false
-  })()
-
+  const eventWasEarlierToday = isSameDay(event.startDate, today) && isBefore(event.endDate, Date.now())
   return (
     <View style={styles.container}>
       <TimeRange startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />
