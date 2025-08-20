@@ -6,14 +6,15 @@ import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { isSameDay } from 'date-fns';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
-import Event from "@/components/AgendaCalendar/Event";
+import EventItem from "@/components/AgendaCalendar/EventItem";
 import TaskCard from '@/components/Task/TaskCard';
 import AssignmentCard from '@/components/Assignment/AssignmentCard';
 
-import { events, assignments, tasks } from '@/data/data'
+import { assignments, tasks } from '@/data/data'
 import { useTheme } from '@/hooks'
 import { compareEventTimes, compareTaskTimes } from '@/utils/calendarUtils';
 import { useCalendarStore } from '@/stores/CalendarState';
+import { useEventsForToday } from '@/hooks/useDatabase';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -30,14 +31,10 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const bottomTabBarHeight = useBottomTabBarHeight()
   const snapPoints = useMemo(() => [height - initialCalendarBottom - bottomTabBarHeight, height - initialCalendarBottom + 235 - bottomTabBarHeight], []);
 
-  const eventsForToday = useMemo(() => {
-    const filteredEvents = events.filter((event) => isSameDay(event.startDate, currentDate));
-    filteredEvents.sort(compareEventTimes);
-    return filteredEvents;
-  }, [currentDate]);
+  const eventsForToday = useEventsForToday()
 
   const currentEventElements = useMemo(() => {
-    // return eventsForToday.map(event => <Event key={event.id} event={event} />);
+    return eventsForToday.map(event => <EventItem key={event.id} event={event} />);
   }, [eventsForToday]);
 
   const isActivityCurrent = (activity: any) => {
@@ -87,7 +84,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       <BottomSheetScrollView style={{ backgroundColor: theme.primary }}>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Schedule"}</Text>
-          {/* {eventsForToday.length > 0 ? currentEventElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No events"}</Text>} */}
+          {eventsForToday.length > 0 ? currentEventElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No events"}</Text>}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Assignments"}</Text>

@@ -9,6 +9,7 @@ import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignm
 import { Course, Semester } from "@/types";
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawTask } from "@/types/drizzle";
+import { endOfDay, startOfDay } from "date-fns";
 
 export function useTasks() {
   // const todayPattern = new Date().toISOString().slice(0, 10) + '%'; // timezone bug
@@ -86,6 +87,17 @@ export function useCurrentEvent() {
     and(
       lte(events.start_date, new Date().toISOString()),
       gte(events.end_date, new Date().toISOString())
+    )
+  ))
+  const eventData = data.map(convertRawEvent)
+  return eventData
+}
+
+export function useEventsForToday() {
+  const { data } = useLiveQuery(db.select().from(events).where(
+    and(
+      gte(events.start_date, startOfDay(new Date()).toISOString()),
+      lte(events.end_date, endOfDay(new Date()).toISOString())
     )
   ))
   const eventData = data.map(convertRawEvent)
