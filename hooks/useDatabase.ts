@@ -99,7 +99,7 @@ export function useEventsByDay(date: Date) {
       gte(events.start_date, startOfDay(date).toISOString()),
       lte(events.end_date, endOfDay(date).toISOString())
     )
-  ))
+  ), [date])
   const eventData = data.map(convertRawEvent)
   return eventData
 }
