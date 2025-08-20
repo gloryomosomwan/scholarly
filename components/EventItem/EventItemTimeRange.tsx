@@ -3,13 +3,13 @@ import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
 
-type TimeRangeProps = {
+type EventItemTimeRangeProps = {
   startDate: Date
   endDate: Date
   eventWasEarlierToday: boolean
 }
 
-export default function TimeRange({ startDate, endDate, eventWasEarlierToday }: TimeRangeProps) {
+export default function EventItemTimeRange({ startDate, endDate, eventWasEarlierToday }: EventItemTimeRangeProps) {
   const theme = useTheme()
   return (
     <View style={styles.container}>

@@ -2,8 +2,8 @@ import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { isBefore, isSameDay } from 'date-fns';
 
-import TimeRange from '@/components/EventItem/TimeRange';
-import Divider from '@/components/EventItem/Divider';
+import EventItemTimeRange from '@/components/EventItem/EventItemTimeRange';
+import EventItemDivider from '@/components/EventItem/EventItemDivider';
 import EventItemHeader from '@/components/EventItem/EventItemHeader';
 import EventItemLocation from '@/components/EventItem/EventItemLocation';
 import EventItemCourseText from '@/components/EventItem/EventItemCourseText';
@@ -23,8 +23,8 @@ export default function EventItem({ event }: EventItemProps) {
   const eventWasEarlierToday = isSameDay(event.startDate, today) && isBefore(event.endDate, Date.now())
   return (
     <View style={styles.container}>
-      <TimeRange startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />
-      <Divider startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} courseColor={course ? course.color : theme.accent} />
+      <EventItemTimeRange startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />
+      <EventItemDivider startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} courseColor={course ? course.color : theme.accent} />
       <View style={styles.eventDetailsContainer}>
         {course && <EventItemCourseText courseCode={course.code} courseColor={course.color} />}
         <EventItemHeader text={course ? event.type : event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} />
