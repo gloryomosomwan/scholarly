@@ -5,7 +5,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { getWeekOfMonth } from "date-fns";
 
-import { CalendarProvider } from "@/components/AgendaCalendar/CalendarContext";
 import Header from "@/components/AgendaCalendar/Header";
 import WeekPager from "@/components/AgendaCalendar/WeekPager";
 import MonthPager from "@/components/AgendaCalendar/MonthPager";
@@ -19,11 +18,9 @@ import { useTheme } from "@/hooks";
 export default function App() {
   return (
     <GestureHandlerRootView>
-      <CalendarProvider>
-        <CalendarAppearanceProvider>
-          <CalendarContent />
-        </CalendarAppearanceProvider>
-      </CalendarProvider>
+      <CalendarAppearanceProvider>
+        <CalendarContent />
+      </CalendarAppearanceProvider>
     </GestureHandlerRootView>
   );
 }
