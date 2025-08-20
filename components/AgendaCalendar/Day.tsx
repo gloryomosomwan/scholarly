@@ -58,6 +58,10 @@ export default function Day({ date, selectedDatePosition, dayType, count, paddin
     daySelectDate(date);
   }
 
+  // if (isSameDay(new Date(), date) && isSameMonth(firstDay, date)) {
+  // console.log(count)
+  // }
+
   return (
     <Pressable onPress={onPress} style={styles.container} ref={elementRef}>
       {isSelected && !heatmapActive && <View style={[styles.selectedDateCircle, { backgroundColor: theme.accent }]} />}
