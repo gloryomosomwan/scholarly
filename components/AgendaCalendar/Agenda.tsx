@@ -14,7 +14,7 @@ import { assignments, tasks } from '@/data/data'
 import { useTheme } from '@/hooks'
 import { compareEventTimes, compareTaskTimes } from '@/utils/calendarUtils';
 import { useCalendarStore } from '@/stores/CalendarState';
-import { useEventsForToday } from '@/hooks/useDatabase';
+import { useEventsByDay } from '@/hooks/useDatabase';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -31,11 +31,11 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const bottomTabBarHeight = useBottomTabBarHeight()
   const snapPoints = useMemo(() => [height - initialCalendarBottom - bottomTabBarHeight, height - initialCalendarBottom + 235 - bottomTabBarHeight], []);
 
-  const eventsForToday = useEventsForToday()
+  const eventsForCurrentDate = useEventsByDay(currentDate)
 
   const currentEventElements = useMemo(() => {
-    return eventsForToday.map(event => <EventItem key={event.id} event={event} />);
-  }, [eventsForToday]);
+    return eventsForCurrentDate.map(event => <EventItem key={event.id} event={event} />);
+  }, [eventsForCurrentDate]);
 
   const isActivityCurrent = (activity: any) => {
     if (activity.due) {
@@ -84,7 +84,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       <BottomSheetScrollView style={{ backgroundColor: theme.primary }}>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Schedule"}</Text>
-          {eventsForToday.length > 0 ? currentEventElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No events"}</Text>}
+          {eventsForCurrentDate.length > 0 ? currentEventElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No events"}</Text>}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Assignments"}</Text>

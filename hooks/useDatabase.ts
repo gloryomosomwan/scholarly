@@ -2,6 +2,7 @@ import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { and, eq, getTableColumns, gte, like, lte } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
+import { endOfDay, startOfDay } from "date-fns";
 
 import { assignments, courses, events, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
@@ -9,7 +10,6 @@ import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignm
 import { Course, Semester } from "@/types";
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawTask } from "@/types/drizzle";
-import { endOfDay, startOfDay } from "date-fns";
 
 export function useTasks() {
   // const todayPattern = new Date().toISOString().slice(0, 10) + '%'; // timezone bug
@@ -93,13 +93,13 @@ export function useCurrentEvent() {
   return eventData
 }
 
-export function useEventsForToday() {
+export function useEventsByDay(date: Date) {
   const { data } = useLiveQuery(db.select().from(events).where(
     and(
-      gte(events.start_date, startOfDay(new Date()).toISOString()),
-      lte(events.end_date, endOfDay(new Date()).toISOString())
+      gte(events.start_date, startOfDay(date).toISOString()),
+      lte(events.end_date, endOfDay(date).toISOString())
     )
-  ))
+  ), [date])
   const eventData = data.map(convertRawEvent)
   return eventData
 }
