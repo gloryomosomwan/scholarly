@@ -5,8 +5,9 @@ import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite
 import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import Week from '@/components/AgendaCalendar/Week';
+
 import { useCalendarStore } from '@/stores/CalendarState';
-import Week from './Week';
 
 type WeekPagerProps = {
   bottomSheetTranslationY: SharedValue<number>

@@ -4,8 +4,9 @@ import { addDays, format, startOfWeek } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import Day from '@/components/AgendaCalendar/Day'
+
 import { events, assignments, tasks, tests } from '@/data/data';
-import Day from './Day'
 
 type WeekProps = {
   initialDay: Date

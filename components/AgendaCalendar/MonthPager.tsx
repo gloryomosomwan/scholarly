@@ -5,8 +5,9 @@ import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite
 import Animated, { Extrapolate, interpolate, SharedValue, useAnimatedProps, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { useCalendarStore } from '@/stores/CalendarState';
 import Month from '@/components/AgendaCalendar/Month'
+
+import { useCalendarStore } from '@/stores/CalendarState';
 
 type MonthPagerProps = {
   bottomSheetTranslationY: SharedValue<number>

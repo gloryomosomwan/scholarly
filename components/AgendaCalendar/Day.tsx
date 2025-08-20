@@ -3,9 +3,10 @@ import React, { useRef, useLayoutEffect } from 'react'
 import { isSameMonth, isSameDay, getWeekOfMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 
+import { useCalendarAppearance } from '@/components/AgendaCalendar/CalendarAppearanceContext'
+
 import { useCalendarStore } from '@/stores/CalendarState';
 import { useTheme } from '@/hooks';
-import { useCalendarAppearance } from './CalendarAppearanceContext'
 
 type DayType = 'week' | 'month'
 

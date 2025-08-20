@@ -4,8 +4,9 @@ import { startOfMonth, addDays, subDays, getDay, getDaysInMonth, format, isSameM
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import Day from '@/components/AgendaCalendar/Day'
+
 import { events, assignments, tasks, tests } from '@/data/data';
-import Day from './Day'
 
 type MonthProps = {
   initialDay: Date
