@@ -24,9 +24,6 @@ export default function CourseForm() {
   const [name, setName] = useState<string | null>(course?.name ?? null)
   const [color, setColor] = useState<string | null>(course?.color ?? null);
   const [instructor, setInstructor] = useState<string | null>(course?.instructor ?? null)
-  const [lectureSchedule, setLectureSchedule] = useState<string | null>(course?.lectureSchedule ?? null)
-  const [seminarSchedule, setSeminarSchedule] = useState<string | null>(course?.seminarSchedule ?? null)
-  const [labSchedule, setLabSchedule] = useState<string | null>(course?.labSchedule ?? null)
 
   const createCourse = async () => {
     if (code !== null && name !== null && color !== null) {
@@ -36,9 +33,6 @@ export default function CourseForm() {
         color: color,
         semester_id: 1,
         instructor: instructor,
-        lectureSchedule: lectureSchedule,
-        seminarSchedule: seminarSchedule,
-        labSchedule: labSchedule
       })
       router.back()
     }
@@ -51,9 +45,6 @@ export default function CourseForm() {
         code: code,
         color: color,
         instructor: instructor,
-        lectureSchedule: lectureSchedule,
-        seminarSchedule: seminarSchedule,
-        labSchedule: labSchedule
       })
         .where(eq(courses.id, convertedID));
       router.dismissTo({ pathname: './[courseCode]', params: { id: id, courseCode: code, courseName: name, instructor: instructor, color: color } })
@@ -86,9 +77,6 @@ export default function CourseForm() {
         <PrimaryTextInputField placeholder='Add course code' value={code} onChangeText={setCode} />
         <TextInputField icon='graduationcap' placeholder="Add course name" value={name} onChangeText={setName} />
         <TextInputField icon='person' placeholder="Add instructor name" value={instructor} onChangeText={setInstructor} />
-        <TextInputField icon='book.closed' placeholder="Add lecture schedule" value={lectureSchedule} onChangeText={setLectureSchedule} />
-        <TextInputField icon='flask' placeholder="Add lab schedule" value={labSchedule} onChangeText={setLabSchedule} />
-        <TextInputField icon='bubble.left.and.bubble.right' placeholder="Add seminar schedule" value={seminarSchedule} onChangeText={setSeminarSchedule} />
         <ColorPicker selectedColor={color} setSelectedColor={setColor} />
       </View>
       <ButtonRow create={createCourse} update={updateCourse} confirmDelete={confirmDelete} disabled={name === null || code === null || color === null} isCreateForm={id === undefined} />
