@@ -4,7 +4,7 @@ import { isBefore, isSameDay } from 'date-fns';
 
 import TimeRange from '@/components/EventItem/TimeRange';
 import Divider from '@/components/EventItem/Divider';
-import EventHeader from '@/components/EventItem/EventHeader';
+import EventItemHeader from '@/components/EventItem/EventItemHeader';
 import EventItemLocation from '@/components/EventItem/EventItemLocation';
 import EventItemCourseText from '@/components/EventItem/EventItemCourseText';
 
@@ -27,7 +27,7 @@ export default function EventItem({ event }: EventItemProps) {
       <Divider startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} courseColor={course ? course.color : theme.accent} />
       <View style={styles.eventDetailsContainer}>
         {course && <EventItemCourseText courseCode={course.code} courseColor={course.color} />}
-        <EventHeader text={course ? event.type : event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} />
+        <EventItemHeader text={course ? event.type : event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} />
         <EventItemLocation courseColor={course ? course.color : theme.accent} location={event.location} eventWasEarlierToday={eventWasEarlierToday} />
       </View>
     </View>

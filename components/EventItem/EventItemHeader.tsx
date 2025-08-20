@@ -3,13 +3,13 @@ import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
 
-type EventHeaderProps = {
+type EventItemHeaderProps = {
   text: string | undefined
   eventWasEarlierToday: boolean
   hasCourse: boolean
 }
 
-export default function EventHeader({ text, eventWasEarlierToday, hasCourse }: EventHeaderProps) {
+export default function EventItemHeader({ text, eventWasEarlierToday, hasCourse }: EventItemHeaderProps) {
   const theme = useTheme()
   if (hasCourse) text = text?.replace(/\w/, c => c.toUpperCase())
   return (
