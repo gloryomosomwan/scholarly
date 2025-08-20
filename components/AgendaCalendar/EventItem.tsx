@@ -6,6 +6,7 @@ import TimeRange from '@/components/EventItem/TimeRange';
 import Divider from '@/components/EventItem/Divider';
 import EventHeader from '@/components/EventItem/EventHeader';
 import EventItemLocation from '@/components/EventItem/EventItemLocation';
+import EventItemCourseText from '@/components/EventItem/EventItemCourseText';
 
 import { useTheme } from '@/hooks';
 import { Event } from '@/types';
@@ -19,15 +20,15 @@ export default function EventItem({ event }: EventItemProps) {
   const theme = useTheme()
   const today = new Date()
   const course = getCourseById(event.courseID ?? null)
-  const courseColor = theme.accent
   const eventWasEarlierToday = isSameDay(event.startDate, today) && isBefore(event.endDate, Date.now())
   return (
     <View style={styles.container}>
       <TimeRange startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />
-      <Divider startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} courseColor={courseColor} />
-      <View style={styles.courseDetailsContainer}>
-        <EventHeader text={'lol'} eventWasEarlierToday={eventWasEarlierToday} />
-        <EventItemLocation courseColor={courseColor} location={event.location} eventWasEarlierToday={eventWasEarlierToday} />
+      <Divider startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} courseColor={course ? course.color : theme.accent} />
+      <View style={styles.eventDetailsContainer}>
+        {course && <EventItemCourseText courseCode={course.code} courseColor={course.color} />}
+        <EventHeader text={course ? event.type : event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} />
+        <EventItemLocation courseColor={course ? course.color : theme.accent} location={event.location} eventWasEarlierToday={eventWasEarlierToday} />
       </View>
     </View>
   )
@@ -39,8 +40,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 5
   },
-  courseDetailsContainer: {
-    justifyContent: 'space-between',
+  eventDetailsContainer: {
+    justifyContent: 'flex-start',
+    gap: 3,
     marginLeft: 4
   },
 })

@@ -11,12 +11,12 @@ type EventItemCourseTextProps = {
 export default function EventItemCourseText({ courseColor, courseCode }: EventItemCourseTextProps) {
   const theme = useTheme()
   return (
-    <Text>{courseCode}</Text>
+    <Text style={[styles.text, { color: courseColor }]}>{courseCode}</Text>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-
+  text: {
+    fontSize: 15
   }
 })

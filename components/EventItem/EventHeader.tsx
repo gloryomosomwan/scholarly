@@ -4,15 +4,17 @@ import React from 'react'
 import { useTheme } from '@/hooks/useTheme'
 
 type EventHeaderProps = {
-  text: string
+  text: string | undefined
   eventWasEarlierToday: boolean
+  hasCourse: boolean
 }
 
-export default function EventHeader({ text, eventWasEarlierToday }: EventHeaderProps) {
+export default function EventHeader({ text, eventWasEarlierToday, hasCourse }: EventHeaderProps) {
   const theme = useTheme()
+  if (hasCourse) text = text?.replace(/\w/, c => c.toUpperCase())
   return (
     <View style={styles.container}>
-      <Text style={styles.icon}>{'📚'}</Text>
+      {hasCourse && <Text style={styles.icon}>{'📚'}</Text>}
       <Text style={[styles.text, { color: eventWasEarlierToday ? theme.grey400 : theme.text }]}>{text}</Text>
     </View>
   )
@@ -20,7 +22,8 @@ export default function EventHeader({ text, eventWasEarlierToday }: EventHeaderP
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   icon: {
     marginRight: 4,
