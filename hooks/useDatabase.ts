@@ -2,7 +2,7 @@ import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { and, eq, getTableColumns, gte, like, lte } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
-import { endOfDay, startOfDay } from "date-fns";
+import { endOfDay, endOfWeek, lastDayOfMonth, startOfDay, startOfWeek } from "date-fns";
 
 import { assignments, courses, events, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
@@ -99,7 +99,18 @@ export function useEventsByDay(date: Date) {
       gte(events.start_date, startOfDay(date).toISOString()),
       lte(events.end_date, endOfDay(date).toISOString())
     )
-  ), [date])
+  ))
+  const eventData = data.map(convertRawEvent)
+  return eventData
+}
+
+export function useEventsByMonth(firstDayOfMonth: Date) {
+  const { data } = useLiveQuery(db.select().from(events).where(
+    and(
+      gte(events.start_date, startOfDay(startOfWeek(firstDayOfMonth)).toISOString()),
+      lte(events.end_date, endOfDay(endOfWeek(lastDayOfMonth(firstDayOfMonth))).toISOString())
+    )
+  ))
   const eventData = data.map(convertRawEvent)
   return eventData
 }
