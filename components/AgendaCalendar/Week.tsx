@@ -46,10 +46,7 @@ export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
   const days = useMemo(() => {
     let firstDayOfWeek = startOfWeek(initialDay)
     let rawDates: Date[] = []
-    // let currentDay = firstDayOfWeek
     for (let i = 0; i < 7; i++) {
-      // dates.push(currentDay)
-      // currentDay = addDays(currentDay, 1)
       rawDates.push(addDays(firstDayOfWeek, i))
     }
 
@@ -70,19 +67,6 @@ export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
       )
     })
   }, [])
-
-  // let days: JSX.Element[] = []
-  // dates.map((date) => {
-  //   days.push(
-  //     <Day
-  //       key={date.toDateString()}
-  //       date={date}
-  //       firstDay={initialDay}
-  //       selectedDatePosition={selectedDatePosition}
-  //       dayType='week'
-  //     />
-  //   )
-  // })
 
   return (
     <View style={styles.container}>
