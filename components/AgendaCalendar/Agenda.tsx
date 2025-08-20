@@ -3,16 +3,13 @@ import React, { useMemo } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SharedValue } from 'react-native-reanimated';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
-import { isSameDay } from 'date-fns';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import EventItem from "@/components/AgendaCalendar/EventItem";
 import TaskCard from '@/components/Task/TaskCard';
 import AssignmentCard from '@/components/Assignment/AssignmentCard';
 
-import { tasks } from '@/data/data'
 import { useTheme } from '@/hooks'
-import { compareEventTimes, compareTaskTimes } from '@/utils/calendarUtils';
 import { useCalendarStore } from '@/stores/CalendarState';
 import { useAssignmentsByDay, useEventsByDay, useTasksByDay } from '@/hooks/useDatabase';
 
@@ -31,21 +28,10 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const bottomTabBarHeight = useBottomTabBarHeight()
   const snapPoints = useMemo(() => [height - initialCalendarBottom - bottomTabBarHeight, height - initialCalendarBottom + 235 - bottomTabBarHeight], []);
 
-  const eventsForCurrentDate = useEventsByDay(currentDate)
-
-  const currentEventElements = useMemo(() => {
-    return eventsForCurrentDate.map(event => <EventItem key={event.id} event={event} />);
-  }, [eventsForCurrentDate]);
-
-  const isActivityCurrent = (activity: any) => {
-    if (activity.due) {
-      if (isSameDay(activity.due, currentDate)) {
-        return true
-      }
-    }
-    return false
-  }
-
+  const events = useEventsByDay(currentDate)
+  const eventElements = useMemo(() => {
+    return events.map(event => <EventItem key={event.id} event={event} />);
+  }, [events]); // Does useMemo help here?
   const assignments = useAssignmentsByDay(currentDate)
   const assignmentElements = assignments.map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} />)
   const tasks = useTasksByDay(currentDate)
@@ -69,7 +55,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       <BottomSheetScrollView style={{ backgroundColor: theme.primary }}>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Schedule"}</Text>
-          {eventsForCurrentDate.length > 0 ? currentEventElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No events"}</Text>}
+          {events.length > 0 ? eventElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No events"}</Text>}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Assignments"}</Text>
