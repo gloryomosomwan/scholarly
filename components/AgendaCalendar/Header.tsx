@@ -1,52 +1,22 @@
 import { StyleSheet, Text, View, Dimensions, Platform } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { useCalendar } from "./CalendarContext";
+import HeatmapButton from '@/components/AgendaCalendar/HeatmapButton';
+import { useCalendarAppearance } from '@/components/AgendaCalendar/CalendarAppearanceContext';
+
 import { useTheme } from '@/hooks'
-import HeatmapButton from './HeatmapButton';
-import { useCalendarAppearance } from './CalendarAppearanceContext';
+import { useCalendarStore } from '@/stores/CalendarState';
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 export default function Header() {
-  const { calendarState } = useCalendar()
+  const theme = useTheme()
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
-  const [selectedDate, setSelectedDate] = useState(calendarState.currentDate)
-  const theme = useTheme()
   const { isGradientBackground } = useCalendarAppearance()
-
-  useEffect(() => {
-    const dayUnsubscribe = calendarState.daySubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
-    })
-    return dayUnsubscribe
-  }), []
-
-  useEffect(() => {
-    const weekUnsubscribe = calendarState.weekSubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
-    });
-    return weekUnsubscribe;
-  }, [])
-
-  useEffect(() => {
-    const unsubscribe = calendarState.monthSubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
-    });
-    return unsubscribe;
-  }, [])
-
-  useEffect(() => {
-    const todayUnsubscribe = calendarState.todaySubscribe(() => {
-      setSelectedDate(calendarState.currentDate)
-    })
-    return todayUnsubscribe
-  }, [])
-
+  const selectedDate = useCalendarStore((state) => state.currentDate)
   const subduedTextColor = isGradientBackground ? '#f7f7f7' : theme.grey400
-
   return (
     <View style={[styles.container, { paddingTop: paddingTop, backgroundColor: 'undefined' }]}>
       <View style={styles.topRowContainer}>

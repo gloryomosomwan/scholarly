@@ -15,7 +15,6 @@ export const useCalendarStore = create<CalendarStateStore>((set, get) => ({
   currentDate: new Date(),
   previousDate: new Date(),
   todayDate: new Date(),
-
   daySelectDate: (date: Date) => set({ currentDate: date }),
   weekSelectDate: (date: Date) => set({ currentDate: date }),
   monthSelectDate: (date: Date) => set({ currentDate: date }),
