@@ -10,11 +10,11 @@ import EventItem from "@/components/AgendaCalendar/EventItem";
 import TaskCard from '@/components/Task/TaskCard';
 import AssignmentCard from '@/components/Assignment/AssignmentCard';
 
-import { assignments, tasks } from '@/data/data'
+import { tasks } from '@/data/data'
 import { useTheme } from '@/hooks'
 import { compareEventTimes, compareTaskTimes } from '@/utils/calendarUtils';
 import { useCalendarStore } from '@/stores/CalendarState';
-import { useEventsByDay } from '@/hooks/useDatabase';
+import { useAssignmentsByDay, useEventsByDay } from '@/hooks/useDatabase';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -46,15 +46,8 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
     return false
   }
 
-  const currentAssignments = useMemo(() => {
-    const filteredAssignments = assignments.filter(isActivityCurrent);
-    filteredAssignments.sort(compareTaskTimes);
-    return filteredAssignments;
-  }, [currentDate]);
-
-  const currentAssignmentElements = useMemo(() => {
-    return currentAssignments.map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} />);
-  }, [currentAssignments]);
+  const assignments = useAssignmentsByDay(currentDate)
+  const assignmentElements = assignments.map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} />)
 
   const currentTasks = useMemo(() => {
     const filteredTasks = tasks.filter(isActivityCurrent);
@@ -88,7 +81,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Assignments"}</Text>
-          {currentAssignments.length > 0 ? currentAssignmentElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No assignments"}</Text>}
+          {assignmentElements.length > 0 ? assignmentElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No assignments"}</Text>}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Tasks"}</Text>

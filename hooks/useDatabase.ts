@@ -127,6 +127,17 @@ export function useAssignmentsByCourse(courseID: number) {
   return assignmentData
 }
 
+export function useAssignmentsByDay(date: Date) {
+  const { data } = useLiveQuery(db.select().from(assignments).where(
+    and(
+      gte(assignments.due, startOfDay(date).toISOString()),
+      lte(assignments.due, endOfDay(date).toISOString())
+    )
+  ), [date])
+  const assignmentData = data.map(convertRawAssignment)
+  return assignmentData
+}
+
 export function getAssignmentById(id: number | null) {
   const data = useSQLiteContext().getFirstSync<rawAssignment>(`
       SELECT 
