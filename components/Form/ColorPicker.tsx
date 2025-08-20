@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { SymbolView } from 'expo-symbols'
+
 import { useTheme } from '@/hooks'
 import { courses } from '@/data/data'
 
