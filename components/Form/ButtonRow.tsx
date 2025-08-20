@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 40,
   },
   buttonText: {
     fontSize: 18,

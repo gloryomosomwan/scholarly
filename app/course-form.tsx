@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingVertical: 16,
+    paddingBottom: 150
   },
   formContainer: {
     gap: 24,
