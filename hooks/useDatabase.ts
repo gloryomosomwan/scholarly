@@ -43,6 +43,17 @@ export function getTaskById(id: number | null) {
   return task // If id is null, data is null too
 }
 
+export function useTasksByDay(date: Date) {
+  const { data } = useLiveQuery(db.select().from(tasks).where(
+    and(
+      gte(tasks.due, startOfDay(date).toISOString()),
+      lte(tasks.due, endOfDay(date).toISOString())
+    )
+  ), [date])
+  const taskData = data.map(convertRawTask)
+  return taskData
+}
+
 export function useCourses() {
   const semesterID = useUserStore((state) => state.semesterID)
   const { data } = useLiveQuery(db.select().from(courses).where(eq(courses.semester_id, Number(semesterID))), [semesterID])

@@ -14,7 +14,7 @@ import { tasks } from '@/data/data'
 import { useTheme } from '@/hooks'
 import { compareEventTimes, compareTaskTimes } from '@/utils/calendarUtils';
 import { useCalendarStore } from '@/stores/CalendarState';
-import { useAssignmentsByDay, useEventsByDay } from '@/hooks/useDatabase';
+import { useAssignmentsByDay, useEventsByDay, useTasksByDay } from '@/hooks/useDatabase';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -48,16 +48,8 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
 
   const assignments = useAssignmentsByDay(currentDate)
   const assignmentElements = assignments.map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} />)
-
-  const currentTasks = useMemo(() => {
-    const filteredTasks = tasks.filter(isActivityCurrent);
-    filteredTasks.sort(compareTaskTimes);
-    return filteredTasks;
-  }, [currentDate]);
-
-  const currentTaskElements = useMemo(() => {
-    return currentTasks.map(task => <TaskCard key={task.id} task={task} />);
-  }, [currentTasks]);
+  const tasks = useTasksByDay(currentDate)
+  const taskElements = tasks.map(task => <TaskCard key={task.id} task={task} />)
 
   return (
     <BottomSheet
@@ -85,7 +77,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Tasks"}</Text>
-          {currentTasks.length > 0 ? currentTaskElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No tasks"}</Text>}
+          {tasks.length > 0 ? taskElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No tasks"}</Text>}
         </View>
       </BottomSheetScrollView>
     </BottomSheet>
