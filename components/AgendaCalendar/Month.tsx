@@ -177,7 +177,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
 const styles = StyleSheet.create({
   container: {
     //  30 (size of header) + 5 (header margin) + 17 (weekday name text height) = 52
-    paddingTop: 52,
+    // paddingTop: 52,
     width: '100%',
   },
   week: {

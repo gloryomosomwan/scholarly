@@ -49,14 +49,14 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
 
   const rWeekPagerStyle = useAnimatedStyle(() => {
     return {
-      // opacity: pagerOpacity.value,
+      opacity: pagerOpacity.value,
       pointerEvents: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 'auto' : 'none'
     }
   })
 
   const rPageStyle = useAnimatedStyle(() => {
     return {
-      // opacity: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 1 : 0
+      opacity: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 1 : 0
     }
   })
 
@@ -86,7 +86,6 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
             isProgrammaticChange.value = false;
             return;
           }
-          console.log('i hate LLMs.')
           changeMadeByMe.current = true
           const currentGlobalDate = useCalendarStore.getState().currentDate;
           const globalTodayDate = useCalendarStore.getState().todayDate;
