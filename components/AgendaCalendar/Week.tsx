@@ -70,16 +70,13 @@ export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.days}>
-        {days}
-      </View>
-    </View >
+      {days}
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  days: {
+  container: {
     flexDirection: 'row'
   },
 })
