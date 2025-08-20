@@ -21,6 +21,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
   const insets = useSafeAreaInsets()
   const pagerOpacity = useSharedValue(1)
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
+
   const isProgrammaticChange = useSharedValue(false)
   const didInitialSync = useRef<boolean>(false)
   const changeMadeByMe = useRef<boolean>(false)
@@ -31,23 +32,9 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
 
   const animatedProps = useAnimatedProps(() => {
     return {
-      // pointerEvents: (isProgrammaticChange.value ? 'none' : 'auto') as 'none' | 'auto',
+      pointerEvents: (isProgrammaticChange.value ? 'none' : 'auto') as 'none' | 'auto',
     };
   });
-
-  // useEffect(() => {
-  //   const dayUnsubscribe = calendarState.daySubscribe(() => {
-  //     if (isInEarlierMonth(calendarState.currentDate, calendarState.previousDate)) {
-  //       isProgrammaticChange.value = true;
-  //       monthPagerRef.current?.decrementPage({ animated: true })
-  //     }
-  //     else if (isInLaterMonth(calendarState.currentDate, calendarState.previousDate)) {
-  //       isProgrammaticChange.value = true;
-  //       monthPagerRef.current?.incrementPage({ animated: true })
-  //     }
-  //   })
-  //   return dayUnsubscribe
-  // }, [])
 
   useEffect(() => {
     if (isSameMonth(previousDate, currentDate)) {
@@ -134,18 +121,6 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
       </Animated.View>
     </View>
   )
-}
-
-function isInEarlierMonth(dateToCheck: Date, referenceDate: Date) {
-  const monthOfDateToCheck = startOfMonth(dateToCheck);
-  const monthOfReferenceDate = startOfMonth(referenceDate);
-  return isBefore(monthOfDateToCheck, monthOfReferenceDate);
-}
-
-function isInLaterMonth(dateToCheck: Date, referenceDate: Date) {
-  const monthOfDateToCheck = startOfMonth(dateToCheck);
-  const monthOfReferenceDate = startOfMonth(referenceDate);
-  return isAfter(monthOfDateToCheck, monthOfReferenceDate);
 }
 
 const styles = StyleSheet.create({})
