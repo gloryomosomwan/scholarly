@@ -115,11 +115,11 @@ export function useEventsByDay(date: Date) {
   return eventData
 }
 
-export function useEventsByMonth(firstDayOfMonth: Date) {
+export function useEventsByMonth(firstDay: Date, lastDay: Date) {
   const { data } = useLiveQuery(db.select().from(events).where(
     and(
-      gte(events.start_date, startOfDay(startOfWeek(firstDayOfMonth)).toISOString()),
-      lte(events.end_date, endOfDay(endOfWeek(lastDayOfMonth(firstDayOfMonth))).toISOString())
+      gte(events.start_date, firstDay.toISOString()),
+      lte(events.end_date, lastDay.toISOString())
     )
   ))
   const eventData = data.map(convertRawEvent)

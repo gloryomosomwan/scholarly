@@ -32,24 +32,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
     paddingTop = insets.top
   }
 
-  const map: Record<string, number> = {}
-  useEventsByMonth(initialDay).forEach(item => {
-    let dateToUse: Date | undefined;
-
-    if ('startDate' in item && item.startDate instanceof Date) {
-      dateToUse = item.startDate;
-    }
-    // else if ('due' in item && item.due instanceof Date) {
-    //   dateToUse = item.due;
-    // }
-
-    if (dateToUse) {
-      const key = format(dateToUse, 'yyyy-MM-dd')
-      map[key] = (map[key] || 0) + 1
-    }
-  })
-
-  const days = useMemo(() => {
+  const rawDates = useMemo(() => {
     const numDaysInMonth = getDaysInMonth(initialDay)
     let firstOfMonth = startOfMonth(initialDay)
     let rawDates: Date[] = []
@@ -68,7 +51,27 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
       const last = rawDates[rawDates.length - 1]
       rawDates.push(addDays(last, 1))
     }
+    return rawDates
+  }, [initialDay])
 
+  const map: Record<string, number> = {}
+  useEventsByMonth(rawDates[0], rawDates[rawDates.length - 1]).forEach(item => {
+    let dateToUse: Date | undefined;
+
+    if ('startDate' in item && item.startDate instanceof Date) {
+      dateToUse = item.startDate;
+    }
+    // else if ('due' in item && item.due instanceof Date) {
+    //   dateToUse = item.due;
+    // }
+
+    if (dateToUse) {
+      const key = format(dateToUse, 'yyyy-MM-dd')
+      map[key] = (map[key] || 0) + 1
+    }
+  })
+
+  const days = useMemo(() => {
     return rawDates.map(date => {
       const key = date.toDateString()
       const dateKey = format(date, 'yyyy-MM-dd')
@@ -88,8 +91,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
         />
       )
     })
-
-  }, [initialDay, selectedDatePosition, paddingTop, map])
+  }, [map])
 
   const weeks = useMemo(() => chunk(days, 7), [days])
 
