@@ -25,6 +25,7 @@ export default function UpNextSection() {
 
   return (
     <View style={styles.container}>
+      <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
       {upNext ?
         <EventCard key={upNext.id} event={upNext} />
         :
@@ -43,5 +44,11 @@ const styles = StyleSheet.create({
   placeholderText: {
     fontSize: 18,
     fontWeight: '400'
-  }
+  },
+  headerText: {
+    marginBottom: 15,
+    fontSize: 20,
+    fontWeight: '600',
+    letterSpacing: 0.25
+  },
 })

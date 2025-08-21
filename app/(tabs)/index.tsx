@@ -1,13 +1,12 @@
 import { Text, StyleSheet, ScrollView, View, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { SymbolView } from "expo-symbols";
-import dayjs from "dayjs";
 
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
 import TaskSection from "@/components/Dashboard/TaskSection";
 import AssignmentSection from "@/components/Dashboard/AssignmentSection";
 import UpNextSection from "@/components/Dashboard/UpNextSection";
 import CurrentEventSection from "@/components/Dashboard/CurrentEventSection";
+import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 
 import { useTheme } from "@/hooks/useTheme";
 
@@ -18,16 +17,8 @@ export default function Index() {
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
       <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
-        <View style={styles.headerContainer}>
-          <View style={styles.greetingDateContainer}>
-            <Text style={[styles.greetingText, { color: theme.text }]}>Good morning, Glory 👋</Text>
-            <Text style={[styles.dateText, { color: theme.grey400 }]}>{dayjs().format('dddd, MMMM D')}</Text>
-          </View>
-          <SymbolView style={styles.profileIcon} name={'person.crop.circle.fill'} size={45} tintColor={theme.grey400} />
-        </View>
-        <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
+        <DashboardHeader />
         <CurrentEventSection />
-        <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
         <UpNextSection />
         <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
         <AssessmentCard assessment={exam} />
@@ -42,61 +33,13 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
   },
-  greetingText: {
-    fontSize: 26,
-    marginBottom: 5,
-    fontWeight: '600'
-  },
-  dateText: {
-    fontSize: 20,
-    marginBottom: 25,
-    fontWeight: '600',
-  },
   headerText: {
     marginBottom: 15,
     fontSize: 20,
     fontWeight: '600',
     letterSpacing: 0.25
   },
-  subheaderText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  progressCards: {
-    flexDirection: 'row',
-    marginBottom: 25,
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  greetingDateContainer: {
-    maxWidth: '80%',
-  },
-  profileIcon: {
-    right: 10,
-  },
 });
-
-const currentLecture = {
-  id: 400000,
-  type: 'Lecture',
-  course: 'HIST 211',
-  emoji: '📚',
-  start: new Date(2025, 7, 19, 2, 0),
-  end: new Date(2025, 7, 19, 9, 0),
-  location: 'HIS 2-17',
-}
-
-const nextLecture = {
-  id: 40000,
-  type: 'Lecture',
-  course: 'MARK 161',
-  emoji: '📊',
-  start: new Date(2025, 7, 20, 22, 0),
-  end: new Date(2025, 7, 20, 23, 0),
-  location: 'GMH 5-18',
-}
 
 const exam = {
   type: 'Final Exam',
