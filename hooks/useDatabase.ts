@@ -126,6 +126,17 @@ export function useEventsByMonth(firstDay: Date, lastDay: Date) {
   return eventData
 }
 
+export function useAssignmentsByMonth(firstDay: Date, lastDay: Date) {
+  const { data } = useLiveQuery(db.select().from(assignments).where(
+    and(
+      gte(assignments.due, firstDay.toISOString()),
+      lte(assignments.due, lastDay.toISOString())
+    )
+  ))
+  const assignmentData = data.map(convertRawAssignment)
+  return assignmentData
+}
+
 export function useAssignments() {
   const { data } = useLiveQuery(db.select().from(assignments))
   const assignmentData = data.map(convertRawAssignment)
