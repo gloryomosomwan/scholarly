@@ -21,3 +21,13 @@ export const useCalendarStore = create<CalendarStateStore>((set, get) => ({
   selectToday: () => set((state) => ({ currentDate: state.todayDate })),
   selectPreviousDate: (date: Date) => set({ previousDate: date }),
 }));
+
+interface CalendarAppearanceStore {
+  heatmapActive: boolean;
+  toggleHeatmap: () => void;
+}
+
+export const useCalendarAppearanceStore = create<CalendarAppearanceStore>((set) => ({
+  heatmapActive: false,
+  toggleHeatmap: () => set((state) => ({ heatmapActive: !state.heatmapActive }))
+}));

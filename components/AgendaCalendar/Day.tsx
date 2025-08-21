@@ -3,9 +3,7 @@ import React, { useRef, useLayoutEffect } from 'react'
 import { isSameMonth, isSameDay, getWeekOfMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 
-import { useCalendarAppearance } from '@/components/AgendaCalendar/CalendarAppearanceContext'
-
-import { useCalendarStore } from '@/stores/calendar';
+import { useCalendarAppearanceStore, useCalendarStore } from '@/stores/calendar';
 import { useTheme } from '@/hooks';
 
 type DayType = 'week' | 'month'
@@ -37,7 +35,8 @@ export default function Day({ date, selectedDatePosition, dayType, count, paddin
   const daySelectDate = useCalendarStore(state => state.daySelectDate);
   const selectPreviousDate = useCalendarStore(state => state.selectPreviousDate);
 
-  const { heatmapActive, isGradientBackground } = useCalendarAppearance()
+  const isGradientBackground = useColorScheme() === 'light'
+  const { heatmapActive } = useCalendarAppearanceStore()
   const elementRef = useRef<View | null>(null)
   const theme = useTheme()
   const opacityPct = map01to08((count / MAX_ITEMS))

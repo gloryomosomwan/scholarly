@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View, Dimensions, Platform } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, Platform, useColorScheme } from 'react-native'
 import React from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import HeatmapButton from '@/components/AgendaCalendar/HeatmapButton';
-import { useCalendarAppearance } from '@/components/AgendaCalendar/CalendarAppearanceContext';
 
 import { useTheme } from '@/hooks'
 import { useCalendarStore } from '@/stores/calendar';
@@ -14,8 +13,8 @@ export default function Header() {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
-  const { isGradientBackground } = useCalendarAppearance()
   const selectedDate = useCalendarStore((state) => state.currentDate)
+  const isGradientBackground = useColorScheme() === 'light'
   const subduedTextColor = isGradientBackground ? '#f7f7f7' : theme.grey400
   return (
     <View style={[styles.container, { paddingTop: paddingTop, backgroundColor: 'undefined' }]}>

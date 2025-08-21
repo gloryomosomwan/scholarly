@@ -1,19 +1,21 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React from 'react'
+
 import { useTheme } from '@/hooks'
-import { useCalendarAppearance } from './CalendarAppearanceContext'
+import { useCalendarAppearanceStore } from '@/stores/calendar'
 
 export default function HeatmapButton() {
-  const { heatmapActive, setHeatmapActive, isGradientBackground } = useCalendarAppearance()
+  const { heatmapActive, toggleHeatmap } = useCalendarAppearanceStore()
   const theme = useTheme()
+  const isGradientBackground = useColorScheme() === 'light'
 
-  const onPress = () => {
-    setHeatmapActive(!heatmapActive)
+  const handlePress = () => {
+    toggleHeatmap()
   }
 
   return (
     <View style={styles.heatmapButtonContainer}>
-      <Pressable onPress={onPress} style={({ pressed }) => [
+      <Pressable onPress={handlePress} style={({ pressed }) => [
         styles.heatmapButton,
         { borderColor: theme.text, backgroundColor: heatmapActive ? theme.text : undefined },
         isGradientBackground && { borderColor: 'white', backgroundColor: heatmapActive ? 'white' : undefined },

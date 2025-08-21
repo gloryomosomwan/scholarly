@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageBackground, Platform, StyleSheet, View } from "react-native";
+import { ImageBackground, Platform, StyleSheet, useColorScheme, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -10,17 +10,13 @@ import WeekPager from "@/components/AgendaCalendar/WeekPager";
 import MonthPager from "@/components/AgendaCalendar/MonthPager";
 import Agenda from "@/components/AgendaCalendar/Agenda";
 import TodayButton from "@/components/AgendaCalendar/TodayButton";
-import { CalendarAppearanceProvider } from "@/components/AgendaCalendar/CalendarAppearanceContext";
-import { useCalendarAppearance } from '@/components/AgendaCalendar/CalendarAppearanceContext'
 
 import { useTheme } from "@/hooks";
 
 export default function App() {
   return (
     <GestureHandlerRootView>
-      <CalendarAppearanceProvider>
-        <CalendarContent />
-      </CalendarAppearanceProvider>
+      <CalendarContent />
     </GestureHandlerRootView>
   );
 }
@@ -33,7 +29,7 @@ const CalendarContent = () => {
   const calendarBottom = useSharedValue((47 * 6) + paddingTop + 52);
   const bottomSheetTranslationY = useSharedValue(calendarBottom.value);
   const theme = useTheme();
-  const { isGradientBackground } = useCalendarAppearance()
+  const isGradientBackground = useColorScheme() === 'light'
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.secondary, paddingTop: paddingTop, paddingBottom: insets.bottom }}>
