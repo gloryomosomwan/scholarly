@@ -22,7 +22,10 @@ const MAX_ITEMS = 5
 const map01to08 = (t: number) => t * 0.9;
 
 export default function Day({ date, selectedDatePosition, dayType, count, paddingTop, firstDay }: DayProps) {
-  const { currentDate, daySelectDate, selectPreviousDate } = useCalendarStore()
+  const currentDate = useCalendarStore((state) => state.currentDate)
+  const daySelectDate = useCalendarStore((state) => state.daySelectDate)
+  const selectPreviousDate = useCalendarStore((state) => state.selectPreviousDate)
+
   const isSelected = (dayType === 'week' && isSameDay(date, currentDate)) || (dayType === 'month' && isSameDay(date, currentDate) && isSameMonth(date, firstDay));
 
   // A week Day can be active even if it isn't in the same month as the first Day of its week

@@ -15,7 +15,9 @@ type WeekPagerProps = {
 }
 
 export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: WeekPagerProps) {
-  const { currentDate, previousDate, todayDate } = useCalendarStore();
+  const currentDate = useCalendarStore((state) => state.currentDate)
+  const previousDate = useCalendarStore((state) => state.previousDate)
+  const todayDate = useCalendarStore((state) => state.todayDate)
   const weekPagerRef = useRef<InfinitePagerImperativeApi>(null)
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top

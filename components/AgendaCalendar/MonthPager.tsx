@@ -16,7 +16,9 @@ type MonthPagerProps = {
 }
 
 export default function MonthPager({ bottomSheetTranslationY, calendarBottom, selectedDatePosition }: MonthPagerProps) {
-  const { currentDate, previousDate, todayDate } = useCalendarStore();
+  const currentDate = useCalendarStore((state) => state.currentDate)
+  const previousDate = useCalendarStore((state) => state.previousDate)
+  const todayDate = useCalendarStore((state) => state.todayDate)
   const monthPagerRef = useRef<InfinitePagerImperativeApi>(null)
   const insets = useSafeAreaInsets()
   const pagerOpacity = useSharedValue(1)
