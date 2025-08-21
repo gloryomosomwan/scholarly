@@ -22,13 +22,11 @@ const MAX_ITEMS = 5
 const map01to08 = (t: number) => t * 0.9;
 
 export default function Day({ date, selectedDatePosition, dayType, count, paddingTop, firstDay }: DayProps) {
+  const theme = useTheme()
+  const scheme = useColorScheme() ?? 'light'
+
   const { currentDate, daySelectDate, selectPreviousDate } = useCalendarStore()
   const isSelected = (dayType === 'week' && isSameDay(date, currentDate)) || (dayType === 'month' && isSameDay(date, currentDate) && isSameMonth(date, firstDay));
-
-  // let weekDayInactive;
-  // if (dayType === 'week') {
-  //   weekDayInactive = useCalendarStore(state => !isSameMonth(date, state.currentDate))
-  // }
 
   // A week Day can be active even if it isn't in the same month as the first Day of its week
   const isInactive = dayType === 'week' && !isSameMonth(date, currentDate) || dayType === 'month' && !isSameMonth(date, firstDay)
@@ -36,9 +34,7 @@ export default function Day({ date, selectedDatePosition, dayType, count, paddin
   const isGradientBackground = useColorScheme() === 'light'
   const { heatmapActive } = useCalendarAppearanceStore()
   const elementRef = useRef<View | null>(null)
-  const theme = useTheme()
   const opacityPct = map01to08((count / MAX_ITEMS))
-  const scheme = useColorScheme() ?? 'light'
   const darkThemeText = theme.text
   const lightThemeText = heatmapActive || isGradientBackground ? theme.inverseText : theme.text
   const subduedTextColor = isGradientBackground || scheme === 'dark' ? { color: 'white', opacity: 0.5 } : { color: theme.grey400 }
