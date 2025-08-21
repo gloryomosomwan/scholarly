@@ -42,7 +42,7 @@ export default function Day({ date, selectedDatePosition, dayType, count, paddin
     if (isSelected) {
       selectedDatePosition.value = (paddingTop + 52) + (47 * (getWeekOfMonth(date) - 1))
     }
-  }, [date, isSelected, paddingTop, selectedDatePosition])
+  }, [isSelected])
 
   const onPress = () => {
     const currentGlobalDate = useCalendarStore.getState().currentDate;
