@@ -4,19 +4,17 @@ import { SymbolView } from "expo-symbols";
 import dayjs from "dayjs";
 
 import AssessmentCard from "@/components/Dashboard/AssessmentCard";
-import EventCard from "@/components/EventCard/EventCard";
 import TaskSection from "@/components/Dashboard/TaskSection";
 import AssignmentSection from "@/components/Dashboard/AssignmentSection";
+import UpNextSection from "@/components/Dashboard/UpNextSection";
+import CurrentEventSection from "@/components/Dashboard/CurrentEventSection";
 
 import { useTheme } from "@/hooks/useTheme";
-import { useCurrentEvent } from "@/hooks/useDatabase";
 
 export default function Index() {
   const theme = useTheme()
   const insets = useSafeAreaInsets();
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
-  const events = useCurrentEvent()
-
   return (
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
       <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
@@ -27,18 +25,12 @@ export default function Index() {
           </View>
           <SymbolView style={styles.profileIcon} name={'person.crop.circle.fill'} size={45} tintColor={theme.grey400} />
         </View>
-        <View>
-          <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
-          {events.map((event) => <EventCard key={event.id} event={event} />)}
-        </View>
-        <View>
-          <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
-          {/* <EventCard event={} /> */}
-        </View>
-        <View>
-          <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
-          <AssessmentCard assessment={exam} />
-        </View>
+        <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
+        <CurrentEventSection />
+        <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
+        <UpNextSection />
+        <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
+        <AssessmentCard assessment={exam} />
         <AssignmentSection />
         <TaskSection />
       </ScrollView>
