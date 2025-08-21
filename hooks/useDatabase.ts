@@ -153,8 +153,6 @@ export function getSemesterById(id: number | null) {
 
 // Tasks
 export function useTasksForToday() {
-  // const todayPattern = new Date().toISOString().slice(0, 10) + '%'; // timezone bug
-  // const { data } = useLiveQuery(db.select().from(tasks).where(like(tasks.due, todayPattern)))
   const semesterID = useUserStore((state) => state.semesterID)
   // const { data } = useLiveQuery(db.select({
   //   ...getTableColumns(tasks)
