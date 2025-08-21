@@ -6,9 +6,9 @@ import AssignmentSection from "@/components/Dashboard/AssignmentSection";
 import UpNextSection from "@/components/Dashboard/UpNextSection";
 import CurrentEventSection from "@/components/Dashboard/CurrentEventSection";
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
+import UpcomingDatesSection from "@/components/Dashboard/UpcomingDatesSection";
 
 import { useTheme } from "@/hooks/useTheme";
-import UpcomingDatesSection from "@/components/Dashboard/UpcomingDatesSection";
 
 export default function Index() {
   const theme = useTheme()
