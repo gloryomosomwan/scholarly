@@ -22,7 +22,8 @@ const MAX_ITEMS = 5
 const map01to08 = (t: number) => t * 0.9;
 
 export default function Day({ date, selectedDatePosition, dayType, count, paddingTop, firstDay }: DayProps) {
-  const isSelected = useCalendarStore(state => (dayType === 'week' && isSameDay(date, state.currentDate)) || (dayType === 'month' && isSameDay(date, state.currentDate) && isSameMonth(date, firstDay)));
+  const { currentDate, daySelectDate, selectPreviousDate } = useCalendarStore()
+  const isSelected = (dayType === 'week' && isSameDay(date, currentDate)) || (dayType === 'month' && isSameDay(date, currentDate) && isSameMonth(date, firstDay));
 
   // let weekDayInactive;
   // if (dayType === 'week') {
@@ -30,10 +31,7 @@ export default function Day({ date, selectedDatePosition, dayType, count, paddin
   // }
 
   // A week Day can be active even if it isn't in the same month as the first Day of its week
-  const isInactive = useCalendarStore(state => (dayType === 'week' && !isSameMonth(date, state.currentDate) || (dayType === 'month' && !isSameMonth(date, firstDay))))
-
-  const daySelectDate = useCalendarStore(state => state.daySelectDate);
-  const selectPreviousDate = useCalendarStore(state => state.selectPreviousDate);
+  const isInactive = dayType === 'week' && !isSameMonth(date, currentDate) || dayType === 'month' && !isSameMonth(date, firstDay)
 
   const isGradientBackground = useColorScheme() === 'light'
   const { heatmapActive } = useCalendarAppearanceStore()
