@@ -53,14 +53,8 @@ export default function Tab() {
         </View>
       </View>
       <View style={[styles.pillContainer]}>
-        {
-          filterBy &&
-          <FilterPill filterValue={filterValue} clear={() => { setFilterBy(null); setFilterValue(null) }} />
-        }
-        {
-          sortBy &&
-          <SortPill sortBy={sortBy} clear={() => setSortBy(null)} />
-        }
+        {filterBy && <FilterPill filterValue={filterValue} clear={() => { setFilterBy(null); setFilterValue(null) }} />}
+        {sortBy && <SortPill sortBy={sortBy} clear={() => setSortBy(null)} />}
       </View>
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
         {taskData.map((task) => <TaskCard key={task.id} task={task} />)}
