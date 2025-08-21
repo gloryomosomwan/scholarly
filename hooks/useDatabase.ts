@@ -54,11 +54,11 @@ export function useTasksByDay(date: Date) {
   return taskData
 }
 
-export function useTasksByMonth(firstDay: Date, lastDay: Date) {
+export function useTasksByDateRange(firstDay: Date, lastDay: Date) {
   const { data } = useLiveQuery(db.select().from(tasks).where(
     and(
-      gte(tasks.due, firstDay.toISOString()),
-      lte(tasks.due, lastDay.toISOString())
+      gte(tasks.due, startOfDay(firstDay).toISOString()),
+      lte(tasks.due, endOfDay(lastDay).toISOString())
     )
   ))
   const taskData = data.map(convertRawTask)
@@ -137,11 +137,11 @@ export function useEventsByDateRange(firstDay: Date, lastDay: Date) {
   return eventData
 }
 
-export function useAssignmentsByMonth(firstDay: Date, lastDay: Date) {
+export function useAssignmentsByDateRange(firstDay: Date, lastDay: Date) {
   const { data } = useLiveQuery(db.select().from(assignments).where(
     and(
-      gte(assignments.due, firstDay.toISOString()),
-      lte(assignments.due, lastDay.toISOString())
+      gte(assignments.due, startOfDay(firstDay).toISOString()),
+      lte(assignments.due, endOfDay(lastDay).toISOString())
     )
   ))
   const assignmentData = data.map(convertRawAssignment)
