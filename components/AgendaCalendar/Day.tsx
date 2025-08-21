@@ -22,16 +22,15 @@ const MAX_ITEMS = 5
 const map01to08 = (t: number) => t * 0.9;
 
 export default function Day({ date, selectedDatePosition, dayType, count, paddingTop, firstDay }: DayProps) {
-  const theme = useTheme()
-  const scheme = useColorScheme() ?? 'light'
-
   const { currentDate, daySelectDate, selectPreviousDate } = useCalendarStore()
   const isSelected = (dayType === 'week' && isSameDay(date, currentDate)) || (dayType === 'month' && isSameDay(date, currentDate) && isSameMonth(date, firstDay));
 
   // A week Day can be active even if it isn't in the same month as the first Day of its week
   const isInactive = dayType === 'week' && !isSameMonth(date, currentDate) || dayType === 'month' && !isSameMonth(date, firstDay)
 
-  const isGradientBackground = useColorScheme() === 'light'
+  const theme = useTheme()
+  const scheme = useColorScheme() ?? 'light'
+  const isGradientBackground = scheme === 'light'
   const { heatmapActive } = useCalendarAppearanceStore()
   const elementRef = useRef<View | null>(null)
   const opacityPct = map01to08((count / MAX_ITEMS))
