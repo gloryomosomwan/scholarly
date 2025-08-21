@@ -12,7 +12,7 @@ import AssignmentCard from '@/components/Assignment/AssignmentCard';
 import { useTheme } from '@/hooks'
 import { useCalendarStore } from '@/stores/CalendarState';
 import { useAssignmentsByDay, useEventsByDay, useTasksByDay } from '@/hooks/useDatabase';
-import { sortAssignmentsByDay, sortEventsByDay, sortTasksByDay } from '@/utils/sort';
+import { sortAssignmentsByDue, sortEventsByStartTime, sortTasksByDue } from '@/utils/sort';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -30,15 +30,15 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const snapPoints = useMemo(() => [height - initialCalendarBottom - bottomTabBarHeight, height - initialCalendarBottom + 235 - bottomTabBarHeight], []);
 
   const events = useEventsByDay(currentDate)
-  events.sort(sortEventsByDay)
+  events.sort(sortEventsByStartTime)
   const eventElements = useMemo(() => {
     return events.map(event => <EventItem key={event.id} event={event} />);
   }, [events]); // Does useMemo help here?
   const assignments = useAssignmentsByDay(currentDate)
-  assignments.sort(sortAssignmentsByDay)
+  assignments.sort(sortAssignmentsByDue)
   const assignmentElements = assignments.map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} />)
   const tasks = useTasksByDay(currentDate)
-  tasks.sort(sortTasksByDay)
+  tasks.sort(sortTasksByDue)
   const taskElements = tasks.map(task => <TaskCard key={task.id} task={task} />)
 
   return (
