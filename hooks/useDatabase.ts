@@ -12,8 +12,12 @@ import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawTask } from "@/types/drizzle";
 
 // Assignments
-export function useAssignments() {
-  const { data } = useLiveQuery(db.select().from(assignments))
+export function useTodayAssignments() {
+  const { data } = useLiveQuery(db.select().from(assignments).where(
+    and(
+      gte(assignments.due, startOfDay(new Date()).toISOString()),
+      lte(assignments.due, endOfDay(new Date()).toISOString())
+    )))
   const assignmentData = data.map(convertRawAssignment)
   return assignmentData
 }
@@ -148,7 +152,7 @@ export function getSemesterById(id: number | null) {
 }
 
 // Tasks
-export function useTasks() {
+export function useTasksForToday() {
   // const todayPattern = new Date().toISOString().slice(0, 10) + '%'; // timezone bug
   // const { data } = useLiveQuery(db.select().from(tasks).where(like(tasks.due, todayPattern)))
   const semesterID = useUserStore((state) => state.semesterID)
@@ -157,7 +161,12 @@ export function useTasks() {
   // }).from(tasks)
   //   .innerJoin(courses, eq(tasks.course_id, courses.id))
   //   .where(eq(courses.semester_id, Number(semesterID))));
-  const { data } = useLiveQuery(db.select().from(tasks))
+  const { data } = useLiveQuery(db.select().from(tasks).where(
+    and(
+      gte(tasks.due, startOfDay(new Date()).toISOString()),
+      lte(tasks.due, endOfDay(new Date()).toISOString())
+    )
+  ))
   const taskData = data.map(convertRawTask)
   return taskData
 }

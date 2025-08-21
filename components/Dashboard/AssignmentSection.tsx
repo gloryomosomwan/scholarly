@@ -4,12 +4,12 @@ import { isBefore } from 'date-fns'
 
 import AssignmentCard from '@/components/Assignment/AssignmentCard'
 
-import { useAssignments } from '@/hooks/useDatabase'
+import { useTodayAssignments } from '@/hooks/useDatabase'
 import { useTheme } from '@/hooks/useTheme'
 
 export default function AssignmentSection() {
   const theme = useTheme()
-  const assignmentData = useAssignments()
+  const assignmentData = useTodayAssignments()
 
   let numberOfOverdueTasks = 0;
   for (const el of assignmentData) {

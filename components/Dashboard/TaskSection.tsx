@@ -4,12 +4,12 @@ import { isBefore } from 'date-fns'
 
 import TaskCard from '@/components/Task/TaskCard'
 
-import { useTasks } from '@/hooks/useDatabase'
+import { useTasksForToday } from '@/hooks/useDatabase'
 import { useTheme } from '@/hooks/useTheme'
 
 export default function TaskSection() {
   const theme = useTheme()
-  const taskData = useTasks()
+  const taskData = useTasksForToday()
 
   let numberOfOverdueTasks = 0;
   for (const el of taskData) {

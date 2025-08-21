@@ -12,7 +12,7 @@ import FilterPill from '@/components/TasksPage/FilterPill';
 import SortPill from '@/components/TasksPage/SortPill';
 
 import { useTheme } from '@/hooks/useTheme';
-import { useCourses, useTasks } from '@/hooks/useDatabase';
+import { useCourses, useTasksForToday } from '@/hooks/useDatabase';
 import { Task, PriorityOption, TaskSortOption, TaskFilterOption, Course } from '@/types';
 
 export default function Tab() {
@@ -22,7 +22,7 @@ export default function Tab() {
   const [sortBy, setSortBy] = useState<TaskSortOption | null>(null)
   const [filterBy, setFilterBy] = useState<TaskFilterOption | null>(null)
   const [filterValue, setFilterValue] = useState<string | null>(null)
-  let taskData = useTasks()
+  let taskData = useTasksForToday()
   const courses = useCourses()
 
   if (filterValue && filterBy) taskData = filterTasks(taskData, filterBy, filterValue, courses)
