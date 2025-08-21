@@ -1,5 +1,5 @@
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
-import { and, eq, getTableColumns, gte, like, lte } from 'drizzle-orm';
+import { and, eq, getTableColumns, gte, lte } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
 import { endOfDay, startOfDay } from "date-fns";
