@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Day from '@/components/AgendaCalendar/Day'
 
-import { useAssignmentsByMonth, useEventsByMonth, useTasksByMonth } from '@/hooks/useDatabase';
+import { useAssignmentsByMonth, useEventsByDateRange, useTasksByMonth } from '@/hooks/useDatabase';
 
 type MonthProps = {
   initialDay: Date
@@ -56,7 +56,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
 
   const map: Record<string, number> = {}
   const items = [
-    ...useEventsByMonth(rawDates[0], rawDates[rawDates.length - 1]),
+    ...useEventsByDateRange(rawDates[0], rawDates[rawDates.length - 1]),
     ...useAssignmentsByMonth(rawDates[0], rawDates[rawDates.length - 1]),
     ...useTasksByMonth(rawDates[0], rawDates[rawDates.length - 1])
   ]

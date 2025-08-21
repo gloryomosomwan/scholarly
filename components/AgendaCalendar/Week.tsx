@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Day from '@/components/AgendaCalendar/Day'
 
-import { events, assignments, tasks, tests } from '@/data/data';
+import { useEventsByDateRange } from '@/hooks/useDatabase';
 
 type WeekProps = {
   initialDay: Date
@@ -24,39 +24,44 @@ export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
     paddingTop = insets.top
   }
 
-  const itemsByDate = useMemo(() => {
-    const map: Record<string, number> = {}
-      ;[...events, ...tasks, ...assignments, ...tests].forEach(item => {
-        let dateToUse: Date | undefined;
-
-        if ('start' in item && item.start instanceof Date) {
-          dateToUse = item.start;
-        } else if ('due' in item && item.due instanceof Date) {
-          dateToUse = item.due;
-        }
-
-        if (dateToUse) {
-          const key = format(dateToUse, 'yyyy-MM-dd')
-          map[key] = (map[key] || 0) + 1
-        }
-      })
-    return map
-  }, [events, tasks, assignments, tests])
-
-  const days = useMemo(() => {
+  const rawDates = useMemo(() => {
     let firstDayOfWeek = startOfWeek(initialDay)
     let rawDates: Date[] = []
     for (let i = 0; i < 7; i++) {
       rawDates.push(addDays(firstDayOfWeek, i))
     }
+    return rawDates
+  }, [initialDay])
 
+  const map: Record<string, number> = {}
+  const items = [
+    ...useEventsByDateRange(rawDates[0], rawDates[rawDates.length - 1]),
+    // ...useAssignmentsByMonth(rawDates[0], rawDates[rawDates.length - 1]),
+    // ...useTasksByMonth(rawDates[0], rawDates[rawDates.length - 1])
+  ]
+  items.forEach(item => {
+    let dateToUse: Date | undefined;
+
+    if ('startDate' in item && item.startDate instanceof Date) {
+      dateToUse = item.startDate;
+    } else if ('due' in item && item.due instanceof Date) {
+      dateToUse = item.due;
+    }
+
+    if (dateToUse) {
+      const key = format(dateToUse, 'yyyy-MM-dd')
+      map[key] = (map[key] || 0) + 1
+    }
+  })
+
+  const days = useMemo(() => {
     return rawDates.map(date => {
       const key = date.toDateString() + 'week'
       const dateKey = format(date, 'yyyy-MM-dd')
-      const count = itemsByDate[dateKey] || 0
+      const count = map[dateKey] || 0
       return (
         <Day
-          key={date.toDateString()}
+          key={key}
           date={date}
           count={count}
           paddingTop={paddingTop}
@@ -66,7 +71,7 @@ export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
         />
       )
     })
-  }, [])
+  }, [map])
 
   return (
     <View style={styles.container}>
