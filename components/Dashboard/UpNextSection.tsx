@@ -6,7 +6,7 @@ import EventCard from '@/components/EventCard/EventCard'
 
 import { useTheme } from '@/hooks/useTheme'
 import { useEventsByDay } from '@/hooks/useDatabase'
-import { useCalendarStore } from '@/stores/CalendarState'
+import { useCalendarStore } from '@/stores/calendar'
 import { sortEventsByStart } from '@/utils/sort'
 
 export default function UpNextSection() {

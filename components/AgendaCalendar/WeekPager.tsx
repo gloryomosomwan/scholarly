@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Week from '@/components/AgendaCalendar/Week';
 
-import { useCalendarStore } from '@/stores/CalendarState';
+import { useCalendarStore } from '@/stores/calendar';
 
 type WeekPagerProps = {
   bottomSheetTranslationY: SharedValue<number>

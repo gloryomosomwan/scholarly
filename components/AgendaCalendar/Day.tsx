@@ -5,7 +5,7 @@ import { SharedValue } from 'react-native-reanimated';
 
 import { useCalendarAppearance } from '@/components/AgendaCalendar/CalendarAppearanceContext'
 
-import { useCalendarStore } from '@/stores/CalendarState';
+import { useCalendarStore } from '@/stores/calendar';
 import { useTheme } from '@/hooks';
 
 type DayType = 'week' | 'month'

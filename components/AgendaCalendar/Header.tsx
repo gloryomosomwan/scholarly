@@ -6,7 +6,7 @@ import HeatmapButton from '@/components/AgendaCalendar/HeatmapButton';
 import { useCalendarAppearance } from '@/components/AgendaCalendar/CalendarAppearanceContext';
 
 import { useTheme } from '@/hooks'
-import { useCalendarStore } from '@/stores/CalendarState';
+import { useCalendarStore } from '@/stores/calendar';
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 

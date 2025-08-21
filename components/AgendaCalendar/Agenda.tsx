@@ -10,7 +10,7 @@ import TaskCard from '@/components/Task/TaskCard';
 import AssignmentCard from '@/components/Assignment/AssignmentCard';
 
 import { useTheme } from '@/hooks'
-import { useCalendarStore } from '@/stores/CalendarState';
+import { useCalendarStore } from '@/stores/calendar';
 import { useAssignmentsByDay, useEventsByDay, useTasksByDay } from '@/hooks/useDatabase';
 import { sortAssignmentsByDue, sortEventsByStart, sortTasksByDue } from '@/utils/sort';
 

@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Month from '@/components/AgendaCalendar/Month'
 
-import { useCalendarStore } from '@/stores/CalendarState';
+import { useCalendarStore } from '@/stores/calendar';
 
 type MonthPagerProps = {
   bottomSheetTranslationY: SharedValue<number>

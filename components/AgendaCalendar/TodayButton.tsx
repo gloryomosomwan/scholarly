@@ -7,7 +7,7 @@ import { SymbolView } from 'expo-symbols'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { useTheme } from '@/hooks'
-import { useCalendarStore } from '@/stores/CalendarState'
+import { useCalendarStore } from '@/stores/calendar'
 
 type TodayButtonProps = {
   bottomSheetTranslationY: SharedValue<number>
