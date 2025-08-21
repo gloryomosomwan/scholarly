@@ -34,7 +34,7 @@ export default function Day({ date, selectedDatePosition, dayType, count, paddin
   const theme = useTheme()
   const scheme = useColorScheme() ?? 'light'
   const isGradientBackground = scheme === 'light'
-  const { heatmapActive } = useCalendarAppearanceStore()
+  const heatmapActive = useCalendarAppearanceStore((state) => state.heatmapActive)
   const elementRef = useRef<View | null>(null)
   const opacityPct = map01to08((count / MAX_ITEMS))
   const darkThemeText = theme.text
