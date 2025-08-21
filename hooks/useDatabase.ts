@@ -54,6 +54,17 @@ export function useTasksByDay(date: Date) {
   return taskData
 }
 
+export function useTasksByMonth(firstDay: Date, lastDay: Date) {
+  const { data } = useLiveQuery(db.select().from(tasks).where(
+    and(
+      gte(tasks.due, firstDay.toISOString()),
+      lte(tasks.due, lastDay.toISOString())
+    )
+  ))
+  const taskData = data.map(convertRawTask)
+  return taskData
+}
+
 export function useCourses() {
   const semesterID = useUserStore((state) => state.semesterID)
   const { data } = useLiveQuery(db.select().from(courses).where(eq(courses.semester_id, Number(semesterID))), [semesterID])
