@@ -46,6 +46,5 @@ export const events = sqliteTable('events', {
   start_date: text('start_date').notNull(),
   end_date: text('end_date').notNull(),
   name: text('name'),
-  location: text('location'),
-  notes: text('notes')
+  location: text('location')
 })

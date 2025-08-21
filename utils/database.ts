@@ -50,7 +50,6 @@ export function convertRawEvent(rawEvent: rawEvent): Event {
     name: rawEvent.name ?? undefined,
     startDate: new Date(rawEvent.start_date),
     endDate: new Date(rawEvent.end_date),
-    location: rawEvent.location ?? undefined,
-    notes: rawEvent.notes ?? undefined
+    location: rawEvent.location ?? undefined
   }
 }

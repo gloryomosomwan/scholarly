@@ -15,7 +15,6 @@ export interface Event {
   endDate: Date;
   courseID?: number;
   location?: string;
-  notes?: string;
 }
 
 export interface Test {
