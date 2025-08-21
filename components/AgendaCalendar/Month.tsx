@@ -6,7 +6,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Day from '@/components/AgendaCalendar/Day'
 
-import { assignments, tasks, tests } from '@/data/data';
 import { useEventsByMonth } from '@/hooks/useDatabase';
 
 type MonthProps = {
@@ -32,25 +31,6 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   else if (Platform.OS === 'ios') {
     paddingTop = insets.top
   }
-
-  // const itemsByDate = useMemo(() => {
-  //   const map: Record<string, number> = {}
-  //     ;[...events, ...tasks, ...assignments, ...tests].forEach(item => {
-  //       let dateToUse: Date | undefined;
-
-  //       if ('start' in item && item.start instanceof Date) {
-  //         dateToUse = item.start;
-  //       } else if ('due' in item && item.due instanceof Date) {
-  //         dateToUse = item.due;
-  //       }
-
-  //       if (dateToUse) {
-  //         const key = format(dateToUse, 'yyyy-MM-dd')
-  //         map[key] = (map[key] || 0) + 1
-  //       }
-  //     })
-  //   return map
-  // }, [events, tasks, assignments, tests])
 
   const map: Record<string, number> = {}
   useEventsByMonth(initialDay).forEach(item => {
