@@ -54,12 +54,19 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
     return rawDates
   }, [initialDay])
 
+  const start = rawDates[0];
+  const end = rawDates[rawDates.length - 1];
+
+  const events = useEventsByDateRange(start, end);
+  const assignments = useAssignmentsByDateRange(start, end);
+  const tasks = useTasksByDateRange(start, end);
+
+  const items = useMemo(
+    () => [...events, ...assignments, ...tasks],
+    [events, assignments, tasks]
+  );
+
   const map: Record<string, number> = {}
-  const items = [
-    ...useEventsByDateRange(rawDates[0], rawDates[rawDates.length - 1]),
-    ...useAssignmentsByDateRange(rawDates[0], rawDates[rawDates.length - 1]),
-    ...useTasksByDateRange(rawDates[0], rawDates[rawDates.length - 1])
-  ]
   items.forEach(item => {
     let dateToUse: Date | undefined;
 
@@ -96,7 +103,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
         />
       )
     })
-  }, [map])
+  }, [])
 
   const weeks = useMemo(() => chunk(days, 7), [days])
 
