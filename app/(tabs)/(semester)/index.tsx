@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { Button } from '@rneui/themed';
 import { router } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTheme } from '@/hooks';
 import { useCourses } from '@/hooks/useDatabase';
@@ -13,10 +14,11 @@ import Header from '@/components/SemesterPage/Header';
 
 export default function SemesterPage() {
   const theme = useTheme();
+  const insets = useSafeAreaInsets()
   const semesterID = useUserStore((state) => state.semesterID)
   const courses = useCourses()
   return (
-    <SafeAreaView style={[styles.safeAreaContainer, { backgroundColor: theme.primary }]}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         <Header />
         {semesterID ?
@@ -33,12 +35,12 @@ export default function SemesterPage() {
         }
         <View style={styles.bottomSpacingContainer} />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeAreaContainer: {
+  container: {
     // flex: 1,
   },
   scrollContainer: {
