@@ -61,27 +61,27 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   const assignments = useAssignmentsByDateRange(start, end);
   const tasks = useTasksByDateRange(start, end);
 
-  const items = useMemo(
-    () => [...events, ...assignments, ...tasks],
-    [events, assignments, tasks]
-  );
+  const items = useMemo(() => [...events, ...assignments, ...tasks], [events, assignments, tasks]);
 
-  const map: Record<string, number> = {}
-  items.forEach(item => {
-    let dateToUse: Date | undefined;
+  const map: Record<string, number> = useMemo(function () {
+    const m: Record<string, number> = {}
+    items.forEach(item => {
+      let dateToUse: Date | undefined;
 
-    if ('startDate' in item && item.startDate instanceof Date) {
-      dateToUse = item.startDate;
-    }
-    else if ('due' in item && item.due instanceof Date) {
-      dateToUse = item.due;
-    }
+      if ('startDate' in item && item.startDate instanceof Date) {
+        dateToUse = item.startDate;
+      }
+      else if ('due' in item && item.due instanceof Date) {
+        dateToUse = item.due;
+      }
 
-    if (dateToUse) {
-      const key = format(dateToUse, 'yyyy-MM-dd')
-      map[key] = (map[key] || 0) + 1
-    }
-  })
+      if (dateToUse) {
+        const key = format(dateToUse, 'yyyy-MM-dd')
+        m[key] = (m[key] || 0) + 1
+      }
+    })
+    return m
+  }, [items])
 
   const days = useMemo(() => {
     return rawDates.map(date => {
@@ -103,7 +103,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
         />
       )
     })
-  }, [])
+  }, [map])
 
   const weeks = useMemo(() => chunk(days, 7), [days])
 
