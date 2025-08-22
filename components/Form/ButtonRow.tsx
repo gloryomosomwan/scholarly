@@ -4,6 +4,7 @@ import React from 'react'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type ButtonRowProps = {
   confirmDelete: () => void
@@ -15,8 +16,9 @@ type ButtonRowProps = {
 
 export default function ButtonRow({ create, confirmDelete, update, disabled, isCreateForm }: ButtonRowProps) {
   const theme = useTheme()
+  const insets = useSafeAreaInsets()
   return (
-    <View style={[styles.buttonContainer, {}]}>
+    <View style={[styles.buttonContainer, { paddingBottom: insets.bottom }]}>
       {
         isCreateForm === false &&
         <PressableOpacity onPress={confirmDelete}>
