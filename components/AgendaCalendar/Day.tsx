@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Pressable, Dimensions, useColorScheme } from 'react-native'
-import React, { useRef, useLayoutEffect } from 'react'
+import React, { useRef, useLayoutEffect, useEffect, useState } from 'react'
 import { isSameMonth, isSameDay, getWeekOfMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated';
 
@@ -22,14 +22,14 @@ const MAX_ITEMS = 5
 const map01to08 = (t: number) => t * 0.9;
 
 export default function Day({ date, selectedDatePosition, dayType, count, paddingTop, firstDay }: DayProps) {
-  const currentDate = useCalendarStore((state) => state.currentDate)
+  const [lastRelevantCurrentDate, setLastRelevantCurrentDate] = useState<Date>(useCalendarStore.getState().currentDate)
   const daySelectDate = useCalendarStore((state) => state.daySelectDate)
   const selectPreviousDate = useCalendarStore((state) => state.selectPreviousDate)
 
-  const isSelected = (dayType === 'week' && isSameDay(date, currentDate)) || (dayType === 'month' && isSameDay(date, currentDate) && isSameMonth(date, firstDay));
+  const isSelected = (dayType === 'week' && isSameDay(date, lastRelevantCurrentDate)) || (dayType === 'month' && isSameDay(date, lastRelevantCurrentDate) && isSameMonth(date, firstDay));
 
   // A week Day can be active even if it isn't in the same month as the first Day of its week
-  const isInactive = dayType === 'week' && !isSameMonth(date, currentDate) || dayType === 'month' && !isSameMonth(date, firstDay)
+  const isInactive = dayType === 'week' && !isSameMonth(date, lastRelevantCurrentDate) || dayType === 'month' && !isSameMonth(date, firstDay)
 
   const theme = useTheme()
   const scheme = useColorScheme() ?? 'light'
@@ -46,6 +46,19 @@ export default function Day({ date, selectedDatePosition, dayType, count, paddin
       selectedDatePosition.value = (paddingTop + 52) + (47 * (getWeekOfMonth(date) - 1))
     }
   }, [isSelected])
+
+  useEffect(() => {
+    const unsubscribe = useCalendarStore.subscribe(
+      ({ currentDate, previousDate }) => {
+        if (isSameDay(currentDate, date) || isSameDay(previousDate, date)) {
+          setLastRelevantCurrentDate(currentDate)
+        }
+      }
+    )
+    return () => {
+      unsubscribe()
+    }
+  }, [])
 
   const onPress = () => {
     const currentGlobalDate = useCalendarStore.getState().currentDate;

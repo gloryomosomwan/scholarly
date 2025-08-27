@@ -1,5 +1,5 @@
 import { Platform, StyleSheet, View } from 'react-native'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { addMonths, differenceInCalendarMonths, isAfter, isBefore, isSameMonth, startOfMonth } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
 import Animated, { Extrapolate, interpolate, SharedValue, useAnimatedProps, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
@@ -85,7 +85,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
     }
   })
 
-  const MonthPage = ({ index }: { index: number }) => {
+  const MonthPage = useCallback(({ index }: { index: number }) => {
     return (
       <Animated.View style={[rPageStyle]} >
         <Month
@@ -95,7 +95,7 @@ export default function MonthPager({ bottomSheetTranslationY, calendarBottom, se
         />
       </Animated.View>
     );
-  };
+  }, [])
 
   return (
     <View style={{ overflow: 'hidden', top: 52 }}>
