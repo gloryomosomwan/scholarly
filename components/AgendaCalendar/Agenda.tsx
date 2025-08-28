@@ -22,18 +22,17 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const theme = useTheme()
   const insets = useSafeAreaInsets()
   let paddingTop = Platform.OS === 'android' ? 0 : insets.top
+  const initialCalendarBottom = (47 * 6) + paddingTop + 52
 
   const { currentDate } = useCalendarStore()
-  const initialCalendarBottom = (47 * 6) + paddingTop + 52
+
   const { height } = useWindowDimensions();
   const bottomTabBarHeight = useBottomTabBarHeight()
   const snapPoints = useMemo(() => [height - initialCalendarBottom - bottomTabBarHeight, height - initialCalendarBottom + 235 - bottomTabBarHeight], []);
 
   const events = useEventsByDay(currentDate)
   events.sort(sortEventsByStart)
-  const eventElements = useMemo(() => {
-    return events.map(event => <EventItem key={event.id} event={event} />);
-  }, [events]); // Does useMemo help here?
+  const eventElements = events.map(event => <EventItem key={event.id} event={event} />)
   const assignments = useAssignmentsByDay(currentDate)
   assignments.sort(sortAssignmentsByDue)
   const assignmentElements = assignments.map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} />)
