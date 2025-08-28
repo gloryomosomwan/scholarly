@@ -1,5 +1,5 @@
-import React from "react";
-import { ImageBackground, Platform, StyleSheet, useColorScheme, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ImageBackground, Platform, StyleSheet, useColorScheme, View, InteractionManager } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -30,6 +30,13 @@ const CalendarContent = () => {
   const bottomSheetTranslationY = useSharedValue(calendarBottom.value);
   const theme = useTheme();
   const isGradientBackground = useColorScheme() === 'light'
+  const [renderMonth, setRenderMonth] = useState(false)
+
+  useEffect(() => {
+    InteractionManager.runAfterInteractions(() => {
+      setRenderMonth(true)
+    })
+  }, [])
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.secondary, paddingTop: paddingTop, paddingBottom: insets.bottom }}>
@@ -41,11 +48,14 @@ const CalendarContent = () => {
         bottomSheetTranslationY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}
       />
-      <MonthPager
-        bottomSheetTranslationY={bottomSheetTranslationY}
-        calendarBottom={calendarBottom}
-        selectedDatePosition={selectedDatePosition}
-      />
+      {
+        renderMonth &&
+        <MonthPager
+          bottomSheetTranslationY={bottomSheetTranslationY}
+          calendarBottom={calendarBottom}
+          selectedDatePosition={selectedDatePosition}
+        />
+      }
       <Agenda
         bottomSheetTranslationY={bottomSheetTranslationY}
       />
