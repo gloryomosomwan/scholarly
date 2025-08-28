@@ -14,15 +14,15 @@ export default function HeatmapButton() {
   }
 
   return (
-    <View style={styles.heatmapButtonContainer}>
+    <View style={styles.container}>
       <Pressable onPress={handlePress} style={({ pressed }) => [
-        styles.heatmapButton,
+        styles.button,
         { borderColor: theme.text, backgroundColor: heatmapActive ? theme.text : undefined },
         isGradientBackground && { borderColor: 'white', backgroundColor: heatmapActive ? 'white' : undefined },
         pressed && { opacity: 0.85 }
       ]}>
         <Text style={[
-          styles.heatmapButtonText, { color: heatmapActive ? theme.inverseText : theme.text },
+          styles.text, { color: heatmapActive ? theme.inverseText : theme.text },
           isGradientBackground && { color: heatmapActive ? 'black' : 'white' }
         ]}>{'H'}</Text>
       </Pressable>
@@ -31,19 +31,19 @@ export default function HeatmapButton() {
 }
 
 const styles = StyleSheet.create({
-  heatmapButtonContainer: {
+  container: {
     position: 'absolute',
     left: 25,
     height: '100%',
     justifyContent: 'center'
   },
-  heatmapButton: {
+  button: {
     borderWidth: 1.55,
     paddingHorizontal: 4,
     paddingVertical: 1,
     borderRadius: 6,
   },
-  heatmapButtonText: {
+  text: {
     fontWeight: '600'
   },
 })
