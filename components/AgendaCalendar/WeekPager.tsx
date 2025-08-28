@@ -21,7 +21,7 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
   const weekPagerRef = useRef<InfinitePagerImperativeApi>(null)
   const insets = useSafeAreaInsets()
   const paddingTop = Platform.OS === 'android' ? 0 : insets.top
-  const pagerOpacity = useSharedValue(1)
+
   const isProgrammaticChange = useSharedValue(false)
   const didInitialSync = useRef<boolean>(false)
   const changeMadeByMe = useRef<boolean>(false)
@@ -52,7 +52,7 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
 
   const rWeekPagerStyle = useAnimatedStyle(() => {
     return {
-      opacity: pagerOpacity.value,
+      // opacity: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 1 : 0
       pointerEvents: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 'auto' : 'none'
     }
   })
