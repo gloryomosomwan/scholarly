@@ -50,6 +50,7 @@ export function convertRawEvent(rawEvent: rawEvent): Event {
     name: rawEvent.name ?? undefined,
     startDate: new Date(rawEvent.start_date),
     endDate: new Date(rawEvent.end_date),
-    location: rawEvent.location ?? undefined
+    location: rawEvent.location ?? undefined,
+    recurring: rawEvent.recurring ?? undefined
   }
 }

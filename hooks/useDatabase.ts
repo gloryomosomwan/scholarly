@@ -140,7 +140,8 @@ export function getEventById(id: number | null) {
     start_date,
     end_date,
     location,
-    course_id
+    course_id,
+    recurring
     FROM events
     WHERE id = ${id}
     `)

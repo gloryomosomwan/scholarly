@@ -66,11 +66,12 @@ create table events (
     name TEXT,
     course_id INTEGER,
     location TEXT,
+    recurring TEXT,
     FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
-INSERT INTO events (type, start_date, end_date, name, course_id, location) VALUES 
-('general', '2025-08-20T12:00:00.000Z', '2025-08-20T13:00:00.000Z', 'Go to the gym', NULL, 'The Den',),
-('lecture', '2025-08-20T14:00:00.000Z', '2025-08-20T14:50:00.000Z', NULL, 1, 'ESB-4A'),
-('lecture', '2025-08-20T15:00:00.000Z', '2025-08-20T15:50:00.000Z', NULL, 2, 'JE-02'),
-('seminar', '2025-08-19T16:00:00.000Z', '2025-08-29T16:50:00.000Z', NULL, 1, 'ESB-9A');
+INSERT INTO events (type, start_date, end_date, name, course_id, location, recurring) VALUES 
+('general', '2025-08-20T12:00:00.000Z', '2025-08-20T13:00:00.000Z', 'Go to the gym', NULL, 'The Den', NULL),
+('lecture', '2025-08-20T14:00:00.000Z', '2025-08-20T14:50:00.000Z', NULL, 1, 'ESB-4A', NULL),
+('lecture', '2025-08-20T15:00:00.000Z', '2025-08-20T15:50:00.000Z', NULL, 2, 'JE-02', NULL),
+('seminar', '2025-08-19T16:00:00.000Z', '2025-08-29T16:50:00.000Z', NULL, 1, 'ESB-9A', NULL);

@@ -15,6 +15,7 @@ export interface Event {
   endDate: Date;
   courseID?: number;
   location?: string;
+  recurring?: string;
 }
 
 export interface Test {
