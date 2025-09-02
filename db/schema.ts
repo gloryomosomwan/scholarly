@@ -42,7 +42,7 @@ export const assignments = sqliteTable('assignments', {
 export const events = sqliteTable('events', {
   id: integer('id').primaryKey(),
   type: text('type').notNull(),
-  course_id: integer('course_id').references(() => courses.id).notNull(),
+  course_id: integer('course_id').references(() => courses.id),
   start_date: text('start_date').notNull(),
   end_date: text('end_date').notNull(),
   name: text('name'),

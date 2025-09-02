@@ -7,7 +7,7 @@ import { endOfDay, startOfDay } from "date-fns";
 import { assignments, courses, events, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
 import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent } from '@/utils/database';
-import { Course, Semester } from "@/types";
+import { Course, Semester, Event } from "@/types";
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawTask } from "@/types/drizzle";
 
@@ -130,6 +130,21 @@ export function useEventsByDateRange(firstDay: Date, lastDay: Date) {
   ))
   const eventData = data.map(convertRawEvent)
   return eventData
+}
+
+export function getEventById(id: number | null) {
+  const data = useSQLiteContext().getFirstSync<Event>(`
+    SELECT
+    type,
+    name,
+    start_date,
+    end_date,
+    location,
+    course_id
+    FROM events
+    WHERE id = ${id}
+    `)
+  return data
 }
 
 // Semesters
