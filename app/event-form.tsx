@@ -33,7 +33,6 @@ export default function EventForm() {
   const [location, setLocation] = useState(eventData?.location ? eventData.location : null)
   const [courseID, setCourseID] = useState<number | null>(eventData?.courseID ? eventData.courseID : null)
   const [recurring, setRecurring] = useState<string | null>(null)
-  console.log(recurring)
 
   const event = {
     name: name,

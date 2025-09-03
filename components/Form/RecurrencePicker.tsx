@@ -16,12 +16,11 @@ export default function RecurrencePicker({ recurring, setRecurring }: Recurrence
   const theme = useTheme()
   const rule = recurring ? RRule.fromString(recurring) : new RRule({ freq: RRule.WEEKLY, byweekday: [], })
   const byweekdayArray = rule.options.byweekday
-  console.log(byweekdayArray)
   return (
     <View style={[styles.container]}>
       <View style={[styles.header]}>
         <SymbolView name={'repeat'} tintColor={theme.grey500} size={24} />
-        <Text style={[styles.text, { color: theme.grey500 }]}>Repeat</Text>
+        <Text style={[styles.fieldText, { color: theme.grey500 }]}>Repeat</Text>
       </View>
       <View style={[styles.dayContainer]}>
         {weekdays.map(function (day, index) {
@@ -78,18 +77,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 16,
   },
-  text: {
+  fieldText: {
     fontSize: 20,
     fontWeight: '500',
     paddingTop: 0,
   },
   item: {
-    borderWidth: 1,
-    padding: 3,
+    borderWidth: 1.5,
+    padding: 4,
     borderRadius: 5,
   },
   dayText: {
-    fontSize: 20
+    fontSize: 20,
+    fontWeight: '400'
   },
   dayContainer: {
     flexDirection: 'row',
