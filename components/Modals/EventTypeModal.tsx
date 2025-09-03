@@ -19,6 +19,7 @@ export default function EventTypeModal({ eventTypeSelectorModalRef, setEventType
     <CustomBottomSheetModal bottomSheetModalRef={eventTypeSelectorModalRef} scrollable>
       {eventTypes.map(eventType => (
         <EventTypeModalItem
+          key={eventType}
           eventType={eventType}
           onSelect={() => {
             setEventType(eventType)
