@@ -41,7 +41,8 @@ export default function EventForm() {
     start_date: startDate?.toISOString(),
     end_date: endDate?.toISOString(),
     course_id: courseID,
-    location: location
+    location: location,
+    recurring: recurring
   }
 
   const create = async () => {
