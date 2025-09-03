@@ -32,7 +32,8 @@ export default function EventForm() {
   const [endDate, setEndDate] = useState<Date | null>(eventData?.endDate ? eventData.endDate : null)
   const [location, setLocation] = useState(eventData?.location ? eventData.location : null)
   const [courseID, setCourseID] = useState<number | null>(eventData?.courseID ? eventData.courseID : null)
-  // const [recurring, setRecurring] = useState(false)
+  const [recurring, setRecurring] = useState<string | null>(null)
+  console.log(recurring)
 
   const event = {
     name: name,
@@ -92,7 +93,7 @@ export default function EventForm() {
           <EventTypePicker eventType={type} setEventType={setType} />
           <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />
           <CoursePicker courseID={courseID} setCourseID={setCourseID} />
-          {/* <RecurringPicker /> */}
+          <RecurringPicker recurring={recurring} setRecurring={setRecurring} />
         </View>
         <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={!eventInsertSchema.safeParse(event).success} />
       </View>
