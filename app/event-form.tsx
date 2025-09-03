@@ -9,7 +9,7 @@ import TextInputField from '@/components/Form/TextInputField'
 import CoursePicker from '@/components/Form/CoursePicker'
 import ButtonRow from '@/components/Form/ButtonRow'
 import EventTypePicker from '@/components/Form/EventTypePicker'
-import RecurringPicker from '@/components/Form/RecurringPicker'
+import RecurrencePicker from '@/components/Form/RecurringPicker'
 
 import { useTheme } from '@/hooks'
 import { EventType } from '@/types'
@@ -93,7 +93,7 @@ export default function EventForm() {
           <EventTypePicker eventType={type} setEventType={setType} />
           <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />
           <CoursePicker courseID={courseID} setCourseID={setCourseID} />
-          <RecurringPicker recurring={recurring} setRecurring={setRecurring} />
+          <RecurrencePicker recurring={recurring} setRecurring={setRecurring} />
         </View>
         <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={!eventInsertSchema.safeParse(event).success} />
       </View>

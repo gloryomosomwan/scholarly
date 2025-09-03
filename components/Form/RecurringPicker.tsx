@@ -7,12 +7,12 @@ import { useTheme } from '@/hooks'
 
 const weekdays = [RRule.SU, RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR, RRule.SA]
 
-type RecurringPickerProps = {
+type RecurrencePickerProps = {
   recurring: string | null;
   setRecurring: React.Dispatch<React.SetStateAction<string | null>>
 }
 
-export default function RecurringPicker({ recurring, setRecurring }: RecurringPickerProps) {
+export default function RecurrencePicker({ recurring, setRecurring }: RecurrencePickerProps) {
   const theme = useTheme()
   const rule = recurring ? RRule.fromString(recurring) : new RRule({ freq: RRule.WEEKLY, byweekday: [], })
   const byweekdayArray = rule.options.byweekday
