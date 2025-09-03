@@ -6,6 +6,7 @@ export type DueType = 'date' | 'datetime'
 export type TaskSortOption = 'Course' | 'Priority'
 export type TaskFilterOption = 'Course' | 'Priority'
 export type PriorityOption = 'high' | 'medium' | 'low'
+export type Frequency = 'once' | 'daily' | 'weekly' | 'monthly'
 
 export interface Event {
   id: number;

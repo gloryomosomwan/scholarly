@@ -1,9 +1,12 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { SymbolView } from 'expo-symbols'
 import { RRule } from 'rrule'
 
+import RecFreqPicker from '@/components/Form/Recurrence/RecFreqPicker'
+
 import { useTheme } from '@/hooks'
+import { Frequency } from '@/types'
 
 const weekdays = [RRule.SU, RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR, RRule.SA]
 
@@ -14,6 +17,7 @@ type RecurrencePickerProps = {
 
 export default function RecurrencePicker({ recurring, setRecurring }: RecurrencePickerProps) {
   const theme = useTheme()
+  const [frequency, setFrequency] = useState<Frequency>('once')
   const rule = recurring ? RRule.fromString(recurring) : new RRule({ freq: RRule.WEEKLY, byweekday: [], })
   const byweekdayArray = rule.options.byweekday
   return (
@@ -22,6 +26,7 @@ export default function RecurrencePicker({ recurring, setRecurring }: Recurrence
         <SymbolView name={'repeat'} tintColor={theme.grey500} size={24} />
         <Text style={[styles.fieldText, { color: theme.grey500 }]}>Repeat</Text>
       </View>
+      <RecFreqPicker frequency={frequency} setFrequency={setFrequency} />
       <View style={[styles.dayContainer]}>
         {weekdays.map(function (day, index) {
           return (
