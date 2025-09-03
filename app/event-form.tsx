@@ -9,7 +9,7 @@ import TextInputField from '@/components/Form/TextInputField'
 import CoursePicker from '@/components/Form/CoursePicker'
 import ButtonRow from '@/components/Form/ButtonRow'
 import EventTypePicker from '@/components/Form/EventTypePicker'
-import RecurrencePicker from '@/components/Form/RecurringPicker'
+import RecurrencePicker from '@/components/Form/RecurrencePicker'
 
 import { useTheme } from '@/hooks'
 import { EventType } from '@/types'
