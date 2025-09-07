@@ -93,7 +93,7 @@ export default function EventForm() {
           <EventTypePicker eventType={type} setEventType={setType} />
           <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />
           <CoursePicker courseID={courseID} setCourseID={setCourseID} />
-          <RecurrencePicker recurring={recurring} setRecurring={setRecurring} />
+          <RecurrencePicker recurring={recurring} setRecurring={setRecurring} startDate={startDate} />
         </View>
         <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={!eventInsertSchema.safeParse(event).success} />
       </View>

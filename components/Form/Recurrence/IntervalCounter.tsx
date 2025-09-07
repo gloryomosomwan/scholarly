@@ -19,6 +19,7 @@ export default function IntervalCounter({ rule, setRecurring }: IntervalCounterP
   const increase = () => {
     const newRule = new RRule({
       freq: rule.options.freq,
+      dtstart: rule.options.dtstart,
       interval: rule.options.interval + 1
     })
     setRecurring(newRule.toString())
@@ -27,6 +28,7 @@ export default function IntervalCounter({ rule, setRecurring }: IntervalCounterP
   const decrease = () => {
     const newRule = new RRule({
       freq: rule.options.freq,
+      dtstart: rule.options.dtstart,
       interval: rule.options.interval - 1
     })
     setRecurring(newRule.toString())

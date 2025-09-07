@@ -1,8 +1,9 @@
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
-import { and, eq, getTableColumns, gte, lte } from 'drizzle-orm';
+import { and, eq, getTableColumns, gte, inArray, isNotNull, lte, or } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
-import { endOfDay, startOfDay } from "date-fns";
+import { endOfDay, isSameDay, startOfDay } from "date-fns";
+import { datetime, rrulestr } from "rrule";
 
 import { assignments, courses, events, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
@@ -10,6 +11,7 @@ import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignm
 import { Course, Semester, Event } from "@/types";
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawTask } from "@/types/drizzle";
+import { pretty } from "@/utils";
 
 // Assignments
 export function useTodayAssignments() {
@@ -101,13 +103,43 @@ export function getCourseById(id: number | null) {
 // Events
 export function useCurrentEvent() {
   const { data } = useLiveQuery(db.select().from(events).where(
-    and(
-      lte(events.start_date, new Date().toISOString()),
-      gte(events.end_date, new Date().toISOString())
+    or(
+      and(
+        lte(events.start_date, new Date().toISOString()),
+        gte(events.end_date, new Date().toISOString())
+      ),
+      isNotNull(events.recurring)
     )
   ))
   const eventData = data.map(convertRawEvent)
-  return eventData
+  const filteredEventData = eventData.filter((event) => {
+    if (!event.recurring) return true
+    else {
+      const startMin = getTimeInMinutes(event.startDate)
+      const endMin = getTimeInMinutes(event.endDate)
+      const currentMin = getTimeInMinutes(new Date())
+      const isWithinTimeRange = (isSameDay(event.startDate, event.endDate) && startMin <= currentMin && currentMin <= endMin) || (!isSameDay(event.startDate, event.endDate) && startMin <= currentMin || currentMin <= endMin)
+      if (isWithinTimeRange) {
+        const startOfToday = startOfDay(new Date())
+        const startOfDatetime = datetime(startOfToday.getUTCFullYear(), startOfToday.getUTCMonth() + 1, startOfToday.getUTCDate(), 0, 0, 0)
+        const endOfDatetime = datetime(startOfToday.getUTCFullYear(), startOfToday.getUTCMonth() + 1, startOfToday.getUTCDate(), 23, 59, 59)
+        const occurrences = rrulestr(event.recurring).between(startOfDatetime, endOfDatetime, true)
+        if (occurrences) {
+          return true
+        }
+        else {
+          return false
+        }
+      }
+      return false
+    }
+  })
+  return filteredEventData
+}
+
+function getTimeInMinutes(date: Date) {
+  // local time
+  return date.getHours() * 60 + date.getMinutes(); // potential bug with the minutes
 }
 
 export function useEventsByDay(date: Date) {

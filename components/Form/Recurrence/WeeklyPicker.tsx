@@ -26,6 +26,7 @@ export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) 
                 const newArr = byweekdayArray.toSpliced(index, 1)
                 const newRule = new RRule({
                   freq: rule.options.freq,
+                  dtstart: rule.options.dtstart,
                   byweekday: newArr
                 })
                 setRecurring(newArr.length === 0 ? null : newRule.toString())
@@ -33,6 +34,7 @@ export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) 
               else if (byweekdayArray) {
                 const newRule = new RRule({
                   freq: rule.options.freq,
+                  dtstart: rule.options.dtstart,
                   byweekday: [...byweekdayArray, day.weekday]
                 })
                 setRecurring(newRule.toString())
@@ -40,6 +42,7 @@ export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) 
               else {
                 const newRule = new RRule({
                   freq: RRule.WEEKLY,
+                  dtstart: rule.options.dtstart,
                   byweekday: [day.weekday]
                 })
                 setRecurring(newRule.toString())
