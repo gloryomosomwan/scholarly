@@ -1,9 +1,8 @@
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
-import { and, eq, getTableColumns, gte, inArray, isNotNull, lte, or } from 'drizzle-orm';
+import { and, eq, getTableColumns, gte, isNotNull, lte, or } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
 import { endOfDay, isSameDay, startOfDay } from "date-fns";
-import { datetime, rrulestr } from "rrule";
 
 import { assignments, courses, events, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
@@ -12,6 +11,7 @@ import { Course, Semester, Event } from "@/types";
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawTask } from "@/types/drizzle";
 import { pretty } from "@/utils";
+import { hasCurrentRecurrence } from "@/utils/event";
 
 // Assignments
 export function useTodayAssignments() {
@@ -113,33 +113,9 @@ export function useCurrentEvent() {
   ))
   const eventData = data.map(convertRawEvent)
   const filteredEventData = eventData.filter((event) => {
-    if (!event.recurring) return true
-    else {
-      const startMin = getTimeInMinutes(event.startDate)
-      const endMin = getTimeInMinutes(event.endDate)
-      const currentMin = getTimeInMinutes(new Date())
-      const isWithinTimeRange = (isSameDay(event.startDate, event.endDate) && startMin <= currentMin && currentMin <= endMin) || (!isSameDay(event.startDate, event.endDate) && startMin <= currentMin || currentMin <= endMin)
-      if (isWithinTimeRange) {
-        const startOfToday = startOfDay(new Date())
-        const startOfDatetime = datetime(startOfToday.getUTCFullYear(), startOfToday.getUTCMonth() + 1, startOfToday.getUTCDate(), 0, 0, 0)
-        const endOfDatetime = datetime(startOfToday.getUTCFullYear(), startOfToday.getUTCMonth() + 1, startOfToday.getUTCDate(), 23, 59, 59)
-        const occurrences = rrulestr(event.recurring).between(startOfDatetime, endOfDatetime, true)
-        if (occurrences) {
-          return true
-        }
-        else {
-          return false
-        }
-      }
-      return false
-    }
+    return hasCurrentRecurrence(event)
   })
   return filteredEventData
-}
-
-function getTimeInMinutes(date: Date) {
-  // local time
-  return date.getHours() * 60 + date.getMinutes(); // potential bug with the minutes
 }
 
 export function useEventsByDay(date: Date) {
