@@ -2,7 +2,7 @@ import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { and, eq, getTableColumns, gte, isNotNull, lte, or } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
-import { endOfDay, isSameDay, startOfDay } from "date-fns";
+import { endOfDay, startOfDay } from "date-fns";
 
 import { assignments, courses, events, semesters, tasks } from '@/db/schema';
 import { db } from '@/db/init';
@@ -11,7 +11,7 @@ import { Course, Semester, Event } from "@/types";
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawTask } from "@/types/drizzle";
 import { pretty } from "@/utils";
-import { hasCurrentRecurrence } from "@/utils/event";
+import { checkHasCurrentRecurrence } from "@/utils/event";
 
 // Assignments
 export function useTodayAssignments() {
@@ -113,7 +113,8 @@ export function useCurrentEvent() {
   ))
   const eventData = data.map(convertRawEvent)
   const filteredEventData = eventData.filter((event) => {
-    return hasCurrentRecurrence(event)
+    if (!event.recurring) return true
+    return checkHasCurrentRecurrence(event)
   })
   return filteredEventData
 }

@@ -8,10 +8,10 @@ import ProgressBarLabels from '@/components/EventCard/ProgressBarLabels';
 import EventLocation from '@/components/EventCard/EventLocation';
 import EventHeader from '@/components/EventCard/EventHeader';
 
-import dayjs from '@/utils/dayjs'
 import { useTheme } from '@/hooks';
 import { Event } from '@/types';
 import { getCourseById } from '@/hooks/useDatabase';
+import { checkCurrentEvent } from '@/utils/event';
 
 type EventCardProps = {
   event: Event;
@@ -19,8 +19,7 @@ type EventCardProps = {
 
 export default function EventCard({ event }: EventCardProps) {
   const theme = useTheme()
-  const now = dayjs()
-  const isCurrentEvent = now.isBetween(event.startDate, event.endDate)
+  const isCurrentEvent = checkCurrentEvent(event)
   const course = getCourseById(event.courseID ? event.courseID : null)
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
@@ -33,10 +32,10 @@ export default function EventCard({ event }: EventCardProps) {
         <EventLocation location={event.location} courseColor={course?.color} />
       </View>
       <View style={styles.progressSection}>
-        <ProgressBar startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} courseColor={course?.color} />
+        <ProgressBar startDate={event.startDate} endDate={event.endDate} recurrenceString={event.recurring} isCurrentEvent={isCurrentEvent} courseColor={course?.color} />
         {
           isCurrentEvent &&
-          <ProgressBarLabels startDate={event.startDate} endDate={event.endDate} />
+          <ProgressBarLabels startDate={event.startDate} endDate={event.endDate} recurrenceString={event.recurring} />
         }
       </View>
     </View>
