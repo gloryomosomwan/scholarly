@@ -33,7 +33,7 @@ export default function SemesterPage() {
             <Button title={'Add semester'} onPress={() => router.push('/semester-form')} />
           </View>
         }
-        <View style={styles.bottomSpacingContainer} />
+        {/* <View style={styles.bottomSpacingContainer} /> */}
       </ScrollView>
     </View>
   );
@@ -43,15 +43,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  scrollContainer: {
-    // flex: 1,
-  },
+  scrollContainer: {},
   coursesContainer: {
     paddingTop: 20,
     paddingHorizontal: 16,
     paddingBottom: 4,
   },
-  bottomSpacingContainer: {
-    height: 20,
-  },
+  // bottomSpacingContainer: {
+  //   height: 20,
+  // },
 });
