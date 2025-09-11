@@ -15,7 +15,7 @@ export default function Index() {
   const insets = useSafeAreaInsets();
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
   return (
-    <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25 }}>
+    <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25, flex: 1 }}>
       <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
         <DashboardHeader />
         <CurrentEventSection />
