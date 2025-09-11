@@ -51,8 +51,8 @@ export const lightTheme: theme = {
 export const darkTheme: theme = {
   // primary: '#111827',
   // secondary: '#1F2937',
-  secondary: '#0e0f0f',
-  primary: '#151616',
+  primary: '#0e0f0f',
+  secondary: '#151616',
   accent: '#3B82F6',
   accentInactive: "#b3ccff",
   text: '#F9FAFB',
