@@ -2,6 +2,7 @@ import React, { RefObject, useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { addHours, roundToNearestHours } from 'date-fns';
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 
@@ -9,16 +10,19 @@ import { useTheme } from '@/hooks'
 import { DueType } from '@/types';
 
 type DateTimeModalProps = {
+  dateType: string
   bottomSheetModalRef: RefObject<BottomSheetModal>
-  initialDate: Date
+  initialDate: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
   setDueType?: React.Dispatch<React.SetStateAction<DueType | null>>
 }
 
 
-export default function DateTimeModal({ initialDate, setDate, setDueType, bottomSheetModalRef }: DateTimeModalProps) {
+export default function DateTimeModal({ initialDate, setDate, setDueType, dateType, bottomSheetModalRef }: DateTimeModalProps) {
   const theme = useTheme()
-  const [internalDate, setInternalDate] = useState(initialDate === undefined ? new Date() : initialDate)
+  let roundedDate = roundToNearestHours(new Date(), { roundingMethod: 'ceil' })
+  if (dateType === 'end') roundedDate = addHours(roundedDate, 1)
+  const [internalDate, setInternalDate] = useState(initialDate === null ? roundedDate : initialDate)
 
   const handlePickerChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate || internalDate;

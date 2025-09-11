@@ -10,16 +10,30 @@ import { DueType } from '@/types'
 import { useTheme } from '@/hooks'
 
 type DateTimePickerProps = {
-  placeholder?: string
+  type: string;
   date: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
   dueType: DueType | null
   setDueType?: React.Dispatch<React.SetStateAction<DueType | null>>
 }
 
-export default function DateTimePicker({ date, setDate, dueType, setDueType, placeholder }: DateTimePickerProps) {
+export default function DateTimePicker({ date, setDate, dueType, setDueType, type }: DateTimePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
+  let placeholder;
+
+  switch (type) {
+    case 'general':
+      placeholder = 'Add date'
+      break;
+    case 'start':
+      placeholder = 'Add start date'
+      break;
+    case 'end':
+      placeholder = 'Add end date'
+      break;
+  }
+
   const handlePresentModal = useCallback(() => {
     Keyboard.dismiss()
     modalRef.current?.present();
@@ -36,7 +50,7 @@ export default function DateTimePicker({ date, setDate, dueType, setDueType, pla
             : <Text style={[styles.text, { color: theme.grey500 }]}>{dueType === 'date' ? dateString : datetimeString}</Text>
         }
       </PressableOpacity>
-      <DateTimeModal initialDate={date ? date : new Date()} setDate={setDate} setDueType={setDueType} bottomSheetModalRef={modalRef} />
+      <DateTimeModal dateType={type} initialDate={date} setDate={setDate} setDueType={setDueType} bottomSheetModalRef={modalRef} />
     </View>
   )
 }

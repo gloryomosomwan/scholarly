@@ -88,8 +88,8 @@ export default function EventForm() {
       <View style={[styles.container, {}]}>
         <View style={[styles.formContainer, {}]}>
           <PrimaryTextInputField placeholder='Enter name' value={name} onChangeText={setName} />
-          <DateTimePicker placeholder='Add start date' date={startDate} setDate={setStartDate} dueType={'datetime'} />
-          <DateTimePicker placeholder='Add end date' date={endDate} setDate={setEndDate} dueType={'datetime'} />
+          <DateTimePicker type='start' date={startDate} setDate={setStartDate} dueType={'datetime'} />
+          <DateTimePicker type='end' date={endDate} setDate={setEndDate} dueType={'datetime'} />
           <EventTypePicker eventType={type} setEventType={setType} />
           <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />
           <CoursePicker courseID={courseID} setCourseID={setCourseID} />
