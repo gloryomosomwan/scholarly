@@ -52,14 +52,14 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
 
   const rWeekPagerStyle = useAnimatedStyle(() => {
     return {
-      // opacity: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 1 : 0
+      opacity: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 1 : 0,
       pointerEvents: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 'auto' : 'none'
     }
   })
 
   const rPageStyle = useAnimatedStyle(() => {
     return {
-      opacity: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 1 : 0
+      // opacity: bottomSheetTranslationY.value === calendarBottom.value - 235 ? 1 : 0
     }
   })
 
