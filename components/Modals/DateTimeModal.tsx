@@ -54,6 +54,8 @@ export default function DateTimeModal({ initialDate, setDate, setDueType, bottom
       ref={bottomSheetModalRef}
       backgroundStyle={{ backgroundColor: theme.primary }}
       handleComponent={() => <BottomSheetHandle />}
+      snapPoints={['60%']}
+      enableDynamicSizing={false}
       backdropComponent={props => (
         <BottomSheetBackdrop
           {...props}
