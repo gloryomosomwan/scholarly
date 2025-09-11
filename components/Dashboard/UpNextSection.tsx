@@ -30,7 +30,7 @@ export default function UpNextSection() {
         <EventCard key={upNext.id} event={upNext} />
         :
         <View>
-          <Text style={styles.placeholderText}>No events up next</Text>
+          <Text style={[styles.placeholderText, { color: theme.grey400 }]}>No events up next</Text>
         </View>
       }
     </View>
