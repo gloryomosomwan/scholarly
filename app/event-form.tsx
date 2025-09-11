@@ -2,6 +2,7 @@ import { ActionSheetIOS, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
+import { eq } from 'drizzle-orm'
 
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import DateTimePicker from '@/components/Form/DateTimePicker'
@@ -16,7 +17,6 @@ import { EventType } from '@/types'
 import { eventInsertSchema, eventUpdateSchema } from '@/db/drizzle-zod'
 import { db } from '@/db/init'
 import { events } from '@/db/schema'
-import { eq } from 'drizzle-orm'
 import { getEventById } from '@/hooks/useDatabase'
 
 export default function EventForm() {
