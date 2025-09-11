@@ -22,7 +22,7 @@ export default function RecurrencePicker({ recurring, setRecurring, startDate }:
   const rule = recurring ? RRule.fromString(recurring) : new RRule()
 
   useEffect(() => {
-    const selectedDatetime = datetime(startDate ? startDate.getUTCFullYear() : 0, startDate ? startDate.getUTCMonth() : 0, startDate ? startDate.getUTCDate() : 0, startDate ? startDate.getUTCHours() : 0, startDate ? startDate.getUTCMinutes() : 0, startDate ? startDate.getUTCSeconds() : 0)
+    const selectedDatetime = datetime(startDate ? startDate.getUTCFullYear() : 0, startDate ? startDate.getUTCMonth() + 1 : 0, startDate ? startDate.getUTCDate() : 0, startDate ? startDate.getUTCHours() : 0, startDate ? startDate.getUTCMinutes() : 0, startDate ? startDate.getUTCSeconds() : 0)
     const defaultInterval = 1
     switch (frequency) {
       case 'once':
