@@ -24,6 +24,8 @@ export default function DateTimePicker({ date, setDate, dueType, setDueType, pla
     Keyboard.dismiss()
     modalRef.current?.present();
   }, []);
+  const dateString = `${date?.toLocaleString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}`
+  const datetimeString = `${date?.toLocaleString(undefined, { weekday: 'short', month: 'long', day: 'numeric' })} at ${date?.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}`
   return (
     <View>
       <PressableOpacity style={styles.row} onPress={handlePresentModal}>
@@ -31,7 +33,7 @@ export default function DateTimePicker({ date, setDate, dueType, setDueType, pla
         {
           !date
             ? <Text style={[styles.text, { color: theme.grey500 }]}>{placeholder ? placeholder : 'Add date'}</Text>
-            : <Text style={[styles.text, { color: theme.grey500 }]}>{dueType === 'date' ? date.toLocaleDateString() : date.toLocaleString()}</Text>
+            : <Text style={[styles.text, { color: theme.grey500 }]}>{dueType === 'date' ? dateString : datetimeString}</Text>
         }
       </PressableOpacity>
       <DateTimeModal initialDate={date ? date : new Date()} setDate={setDate} setDueType={setDueType} bottomSheetModalRef={modalRef} />

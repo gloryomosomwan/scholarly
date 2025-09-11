@@ -26,6 +26,7 @@ export default function DateTimeModal({ initialDate, setDate, setDueType, bottom
   };
 
   function saveDate() {
+    internalDate.setUTCSeconds(0, 0)
     setDate(internalDate)
     bottomSheetModalRef.current?.dismiss()
   }
