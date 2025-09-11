@@ -201,6 +201,12 @@ export function useTasksForToday() {
   return taskData
 }
 
+export function useAllTasks() {
+  const { data } = useLiveQuery(db.select().from(tasks))
+  const taskData = data.map(convertRawTask)
+  return taskData
+}
+
 export function getTaskById(id: number | null) {
   const data = useSQLiteContext().getFirstSync<rawTask>(`
       SELECT 
