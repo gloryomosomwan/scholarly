@@ -26,8 +26,9 @@ const CalendarContent = () => {
   const insets = useSafeAreaInsets();
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
   const selectedDatePosition = useSharedValue((paddingTop + 52) + (47 * (getWeekOfMonth(new Date()) - 1)));
-  const calendarBottom = useSharedValue((47 * 6) + paddingTop + 52);
-  const bottomSheetTranslationY = useSharedValue(calendarBottom.value);
+  const initialCalendarBottom = (47 * 6) + paddingTop + 52
+  const calendarBottom = useSharedValue(initialCalendarBottom);
+  const bottomSheetTranslationY = useSharedValue(initialCalendarBottom);
   const theme = useTheme();
   const isGradientBackground = useColorScheme() === 'light'
   const [renderMonth, setRenderMonth] = useState(false)
