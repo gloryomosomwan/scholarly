@@ -18,7 +18,7 @@ export default function SemesterPage() {
   const semesterID = useUserStore((state) => state.semesterID)
   const courses = useCourses()
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={[styles.container, { paddingTop: insets.top, backgroundColor: theme.primary }]}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         <Header />
         {semesterID ?
