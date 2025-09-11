@@ -49,8 +49,10 @@ export const lightTheme: theme = {
 }
 
 export const darkTheme: theme = {
-  primary: '#111827',
-  secondary: '#1F2937',
+  // primary: '#111827',
+  // secondary: '#1F2937',
+  primary: '#000',
+  secondary: '#151616',
   accent: '#3B82F6',
   accentInactive: "#b3ccff",
   text: '#F9FAFB',
