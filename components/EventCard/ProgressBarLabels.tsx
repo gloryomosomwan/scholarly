@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
-import { getOccurrences } from '@/utils/event'
+import { getOccurrencesOnDay } from '@/utils/event'
 
 type ProgressBarLabelsProps = {
   startDate: Date
@@ -13,7 +13,7 @@ type ProgressBarLabelsProps = {
 export default function ProgressBarLabels({ startDate, endDate, recurrenceString }: ProgressBarLabelsProps) {
   const theme = useTheme()
   const now = new Date()
-  const recurringStartDates = recurrenceString ? getOccurrences(recurrenceString) : null
+  const recurringStartDates = recurrenceString ? getOccurrencesOnDay(recurrenceString, new Date()) : null
   let elapsed: number;
   let remaining: number;
   if (recurringStartDates) {

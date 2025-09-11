@@ -11,7 +11,7 @@ import { Course, Semester, Event } from "@/types";
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawTask } from "@/types/drizzle";
 import { pretty } from "@/utils";
-import { checkHasCurrentRecurrence } from "@/utils/event";
+import { checkHasActiveRecurrence, getOccurrencesOnDay } from "@/utils/event";
 
 // Assignments
 export function useTodayAssignments() {
@@ -114,7 +114,7 @@ export function useCurrentEvent() {
   const eventData = data.map(convertRawEvent)
   const filteredEventData = eventData.filter((event) => {
     if (!event.recurring) return true
-    return checkHasCurrentRecurrence(event)
+    return checkHasActiveRecurrence(event)
   })
   return filteredEventData
 }
@@ -131,8 +131,10 @@ export function useEventsByDay(date: Date) {
   ), [date])
   const eventData = data.map(convertRawEvent)
   const filteredEventData = eventData.filter((event) => {
-    if (!event.recurring) return true
-    return checkHasCurrentRecurrence(event)
+    if (!event.recurring) return true // events that don't recur are given a pass, as their start and end dates take place on the day
+    // at this point in the function body we're just checking to see if the event has a recurrence/occurrence that falls on the given date
+    const occurrences = getOccurrencesOnDay(event.recurring, date)
+    return occurrences.length > 0
   })
   return filteredEventData
 }

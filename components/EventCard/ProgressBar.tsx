@@ -3,7 +3,7 @@ import React from 'react'
 import tinycolor from 'tinycolor2'
 
 import { useTheme } from '@/hooks/useTheme'
-import { getOccurrences } from '@/utils/event'
+import { getOccurrencesOnDay } from '@/utils/event'
 
 type ProgressBarProps = {
   startDate: Date
@@ -16,7 +16,7 @@ type ProgressBarProps = {
 export default function ProgressBar({ startDate, endDate, recurrenceString, isCurrentEvent, courseColor }: ProgressBarProps) {
   const theme = useTheme()
   const now = new Date()
-  const occurrences = recurrenceString ? getOccurrences(recurrenceString) : null
+  const occurrences = recurrenceString ? getOccurrencesOnDay(recurrenceString, new Date()) : null
   const elapsed = occurrences ? now.getTime() - occurrences[0].getTime() : now.getTime() - startDate.getTime()
   const totalDuration = endDate.getTime() - startDate.getTime();
   const progressPercentage = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));

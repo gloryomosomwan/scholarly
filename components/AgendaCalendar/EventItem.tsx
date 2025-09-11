@@ -11,6 +11,7 @@ import EventItemCourseText from '@/components/EventItem/EventItemCourseText';
 import { useTheme } from '@/hooks';
 import { Event } from '@/types';
 import { getCourseById } from '@/hooks/useDatabase';
+import { checkEventWasEarlierToday } from '@/utils/event';
 
 type EventItemProps = {
   event: Event
@@ -18,9 +19,8 @@ type EventItemProps = {
 
 export default function EventItem({ event }: EventItemProps) {
   const theme = useTheme()
-  const today = new Date()
   const course = getCourseById(event.courseID ?? null)
-  const eventWasEarlierToday = isSameDay(event.startDate, today) && isBefore(event.endDate, Date.now())
+  const eventWasEarlierToday = checkEventWasEarlierToday(event.startDate, event.endDate, event.recurring)
   return (
     <View style={styles.container}>
       <EventItemTimeRange startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />

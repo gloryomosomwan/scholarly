@@ -1,38 +1,49 @@
-import { isSameDay, startOfDay } from "date-fns";
+import { isBefore, isSameDay, startOfDay } from "date-fns";
 import dayjs from "dayjs";
 import { datetime, rrulestr } from "rrule";
 
 import { Event } from "@/types";
+import { pretty } from ".";
 
-function getMinutesSinceMidnight(date: Date) {
-  // local time
-  return date.getHours() * 60 + date.getMinutes(); // potential bug with the minutes
+function getRecurredEndDate(startDate: Date, endDate: Date, recurredStartDate: Date) {
+  const offset = endDate.getTime() - startDate.getTime()
+  const recurredEndDate = recurredStartDate.getTime() + offset
+  return recurredEndDate
 }
 
 export const checkCurrentEvent = (event: Event): boolean => {
   const now = dayjs()
-  return now.isBetween(event.startDate, event.endDate) || checkHasCurrentRecurrence(event)
+  return now.isBetween(event.startDate, event.endDate) || checkHasActiveRecurrence(event)
 }
 
-export const checkHasCurrentRecurrence = (event: Event): boolean => {
+export const checkHasActiveRecurrence = (event: Event): boolean => {
   if (!event.recurring) return false
-  const startMinutes = getMinutesSinceMidnight(event.startDate)
-  const endMinutes = getMinutesSinceMidnight(event.endDate)
-  const currentMinutes = getMinutesSinceMidnight(new Date())
-  const isWithinTimeRange = (isSameDay(event.startDate, event.endDate) && startMinutes <= currentMinutes && currentMinutes <= endMinutes) || (!isSameDay(event.startDate, event.endDate) && startMinutes <= currentMinutes || currentMinutes <= endMinutes)
-  if (isWithinTimeRange) {
-    const occurrences = getOccurrences(event.recurring)
-    if (occurrences) {
-      return true
-    }
-  }
-  return false
+  const recurringStartDateArray = getOccurrencesOnDay(event.recurring, new Date())
+  if (!recurringStartDateArray) return false // does this event have a recurrence that takes place today?
+  const recurredStartDate = recurringStartDateArray[0]
+  const recurredEndDate = getRecurredEndDate(event.startDate, event.endDate, recurredStartDate)
+  const now = dayjs()
+  return now.isBetween(recurredStartDate, recurredEndDate)
 }
 
-export const getOccurrences = (recurrenceString: string): null | Date[] => {
-  const startOfToday = startOfDay(new Date())
-  const startOfDatetime = datetime(startOfToday.getUTCFullYear(), startOfToday.getUTCMonth() + 1, startOfToday.getUTCDate(), 0, 0, 0)
-  const endOfDatetime = datetime(startOfToday.getUTCFullYear(), startOfToday.getUTCMonth() + 1, startOfToday.getUTCDate(), 23, 59, 59)
+export const getOccurrencesOnDay = (recurrenceString: string, date: Date): Date[] => {
+  const startOfDate = startOfDay(date) // remove this line and directly use date parameter?
+  const startOfDatetime = datetime(startOfDate.getUTCFullYear(), startOfDate.getUTCMonth() + 1, startOfDate.getUTCDate(), 0, 0, 0)
+  const endOfDatetime = datetime(startOfDate.getUTCFullYear(), startOfDate.getUTCMonth() + 1, startOfDate.getUTCDate(), 23, 59, 59)
   const occurrences = rrulestr(recurrenceString).between(startOfDatetime, endOfDatetime, true)
+  // if (isSameDay(date, new Date(2025, 4, 20))) console.log(occurrences)
   return occurrences
+}
+
+export const checkEventWasEarlierToday = (startDate: Date, endDate: Date, recurrenceString: string | undefined): boolean => {
+  const today = new Date()
+  const recurredStartDateArray = recurrenceString ? getOccurrencesOnDay(recurrenceString, new Date()) : null
+  if (recurredStartDateArray) {
+    const recurredStartDate = recurredStartDateArray[0]
+    const recurredEndDate = getRecurredEndDate(startDate, endDate, recurredStartDate)
+    return isSameDay(recurredStartDate, today) && isBefore(recurredEndDate, Date.now())
+  }
+  else {
+    return isSameDay(startDate, today) && isBefore(endDate, Date.now())
+  }
 }
