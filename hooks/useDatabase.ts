@@ -121,13 +121,20 @@ export function useCurrentEvent() {
 
 export function useEventsByDay(date: Date) {
   const { data } = useLiveQuery(db.select().from(events).where(
-    and(
-      gte(events.start_date, startOfDay(date).toISOString()),
-      lte(events.end_date, endOfDay(date).toISOString())
+    or(
+      and(
+        gte(events.start_date, startOfDay(date).toISOString()),
+        lte(events.end_date, endOfDay(date).toISOString())
+      ),
+      isNotNull(events.recurring)
     )
   ), [date])
   const eventData = data.map(convertRawEvent)
-  return eventData
+  const filteredEventData = eventData.filter((event) => {
+    if (!event.recurring) return true
+    return checkHasCurrentRecurrence(event)
+  })
+  return filteredEventData
 }
 
 export function useEventsByDateRange(firstDay: Date, lastDay: Date) {
