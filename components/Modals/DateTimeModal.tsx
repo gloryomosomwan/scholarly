@@ -3,8 +3,9 @@ import { Text, StyleSheet, View } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
-import { useTheme } from '@/hooks'
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
+
+import { useTheme } from '@/hooks'
 import { DueType } from '@/types';
 
 type DateTimeModalProps = {
@@ -14,35 +15,25 @@ type DateTimeModalProps = {
   setDueType?: React.Dispatch<React.SetStateAction<DueType | null>>
 }
 
-type PickerMode = 'date' | 'datetime';
 
 export default function DateTimeModal({ initialDate, setDate, setDueType, bottomSheetModalRef }: DateTimeModalProps) {
   const theme = useTheme()
   const [internalDate, setInternalDate] = useState(initialDate === undefined ? new Date() : initialDate)
-  const [pickerMode, setPickerMode] = useState<PickerMode>('date');
 
   const handlePickerChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate || internalDate;
     setInternalDate(currentDate)
   };
 
-  function handlePress() {
-    if (pickerMode === 'date') {
-      internalDate.setHours(0, 0, 0, 0)
-      setDate(internalDate)
-      if (setDueType) setDueType('date')
-    }
-    else if (pickerMode === 'datetime') {
-      setDate(internalDate)
-      if (setDueType) setDueType('datetime')
-    }
+  function saveDate() {
+    setDate(internalDate)
     bottomSheetModalRef.current?.dismiss()
   }
 
   const BottomSheetHandle = () => {
     return (
       <View style={[styles.bottomSheetHandle, { backgroundColor: theme.primary }]}>
-        <PressableOpacity style={[styles.doneButton]} onPress={handlePress}>
+        <PressableOpacity style={[styles.doneButton]} onPress={saveDate}>
           <Text style={[styles.doneText, { color: theme.accent }]}>Done</Text>
         </PressableOpacity>
       </View>
@@ -67,35 +58,26 @@ export default function DateTimeModal({ initialDate, setDate, setDueType, bottom
       )}
     >
       <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
-        <View style={[styles.toggleContainer, { borderColor: theme.accent }]}>
-          <PressableOpacity
-            style={[styles.toggleButton, pickerMode === 'date' && { backgroundColor: theme.accent }]}
-            onPress={() => setPickerMode('date')}
-          >
-            <Text style={[styles.toggleButtonText, { color: pickerMode === 'date' ? theme.primary : theme.accent }]}>Date</Text>
-          </PressableOpacity>
-          <PressableOpacity
-            style={[styles.toggleButton, pickerMode === 'datetime' && { backgroundColor: theme.accent }]}
-            onPress={() => setPickerMode('datetime')}
-          >
-            <Text style={[styles.toggleButtonText, { color: pickerMode === 'datetime' ? theme.primary : theme.accent }]}>Time</Text>
-          </PressableOpacity>
-        </View>
-        {pickerMode === 'date' ? <DateTimePicker
+        <Text>{internalDate.toISOString()}</Text>
+        <DateTimePicker
           testID="datePicker"
           value={internalDate}
           mode={'date'}
           display={'inline'}
           onChange={handlePickerChange}
           accentColor={theme.accent}
-        /> : <DateTimePicker
-          testID="datetimePicker"
-          value={internalDate}
-          mode={'datetime'}
-          display={'inline'}
-          onChange={handlePickerChange}
-          accentColor={theme.accent}
-        />}
+        />
+        <View style={styles.timeRow}>
+          <Text style={[styles.timeLabelText, { color: theme.text }]}>Time</Text>
+          <DateTimePicker
+            testID="timePicker"
+            value={internalDate}
+            mode={'time'}
+            display={'inline'}
+            onChange={handlePickerChange}
+            accentColor={theme.accent}
+          />
+        </View>
       </BottomSheetView>
     </BottomSheetModal>
   )
@@ -123,19 +105,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 10
   },
-  toggleContainer: {
+  timeRow: {
+    width: '70%',
     flexDirection: 'row',
-    borderRadius: 8,
-    borderWidth: 1,
-    overflow: 'hidden',
-    marginBottom: 5,
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
-  toggleButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 24,
-  },
-  toggleButtonText: {
+  timeLabelText: {
     fontWeight: '500',
-    fontSize: 16,
-  },
+    fontSize: 17
+  }
 })
