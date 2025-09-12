@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { SymbolView } from 'expo-symbols'
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { startOfDay } from 'date-fns';
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
@@ -21,19 +22,31 @@ export default function TimePicker({ date, setDate }: TimePickerProps) {
     setDate(currentDate)
   };
 
+  function deactivate() {
+    if (date) {
+      setDate(startOfDay(new Date(date)))
+      setActive(false)
+    }
+  }
+
   return (
     <View style={[styles.row]}>
       <SymbolView name={'clock'} tintColor={theme.grey500} size={24} />
       {
         active && date ?
-          <DateTimePicker
-            testID="timePicker"
-            value={date}
-            mode={'time'}
-            display={'inline'}
-            onChange={handlePickerChange}
-            accentColor={theme.accent}
-          />
+          <View style={[styles.field]}>
+            <DateTimePicker
+              testID="timePicker"
+              value={date}
+              mode={'time'}
+              display={'inline'}
+              onChange={handlePickerChange}
+              accentColor={theme.accent}
+            />
+            <PressableOpacity onPress={deactivate}>
+              <Text>X</Text>
+            </PressableOpacity>
+          </View>
           :
           <PressableOpacity onPress={() => setActive(true)}>
             <Text style={[styles.text, { color: theme.grey500 }]}>Add time</Text>
@@ -59,5 +72,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '500',
     paddingTop: 0,
+  },
+  field: {
+    flexDirection: 'row'
   },
 })
