@@ -1,5 +1,5 @@
 import { Keyboard, StyleSheet, Text, View } from 'react-native'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { SymbolView } from 'expo-symbols'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
@@ -12,12 +12,13 @@ type DatePickerProps = {
   dateType: string;
   date: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
+  form: string
 }
 
-export default function DatePicker({ date, setDate, dateType }: DatePickerProps) {
+export default function DatePicker({ date, setDate, dateType, form }: DatePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
-  const placeholder = dateType === 'start' ? 'Add start date' : 'Add end date'
+  const placeholder = getPlaceholder(dateType);
   const handlePresentModal = useCallback(() => {
     Keyboard.dismiss()
     modalRef.current?.present();
@@ -32,9 +33,18 @@ export default function DatePicker({ date, setDate, dateType }: DatePickerProps)
             : <Text style={[styles.text, { color: theme.grey500 }]}>{`${date?.toLocaleString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}`}</Text>
         }
       </PressableOpacity>
-      <DateModal dateType={dateType} initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} />
+      <DateModal dateType={dateType} initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} form={form} />
     </View>
   )
+}
+
+function getPlaceholder(type: string) {
+  switch (type) {
+    case 'start': return 'Add start date';
+    case 'end': return 'Add end date';
+    case 'general': return 'Add date';
+    default: return 'Add date';
+  }
 }
 
 const styles = StyleSheet.create({

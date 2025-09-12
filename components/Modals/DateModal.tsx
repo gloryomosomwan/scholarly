@@ -2,32 +2,32 @@ import React, { RefObject, useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { addMonths, startOfDay } from 'date-fns';
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 
 import { useTheme } from '@/hooks'
-import { addMonths } from 'date-fns';
 
 type DateModalProps = {
   dateType: string
   bottomSheetModalRef: RefObject<BottomSheetModal>
   initialDate: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
+  form: string
 }
 
-export default function DateModal({ initialDate, setDate, dateType, bottomSheetModalRef }: DateModalProps) {
+export default function DateModal({ initialDate, setDate, dateType, bottomSheetModalRef, form }: DateModalProps) {
   const theme = useTheme()
-  let day = new Date()
-  if (dateType === 'end') day = addMonths(day, 4)
+  let day = startOfDay(new Date()) // TODO: rename this
+  if (dateType === 'end' && form === 'semester') day = addMonths(day, 4)
   const [internalDate, setInternalDate] = useState(initialDate === null ? day : initialDate)
 
   const handlePickerChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate || internalDate;
-    setInternalDate(currentDate)
+    setInternalDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), initialDate?.getHours() || 0, initialDate?.getMinutes() || 0))
   };
 
   function saveDate() {
-    internalDate.setUTCSeconds(0, 0)
     setDate(internalDate)
     bottomSheetModalRef.current?.dismiss()
   }
@@ -47,7 +47,7 @@ export default function DateModal({ initialDate, setDate, dateType, bottomSheetM
       ref={bottomSheetModalRef}
       backgroundStyle={{ backgroundColor: theme.primary }}
       handleComponent={() => <BottomSheetHandle />}
-      snapPoints={['60%']}
+      snapPoints={['50%']}
       enableDynamicSizing={false}
       backdropComponent={props => (
         <BottomSheetBackdrop
@@ -60,7 +60,7 @@ export default function DateModal({ initialDate, setDate, dateType, bottomSheetM
       )}
     >
       <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
-        <Text>{internalDate.toISOString()}</Text>
+        <Text style={{ color: theme.text }}>{internalDate.toISOString()}</Text>
         <DateTimePicker
           testID="datePicker"
           value={internalDate}

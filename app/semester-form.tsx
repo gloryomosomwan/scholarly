@@ -87,8 +87,8 @@ export default function SemesterForm() {
       <View style={[styles.container, {}]}>
         <View style={[styles.formContainer, {}]}>
           <PrimaryTextInputField placeholder='Add semester name' value={name} onChangeText={setName} />
-          <DatePicker dateType='start' date={start} setDate={setStart} />
-          <DatePicker dateType='end' date={end} setDate={setEnd} />
+          <DatePicker dateType='start' date={start} setDate={setStart} form='semester' />
+          <DatePicker dateType='end' date={end} setDate={setEnd} form='semester' />
         </View>
         <ButtonRow create={createSemester} update={updateSemester} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={!semesterInsertSchema.safeParse(semester).success} />
       </View>
