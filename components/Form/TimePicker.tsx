@@ -38,7 +38,7 @@ export default function TimePicker({ date, setDate, setDueType }: TimePickerProp
   }
 
   return (
-    <View style={[styles.row]}>
+    <View style={[styles.row, !active && { gap: 16 }]}>
       <SymbolView name={'clock'} tintColor={theme.grey500} size={24} />
       {
         active && date ?
@@ -52,7 +52,7 @@ export default function TimePicker({ date, setDate, setDueType }: TimePickerProp
               accentColor={theme.accent}
             />
             <PressableOpacity onPress={deactivate}>
-              <Text>X</Text>
+              <SymbolView name={'x.circle'} tintColor={theme.grey500} size={24} />
             </PressableOpacity>
           </View>
           :
@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    gap: 16,
   },
   text: {
     fontSize: 20,
@@ -82,6 +81,8 @@ const styles = StyleSheet.create({
     paddingTop: 0,
   },
   field: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8
   },
 })
