@@ -27,7 +27,7 @@ export default function TaskForm() {
   const taskData = id ? getTaskById(convertedID) : null // should this violate hook rules?
 
   const [date, setDate] = useState<Date | null>(taskData?.due ? new Date(taskData.due) : null); // this should be a date already? // rename this
-  const [dueType, setDueType] = useState<DueType | null>(taskData?.dueType ? taskData.dueType : null);
+  const [dueType, setDueType] = useState<DueType>(taskData?.dueType ? taskData.dueType : 'date');
   const [courseID, setCourseID] = useState<number | null>(taskData?.courseID ? taskData.courseID : null);
   const [priority, setPriority] = useState<PriorityOption | null>(taskData?.priority ? taskData.priority : null);
   const [title, setTitle] = useState(taskData?.title ? taskData.title : null)

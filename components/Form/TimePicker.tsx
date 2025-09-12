@@ -12,7 +12,7 @@ import { DueType } from '@/types'
 type TimePickerProps = {
   date: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
-  setDueType: React.Dispatch<React.SetStateAction<DueType | null>>
+  setDueType: React.Dispatch<React.SetStateAction<DueType>>
 }
 
 export default function TimePicker({ date, setDate, setDueType }: TimePickerProps) {
