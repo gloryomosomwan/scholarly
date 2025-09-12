@@ -19,7 +19,7 @@ export const checkCurrentEvent = (event: Event): boolean => {
 export const checkHasActiveRecurrence = (event: Event): boolean => {
   if (!event.recurring) return false
   const recurringStartDateArray = getOccurrencesOnDay(event.recurring, new Date())
-  if (!recurringStartDateArray) return false // does this event have a recurrence that takes place today?
+  if (!recurringStartDateArray[0]) return false // does this event have a recurrence that takes place today? // this line is sketchy come back to it
   const recurredStartDate = recurringStartDateArray[0]
   const recurredEndDate = getRecurredEndDate(event.startDate, event.endDate, recurredStartDate)
   const now = dayjs()
