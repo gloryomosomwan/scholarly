@@ -7,13 +7,15 @@ import { startOfDay } from 'date-fns';
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks'
+import { DueType } from '@/types'
 
 type TimePickerProps = {
   date: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
+  setDueType: React.Dispatch<React.SetStateAction<DueType | null>>
 }
 
-export default function TimePicker({ date, setDate }: TimePickerProps) {
+export default function TimePicker({ date, setDate, setDueType }: TimePickerProps) {
   const theme = useTheme()
   const [active, setActive] = useState<boolean>(false)
 
@@ -22,10 +24,16 @@ export default function TimePicker({ date, setDate }: TimePickerProps) {
     setDate(currentDate)
   };
 
+  function activate() {
+    setDueType('datetime')
+    setActive(true)
+  }
+
   function deactivate() {
     if (date) {
-      setDate(startOfDay(new Date(date)))
+      setDueType('date')
       setActive(false)
+      setDate(startOfDay(new Date(date)))
     }
   }
 
@@ -48,7 +56,7 @@ export default function TimePicker({ date, setDate }: TimePickerProps) {
             </PressableOpacity>
           </View>
           :
-          <PressableOpacity onPress={() => setActive(true)}>
+          <PressableOpacity onPress={activate}>
             <Text style={[styles.text, { color: theme.grey500 }]}>Add time</Text>
           </PressableOpacity>
       }

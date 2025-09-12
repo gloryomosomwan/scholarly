@@ -90,7 +90,7 @@ export default function TaskForm() {
           <PrimaryTextInputField placeholder='Enter title' value={title} onChangeText={setTitle} />
           <Text style={{ color: theme.text, fontSize: 20 }}>{date?.toISOString() || 'null'}</Text>
           <DatePicker dateType='general' date={date} setDate={setDate} form='activity' />
-          {date && <TimePicker date={date} setDate={setDate} />}
+          {date && <TimePicker date={date} setDate={setDate} setDueType={setDueType} />}
           <CoursePicker courseID={courseID} setCourseID={setCourseID} />
           <PriorityPicker priority={priority} setPriority={setPriority} />
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
