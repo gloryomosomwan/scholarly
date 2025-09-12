@@ -60,7 +60,7 @@ export default function DateTimeModal({ initialDate, setDate, dateType, bottomSh
       )}
     >
       <BottomSheetView style={[styles.contentContainer, { backgroundColor: theme.primary }]}>
-        <Text>{internalDate.toISOString()}</Text>
+        <Text style={{ color: theme.text }}>{internalDate.toISOString()}</Text>
         <DateTimePicker
           testID="datePicker"
           value={internalDate}
