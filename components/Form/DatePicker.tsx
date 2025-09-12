@@ -3,18 +3,18 @@ import React, { useCallback, useRef } from 'react'
 import { SymbolView } from 'expo-symbols'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
-import DateTimeModal from '@/components/Modals/DateTimeModal'
+import DateModal from '@/components/Modals/DateModal'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks'
 
-type DateTimePickerProps = {
+type DatePickerProps = {
   dateType: string;
   date: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
 }
 
-export default function DateTimePicker({ date, setDate, dateType, }: DateTimePickerProps) {
+export default function DatePicker({ date, setDate, dateType }: DatePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
   const placeholder = dateType === 'start' ? 'Add start date' : 'Add end date'
@@ -22,7 +22,6 @@ export default function DateTimePicker({ date, setDate, dateType, }: DateTimePic
     Keyboard.dismiss()
     modalRef.current?.present();
   }, []);
-  const datetimeString = `${date?.toLocaleString(undefined, { weekday: 'short', month: 'long', day: 'numeric' })} at ${date?.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}`
   return (
     <View>
       <PressableOpacity style={styles.row} onPress={handlePresentModal}>
@@ -30,10 +29,10 @@ export default function DateTimePicker({ date, setDate, dateType, }: DateTimePic
         {
           !date
             ? <Text style={[styles.text, { color: theme.grey500 }]}>{placeholder}</Text>
-            : <Text style={[styles.text, { color: theme.grey500 }]}>{datetimeString}</Text>
+            : <Text style={[styles.text, { color: theme.grey500 }]}>{`${date?.toLocaleString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}`}</Text>
         }
       </PressableOpacity>
-      <DateTimeModal dateType={dateType} initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} />
+      <DateModal dateType={dateType} initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} />
     </View>
   )
 }

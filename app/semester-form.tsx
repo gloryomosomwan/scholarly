@@ -4,7 +4,7 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
 
-import DateTimePicker from '@/components/Form/DateTimePicker'
+import DatePicker from '@/components/Form/DatePicker'
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import ButtonRow from '@/components/Form/ButtonRow'
 
@@ -87,8 +87,8 @@ export default function SemesterForm() {
       <View style={[styles.container, {}]}>
         <View style={[styles.formContainer, {}]}>
           <PrimaryTextInputField placeholder='Add semester name' value={name} onChangeText={setName} />
-          <DateTimePicker placeholder='Add start date' date={start} setDate={setStart} dueType={'date'} />
-          <DateTimePicker placeholder='Add end date' date={end} setDate={setEnd} dueType={'date'} />
+          <DatePicker dateType='start' date={start} setDate={setStart} />
+          <DatePicker dateType='end' date={end} setDate={setEnd} />
         </View>
         <ButtonRow create={createSemester} update={updateSemester} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={!semesterInsertSchema.safeParse(semester).success} />
       </View>

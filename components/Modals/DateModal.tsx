@@ -2,24 +2,24 @@ import React, { RefObject, useState } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { addHours, roundToNearestHours } from 'date-fns';
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 
 import { useTheme } from '@/hooks'
+import { addMonths } from 'date-fns';
 
-type DateTimeModalProps = {
+type DateModalProps = {
   dateType: string
   bottomSheetModalRef: RefObject<BottomSheetModal>
   initialDate: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
 }
 
-export default function DateTimeModal({ initialDate, setDate, dateType, bottomSheetModalRef, }: DateTimeModalProps) {
+export default function DateModal({ initialDate, setDate, dateType, bottomSheetModalRef }: DateModalProps) {
   const theme = useTheme()
-  let roundedDate = roundToNearestHours(new Date(), { roundingMethod: 'ceil' })
-  if (dateType === 'end') roundedDate = addHours(roundedDate, 1)
-  const [internalDate, setInternalDate] = useState(initialDate === null ? roundedDate : initialDate)
+  let day = new Date()
+  if (dateType === 'end') day = addMonths(day, 4)
+  const [internalDate, setInternalDate] = useState(initialDate === null ? day : initialDate)
 
   const handlePickerChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate || internalDate;
@@ -69,17 +69,6 @@ export default function DateTimeModal({ initialDate, setDate, dateType, bottomSh
           onChange={handlePickerChange}
           accentColor={theme.accent}
         />
-        <View style={styles.timeRow}>
-          <Text style={[styles.timeLabelText, { color: theme.text }]}>Time</Text>
-          <DateTimePicker
-            testID="timePicker"
-            value={internalDate}
-            mode={'time'}
-            display={'inline'}
-            onChange={handlePickerChange}
-            accentColor={theme.accent}
-          />
-        </View>
       </BottomSheetView>
     </BottomSheetModal>
   )
@@ -107,14 +96,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 10
   },
-  timeRow: {
-    width: '70%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  timeLabelText: {
-    fontWeight: '500',
-    fontSize: 17
-  }
 })
