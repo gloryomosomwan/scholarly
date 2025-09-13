@@ -14,6 +14,7 @@ type WeeklyPickerProps = {
 export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) {
   const theme = useTheme()
   const byweekdayArray = rule.options.byweekday
+  console.log(byweekdayArray)
   return (
     <View style={[styles.dayContainer]}>
       {weekdays.map(function (day, index) {
@@ -28,6 +29,7 @@ export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) 
                 const newRule = new RRule({
                   freq: rule.options.freq,
                   dtstart: rule.options.dtstart,
+                  interval: rule.options.interval,
                   byweekday: newArr
                 })
                 setRecurring(newArr.length === 0 ? null : newRule.toString())
@@ -37,6 +39,7 @@ export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) 
                 const newRule = new RRule({
                   freq: rule.options.freq,
                   dtstart: rule.options.dtstart,
+                  interval: rule.options.interval,
                   byweekday: [...byweekdayArray, day.weekday]
                 })
                 setRecurring(newRule.toString())
@@ -46,6 +49,7 @@ export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) 
                 const newRule = new RRule({
                   freq: RRule.WEEKLY,
                   dtstart: rule.options.dtstart,
+                  interval: rule.options.interval,
                   byweekday: [day.weekday]
                 })
                 setRecurring(newRule.toString())
