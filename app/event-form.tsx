@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
+import { isBefore } from 'date-fns'
 
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import DateTimePicker from '@/components/Form/DateTimePicker'
@@ -33,6 +34,8 @@ export default function EventForm() {
   const [location, setLocation] = useState(eventData?.location ? eventData.location : null)
   const [courseID, setCourseID] = useState<number | null>(eventData?.courseID ? eventData.courseID : null)
   const [recurring, setRecurring] = useState<string | null>(null)
+
+  const invalid = (startDate && endDate && isBefore(endDate, startDate)) ? true : false
 
   const event = {
     name: name,
@@ -89,7 +92,7 @@ export default function EventForm() {
         <View style={[styles.formContainer, {}]}>
           <PrimaryTextInputField placeholder='Enter name' value={name} onChangeText={setName} />
           <DateTimePicker dateType='start' date={startDate} setDate={setStartDate} />
-          <DateTimePicker dateType='end' date={endDate} setDate={setEndDate} />
+          <DateTimePicker dateType='end' date={endDate} invalid={invalid} setDate={setEndDate} />
           <EventTypePicker eventType={type} setEventType={setType} />
           <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />
           <CoursePicker courseID={courseID} setCourseID={setCourseID} />

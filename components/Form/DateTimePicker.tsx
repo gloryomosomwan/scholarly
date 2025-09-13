@@ -12,9 +12,10 @@ type DateTimePickerProps = {
   dateType: string;
   date: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
+  invalid?: boolean
 }
 
-export default function DateTimePicker({ date, setDate, dateType, }: DateTimePickerProps) {
+export default function DateTimePicker({ date, setDate, dateType, invalid }: DateTimePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
   const placeholder = dateType === 'start' ? 'Add start date' : 'Add end date'
@@ -30,7 +31,7 @@ export default function DateTimePicker({ date, setDate, dateType, }: DateTimePic
         {
           !date
             ? <Text style={[styles.text, { color: theme.grey500 }]}>{placeholder}</Text>
-            : <Text style={[styles.text, { color: theme.grey500 }]}>{datetimeString}</Text>
+            : <Text style={[styles.text, { color: invalid ? 'red' : theme.grey500 }]}>{datetimeString}</Text>
         }
       </PressableOpacity>
       <DateTimeModal dateType={dateType} initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} />
