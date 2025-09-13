@@ -61,6 +61,7 @@ export default function EventForm() {
     try {
       const parsed = eventUpdateSchema.parse(event)
       await db.update(events).set(parsed).where(eq(events.id, convertedID))
+      router.back()
     } catch (error) {
       console.log(error)
     }
