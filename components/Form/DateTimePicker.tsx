@@ -9,16 +9,14 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import { useTheme } from '@/hooks'
 
 type DateTimePickerProps = {
-  dateType: string;
   date: Date
   setDate: React.Dispatch<React.SetStateAction<Date>>
   invalid?: boolean
 }
 
-export default function DateTimePicker({ date, setDate, dateType, invalid }: DateTimePickerProps) {
+export default function DateTimePicker({ date, setDate, invalid }: DateTimePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
-  const placeholder = dateType === 'start' ? 'Add start date' : 'Add end date'
   const handlePresentModal = useCallback(() => {
     Keyboard.dismiss()
     modalRef.current?.present();
@@ -28,11 +26,7 @@ export default function DateTimePicker({ date, setDate, dateType, invalid }: Dat
     <View>
       <PressableOpacity style={styles.row} onPress={handlePresentModal}>
         <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
-        {
-          !date
-            ? <Text style={[styles.text, { color: theme.grey500 }]}>{placeholder}</Text>
-            : <Text style={[styles.text, { color: invalid ? 'red' : theme.grey500 }]}>{datetimeString}</Text>
-        }
+        <Text style={[styles.text, { color: invalid ? 'red' : theme.grey500 }]}>{datetimeString}</Text>
       </PressableOpacity>
       <DateTimeModal initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} />
     </View>
