@@ -9,7 +9,7 @@ import { db } from '@/db/init';
 import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent } from '@/utils/database';
 import { Course, Semester, Event } from "@/types";
 import { useUserStore } from "@/stores";
-import { rawAssignment, rawCourse, rawTask } from "@/types/drizzle";
+import { rawAssignment, rawCourse, rawEvent, rawTask } from "@/types/drizzle";
 import { pretty } from "@/utils";
 import { checkHasActiveRecurrence, getOccurrencesOnDay } from "@/utils/event";
 
@@ -151,7 +151,7 @@ export function useEventsByDateRange(firstDay: Date, lastDay: Date) {
 }
 
 export function getEventById(id: number | null) {
-  const data = useSQLiteContext().getFirstSync<Event>(`
+  const data = useSQLiteContext().getFirstSync<rawEvent>(`
     SELECT
     type,
     name,
@@ -163,7 +163,9 @@ export function getEventById(id: number | null) {
     FROM events
     WHERE id = ${id}
     `)
-  return data
+  if (data === null) return null
+  const event = convertRawEvent(data)
+  return event // If id is null, data is null too
 }
 
 // Semesters
