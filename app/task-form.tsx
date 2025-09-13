@@ -88,9 +88,9 @@ export default function TaskForm() {
       <View style={[styles.container, { backgroundColor: theme.secondary }]}>
         <View style={styles.formContainer}>
           <PrimaryTextInputField placeholder='Enter title' value={title} onChangeText={setTitle} />
-          <Text style={{ color: theme.text, fontSize: 20 }}>{date?.toISOString() || 'null'}</Text>
+          <Text style={{ color: theme.text }}>{date?.toISOString() || 'null'}</Text>
           <DatePicker dateType='general' date={date} setDate={setDate} form='activity' />
-          {date && <TimePicker date={date} setDate={setDate} setDueType={setDueType} />}
+          {date && <TimePicker date={date} setDate={setDate} dueType={dueType} setDueType={setDueType} />}
           <CoursePicker courseID={courseID} setCourseID={setCourseID} />
           <PriorityPicker priority={priority} setPriority={setPriority} />
           <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />

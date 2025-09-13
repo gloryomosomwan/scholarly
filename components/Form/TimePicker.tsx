@@ -11,13 +11,14 @@ import { DueType } from '@/types'
 
 type TimePickerProps = {
   date: Date | null
+  dueType: DueType
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
   setDueType: React.Dispatch<React.SetStateAction<DueType>>
 }
 
-export default function TimePicker({ date, setDate, setDueType }: TimePickerProps) {
+export default function TimePicker({ date, setDate, setDueType, dueType }: TimePickerProps) {
   const theme = useTheme()
-  const [active, setActive] = useState<boolean>(false)
+  const [active, setActive] = useState<boolean>(dueType === 'datetime')
 
   const handlePickerChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate || date;
