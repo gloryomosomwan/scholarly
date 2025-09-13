@@ -98,7 +98,7 @@ export default function EventForm() {
           <CoursePicker courseID={courseID} setCourseID={setCourseID} />
           <RecurrencePicker recurring={recurring} setRecurring={setRecurring} startDate={startDate} />
         </View>
-        <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={false} />
+        <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={invalid} />
       </View>
     </BottomSheetModalProvider>
   )
