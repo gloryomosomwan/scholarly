@@ -37,13 +37,16 @@ export const getOccurrencesOnDay = (recurrenceString: string, date: Date): Date[
 
 export const checkEventWasEarlierToday = (startDate: Date, endDate: Date, recurrenceString: string | undefined): boolean => {
   const today = new Date()
-  const recurredStartDateArray = recurrenceString ? getOccurrencesOnDay(recurrenceString, new Date()) : null
-  if (recurredStartDateArray) {
-    const recurredStartDate = recurredStartDateArray[0]
-    const recurredEndDate = getRecurredEndDate(startDate, endDate, recurredStartDate)
-    return isSameDay(recurredStartDate, today) && isBefore(recurredEndDate, Date.now())
+  if (!recurrenceString) {
+    return isSameDay(startDate, today) && isBefore(endDate, Date.now())
   }
   else {
-    return isSameDay(startDate, today) && isBefore(endDate, Date.now())
+    const recurredStartDateArray = recurrenceString ? getOccurrencesOnDay(recurrenceString, new Date()) : null
+    if (recurredStartDateArray && recurredStartDateArray.length > 0) {
+      const recurredStartDate = recurredStartDateArray[0]
+      const recurredEndDate = getRecurredEndDate(startDate, endDate, recurredStartDate)
+      return isSameDay(recurredStartDate, today) && isBefore(recurredEndDate, Date.now())
+    }
+    return false
   }
 }
