@@ -9,7 +9,7 @@ import { db } from '@/db/init';
 import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent } from '@/utils/database';
 import { Course, Semester, Event } from "@/types";
 import { useUserStore } from "@/stores";
-import { rawAssignment, rawCourse, rawEvent, rawTask } from "@/types/drizzle";
+import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask } from "@/types/drizzle";
 import { pretty } from "@/utils";
 import { checkHasActiveRecurrence, getOccurrencesOnDay } from "@/utils/event";
 
@@ -87,7 +87,7 @@ export function useCourses() {
 }
 
 export function getCourseById(id: number | null) {
-  const data = useSQLiteContext().getFirstSync<Course>(`
+  const data = useSQLiteContext().getFirstSync<rawCourse>(`
       SELECT 
       code,
       name,
@@ -97,7 +97,9 @@ export function getCourseById(id: number | null) {
       FROM courses 
       WHERE id = ${id}
       `)
-  return data // If id is null, data is null too
+  if (data === null) return null
+  const course = convertRawCourse(data)
+  return course // If id is null, data is null too
 }
 
 // Events
@@ -176,7 +178,7 @@ export function useSemesters() {
 }
 
 export function getSemesterById(id: number | null) {
-  const data = useSQLiteContext().getFirstSync<Semester>(`
+  const data = useSQLiteContext().getFirstSync<rawSemester>(`
    SELECT
    name,
    start,
@@ -184,7 +186,9 @@ export function getSemesterById(id: number | null) {
    FROM semesters
    WHERE id = ${id} 
     `)
-  return data
+  if (data === null) return null
+  const semester = convertRawSemester(data)
+  return semester
 }
 
 // Tasks
