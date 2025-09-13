@@ -1,5 +1,5 @@
 import { ActionSheetIOS, StyleSheet, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
@@ -36,6 +36,10 @@ export default function EventForm() {
   const [recurring, setRecurring] = useState<string | null>(eventData?.recurring ? eventData.recurring : null)
 
   const invalid = (startDate && endDate && isBefore(endDate, startDate)) ? true : false
+
+  useEffect(() => {
+    setEndDate(addHours(roundToNearestHours(startDate, { roundingMethod: 'ceil' }), 1))
+  }, [startDate])
 
   const event = {
     name: name,

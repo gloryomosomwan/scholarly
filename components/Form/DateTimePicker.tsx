@@ -29,7 +29,7 @@ export default function DateTimePicker({ date, setDate, invalid }: DateTimePicke
         <Text style={[styles.text, { color: invalid ? 'red' : theme.grey500 }]}>{datetimeString}</Text>
       </PressableOpacity>
       <Text style={[{ color: theme.text }]}>{date.toISOString()}</Text>
-      <DateTimeModal initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} />
+      <DateTimeModal key={date.toISOString()} initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} />
     </View>
   )
 }
