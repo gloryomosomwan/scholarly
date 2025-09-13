@@ -34,7 +34,7 @@ export default function DateTimePicker({ date, setDate, dateType, invalid }: Dat
             : <Text style={[styles.text, { color: invalid ? 'red' : theme.grey500 }]}>{datetimeString}</Text>
         }
       </PressableOpacity>
-      <DateTimeModal dateType={dateType} initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} />
+      <DateTimeModal initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} />
     </View>
   )
 }
