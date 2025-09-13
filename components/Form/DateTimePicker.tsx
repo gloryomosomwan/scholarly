@@ -10,8 +10,8 @@ import { useTheme } from '@/hooks'
 
 type DateTimePickerProps = {
   dateType: string;
-  date: Date | null
-  setDate: React.Dispatch<React.SetStateAction<Date | null>>
+  date: Date
+  setDate: React.Dispatch<React.SetStateAction<Date>>
   invalid?: boolean
 }
 

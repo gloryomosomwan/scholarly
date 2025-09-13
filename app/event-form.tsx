@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
-import { isBefore } from 'date-fns'
+import { addHours, isBefore, roundToNearestHours } from 'date-fns'
 
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import DateTimePicker from '@/components/Form/DateTimePicker'
@@ -29,8 +29,8 @@ export default function EventForm() {
 
   const [type, setType] = useState<EventType | null>(eventData?.type ? eventData.type : null)
   const [name, setName] = useState<string | null>(eventData?.name ? eventData.name : null)
-  const [startDate, setStartDate] = useState<Date | null>(eventData?.startDate ? eventData.startDate : null)
-  const [endDate, setEndDate] = useState<Date | null>(eventData?.endDate ? eventData.endDate : null)
+  const [startDate, setStartDate] = useState<Date>(eventData?.startDate ? eventData.startDate : roundToNearestHours(new Date(), { roundingMethod: 'ceil' }))
+  const [endDate, setEndDate] = useState<Date>(eventData?.endDate ? eventData.endDate : addHours(roundToNearestHours(new Date(), { roundingMethod: 'ceil' }), 1))
   const [location, setLocation] = useState(eventData?.location ? eventData.location : null)
   const [courseID, setCourseID] = useState<number | null>(eventData?.courseID ? eventData.courseID : null)
   const [recurring, setRecurring] = useState<string | null>(null)
