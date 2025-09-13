@@ -27,7 +27,7 @@ export default function EventForm() {
   const convertedID = Number(id)
   const eventData = id ? getEventById(convertedID) : null
 
-  const [type, setType] = useState<EventType | null>(eventData?.type ? eventData.type : null)
+  const [type, setType] = useState<EventType | null>(eventData?.type ? eventData.type : 'general')
   const [name, setName] = useState<string | null>(eventData?.name ? eventData.name : null)
   const [startDate, setStartDate] = useState<Date>(eventData?.startDate ? eventData.startDate : roundToNearestHours(new Date(), { roundingMethod: 'ceil' }))
   const [endDate, setEndDate] = useState<Date>(eventData?.endDate ? eventData.endDate : addHours(roundToNearestHours(new Date(), { roundingMethod: 'ceil' }), 1))
