@@ -21,6 +21,7 @@ export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) 
           <Pressable
             key={index}
             onPress={() => {
+              // If this weekday is already in the array, remove it
               if (byweekdayArray && byweekdayArray.includes(day.weekday)) {
                 const index = byweekdayArray.indexOf(day.weekday)
                 const newArr = byweekdayArray.toSpliced(index, 1)
@@ -31,6 +32,7 @@ export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) 
                 })
                 setRecurring(newArr.length === 0 ? null : newRule.toString())
               }
+              // If there is already an array (other weekdays are there), add this weekday
               else if (byweekdayArray) {
                 const newRule = new RRule({
                   freq: rule.options.freq,
@@ -39,6 +41,7 @@ export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) 
                 })
                 setRecurring(newRule.toString())
               }
+              // If there isn't already an array, start one with this weekday
               else {
                 const newRule = new RRule({
                   freq: RRule.WEEKLY,
