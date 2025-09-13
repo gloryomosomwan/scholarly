@@ -142,10 +142,12 @@ export function useEventsByDay(date: Date) {
 
 export function useEventsByDateRange(firstDay: Date, lastDay: Date) {
   const { data } = useLiveQuery(db.select().from(events).where(
-    and(
-      gte(events.start_date, startOfDay(firstDay).toISOString()),
-      lte(events.end_date, endOfDay(lastDay).toISOString())
-    )
+    or(
+      and(
+        gte(events.start_date, startOfDay(firstDay).toISOString()),
+        lte(events.end_date, endOfDay(lastDay).toISOString())
+      ),
+      isNotNull(events.recurring))
   ))
   const eventData = data.map(convertRawEvent)
   return eventData

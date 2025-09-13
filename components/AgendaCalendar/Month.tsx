@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Day from '@/components/AgendaCalendar/Day'
 
 import { useAssignmentsByDateRange, useEventsByDateRange, useTasksByDateRange } from '@/hooks/useDatabase';
+import { getOccurrencesBetweenDays } from '@/utils/event';
 
 type MonthProps = {
   initialDay: Date
@@ -66,16 +67,21 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   const map: Record<string, number> = useMemo(function () {
     const m: Record<string, number> = {}
     items.forEach(item => {
-      let dateToUse: Date | undefined;
-
-      if ('startDate' in item && item.startDate instanceof Date) {
-        dateToUse = item.startDate;
+      if ('recurring' in item && item.recurring !== undefined) {
+        const occurrences = getOccurrencesBetweenDays(item.recurring, start, end)
+        // console.log(occurrences)
+        occurrences.forEach(occurrence => {
+          const key = (format(occurrence, 'yyyy-MM-dd'))
+          m[key] = (m[key] || 0) + 1
+        })
+      }
+      else if ('startDate' in item && item.startDate instanceof Date) {
+        const dateToUse = item.startDate;
+        const key = format(dateToUse, 'yyyy-MM-dd')
+        m[key] = (m[key] || 0) + 1
       }
       else if ('due' in item && item.due instanceof Date) {
-        dateToUse = item.due;
-      }
-
-      if (dateToUse) {
+        const dateToUse = item.due;
         const key = format(dateToUse, 'yyyy-MM-dd')
         m[key] = (m[key] || 0) + 1
       }

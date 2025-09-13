@@ -1,4 +1,4 @@
-import { isBefore, isSameDay, startOfDay } from "date-fns";
+import { endOfDay, isBefore, isSameDay, startOfDay } from "date-fns";
 import dayjs from "dayjs";
 import { datetime, rrulestr } from "rrule";
 
@@ -31,6 +31,15 @@ export const getOccurrencesOnDay = (recurrenceString: string, date: Date): Date[
   const startOfDate = startOfDay(date) // CHECK: remove this line and directly use date parameter?
   const startOfDatetime = datetime(startOfDate.getUTCFullYear(), startOfDate.getUTCMonth() + 1, startOfDate.getUTCDate(), 0, 0, 0)
   const endOfDatetime = datetime(startOfDate.getUTCFullYear(), startOfDate.getUTCMonth() + 1, startOfDate.getUTCDate(), 23, 59, 59)
+  const occurrences = rrulestr(recurrenceString).between(startOfDatetime, endOfDatetime, true)
+  return occurrences
+}
+
+export const getOccurrencesBetweenDays = (recurrenceString: string, startDate: Date, endDate: Date): Date[] => {
+  const startOfStart = startOfDay(startDate) // CHECK: remove this line and directly use date parameter?
+  const endOfEnd = endOfDay(endDate)
+  const startOfDatetime = datetime(startOfStart.getUTCFullYear(), startOfStart.getUTCMonth() + 1, startOfStart.getUTCDate(), 0, 0, 0)
+  const endOfDatetime = datetime(endOfEnd.getUTCFullYear(), endOfEnd.getUTCMonth() + 1, endOfEnd.getUTCDate(), 23, 59, 59)
   const occurrences = rrulestr(recurrenceString).between(startOfDatetime, endOfDatetime, true)
   return occurrences
 }
