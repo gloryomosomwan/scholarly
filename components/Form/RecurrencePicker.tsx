@@ -1,14 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SymbolView } from 'expo-symbols'
-import { datetime, RRule } from 'rrule'
+import { datetime, RRule, Frequency } from 'rrule'
 
 import RecFreqPicker from '@/components/Form/Recurrence/RecFreqPicker'
 import IntervalCounter from '@/components/Form/Recurrence/IntervalCounter'
 import WeeklyPicker from '@/components/Form/Recurrence/WeeklyPicker'
 
 import { useTheme } from '@/hooks'
-import { Frequency } from '@/types'
 
 type RecurrencePickerProps = {
   recurring: string | null;
@@ -18,24 +17,24 @@ type RecurrencePickerProps = {
 
 export default function RecurrencePicker({ recurring, setRecurring, startDate }: RecurrencePickerProps) {
   const theme = useTheme()
-  const [frequency, setFrequency] = useState<Frequency>('once')
   const rule = recurring ? RRule.fromString(recurring) : new RRule()
+  const [frequency, setFrequency] = useState<Frequency | 'once'>(recurring ? rule.options.freq : 'once')
 
   useEffect(() => {
-    const selectedDatetime = datetime(startDate ? startDate.getUTCFullYear() : 0, startDate ? startDate.getUTCMonth() + 1 : 0, startDate ? startDate.getUTCDate() : 0, startDate ? startDate.getUTCHours() : 0, startDate ? startDate.getUTCMinutes() : 0, startDate ? startDate.getUTCSeconds() : 0)
-    const defaultInterval = 1
+    const dtstart = datetime(startDate ? startDate.getUTCFullYear() : 0, startDate ? startDate.getUTCMonth() + 1 : 0, startDate ? startDate.getUTCDate() : 0, startDate ? startDate.getUTCHours() : 0, startDate ? startDate.getUTCMinutes() : 0, startDate ? startDate.getUTCSeconds() : 0)
+    const interval = rule ? rule.options.interval : 1
     switch (frequency) {
       case 'once':
         setRecurring(null);
         break;
-      case 'daily':
-        setRecurring(new RRule({ freq: RRule.DAILY, dtstart: selectedDatetime, interval: defaultInterval }).toString());
+      case RRule.DAILY:
+        setRecurring(new RRule({ freq: RRule.DAILY, dtstart: dtstart, interval: interval }).toString());
         break;
-      case 'weekly':
-        setRecurring(new RRule({ freq: RRule.WEEKLY, dtstart: selectedDatetime, interval: defaultInterval }).toString());
+      case RRule.WEEKLY:
+        setRecurring(new RRule({ freq: RRule.WEEKLY, dtstart: dtstart, interval: interval }).toString());
         break;
-      case 'monthly':
-        setRecurring(new RRule({ freq: RRule.MONTHLY, dtstart: selectedDatetime, interval: defaultInterval }).toString());
+      case RRule.MONTHLY:
+        setRecurring(new RRule({ freq: RRule.MONTHLY, dtstart: dtstart, interval: interval }).toString());
         break;
     }
   }, [frequency, startDate])
@@ -46,10 +45,10 @@ export default function RecurrencePicker({ recurring, setRecurring, startDate }:
         <SymbolView name={'repeat'} tintColor={theme.grey500} size={24} />
         <Text style={[styles.fieldText, { color: theme.grey500 }]}>Repeat</Text>
       </View>
-      <Text style={{ color: theme.text }}>{recurring}</Text>
+      <Text style={{ color: theme.text }}>{recurring || 'null'}</Text>
       <RecFreqPicker frequency={frequency} setFrequency={setFrequency} />
       {frequency !== 'once' && <IntervalCounter rule={rule} setRecurring={setRecurring} />}
-      {frequency === 'weekly' && <WeeklyPicker rule={rule} setRecurring={setRecurring} />}
+      {frequency === RRule.WEEKLY && <WeeklyPicker rule={rule} setRecurring={setRecurring} />}
     </View>
   )
 }
