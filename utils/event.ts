@@ -31,7 +31,6 @@ export const getOccurrencesOnDay = (recurrenceString: string, date: Date): Date[
   const startOfDatetime = datetime(startOfDate.getUTCFullYear(), startOfDate.getUTCMonth() + 1, startOfDate.getUTCDate(), 0, 0, 0)
   const endOfDatetime = datetime(startOfDate.getUTCFullYear(), startOfDate.getUTCMonth() + 1, startOfDate.getUTCDate(), 23, 59, 59)
   const occurrences = rrulestr(recurrenceString).between(startOfDatetime, endOfDatetime, true)
-  // if (isSameDay(date, new Date(2025, 4, 20))) console.log(occurrences)
   return occurrences
 }
 
