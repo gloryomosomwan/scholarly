@@ -24,28 +24,26 @@ export default function CoursePicker({ courseID, setCourseID }: CoursePickerProp
   }, []);
   return (
     <View>
-      <PressableOpacity onPress={handlePresentModal}>
-        <View style={styles.row}>
-          <SymbolView name={'graduationcap.fill'} tintColor={theme.grey500} size={24} />
-          {course ?
-            (() => {
-              return (
-                <View style={styles.field}>
-                  <View style={[styles.tag, { backgroundColor: theme.grey100 }]}>
-                    <View style={[styles.dot, { backgroundColor: course.color ?? 'grey' }]} />
-                    <Text style={[styles.courseText, { color: theme.text }]}>{course.code}</Text>
-                  </View>
-                  <PressableOpacity onPress={() => setCourseID(null)}>
-                    <SymbolView name={'x.circle'} tintColor={theme.grey500} size={24} />
-                  </PressableOpacity>
-                </View>
-              )
-            })()
-            :
+      <View style={styles.row}>
+        <SymbolView name={'graduationcap.fill'} tintColor={theme.grey500} size={24} />
+        {course ?
+          <View style={styles.field}>
+            <PressableOpacity onPress={handlePresentModal}>
+              <View style={[styles.tag, { backgroundColor: theme.grey100 }]}>
+                <View style={[styles.dot, { backgroundColor: course.color ?? 'grey' }]} />
+                <Text style={[styles.courseText, { color: theme.text }]}>{course.code}</Text>
+              </View>
+            </PressableOpacity>
+            <PressableOpacity onPress={() => setCourseID(null)}>
+              <SymbolView name={'x.circle'} tintColor={theme.grey500} size={24} />
+            </PressableOpacity>
+          </View>
+          :
+          <PressableOpacity onPress={handlePresentModal}>
             <Text style={[styles.text, { color: theme.grey500 }]}>Add course</Text>
-          }
-        </View>
-      </PressableOpacity>
+          </PressableOpacity>
+        }
+      </View>
       <CourseModal setCourseID={setCourseID} courseSelectorModalRef={modalRef} />
     </View>
   )
