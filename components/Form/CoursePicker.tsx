@@ -1,5 +1,5 @@
 import { Keyboard, StyleSheet, Text, View } from 'react-native'
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { SymbolView } from 'expo-symbols'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
@@ -30,9 +30,14 @@ export default function CoursePicker({ courseID, setCourseID }: CoursePickerProp
           {course ?
             (() => {
               return (
-                <View style={[styles.tag, { backgroundColor: theme.grey100 }]}>
-                  <View style={[styles.dot, { backgroundColor: course.color ?? 'grey' }]} />
-                  <Text style={[styles.courseText, { color: theme.text }]}>{course.code}</Text>
+                <View style={styles.field}>
+                  <View style={[styles.tag, { backgroundColor: theme.grey100 }]}>
+                    <View style={[styles.dot, { backgroundColor: course.color ?? 'grey' }]} />
+                    <Text style={[styles.courseText, { color: theme.text }]}>{course.code}</Text>
+                  </View>
+                  <PressableOpacity onPress={() => setCourseID(null)}>
+                    <SymbolView name={'x.circle'} tintColor={theme.grey500} size={24} />
+                  </PressableOpacity>
                 </View>
               )
             })()
@@ -73,5 +78,10 @@ const styles = StyleSheet.create({
   courseText: {
     fontSize: 12,
     fontWeight: '500',
+  },
+  field: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8
   },
 })
