@@ -28,6 +28,7 @@ export default function DateTimePicker({ date, setDate, invalid }: DateTimePicke
         <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
         <Text style={[styles.text, { color: invalid ? 'red' : theme.grey500 }]}>{datetimeString}</Text>
       </PressableOpacity>
+      <Text style={[{ color: theme.text }]}>{date.toISOString()}</Text>
       <DateTimeModal initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} />
     </View>
   )
