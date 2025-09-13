@@ -30,7 +30,10 @@ export default function EventItem({ event }: EventItemProps) {
       <View style={styles.eventDetailsContainer}>
         {course && <EventItemCourseText courseCode={course.code} courseColor={course.color} eventWasEarlierToday={eventWasEarlierToday} />}
         <EventItemHeader text={course ? event.type : event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} />
-        <EventItemLocation courseColor={course ? course.color : theme.accent} location={event.location} eventWasEarlierToday={eventWasEarlierToday} />
+        {
+          event.location &&
+          <EventItemLocation courseColor={course ? course.color : theme.accent} location={event.location} eventWasEarlierToday={eventWasEarlierToday} />
+        }
       </View>
     </PressableOpacity>
   )

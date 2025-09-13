@@ -6,7 +6,7 @@ import { useTheme } from '@/hooks/useTheme'
 
 type EventItemLocationProps = {
   eventWasEarlierToday: boolean
-  location: string | undefined
+  location: string
   courseColor: string | undefined
 }
 
