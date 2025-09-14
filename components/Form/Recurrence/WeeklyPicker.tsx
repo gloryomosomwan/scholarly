@@ -14,7 +14,6 @@ type WeeklyPickerProps = {
 export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) {
   const theme = useTheme()
   const byweekdayArray = rule.options.byweekday
-  console.log(byweekdayArray)
   return (
     <View style={[styles.dayContainer]}>
       {weekdays.map(function (day, index) {
