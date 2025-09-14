@@ -41,7 +41,7 @@ export default function EventForm() {
   const invalid = (startDate && endDate && isBefore(endDate, startDate)) ? true : false
 
   useEffect(() => {
-    setEndDate(addHours(roundToNearestHours(startDate, { roundingMethod: 'ceil' }), 1))
+    if (!endDate) setEndDate(addHours(roundToNearestHours(startDate, { roundingMethod: 'ceil' }), 1))
   }, [startDate])
 
   const event = {
