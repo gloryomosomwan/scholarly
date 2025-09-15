@@ -8,11 +8,14 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import EventItem from "@/components/AgendaCalendar/EventItem";
 import TaskCard from '@/components/Task/TaskCard';
 import AssignmentCard from '@/components/Assignment/AssignmentCard';
+import EventBar from '@/components/EventCard/EventBar';
 
 import { useTheme } from '@/hooks'
 import { useCalendarStore } from '@/stores/calendar';
 import { useAssignmentsByDay, useEventsByDay, useTasksByDay } from '@/hooks/useDatabase';
 import { sortAssignmentsByDue, sortEventsByStart, sortTasksByDue } from '@/utils/sort';
+
+const MILLISECONDSINADAY = 86400000
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -32,7 +35,11 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
 
   const events = useEventsByDay(currentDate)
   events.sort(sortEventsByStart)
-  const eventElements = events.map(event => <EventItem key={event.id} event={event} />)
+  const eventElements = events.map((event) => {
+    const duration = event.endDate.getTime() - event.startDate.getTime()
+    if (duration < MILLISECONDSINADAY) return <EventItem key={event.id} event={event} />
+    else return <EventBar key={event.id} event={event} date={currentDate} multiday={duration > MILLISECONDSINADAY} />
+  })
   const assignments = useAssignmentsByDay(currentDate)
   assignments.sort(sortAssignmentsByDue)
   const assignmentElements = assignments.map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} />)
