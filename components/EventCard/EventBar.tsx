@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
-    marginBottom: 16,
+    marginBottom: 8,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },

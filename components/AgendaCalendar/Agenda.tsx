@@ -38,7 +38,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const eventElements = events.map((event) => {
     const duration = event.endDate.getTime() - event.startDate.getTime()
     if (duration < MILLISECONDSINADAY) return <EventItem key={event.id} event={event} />
-    else return <EventBar key={event.id} event={event} date={currentDate} multiday={duration > MILLISECONDSINADAY} />
+    else return <EventBar key={event.id} event={event} date={currentDate} multiday={duration >= MILLISECONDSINADAY} />
   })
   const assignments = useAssignmentsByDay(currentDate)
   assignments.sort(sortAssignmentsByDue)
