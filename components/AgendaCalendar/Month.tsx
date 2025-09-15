@@ -68,7 +68,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
 
   const map: Record<string, number> = useMemo(function () {
     const m: Record<string, number> = {}
-    events.forEach(item => {
+    items.forEach(item => {
       if ('recurring' in item && item.recurring !== undefined) {
         const occurrences = getOccurrencesBetweenDays(item.recurring, start, end)
         occurrences.forEach(occurrence => {
@@ -83,7 +83,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
         m[key] = (m[key] || 0) + 1
       }
       // Item is an event
-      else {
+      else if ('startDate' in item && 'endDate' in item && item.startDate instanceof Date && item.endDate instanceof Date) {
         // If the event is crossover or multiday
         if (!isSameDay(item.startDate, item.endDate)) {
           const dates = eachDayOfInterval({ start: item.startDate, end: item.endDate })
