@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SharedValue } from 'react-native-reanimated';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { isEqual, isSameDay, startOfDay } from 'date-fns';
 
 import EventItem from "@/components/AgendaCalendar/EventItem";
 import TaskCard from '@/components/Task/TaskCard';
@@ -38,7 +39,8 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const eventElements = events.map((event) => {
     const duration = event.endDate.getTime() - event.startDate.getTime()
     if (duration < MILLISECONDSINADAY) return <EventItem key={event.id} event={event} />
-    else return <EventBar key={event.id} event={event} date={currentDate} multiday={duration >= MILLISECONDSINADAY} />
+    else if (duration === MILLISECONDSINADAY && startsAtMidnight(event.startDate) && !isSameDay(currentDate, event.startDate)) return null
+    else return <EventBar key={event.id} event={event} date={currentDate} multiday={duration > MILLISECONDSINADAY || !startsAtMidnight(event.startDate)} />
   })
   const assignments = useAssignmentsByDay(currentDate)
   assignments.sort(sortAssignmentsByDue)
@@ -46,6 +48,10 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const tasks = useTasksByDay(currentDate)
   tasks.sort(sortTasksByDue)
   const taskElements = tasks.map(task => <TaskCard key={task.id} task={task} />)
+
+  function startsAtMidnight(date: Date) {
+    return isEqual(date, startOfDay(date))
+  }
 
   return (
     <BottomSheet
