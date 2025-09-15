@@ -32,7 +32,7 @@ export default function EventItemDivider({ eventWasEarlierToday, courseColor, st
   return (
     <View style={styles.container}>
       <View style={[styles.staticDivider, { backgroundColor: eventWasEarlierToday ? theme.grey400 : courseColor }]} />
-      <View style={[styles.dynamicDivider, { backgroundColor: theme.grey400, position: 'absolute', height: dynamicDividerHeightPct }]} />
+      <View style={[styles.dynamicDivider, { backgroundColor: theme.grey400, height: dynamicDividerHeightPct }]} />
     </View>
   )
 }
@@ -50,5 +50,6 @@ const styles = StyleSheet.create({
   dynamicDivider: {
     width: 3,
     borderRadius: 90,
+    position: 'absolute'
   },
 })

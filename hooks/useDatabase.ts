@@ -125,6 +125,10 @@ export function useEventsByDay(date: Date) {
     or(
       and(
         gte(events.start_date, startOfDay(date).toISOString()),
+        lte(events.start_date, endOfDay(date).toISOString())
+      ),
+      and(
+        gte(events.end_date, startOfDay(date).toISOString()),
         lte(events.end_date, endOfDay(date).toISOString())
       ),
       isNotNull(events.recurring)
