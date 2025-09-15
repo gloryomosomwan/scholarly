@@ -7,6 +7,7 @@ import ProgressBar from '@/components/EventCard/ProgressBar';
 import ProgressBarLabels from '@/components/EventCard/ProgressBarLabels';
 import EventLocation from '@/components/EventCard/EventLocation';
 import EventHeader from '@/components/EventCard/EventHeader';
+import RelativeTime from '@/components/EventCard/RelativeTime';
 
 import { useTheme } from '@/hooks';
 import { Event } from '@/types';
@@ -27,6 +28,7 @@ export default function EventCard({ event }: EventCardProps) {
         <EventPill text={course ? course.code : event.type} courseColor={course?.color} />
         <EventTimeRange startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} />
       </View>
+      <RelativeTime start={event.startDate} end={event.endDate} />
       <View style={styles.mainContentContainer}>
         <EventHeader text={course ? event.type : event.name} courseColor={course?.color} />
         <EventLocation location={event.location} courseColor={course?.color} />
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 16,
+    // marginBottom: 16,
   },
   mainContentContainer: {
     flex: 1,

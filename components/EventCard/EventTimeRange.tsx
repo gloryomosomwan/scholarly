@@ -25,9 +25,7 @@ export default function EventTimeRange({ startDate, endDate, isCurrentEvent }: E
       <Text style={[styles.rangeText, { color: theme.grey600 }]}>
         {formatTime(startDate)} - {formatTime(endDate)}
       </Text>
-      <Text style={[styles.agoText, { color: theme.grey400 }]}>
-        {!isCurrentEvent && timeFromNowString}
-      </Text>
+      {!isCurrentEvent && <Text style={[styles.agoText, { color: theme.grey400 }]}> {timeFromNowString} </Text>}
     </View>
   )
 }
