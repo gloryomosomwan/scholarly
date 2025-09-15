@@ -1,6 +1,6 @@
 import { StyleSheet, Text } from 'react-native'
 import React from 'react'
-import { isSameDay, formatDistanceToNowStrict } from 'date-fns';
+import { isSameDay } from 'date-fns';
 
 import { useTheme } from '@/hooks/useTheme'
 
@@ -21,13 +21,10 @@ export default function RelativeTime({ start, end }: RelativeTimeProps) {
 
 function getRelativeTimeString(start: Date, end: Date) {
   const duration = end.getTime() - start.getTime()
-  if (duration < MILLISECONDSINADAY && !isSameDay(start, end)) {
+  if (duration < MILLISECONDSINADAY && !isSameDay(start, end)) { // if starts on one day and ends on the next 
     const today = new Date()
     if (isSameDay(today, start)) return `Ends tomorrow`
     else if (isSameDay(today, end)) return `Started yesterday`
-  }
-  else if (duration > MILLISECONDSINADAY) {
-    return `Ends in ${formatDistanceToNowStrict(end)}`
   }
   else {
     return ``
