@@ -1,6 +1,6 @@
 import { Platform, StyleSheet, View } from 'react-native'
 import React, { useMemo } from 'react'
-import { startOfMonth, addDays, subDays, getDay, getDaysInMonth, format, isSameMonth } from 'date-fns'
+import { startOfMonth, addDays, subDays, getDay, getDaysInMonth, format, isSameMonth, isSameDay, eachDayOfInterval } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -8,6 +8,8 @@ import Day from '@/components/AgendaCalendar/Day'
 
 import { useAssignmentsByDateRange, useEventsByDateRange, useTasksByDateRange } from '@/hooks/useDatabase';
 import { getOccurrencesBetweenDays } from '@/utils/event';
+import { pretty } from '@/utils';
+import { Assignment, Event, Task } from '@/types';
 
 type MonthProps = {
   initialDay: Date
@@ -58,32 +60,44 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   const start = rawDates[0];
   const end = rawDates[rawDates.length - 1];
 
-  const events = useEventsByDateRange(start, end);
-  const assignments = useAssignmentsByDateRange(start, end);
-  const tasks = useTasksByDateRange(start, end);
+  const events: Event[] = useEventsByDateRange(start, end);
+  const assignments: Assignment[] = useAssignmentsByDateRange(start, end);
+  const tasks: Task[] = useTasksByDateRange(start, end);
 
   const items = useMemo(() => [...events, ...assignments, ...tasks], [events, assignments, tasks]);
 
   const map: Record<string, number> = useMemo(function () {
     const m: Record<string, number> = {}
-    items.forEach(item => {
+    events.forEach(item => {
       if ('recurring' in item && item.recurring !== undefined) {
         const occurrences = getOccurrencesBetweenDays(item.recurring, start, end)
-        // console.log(occurrences)
         occurrences.forEach(occurrence => {
           const key = (format(occurrence, 'yyyy-MM-dd'))
           m[key] = (m[key] || 0) + 1
         })
       }
-      else if ('startDate' in item && item.startDate instanceof Date) {
-        const dateToUse = item.startDate;
-        const key = format(dateToUse, 'yyyy-MM-dd')
-        m[key] = (m[key] || 0) + 1
-      }
+      // If item is an activity
       else if ('due' in item && item.due instanceof Date) {
         const dateToUse = item.due;
         const key = format(dateToUse, 'yyyy-MM-dd')
         m[key] = (m[key] || 0) + 1
+      }
+      // Item is an event
+      else {
+        // If the event is crossover or multiday
+        if (!isSameDay(item.startDate, item.endDate)) {
+          const dates = eachDayOfInterval({ start: item.startDate, end: item.endDate })
+          dates.forEach(date => {
+            const key = format(date, 'yyyy-MM-dd')
+            m[key] = (m[key] || 0) + 1
+          });
+        }
+        // If item is a regular event
+        else {
+          const dateToUse = item.endDate;
+          const key = format(dateToUse, 'yyyy-MM-dd')
+          m[key] = (m[key] || 0) + 1
+        }
       }
     })
     return m
