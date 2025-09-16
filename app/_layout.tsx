@@ -86,6 +86,13 @@ export default function RootLayout() {
               presentation: 'modal'
             }}
           />
+          <Stack.Screen
+            name="event-details"
+            options={{
+              headerShown: false,
+              presentation: 'modal'
+            }}
+          />
         </Stack>
       </SQLiteProvider>
     </GestureHandlerRootView>

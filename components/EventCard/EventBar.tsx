@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { eachDayOfInterval, isSameDay } from 'date-fns'
+import { router } from 'expo-router'
+
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks/useTheme'
 import { Event } from '@/types'
@@ -16,10 +19,12 @@ export default function EventBar({ event, date, multiday }: EventBarProps) {
   const result = eachDayOfInterval({ start: event.startDate, end: event.endDate })
   const day = result.findIndex((element) => isSameDay(date, element))
   return (
-    <View style={[styles.container, { backgroundColor: theme.accent, borderColor: theme.grey200 }]}>
-      <Text style={[styles.titleText, { color: 'white' }]}>{event.name}</Text>
-      {multiday && <Text style={[styles.titleText, { color: 'white' }]}>{`Day ${day + 1}/${result.length}`}</Text>}
-    </View>
+    <PressableOpacity onPress={() => router.navigate({ pathname: '/event-details', params: { id: event.id } })}>
+      <View style={[styles.container, { backgroundColor: theme.accent, borderColor: theme.grey200 }]}>
+        <Text style={[styles.titleText, { color: 'white' }]}>{event.name}</Text>
+        {multiday && <Text style={[styles.titleText, { color: 'white' }]}>{`Day ${day + 1}/${result.length}`}</Text>}
+      </View>
+    </PressableOpacity>
   )
 }
 
