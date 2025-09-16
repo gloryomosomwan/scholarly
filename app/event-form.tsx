@@ -28,12 +28,13 @@ export default function EventForm() {
   const convertedID = Number(id)
   const eventData = id ? getEventById(convertedID) : null
   const { currentDate } = useCalendarStore()
-  currentDate.setUTCHours(new Date().getUTCHours(), new Date().getUTCMinutes())
+  const initialDate = new Date(currentDate.getTime())
+  initialDate.setUTCHours(new Date().getUTCHours(), new Date().getUTCMinutes())
 
   const [type, setType] = useState<EventType | null>(eventData?.type ? eventData.type : 'general')
   const [name, setName] = useState<string | null>(eventData?.name ? eventData.name : null)
-  const [startDate, setStartDate] = useState<Date>(eventData?.startDate ? eventData.startDate : roundToNearestHours(currentDate, { roundingMethod: 'ceil' }))
-  const [endDate, setEndDate] = useState<Date>(eventData?.endDate ? eventData.endDate : addHours(roundToNearestHours(currentDate, { roundingMethod: 'ceil' }), 1))
+  const [startDate, setStartDate] = useState<Date>(eventData?.startDate ? eventData.startDate : roundToNearestHours(initialDate, { roundingMethod: 'ceil' }))
+  const [endDate, setEndDate] = useState<Date>(eventData?.endDate ? eventData.endDate : addHours(roundToNearestHours(initialDate, { roundingMethod: 'ceil' }), 1))
   const [location, setLocation] = useState(eventData?.location ? eventData.location : null)
   const [courseID, setCourseID] = useState<number | null>(eventData?.courseID ? eventData.courseID : null)
   const [recurring, setRecurring] = useState<string | null>(eventData?.recurring ? eventData.recurring : null)
