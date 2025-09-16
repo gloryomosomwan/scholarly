@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { RRule } from 'rrule'
+import { getDay } from 'date-fns'
 
 import { useTheme } from '@/hooks/useTheme'
 
@@ -9,17 +10,20 @@ const weekdays = [RRule.SU, RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR, RR
 type WeeklyPickerProps = {
   rule: RRule
   setRecurring: React.Dispatch<React.SetStateAction<string | null>>
+  start: Date
 }
 
-export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) {
+export default function WeeklyPicker({ rule, setRecurring, start }: WeeklyPickerProps) {
   const theme = useTheme()
   const byweekdayArray = rule.options.byweekday
   return (
     <View style={[styles.dayContainer]}>
       {weekdays.map(function (day, index) {
+        const locked = day.weekday === getDay(start) - 1
         return (
           <Pressable
             key={index}
+            disabled={locked}
             onPress={() => {
               // If this weekday is already in the array, remove it
               if (byweekdayArray && byweekdayArray.includes(day.weekday)) {
@@ -56,6 +60,7 @@ export default function WeeklyPicker({ rule, setRecurring }: WeeklyPickerProps) 
             }}
             style={[
               byweekdayArray && byweekdayArray.includes(day.weekday) && { backgroundColor: theme.grey600 },
+              locked && { opacity: 0.5 },
               styles.item,
               { borderColor: theme.grey400 },
             ]}
