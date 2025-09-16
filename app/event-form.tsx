@@ -1,5 +1,5 @@
 import { ActionSheetIOS, StyleSheet, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
@@ -41,9 +41,10 @@ export default function EventForm() {
 
   const invalid = (startDate && endDate && isBefore(endDate, startDate)) ? true : false
 
-  useEffect(() => {
-    setEndDate(addHours(roundToNearestHours(startDate, { roundingMethod: 'ceil' }), 1))
-  }, [startDate])
+  function changeStartDate(date: Date) {
+    setStartDate(date)
+    setEndDate(addHours(roundToNearestHours(date, { roundingMethod: 'ceil' }), 1))
+  }
 
   const event = {
     name: name,
@@ -100,7 +101,7 @@ export default function EventForm() {
       <View style={[styles.container, {}]}>
         <View style={[styles.formContainer, {}]}>
           <PrimaryTextInputField placeholder='Enter name' value={name} onChangeText={setName} />
-          <DateTimePicker date={startDate} setDate={setStartDate} />
+          <DateTimePicker date={startDate} setDate={changeStartDate} />
           <DateTimePicker date={endDate} invalid={invalid} setDate={setEndDate} />
           <EventTypePicker eventType={type} setEventType={setType} />
           <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />

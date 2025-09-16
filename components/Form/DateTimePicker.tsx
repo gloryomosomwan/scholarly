@@ -10,7 +10,7 @@ import { useTheme } from '@/hooks'
 
 type DateTimePickerProps = {
   date: Date
-  setDate: React.Dispatch<React.SetStateAction<Date>>
+  setDate: React.Dispatch<React.SetStateAction<Date>> | ((date: Date) => void)
   invalid?: boolean
 }
 

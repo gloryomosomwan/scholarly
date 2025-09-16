@@ -10,7 +10,7 @@ import { useTheme } from '@/hooks'
 type DateTimeModalProps = {
   bottomSheetModalRef: RefObject<BottomSheetModal>
   initialDate: Date
-  setDate: React.Dispatch<React.SetStateAction<Date>>
+  setDate: React.Dispatch<React.SetStateAction<Date>> | ((date: Date) => void)
 }
 
 export default function DateTimeModal({ initialDate, setDate, bottomSheetModalRef }: DateTimeModalProps) {
