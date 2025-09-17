@@ -21,7 +21,7 @@ export default function EventBar({ event, date, multiday }: EventBarProps) {
   return (
     <PressableOpacity onPress={() => router.navigate({ pathname: '/event-form', params: { id: event.id } })}>
       <View style={[styles.container, { backgroundColor: theme.accent, borderColor: theme.grey200 }]}>
-        <Text style={[styles.titleText, { color: 'white' }]}>{event.name}</Text>
+        <Text style={[styles.titleText, { color: 'white' }]}>{event.name || '(No title)'}</Text>
         {multiday && <Text style={[styles.titleText, { color: 'white' }]}>{`Day ${day + 1}/${result.length}`}</Text>}
       </View>
     </PressableOpacity>
