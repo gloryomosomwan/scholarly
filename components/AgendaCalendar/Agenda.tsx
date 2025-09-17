@@ -39,6 +39,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const eventElements = events.map((event) => {
     const duration = event.endDate.getTime() - event.startDate.getTime()
     if (duration < MILLISECONDSINADAY) return <EventItem key={event.id} event={event} />
+    // if the event (occurrence?) runs all-day, from midnight of one day to midnight of the next, and we are currently processing the second 'day' of that event, don't return anything for it because the event doesn't really take place on that second day
     else if (duration === MILLISECONDSINADAY && startsAtMidnight(event.startDate) && !isSameDay(currentDate, event.startDate)) return null
     else return <EventBar key={event.id} event={event} date={currentDate} multiday={duration > MILLISECONDSINADAY || !startsAtMidnight(event.startDate)} />
   })
