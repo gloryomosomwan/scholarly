@@ -1,6 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router';
+import { isSameDay } from 'date-fns';
 
 import EventItemTimeRange from '@/components/EventItem/EventItemTimeRange';
 import EventItemDivider from '@/components/EventItem/EventItemDivider';
@@ -13,6 +14,7 @@ import { useTheme } from '@/hooks';
 import { Event } from '@/types';
 import { getCourseById } from '@/hooks/useDatabase';
 import { checkEventWasEarlierToday } from '@/utils/event';
+import { useCalendarStore } from '@/stores/calendar';
 
 type EventItemProps = {
   event: Event;
@@ -21,7 +23,9 @@ type EventItemProps = {
 export default function EventItem({ event }: EventItemProps) {
   const theme = useTheme()
   const course = getCourseById(event.courseID ?? null)
-  const eventWasEarlierToday = checkEventWasEarlierToday(event.startDate, event.endDate, event.recurring)
+  const { currentDate } = useCalendarStore()
+  const today = new Date()
+  const eventWasEarlierToday = isSameDay(currentDate, today) ? checkEventWasEarlierToday(event.startDate, event.endDate) : false
   return (
     <PressableOpacity style={styles.container} onPress={() => router.navigate({ pathname: '/event-form', params: { id: event.id } })}>
       <EventItemTimeRange start={event.startDate} end={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />

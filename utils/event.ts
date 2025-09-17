@@ -4,7 +4,6 @@ import { datetime, rrulestr } from "rrule";
 
 import { Event, EventClass } from "@/types";
 import { pretty } from ".";
-import { useCalendarStore } from "@/stores/calendar";
 
 function getRecurredEndDate(startDate: Date, endDate: Date, recurredStartDate: Date) {
   const offset = endDate.getTime() - startDate.getTime()
@@ -45,22 +44,9 @@ export const getOccurrencesBetweenDays = (recurrenceString: string, startDate: D
   return occurrences
 }
 
-export const checkEventWasEarlierToday = (startDate: Date, endDate: Date, recurrenceString: string | undefined): boolean => {
+export const checkEventWasEarlierToday = (startDate: Date, endDate: Date): boolean => {
   const today = new Date()
-  const { currentDate } = useCalendarStore()
-  if (!isSameDay(currentDate, today)) return false // CHECK: adding this logic works but it isn't smooth
-  if (!recurrenceString) {
-    return isSameDay(startDate, today) && isBefore(endDate, Date.now())
-  }
-  else {
-    const recurredStartDateArray = recurrenceString ? getOccurrencesOnDay(recurrenceString, currentDate) : null
-    if (recurredStartDateArray && recurredStartDateArray.length > 0) {
-      const recurredStartDate = recurredStartDateArray[0]
-      const recurredEndDate = getRecurredEndDate(startDate, endDate, recurredStartDate)
-      return isSameDay(recurredStartDate, today) && isBefore(recurredEndDate, Date.now())
-    }
-    return false
-  }
+  return isSameDay(startDate, today) && isBefore(endDate, Date.now())
 }
 
 export const getEventClass = (event: Event): EventClass => {
