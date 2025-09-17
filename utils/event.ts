@@ -16,7 +16,7 @@ export const checkCurrentEvent = (event: Event): boolean => {
   return now.isBetween(event.startDate, event.endDate) || checkHasActiveRecurrence(event)
 }
 
-export const checkHasActiveRecurrence = (event: Event): boolean => {
+const checkHasActiveRecurrence = (event: Event): boolean => {
   if (!event.recurring) return false
   const occurrences = getOccurrencesOnDay(event.recurring, new Date())
   if (!occurrences) return false // CHECK: does this event have a recurrence that takes place today? // this line is sketchy come back to it
@@ -76,6 +76,7 @@ export function convertRRuleOccurrenceToJSDate(occurrence: Date) {
 }
 
 export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
+  // Convert recurrence rawEvents into regular Events that take place on the given date
   const eventArray: Event[] = []
   events.forEach(event => {
     if (!event.recurring) return // there shouldn't be events w/o recurrences in here but this is needed as a type guard
@@ -96,6 +97,7 @@ export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
 }
 
 export function getActiveRecurrenceEvents(events: Event[]): Event[] {
+  // Convert recurrence rawEvents into regular Events that are currently taking place
   const eventArray: Event[] = []
   events.forEach(event => {
     if (!event.recurring) return
