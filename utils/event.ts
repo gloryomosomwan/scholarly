@@ -1,8 +1,8 @@
-import { endOfDay, isBefore, isSameDay, startOfDay } from "date-fns";
+import { endOfDay, isBefore, isEqual, isSameDay, startOfDay } from "date-fns";
 import dayjs from "dayjs";
 import { datetime, rrulestr } from "rrule";
 
-import { Event } from "@/types";
+import { Event, EventClass } from "@/types";
 import { pretty } from ".";
 import { useCalendarStore } from "@/stores/calendar";
 
@@ -60,4 +60,25 @@ export const checkEventWasEarlierToday = (startDate: Date, endDate: Date, recurr
     }
     return false
   }
+}
+
+export const getEventClass = (event: Event): EventClass => {
+  const MILLISECONDSINADAY = 86400000
+  const duration = event.endDate.getTime() - event.startDate.getTime()
+  if (duration > MILLISECONDSINADAY || (duration === MILLISECONDSINADAY && !isSameDay(event.startDate, event.endDate)) && !startsAtMidnight(event)) {
+    return 'multiday'
+  }
+  else if (duration === MILLISECONDSINADAY && !isSameDay(event.startDate, event.endDate) && startsAtMidnight(event)) {
+    return 'allday'
+  }
+  else if (duration < MILLISECONDSINADAY && !isSameDay(event.startDate, event.endDate)) {
+    return 'crossover'
+  }
+  else {
+    return 'regular'
+  }
+}
+
+function startsAtMidnight(event: Event) {
+  return isEqual(event.startDate, startOfDay(event.startDate))
 }

@@ -4,7 +4,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SharedValue } from 'react-native-reanimated';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { isEqual, isSameDay, startOfDay } from 'date-fns';
 
 import EventItem from "@/components/AgendaCalendar/EventItem";
 import TaskCard from '@/components/Task/TaskCard';
@@ -15,8 +14,7 @@ import { useTheme } from '@/hooks'
 import { useCalendarStore } from '@/stores/calendar';
 import { useAssignmentsByDay, useEventsByDay, useTasksByDay } from '@/hooks/useDatabase';
 import { sortAssignmentsByDue, sortEventsByStart, sortTasksByDue } from '@/utils/sort';
-
-const MILLISECONDSINADAY = 86400000
+import { getEventClass } from '@/utils/event';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -37,11 +35,9 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const events = useEventsByDay(currentDate)
   events.sort(sortEventsByStart)
   const eventElements = events.map((event) => {
-    const duration = event.endDate.getTime() - event.startDate.getTime()
-    if (duration < MILLISECONDSINADAY) return <EventItem key={event.id} event={event} />
-    // if the event (occurrence?) runs all-day, from midnight of one day to midnight of the next, and we are currently processing the second 'day' of that event, don't return anything for it because the event doesn't really take place on that second day
-    else if (duration === MILLISECONDSINADAY && startsAtMidnight(event.startDate) && !isSameDay(currentDate, event.startDate)) return null
-    else return <EventBar key={event.id} event={event} date={currentDate} multiday={duration > MILLISECONDSINADAY || !startsAtMidnight(event.startDate)} />
+    const eventClass = getEventClass(event)
+    if (eventClass === 'regular' || eventClass === 'crossover') return <EventItem key={event.id} event={event} />
+    else return <EventBar key={event.id} event={event} date={currentDate} />
   })
   const assignments = useAssignmentsByDay(currentDate)
   assignments.sort(sortAssignmentsByDue)
@@ -49,10 +45,6 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const tasks = useTasksByDay(currentDate)
   tasks.sort(sortTasksByDue)
   const taskElements = tasks.map(task => <TaskCard key={task.id} task={task} />)
-
-  function startsAtMidnight(date: Date) {
-    return isEqual(date, startOfDay(date))
-  }
 
   return (
     <BottomSheet

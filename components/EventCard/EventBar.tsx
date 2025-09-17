@@ -7,22 +7,23 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks/useTheme'
 import { Event } from '@/types'
+import { getEventClass } from '@/utils/event'
 
 type EventBarProps = {
   event: Event;
   date: Date;
-  multiday: boolean;
 }
 
-export default function EventBar({ event, date, multiday }: EventBarProps) {
+export default function EventBar({ event, date }: EventBarProps) {
   const theme = useTheme()
   const result = eachDayOfInterval({ start: event.startDate, end: event.endDate })
   const day = result.findIndex((element) => isSameDay(date, element))
+  const eventClass = getEventClass(event)
   return (
     <PressableOpacity onPress={() => router.navigate({ pathname: '/event-form', params: { id: event.id } })}>
       <View style={[styles.container, { backgroundColor: theme.accent, borderColor: theme.grey200 }]}>
         <Text style={[styles.titleText, { color: 'white' }]}>{event.name || '(No title)'}</Text>
-        {multiday && <Text style={[styles.titleText, { color: 'white' }]}>{`Day ${day + 1}/${result.length}`}</Text>}
+        {eventClass === 'multiday' && <Text style={[styles.titleText, { color: 'white' }]}>{`Day ${day + 1}/${result.length}`}</Text>}
       </View>
     </PressableOpacity>
   )
