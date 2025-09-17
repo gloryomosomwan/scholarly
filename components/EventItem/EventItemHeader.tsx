@@ -4,14 +4,21 @@ import React from 'react'
 import { useTheme } from '@/hooks/useTheme'
 
 type EventItemHeaderProps = {
-  text: string | undefined
   eventWasEarlierToday: boolean
   hasCourse: boolean
+  eventType: string;
+  eventName: string | undefined;
 }
 
-export default function EventItemHeader({ text, eventWasEarlierToday, hasCourse }: EventItemHeaderProps) {
+export default function EventItemHeader({ eventWasEarlierToday, hasCourse, eventType, eventName }: EventItemHeaderProps) {
   const theme = useTheme()
-  if (hasCourse) text = text?.replace(/\w/, c => c.toUpperCase())
+  let text;
+  if (hasCourse) {
+    text = eventType?.replace(/\w/, c => c.toUpperCase())
+  }
+  else {
+    text = eventName || '(No title)'
+  }
   return (
     <View style={styles.container}>
       {hasCourse && <Text style={styles.icon}>{'📚'}</Text>}

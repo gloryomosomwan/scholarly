@@ -28,7 +28,7 @@ export default function EventItem({ event }: EventItemProps) {
       <EventItemDivider startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} courseColor={course ? course.color : theme.accent} />
       <View style={styles.eventDetailsContainer}>
         {course && <EventItemCourseText courseCode={course.code} courseColor={course.color} eventWasEarlierToday={eventWasEarlierToday} />}
-        <EventItemHeader text={course ? event.type : event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} />
+        <EventItemHeader eventType={event.type} eventName={event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} />
         {
           event.location &&
           <EventItemLocation courseColor={course ? course.color : theme.accent} location={event.location} eventWasEarlierToday={eventWasEarlierToday} />
