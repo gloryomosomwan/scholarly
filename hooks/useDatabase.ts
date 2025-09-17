@@ -1,5 +1,5 @@
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
-import { and, eq, getTableColumns, gte, isNotNull, lte, or } from 'drizzle-orm';
+import { and, eq, getTableColumns, gt, gte, isNotNull, lte, or } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
 import { endOfDay, startOfDay } from "date-fns";
@@ -128,7 +128,7 @@ export function useEventsByDay(date: Date) {
         lte(events.start_date, endOfDay(date).toISOString())
       ),
       and(
-        gte(events.end_date, startOfDay(date).toISOString()),
+        gt(events.end_date, startOfDay(date).toISOString()), // CHECK gt vs gte
         lte(events.end_date, endOfDay(date).toISOString())
       ),
       // CHECK: this logic may not be complete
