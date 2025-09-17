@@ -141,8 +141,8 @@ export function useEventsByDay(date: Date) {
   ), [date])
   const eventData = data.map(convertRawEvent)
   const filteredEventData = eventData.filter((event) => {
-    if (!event.recurring) return true // events that don't recur are given a pass, as their start and end dates take place on the day
-    // at this point in the function body we're just checking to see if the event has a recurrence/occurrence that falls on the given date
+    // events that don't recur are given a pass, as their start and end dates take place on the day at this point in the function body we're just checking to see if the event has a recurrence/occurrence that falls on the given date
+    if (!event.recurring) return true
     const occurrences = getOccurrencesOnDay(event.recurring, date)
     return occurrences.length > 0
   })
