@@ -21,7 +21,7 @@ export default function RecurrencePicker({ recurring, setRecurring, startDate }:
   const [frequency, setFrequency] = useState<Frequency | 'once'>(recurring ? rule.options.freq : 'once')
 
   useEffect(() => {
-    const dtstart = datetime(startDate.getUTCFullYear(), startDate.getUTCMonth() + 1, startDate.getUTCDate(), startDate.getUTCHours(), startDate.getUTCMinutes(), startDate.getUTCSeconds())
+    const dtstart = datetime(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate(), startDate.getHours(), startDate.getMinutes(), startDate.getSeconds())
     const interval = rule ? rule.options.interval : 1
     switch (frequency) {
       case 'once':

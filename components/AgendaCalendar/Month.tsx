@@ -72,7 +72,8 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
       if ('recurring' in item && item.recurring !== undefined) {
         const occurrences = getOccurrencesBetweenDays(item.recurring, start, end)
         occurrences.forEach(occurrence => {
-          const key = (format(occurrence, 'yyyy-MM-dd'))
+          const d = new Date(occurrence.getUTCFullYear(), occurrence.getUTCMonth(), occurrence.getUTCDate(), occurrence.getUTCHours(), occurrence.getUTCMinutes(), occurrence.getUTCSeconds())
+          const key = format(d, 'yyyy-MM-dd')
           m[key] = (m[key] || 0) + 1
         })
       }
