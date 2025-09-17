@@ -5,17 +5,13 @@ import EventCard from '@/components/EventCard/EventCard'
 import EventBar from '@/components/EventCard/EventBar'
 
 import { useTheme } from '@/hooks/useTheme'
-import { useCurrentEvent } from '@/hooks/useDatabase'
+import { useCurrentEvents } from '@/hooks/useDatabase'
 
 const MILLISECONDSINADAY = 86400000
 
-type CurrentEventSectionProps = {
-
-}
-
-export default function CurrentEventSection({ }: CurrentEventSectionProps) {
+export default function CurrentEventSection() {
   const theme = useTheme()
-  const events = useCurrentEvent()
+  const events = useCurrentEvents()
   const today = new Date()
   return (
     <View style={styles.container}>

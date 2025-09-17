@@ -94,3 +94,26 @@ export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
   });
   return eventArray
 }
+
+export function getActiveRecurrenceEvents(events: Event[]): Event[] {
+  const eventArray: Event[] = []
+  events.forEach(event => {
+    if (!event.recurring) return
+    const occurrences = getOccurrencesOnDay(event.recurring, new Date())
+    if (occurrences) {
+      const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrences[0])
+      const offset = event.endDate.getTime() - event.startDate.getTime()
+      const recurredEndDate = new Date(recurredStartDate.getTime() + offset)
+      const now = dayjs()
+      if (now.isBetween(recurredStartDate, recurredEndDate)) {
+        const newEvt: Event = {
+          ...event,
+          startDate: recurredStartDate,
+          endDate: recurredEndDate
+        }
+        eventArray.push(newEvt)
+      }
+    }
+  });
+  return eventArray
+}

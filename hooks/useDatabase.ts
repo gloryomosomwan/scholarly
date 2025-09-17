@@ -9,8 +9,8 @@ import { db } from '@/db/init';
 import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent } from '@/utils/database';
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask } from "@/types/drizzle";
+import { getActiveRecurrenceEvents, getRecurrenceEventsByDay } from "@/utils/event";
 import { pretty } from "@/utils";
-import { checkHasActiveRecurrence, getRecurrenceEventsByDay } from "@/utils/event";
 
 // Assignments
 export function useTodayAssignments() {
@@ -102,22 +102,22 @@ export function getCourseById(id: number | null) {
 }
 
 // Events
-export function useCurrentEvent() {
-  const { data } = useLiveQuery(db.select().from(events).where(
-    or(
+export function useCurrentEvents() {
+  const { data: originalEventData } = useLiveQuery(db.select().from(events).where(
+    and(
       and(
         lte(events.start_date, new Date().toISOString()),
         gte(events.end_date, new Date().toISOString())
       ),
-      isNotNull(events.recurring)
+      isNull(events.recurring)
     )
   ))
-  const eventData = data.map(convertRawEvent)
-  const filteredEventData = eventData.filter((event) => {
-    if (!event.recurring) return true
-    return checkHasActiveRecurrence(event)
-  })
-  return filteredEventData
+  const originalEventArray = originalEventData.map(convertRawEvent)
+  const { data: recurredEventData } = useLiveQuery(db.select().from(events).where(isNotNull(events.recurring)))
+  const rawRecurredEventArray = recurredEventData.map(convertRawEvent)
+  const recurredEventArray = getActiveRecurrenceEvents(rawRecurredEventArray)
+  const finalEventArray = originalEventArray.concat(recurredEventArray)
+  return finalEventArray
 }
 
 export function useEventsByDay(date: Date) {
