@@ -66,7 +66,7 @@ export const getEventClass = (event: Event): EventClass => {
   }
 }
 
-function startsAtMidnight(event: Event) {
+function startsAtMidnight(event: Event): boolean {
   return isEqual(event.startDate, startOfDay(event.startDate))
 }
 
@@ -75,7 +75,7 @@ export function convertRRuleOccurrenceToJSDate(occurrence: Date) {
   return new Date(occurrence.getUTCFullYear(), occurrence.getUTCMonth(), occurrence.getUTCDate(), occurrence.getUTCHours(), occurrence.getUTCMinutes(), occurrence.getUTCSeconds())
 }
 
-export function getRecurrenceEventsByDay(events: Event[], date: Date) {
+export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
   const eventArray: Event[] = []
   events.forEach(event => {
     if (!event.recurring) return // there shouldn't be events w/o recurrences in here but this is needed as a type guard
