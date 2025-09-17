@@ -5,9 +5,9 @@ import { datetime, rrulestr } from "rrule";
 import { Event, EventClass } from "@/types";
 import { pretty } from ".";
 
-function getRecurredEndDate(startDate: Date, endDate: Date, recurredStartDate: Date) {
+function getRecurredEndDate(startDate: Date, endDate: Date, recurredStartDate: Date): Date {
   const offset = endDate.getTime() - startDate.getTime()
-  const recurredEndDate = recurredStartDate.getTime() + offset
+  const recurredEndDate = new Date(recurredStartDate.getTime() + offset)
   return recurredEndDate
 }
 
@@ -20,7 +20,7 @@ export const checkHasActiveRecurrence = (event: Event): boolean => {
   if (!event.recurring) return false
   const occurrences = getOccurrencesOnDay(event.recurring, new Date())
   if (!occurrences) return false // CHECK: does this event have a recurrence that takes place today? // this line is sketchy come back to it
-  const recurredStartDate = occurrences[0]
+  const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrences[0])
   const recurredEndDate = getRecurredEndDate(event.startDate, event.endDate, recurredStartDate)
   const now = dayjs()
   return now.isBetween(recurredStartDate, recurredEndDate)
@@ -71,6 +71,7 @@ function startsAtMidnight(event: Event) {
 }
 
 export function convertRRuleOccurrenceToJSDate(occurrence: Date) {
+  // The UTC components of RRule occurrence Dates actually represent local time, so here we employ the appropriate conversions
   return new Date(occurrence.getUTCFullYear(), occurrence.getUTCMonth(), occurrence.getUTCDate(), occurrence.getUTCHours(), occurrence.getUTCMinutes(), occurrence.getUTCSeconds())
 }
 
