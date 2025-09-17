@@ -33,7 +33,8 @@ export default function WeeklyPicker({ rule, setRecurring, start }: WeeklyPicker
                   freq: rule.options.freq,
                   dtstart: rule.options.dtstart,
                   interval: rule.options.interval,
-                  byweekday: newArr
+                  byweekday: newArr,
+                  count: rule.options.count
                 })
                 setRecurring(newArr.length === 0 ? null : newRule.toString())
               }
@@ -43,7 +44,8 @@ export default function WeeklyPicker({ rule, setRecurring, start }: WeeklyPicker
                   freq: rule.options.freq,
                   dtstart: rule.options.dtstart,
                   interval: rule.options.interval,
-                  byweekday: [...byweekdayArray, day.weekday]
+                  byweekday: [...byweekdayArray, day.weekday],
+                  count: rule.options.count
                 })
                 setRecurring(newRule.toString())
               }
@@ -53,7 +55,8 @@ export default function WeeklyPicker({ rule, setRecurring, start }: WeeklyPicker
                   freq: RRule.WEEKLY,
                   dtstart: rule.options.dtstart,
                   interval: rule.options.interval,
-                  byweekday: [day.weekday]
+                  byweekday: [day.weekday],
+                  count: rule.options.count
                 })
                 setRecurring(newRule.toString())
               }

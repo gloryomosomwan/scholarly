@@ -28,10 +28,10 @@ export default function RecurrencePicker({ recurring, setRecurring, startDate }:
         setRecurring(null);
         break;
       case RRule.DAILY:
-        setRecurring(new RRule({ freq: RRule.DAILY, dtstart: dtstart, interval: interval }).toString());
+        setRecurring(new RRule({ freq: RRule.DAILY, dtstart: dtstart, interval: interval, count: 2 }).toString());
         break;
       case RRule.WEEKLY:
-        setRecurring(new RRule({ freq: RRule.WEEKLY, dtstart: dtstart, interval: interval }).toString());
+        setRecurring(new RRule({ freq: RRule.WEEKLY, dtstart: dtstart, interval: interval, byweekday: rule.options.byweekday, count: 2 }).toString());
         break;
       case RRule.MONTHLY:
         setRecurring(new RRule({ freq: RRule.MONTHLY, dtstart: dtstart, interval: interval }).toString());
