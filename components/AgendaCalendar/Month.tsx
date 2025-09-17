@@ -1,13 +1,13 @@
 import { Platform, StyleSheet, View } from 'react-native'
 import React, { useMemo } from 'react'
-import { startOfMonth, addDays, subDays, getDay, getDaysInMonth, format, isSameMonth, isSameDay, eachDayOfInterval } from 'date-fns'
+import { startOfMonth, addDays, subDays, getDay, getDaysInMonth, format, isSameMonth, isSameDay, eachDayOfInterval, startOfDay, isEqual } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Day from '@/components/AgendaCalendar/Day'
 
 import { useAssignmentsByDateRange, useEventsByDateRange, useTasksByDateRange } from '@/hooks/useDatabase';
-import { getOccurrencesBetweenDays } from '@/utils/event';
+import { getEventClass, getOccurrencesBetweenDays } from '@/utils/event';
 import { pretty } from '@/utils';
 import { Assignment, Event, Task } from '@/types';
 
@@ -85,15 +85,15 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
       }
       // Item is an event
       else if ('startDate' in item && 'endDate' in item && item.startDate instanceof Date && item.endDate instanceof Date) {
-        // If the event is crossover or multiday
-        if (!isSameDay(item.startDate, item.endDate)) {
+        if (getEventClass(item) !== 'regular') {
           const dates = eachDayOfInterval({ start: item.startDate, end: item.endDate })
+          // If the event ends at midnight, remove the day representing the end date from the dates array
+          if (isEqual(item.endDate, startOfDay(item.endDate))) dates.splice(dates.length - 1)
           dates.forEach(date => {
             const key = format(date, 'yyyy-MM-dd')
             m[key] = (m[key] || 0) + 1
           });
         }
-        // If item is a regular event
         else {
           const dateToUse = item.endDate;
           const key = format(dateToUse, 'yyyy-MM-dd')
