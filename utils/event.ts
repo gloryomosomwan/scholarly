@@ -70,7 +70,7 @@ export const getEventClass = (event: Event): EventClass => {
   }
 }
 
-export function convertRRuleOccurrenceToJSDate(occurrence: Date) {
+export function convertRRuleOccurrenceToJSDate(occurrence: Date): Date {
   // The UTC components of RRule occurrence Dates actually represent local time, so here we employ the appropriate conversions
   return new Date(occurrence.getUTCFullYear(), occurrence.getUTCMonth(), occurrence.getUTCDate(), occurrence.getUTCHours(), occurrence.getUTCMinutes(), occurrence.getUTCSeconds())
 }
