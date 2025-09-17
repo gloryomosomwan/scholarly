@@ -64,7 +64,8 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   const assignments: Assignment[] = useAssignmentsByDateRange(start, end);
   const tasks: Task[] = useTasksByDateRange(start, end);
 
-  const items = useMemo(() => [...events, ...assignments, ...tasks], [events, assignments, tasks]);
+  // const items = useMemo(() => [...events, ...assignments, ...tasks], [events, assignments, tasks]);
+  const items = useMemo(() => [...events], [events]);
 
   const map: Record<string, number> = useMemo(function () {
     const m: Record<string, number> = {}
