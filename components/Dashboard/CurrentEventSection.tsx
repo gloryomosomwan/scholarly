@@ -6,8 +6,7 @@ import EventBar from '@/components/EventCard/EventBar'
 
 import { useTheme } from '@/hooks/useTheme'
 import { useCurrentEvents } from '@/hooks/useDatabase'
-
-const MILLISECONDSINADAY = 86400000
+import { getEventClass } from '@/utils/event'
 
 export default function CurrentEventSection() {
   const theme = useTheme()
@@ -17,9 +16,9 @@ export default function CurrentEventSection() {
     <View style={styles.container}>
       <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
       {events.map(function (event) {
-        const duration = event.endDate.getTime() - event.startDate.getTime()
-        if (duration < MILLISECONDSINADAY) return <EventCard key={event.id} event={event} />
-        else return <EventBar key={event.id} event={event} date={today} multiday={duration > MILLISECONDSINADAY} />
+        const eventClass = getEventClass(event)
+        if (eventClass === 'regular' || eventClass === 'crossover') return <EventCard key={event.id} event={event} />
+        else return <EventBar key={event.id} event={event} date={today} />
       })}
     </View>
   )
