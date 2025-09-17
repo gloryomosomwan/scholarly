@@ -19,7 +19,7 @@ export default function EventBar({ event, date, multiday }: EventBarProps) {
   const result = eachDayOfInterval({ start: event.startDate, end: event.endDate })
   const day = result.findIndex((element) => isSameDay(date, element))
   return (
-    <PressableOpacity onPress={() => router.navigate({ pathname: '/event-details', params: { id: event.id } })}>
+    <PressableOpacity onPress={() => router.navigate({ pathname: '/event-form', params: { id: event.id } })}>
       <View style={[styles.container, { backgroundColor: theme.accent, borderColor: theme.grey200 }]}>
         <Text style={[styles.titleText, { color: 'white' }]}>{event.name}</Text>
         {multiday && <Text style={[styles.titleText, { color: 'white' }]}>{`Day ${day + 1}/${result.length}`}</Text>}
