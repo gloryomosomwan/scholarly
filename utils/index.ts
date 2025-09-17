@@ -21,6 +21,6 @@ export const getCoursePalette = (color: CourseColor) => {
   return CourseColorMap[color]
 }
 
-export const pretty = (data: any): string => {
-  return JSON.stringify(data, null, 2)
+export const pretty = (data: any): void => {
+  console.log(JSON.stringify(data, null, 2))
 }
