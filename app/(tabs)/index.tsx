@@ -19,7 +19,7 @@ export default function Index() {
       <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
         <DashboardHeader />
         <CurrentEventSection />
-        <UpNextSection />
+        {/* <UpNextSection /> */}
         <UpcomingDatesSection />
         <AssignmentSection />
         <TaskSection />
