@@ -1,5 +1,5 @@
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
-import { and, eq, getTableColumns, gt, gte, isNotNull, lte, or } from 'drizzle-orm';
+import { and, eq, getTableColumns, gt, gte, isNotNull, isNull, lte, or } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
 import { endOfDay, startOfDay } from "date-fns";
@@ -10,7 +10,7 @@ import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignm
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask } from "@/types/drizzle";
 import { pretty } from "@/utils";
-import { checkHasActiveRecurrence, getOccurrencesOnDay } from "@/utils/event";
+import { checkHasActiveRecurrence, getRecurrenceEventsByDay } from "@/utils/event";
 
 // Assignments
 export function useTodayAssignments() {
@@ -121,32 +121,32 @@ export function useCurrentEvent() {
 }
 
 export function useEventsByDay(date: Date) {
-  const { data } = useLiveQuery(db.select().from(events).where(
-    or(
-      and(
-        gte(events.start_date, startOfDay(date).toISOString()),
-        lte(events.start_date, endOfDay(date).toISOString())
+  const { data: originalEventData } = useLiveQuery(db.select().from(events).where(
+    and(
+      or(
+        and(
+          gte(events.start_date, startOfDay(date).toISOString()),
+          lte(events.start_date, endOfDay(date).toISOString())
+        ),
+        and(
+          gt(events.end_date, startOfDay(date).toISOString()), // CHECK gt vs gte
+          lte(events.end_date, endOfDay(date).toISOString())
+        ),
+        // CHECK: this logic may not be complete
+        and(
+          lte(events.start_date, startOfDay(date).toISOString()),
+          gte(events.end_date, endOfDay(date).toISOString())
+        )
       ),
-      and(
-        gt(events.end_date, startOfDay(date).toISOString()), // CHECK gt vs gte
-        lte(events.end_date, endOfDay(date).toISOString())
-      ),
-      // CHECK: this logic may not be complete
-      and(
-        lte(events.start_date, startOfDay(date).toISOString()),
-        gte(events.end_date, endOfDay(date).toISOString())
-      ),
-      isNotNull(events.recurring)
+      isNull(events.recurring)
     )
   ), [date])
-  const eventData = data.map(convertRawEvent)
-  const filteredEventData = eventData.filter((event) => {
-    // events that don't recur are given a pass, as their start and end dates take place on the day at this point in the function body we're just checking to see if the event has a recurrence/occurrence that falls on the given date
-    if (!event.recurring) return true
-    const occurrences = getOccurrencesOnDay(event.recurring, date)
-    return occurrences.length > 0
-  })
-  return filteredEventData
+  const originalEventArray = originalEventData.map(convertRawEvent)
+  const { data: recurredEventData } = useLiveQuery(db.select().from(events).where(isNotNull(events.recurring)), [date])
+  const rawRecurredEventArray = recurredEventData.map(convertRawEvent)
+  const recurredEventArray = getRecurrenceEventsByDay(rawRecurredEventArray, date)
+  const finalEventArray = originalEventArray.concat(recurredEventArray)
+  return finalEventArray
 }
 
 export function useEventsByDateRange(firstDay: Date, lastDay: Date) {
