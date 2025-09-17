@@ -17,7 +17,7 @@ export default function EventDetailsHeader({ event }: EventDetailsHeaderProps) {
   return (
     <View style={[styles.container, {}]}>
       <SymbolView name='square.fill' tintColor={course?.color || theme.grey400} style={{ width: 30 }} />
-      <Text style={styles.text}>{text}</Text>
+      <Text style={[styles.text, { color: theme.text }]}>{text}</Text>
     </View>
   )
 }

@@ -33,7 +33,7 @@ export default function EventDetails() {
           eventData?.location &&
           <View style={styles.locationContainer}>
             <SymbolView name='mappin.circle.fill' size={20} tintColor={theme.grey400} style={{ width: 30 }} type='hierarchical' />
-            <Text style={styles.locationText}>{eventData?.location}</Text>
+            <Text style={[styles.locationText, { color: theme.text }]}>{eventData?.location}</Text>
           </View>
         }
       </View>

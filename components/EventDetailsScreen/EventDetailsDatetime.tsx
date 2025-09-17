@@ -14,7 +14,7 @@ export default function EventDetailsDatetime({ start, end }: EventDetailsDatetim
   const datetimeStringEndDate = `${end?.toLocaleString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })} at ${end?.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}`
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{`${datetimeStringStartDate} to\n${datetimeStringEndDate}`}</Text>
+      <Text style={[styles.text, { color: theme.text }]}>{`${datetimeStringStartDate} to\n${datetimeStringEndDate}`}</Text>
     </View>
   )
 }
