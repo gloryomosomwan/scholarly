@@ -11,9 +11,8 @@ function getRecurredEndDate(startDate: Date, endDate: Date, recurredStartDate: D
   return recurredEndDate
 }
 
-export const checkCurrentEvent = (event: Event): boolean => {
-  const now = dayjs()
-  return now.isBetween(event.startDate, event.endDate) || checkHasActiveRecurrence(event)
+function startsAtMidnight(event: Event): boolean {
+  return isEqual(event.startDate, startOfDay(event.startDate))
 }
 
 const checkHasActiveRecurrence = (event: Event): boolean => {
@@ -24,6 +23,11 @@ const checkHasActiveRecurrence = (event: Event): boolean => {
   const recurredEndDate = getRecurredEndDate(event.startDate, event.endDate, recurredStartDate)
   const now = dayjs()
   return now.isBetween(recurredStartDate, recurredEndDate)
+}
+
+export const checkCurrentEvent = (event: Event): boolean => {
+  const now = dayjs()
+  return now.isBetween(event.startDate, event.endDate) || checkHasActiveRecurrence(event)
 }
 
 export const getOccurrencesOnDay = (recurrenceString: string, date: Date): Date[] | null => {
@@ -64,10 +68,6 @@ export const getEventClass = (event: Event): EventClass => {
   else {
     return 'regular'
   }
-}
-
-function startsAtMidnight(event: Event): boolean {
-  return isEqual(event.startDate, startOfDay(event.startDate))
 }
 
 export function convertRRuleOccurrenceToJSDate(occurrence: Date) {
