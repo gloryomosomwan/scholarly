@@ -34,10 +34,10 @@ export default function EventCard({ event }: EventCardProps) {
         <EventLocation location={event.location} courseColor={course?.color} />
       </View>
       <View style={styles.progressSection}>
-        <ProgressBar startDate={event.startDate} endDate={event.endDate} recurrenceString={event.recurring} isCurrentEvent={isCurrentEvent} courseColor={course?.color} />
+        <ProgressBar startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} courseColor={course?.color} />
         {
           isCurrentEvent &&
-          <ProgressBarLabels startDate={event.startDate} endDate={event.endDate} recurrenceString={event.recurring} />
+          <ProgressBarLabels startDate={event.startDate} endDate={event.endDate} />
         }
       </View>
     </View>
