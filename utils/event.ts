@@ -51,15 +51,8 @@ export const getEventOccurrencesBetweenDays = (recurrence: string, startDate: Da
   const endOfEndDT = passJSDateToDatetime(endOfEnd)
   const endOccurrences = rrulestr(recurrence).between(startOfStartDT, endOfEndDT, true)
   const occurrences = [...startOccurrences, ...endOccurrences]
-  console.log(startDate, occurrences)
   if (occurrences.length === 0) return null
   return occurrences
-  // const startOfStart = startOfDay(startDate) // CHECK: remove this line and directly use date parameter?
-  // const endOfEnd = endOfDay(endDate)
-  // const startOfDatetime = datetime(startOfStart.getUTCFullYear(), startOfStart.getUTCMonth() + 1, startOfStart.getUTCDate(), 0, 0, 0)
-  // const endOfDatetime = datetime(endOfEnd.getUTCFullYear(), endOfEnd.getUTCMonth() + 1, endOfEnd.getUTCDate(), 23, 59, 59)
-  // const occurrences = rrulestr(recurrenceString).between(startOfDatetime, endOfDatetime, true)
-  // return occurrences
 }
 
 function getRecurredEndDate(startDate: Date, endDate: Date, recurredStartDate: Date): Date {
