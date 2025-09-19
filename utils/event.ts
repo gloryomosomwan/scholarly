@@ -84,8 +84,9 @@ export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
     if (!event.recurring) return // there shouldn't be events w/o recurrences in here but this is needed as a type guard
     const duration = event.endDate.getTime() - event.startDate.getTime()
     const occurrences = getEventOccurrencesByDay(duration, date, event.recurring)
-    if (occurrences) {
-      const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrences[0])
+    if (!occurrences) return
+    occurrences.forEach(occurrence => {
+      const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
       const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
       const newEvt: Event = {
         ...event,
@@ -93,7 +94,7 @@ export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
         endDate: recurredEndDate
       }
       eventArray.push(newEvt)
-    }
+    });
   });
   return eventArray
 }

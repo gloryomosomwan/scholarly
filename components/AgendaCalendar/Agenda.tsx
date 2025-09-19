@@ -36,8 +36,8 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   events.sort(sortEventsByStart)
   const eventElements = events.map((event) => {
     const eventClass = getEventClass(event)
-    if (eventClass === 'regular' || eventClass === 'crossover') return <EventItem key={event.id} event={event} />
-    else return <EventBar key={event.id} event={event} date={currentDate} />
+    if (eventClass === 'regular' || eventClass === 'crossover') return <EventItem key={`${event.id}.${event.startDate}`} event={event} />
+    else return <EventBar key={`${event.id}.${event.startDate}`} event={event} date={currentDate} />
   })
   const assignments = useAssignmentsByDay(currentDate)
   assignments.sort(sortAssignmentsByDue)
