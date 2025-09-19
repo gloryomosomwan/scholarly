@@ -1,4 +1,4 @@
-import { endOfDay, isBefore, isEqual, isSameDay, startOfDay } from "date-fns";
+import { endOfDay, isEqual, isSameDay, startOfDay } from "date-fns";
 import dayjs from "dayjs";
 import { datetime, rrulestr } from "rrule";
 
@@ -10,44 +10,8 @@ const MILLISECONDSINMINUTE = 60000
 const MILLISECONDSINHOUR = MILLISECONDSINMINUTE * 60
 const MILLISECONDSINDAY = 24 * MILLISECONDSINHOUR
 
-function getRecurredEndDate(startDate: Date, endDate: Date, recurredStartDate: Date): Date {
-  const offset = endDate.getTime() - startDate.getTime()
-  const recurredEndDate = new Date(recurredStartDate.getTime() + offset)
-  return recurredEndDate
-}
-
 function startsAtMidnight(event: Event): boolean {
   return isEqual(event.startDate, startOfDay(event.startDate))
-}
-
-const checkHasActiveRecurrence = (event: Event): boolean => {
-  if (!event.recurring) return false
-  const duration = event.endDate.getTime() - event.startDate.getTime()
-  const occurrences = getOccurrencesThatTakePlaceBetweenLookbackAndRightNow(duration, event.recurring)
-  if (!occurrences) return false // CHECK: does this event have a recurrence that takes place today? // this line is sketchy come back to it
-  const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrences[0])
-  const recurredEndDate = getRecurredEndDate(event.startDate, event.endDate, recurredStartDate)
-  const now = dayjs()
-  return now.isBetween(recurredStartDate, recurredEndDate)
-}
-
-export const checkCurrentEvent = (event: Event): boolean => {
-  const now = dayjs()
-  return now.isBetween(event.startDate, event.endDate) || checkHasActiveRecurrence(event)
-}
-
-export const getOccurrencesBetweenDays = (recurrenceString: string, startDate: Date, endDate: Date): Date[] => {
-  const startOfStart = startOfDay(startDate) // CHECK: remove this line and directly use date parameter?
-  const endOfEnd = endOfDay(endDate)
-  const startOfDatetime = datetime(startOfStart.getUTCFullYear(), startOfStart.getUTCMonth() + 1, startOfStart.getUTCDate(), 0, 0, 0)
-  const endOfDatetime = datetime(endOfEnd.getUTCFullYear(), endOfEnd.getUTCMonth() + 1, endOfEnd.getUTCDate(), 23, 59, 59)
-  const occurrences = rrulestr(recurrenceString).between(startOfDatetime, endOfDatetime, true)
-  return occurrences
-}
-
-export const checkEventWasEarlierToday = (startDate: Date, endDate: Date): boolean => {
-  const today = new Date()
-  return isSameDay(startDate, today) && isBefore(endDate, Date.now())
 }
 
 export const getEventClass = (event: Event): EventClass => {
@@ -75,6 +39,23 @@ function convertRRuleOccurrenceToJSDate(occurrence: Date): Date {
 function passJSDateToDatetime(date: Date): Date {
   return datetime(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
 }
+
+export const getOccurrencesBetweenDays = (recurrenceString: string, startDate: Date, endDate: Date): Date[] => {
+  const startOfStart = startOfDay(startDate) // CHECK: remove this line and directly use date parameter?
+  const endOfEnd = endOfDay(endDate)
+  const startOfDatetime = datetime(startOfStart.getUTCFullYear(), startOfStart.getUTCMonth() + 1, startOfStart.getUTCDate(), 0, 0, 0)
+  const endOfDatetime = datetime(endOfEnd.getUTCFullYear(), endOfEnd.getUTCMonth() + 1, endOfEnd.getUTCDate(), 23, 59, 59)
+  const occurrences = rrulestr(recurrenceString).between(startOfDatetime, endOfDatetime, true)
+  return occurrences
+}
+
+function getRecurredEndDate(startDate: Date, endDate: Date, recurredStartDate: Date): Date {
+  const duration = endDate.getTime() - startDate.getTime()
+  const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
+  return recurredEndDate
+}
+
+// Events By Day
 
 function getEventOccurrencesByDay(eventDuration: number, date: Date, recurrence: string) {
   const start = startOfDay(date)
@@ -111,6 +92,8 @@ export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
   return eventArray
 }
 
+// Current Events
+
 function getOccurrencesThatTakePlaceBetweenLookbackAndRightNow(eventDuration: number, recurrenceString: string) {
   const now = new Date()
   const nowDT = passJSDateToDatetime(now)
@@ -123,6 +106,22 @@ function getOccurrencesThatTakePlaceBetweenLookbackAndRightNow(eventDuration: nu
   const occurrences = rrulestr(recurrenceString).between(lookbackDT, nowDT, true)
   if (occurrences.length === 0) return null
   else return occurrences
+}
+
+const checkHasActiveRecurrence = (event: Event): boolean => {
+  if (!event.recurring) return false
+  const duration = event.endDate.getTime() - event.startDate.getTime()
+  const occurrences = getOccurrencesThatTakePlaceBetweenLookbackAndRightNow(duration, event.recurring)
+  if (!occurrences) return false // CHECK: does this event have a recurrence that takes place today? // this line is sketchy come back to it
+  const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrences[0])
+  const recurredEndDate = getRecurredEndDate(event.startDate, event.endDate, recurredStartDate)
+  const now = dayjs()
+  return now.isBetween(recurredStartDate, recurredEndDate)
+}
+
+export const checkCurrentEvent = (event: Event): boolean => {
+  const now = dayjs()
+  return now.isBetween(event.startDate, event.endDate) || checkHasActiveRecurrence(event)
 }
 
 export function getActiveRecurrenceEvents(events: Event[]): Event[] {

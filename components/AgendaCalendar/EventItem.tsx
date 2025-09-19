@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router';
-import { isSameDay } from 'date-fns';
+import { isBefore, isSameDay } from 'date-fns';
 
 import EventItemTimeRange from '@/components/EventItem/EventItemTimeRange';
 import EventItemDivider from '@/components/EventItem/EventItemDivider';
@@ -13,7 +13,6 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity';
 import { useTheme } from '@/hooks';
 import { Event } from '@/types';
 import { getCourseById } from '@/hooks/useDatabase';
-import { checkEventWasEarlierToday } from '@/utils/event';
 import { useCalendarStore } from '@/stores/calendar';
 
 type EventItemProps = {
@@ -40,6 +39,11 @@ export default function EventItem({ event }: EventItemProps) {
       </View>
     </PressableOpacity>
   )
+}
+
+const checkEventWasEarlierToday = (startDate: Date, endDate: Date): boolean => {
+  const today = new Date()
+  return isSameDay(startDate, today) && isBefore(endDate, Date.now())
 }
 
 const styles = StyleSheet.create({
