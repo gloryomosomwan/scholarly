@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Day from '@/components/AgendaCalendar/Day'
 
 import { useAssignmentsByDateRange, useEventsByDateRange, useTasksByDateRange } from '@/hooks/useDatabase';
-import { getEventClass, getOccurrencesBetweenDays } from '@/utils/event';
+import { convertRRuleOccurrenceToJSDate, getEventClass, getEventOccurrencesBetweenDays } from '@/utils/event';
 import { pretty } from '@/utils';
 import { Assignment, Event, Task } from '@/types';
 
@@ -71,12 +71,20 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
     const m: Record<string, number> = {}
     items.forEach(item => {
       if ('recurring' in item && item.recurring !== undefined) {
-        const occurrences = getOccurrencesBetweenDays(item.recurring, start, end)
-        occurrences.forEach(occurrence => {
-          const d = new Date(occurrence.getUTCFullYear(), occurrence.getUTCMonth(), occurrence.getUTCDate(), occurrence.getUTCHours(), occurrence.getUTCMinutes(), occurrence.getUTCSeconds())
-          const key = format(d, 'yyyy-MM-dd')
-          m[key] = (m[key] || 0) + 1
-        })
+        const occurrences = getEventOccurrencesBetweenDays(item.recurring, start, end)
+        if (occurrences) {
+          occurrences.forEach(occurrence => {
+            const duration = item.endDate.getTime() - item.startDate.getTime()
+            const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
+            const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
+            const dates = eachDayOfInterval({ start: recurredStartDate, end: recurredEndDate })
+            if (isEqual(item.endDate, startOfDay(item.endDate))) dates.splice(dates.length - 1)
+            dates.forEach(date => {
+              const key = format(date, 'yyyy-MM-dd')
+              m[key] = (m[key] || 0) + 1
+            });
+          })
+        }
       }
       // If item is an activity
       else if ('due' in item && item.due instanceof Date) {

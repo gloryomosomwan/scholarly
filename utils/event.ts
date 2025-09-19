@@ -31,7 +31,7 @@ export const getEventClass = (event: Event): EventClass => {
   }
 }
 
-function convertRRuleOccurrenceToJSDate(occurrence: Date): Date {
+export function convertRRuleOccurrenceToJSDate(occurrence: Date): Date {
   // The UTC components of RRule occurrence Dates actually represent local time, so here we employ the appropriate conversions
   return new Date(occurrence.getUTCFullYear(), occurrence.getUTCMonth(), occurrence.getUTCDate(), occurrence.getUTCHours(), occurrence.getUTCMinutes(), occurrence.getUTCSeconds()) // CHECK: does month not need to be decremented by one here?
 }
@@ -40,13 +40,26 @@ function passJSDateToDatetime(date: Date): Date {
   return datetime(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
 }
 
-export const getOccurrencesBetweenDays = (recurrenceString: string, startDate: Date, endDate: Date): Date[] => {
-  const startOfStart = startOfDay(startDate) // CHECK: remove this line and directly use date parameter?
+export const getEventOccurrencesBetweenDays = (recurrence: string, startDate: Date, endDate: Date): Date[] | null => {
+  const startOfStart = startOfDay(startDate)
+  const startOfStartDT = passJSDateToDatetime(startOfStart)
+  const duration = endDate.getTime() - startDate.getTime()
+  const startLookback = new Date(startOfStart.getTime() - duration)
+  const startLookbackDT = passJSDateToDatetime(startLookback)
+  const startOccurrences = rrulestr(recurrence).between(startLookbackDT, startOfStartDT, false)
   const endOfEnd = endOfDay(endDate)
-  const startOfDatetime = datetime(startOfStart.getUTCFullYear(), startOfStart.getUTCMonth() + 1, startOfStart.getUTCDate(), 0, 0, 0)
-  const endOfDatetime = datetime(endOfEnd.getUTCFullYear(), endOfEnd.getUTCMonth() + 1, endOfEnd.getUTCDate(), 23, 59, 59)
-  const occurrences = rrulestr(recurrenceString).between(startOfDatetime, endOfDatetime, true)
+  const endOfEndDT = passJSDateToDatetime(endOfEnd)
+  const endOccurrences = rrulestr(recurrence).between(startOfStartDT, endOfEndDT, true)
+  const occurrences = [...startOccurrences, ...endOccurrences]
+  console.log(startDate, occurrences)
+  if (occurrences.length === 0) return null
   return occurrences
+  // const startOfStart = startOfDay(startDate) // CHECK: remove this line and directly use date parameter?
+  // const endOfEnd = endOfDay(endDate)
+  // const startOfDatetime = datetime(startOfStart.getUTCFullYear(), startOfStart.getUTCMonth() + 1, startOfStart.getUTCDate(), 0, 0, 0)
+  // const endOfDatetime = datetime(endOfEnd.getUTCFullYear(), endOfEnd.getUTCMonth() + 1, endOfEnd.getUTCDate(), 23, 59, 59)
+  // const occurrences = rrulestr(recurrenceString).between(startOfDatetime, endOfDatetime, true)
+  // return occurrences
 }
 
 function getRecurredEndDate(startDate: Date, endDate: Date, recurredStartDate: Date): Date {
@@ -57,7 +70,7 @@ function getRecurredEndDate(startDate: Date, endDate: Date, recurredStartDate: D
 
 // Events By Day
 
-function getEventOccurrencesByDay(eventDuration: number, date: Date, recurrence: string) {
+function getEventOccurrencesByDay(eventDuration: number, date: Date, recurrence: string): Date[] | null {
   const start = startOfDay(date)
   const startDT = passJSDateToDatetime(start)
   const startLookback = new Date(start.getTime() - eventDuration)
