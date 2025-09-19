@@ -8,6 +8,7 @@ import { useTheme } from '@/hooks/useTheme'
 import { useEventsByDay } from '@/hooks/useDatabase'
 import { useCalendarStore } from '@/stores/calendar'
 import { sortEventsByStart } from '@/utils/sort'
+import { getEventClass } from '@/utils/event'
 
 export default function UpNextSection() {
   const theme = useTheme()
@@ -23,11 +24,15 @@ export default function UpNextSection() {
     }
   }
 
+  const eventClass = upNext && getEventClass(upNext.startDate, upNext.endDate)
+
   return (
     <View style={styles.container}>
       <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
-      {upNext ?
-        <EventCard key={upNext.id} event={upNext} />
+      {upNext && eventClass && (eventClass === 'regular' || eventClass === 'crossover') ?
+        <View>
+          {<EventCard key={upNext.id} event={upNext} />}
+        </View>
         :
         <View>
           <Text style={[styles.placeholderText, { color: theme.grey400 }]}>No events up next</Text>
