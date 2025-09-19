@@ -117,18 +117,7 @@ function getOccurrencesThatTakePlaceBetweenLookbackAndRightNow(eventDuration: nu
 
 export const checkCurrentEvent = (event: Event): boolean => {
   const now = dayjs()
-  return now.isBetween(event.startDate, event.endDate) || checkHasActiveRecurrence(event)
-}
-
-const checkHasActiveRecurrence = (event: Event): boolean => {
-  if (!event.recurring) return false
-  const duration = event.endDate.getTime() - event.startDate.getTime()
-  const occurrences = getOccurrencesThatTakePlaceBetweenLookbackAndRightNow(duration, event.recurring)
-  if (!occurrences) return false // CHECK: does this event have a recurrence that takes place today? // this line is sketchy come back to it
-  const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrences[0])
-  const recurredEndDate = getRecurredEndDate(event.startDate, event.endDate, recurredStartDate)
-  const now = dayjs()
-  return now.isBetween(recurredStartDate, recurredEndDate)
+  return now.isBetween(event.startDate, event.endDate)
 }
 
 export function getActiveRecurrenceEvents(events: Event[]): Event[] {
@@ -139,7 +128,6 @@ export function getActiveRecurrenceEvents(events: Event[]): Event[] {
     const duration = event.endDate.getTime() - event.startDate.getTime()
     // console.log(duration / 3600000)
     const occurrences = getOccurrencesThatTakePlaceBetweenLookbackAndRightNow(duration, event.recurring)
-    // console.log(occurrences)
     if (!occurrences) return
     occurrences.forEach(occurrence => {
       const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
