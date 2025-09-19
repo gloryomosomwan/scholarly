@@ -70,9 +70,27 @@ export const getEventClass = (event: Event): EventClass => {
   }
 }
 
-export function convertRRuleOccurrenceToJSDate(occurrence: Date): Date {
+function convertRRuleOccurrenceToJSDate(occurrence: Date): Date {
   // The UTC components of RRule occurrence Dates actually represent local time, so here we employ the appropriate conversions
-  return new Date(occurrence.getUTCFullYear(), occurrence.getUTCMonth(), occurrence.getUTCDate(), occurrence.getUTCHours(), occurrence.getUTCMinutes(), occurrence.getUTCSeconds())
+  return new Date(occurrence.getUTCFullYear(), occurrence.getUTCMonth(), occurrence.getUTCDate(), occurrence.getUTCHours(), occurrence.getUTCMinutes(), occurrence.getUTCSeconds()) // CHECK: does month not need to be decremented by one here?
+}
+
+function passJSDateToDatetime(date: Date): Date {
+  return datetime(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
+}
+
+function getEventOccurrencesByDay(eventDuration: number, date: Date, recurrence: string) {
+  const start = startOfDay(date)
+  const startDT = passJSDateToDatetime(start)
+  const startLookback = new Date(start.getTime() - eventDuration)
+  const startLookbackDT = passJSDateToDatetime(startLookback)
+  const startOccurrences = rrulestr(recurrence).between(startLookbackDT, startDT, false)
+  const end = endOfDay(date)
+  const endDT = passJSDateToDatetime(end)
+  const endOccurrences = rrulestr(recurrence).between(startDT, endDT, true)
+  const occurrences = [...startOccurrences, ...endOccurrences]
+  if (occurrences.length === 0) return null
+  else return occurrences
 }
 
 export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
@@ -80,11 +98,11 @@ export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
   const eventArray: Event[] = []
   events.forEach(event => {
     if (!event.recurring) return // there shouldn't be events w/o recurrences in here but this is needed as a type guard
-    const occurrences = getOccurrencesOnDay(event.recurring, date)
+    const duration = event.endDate.getTime() - event.startDate.getTime()
+    const occurrences = getEventOccurrencesByDay(duration, date, event.recurring)
     if (occurrences) {
       const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrences[0])
-      const offset = event.endDate.getTime() - event.startDate.getTime()
-      const recurredEndDate = new Date(recurredStartDate.getTime() + offset)
+      const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
       const newEvt: Event = {
         ...event,
         startDate: recurredStartDate,
@@ -96,16 +114,32 @@ export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
   return eventArray
 }
 
+function getActiveEventOccurrences(eventDuration: number, recurrenceString: string) {
+  const now = new Date()
+  const lookback = new Date(now.getTime() - eventDuration)
+  const nowDT = passJSDateToDatetime(now)
+  const lookbackDT = passJSDateToDatetime(lookback)
+  // const lb = new Date(now.getTime() - MILLISECONDSINHOUR * 39)
+  // console.log(rrulestr(recurrenceString).all())
+  // console.log('lb', lb)
+  // console.log('lbDT', lbDT)
+  const occurrences = rrulestr(recurrenceString).between(lookbackDT, nowDT, true)
+  if (occurrences.length === 0) return null
+  else return occurrences
+}
+
 export function getActiveRecurrenceEvents(events: Event[]): Event[] {
   // Takes in an array of unconverted recurring Events and returns an array of JS-converted currently active Events (i.e. creates events with correct dates)
   const eventArray: Event[] = []
   events.forEach(event => {
-    if (!event.recurring) return
-    const occurrences = getOccurrencesOnDay(event.recurring, new Date())
+    if (!event.recurring) return // there shouldn't be events w/o recurrences in here but this is needed as a type guard
+    const duration = event.endDate.getTime() - event.startDate.getTime()
+    // console.log(duration / 3600000)
+    const occurrences = getActiveEventOccurrences(duration, event.recurring)
+    // console.log(occurrences)
     if (occurrences) {
       const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrences[0])
-      const offset = event.endDate.getTime() - event.startDate.getTime()
-      const recurredEndDate = new Date(recurredStartDate.getTime() + offset)
+      const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
       const now = dayjs()
       if (now.isBetween(recurredStartDate, recurredEndDate)) {
         const newEvt: Event = {
