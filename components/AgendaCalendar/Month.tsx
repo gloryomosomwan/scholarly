@@ -94,7 +94,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
       }
       // Item is an event
       else if ('startDate' in item && 'endDate' in item && item.startDate instanceof Date && item.endDate instanceof Date) {
-        if (getEventClass(item) !== 'regular') {
+        if (getEventClass(item.startDate, item.endDate) !== 'regular') {
           const dates = eachDayOfInterval({ start: item.startDate, end: item.endDate })
           // If the event ends at midnight, remove the day representing the end date from the dates array
           if (isEqual(item.endDate, startOfDay(item.endDate))) dates.splice(dates.length - 1)

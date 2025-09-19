@@ -10,20 +10,20 @@ const MILLISECONDSINMINUTE = 60000
 const MILLISECONDSINHOUR = MILLISECONDSINMINUTE * 60
 const MILLISECONDSINDAY = 24 * MILLISECONDSINHOUR
 
-function startsAtMidnight(event: Event): boolean {
-  return isEqual(event.startDate, startOfDay(event.startDate))
+function startsAtMidnight(start: Date): boolean {
+  return isEqual(start, startOfDay(start))
 }
 
-export const getEventClass = (event: Event): EventClass => {
+export const getEventClass = (start: Date, end: Date): EventClass => {
   const MILLISECONDSINADAY = 86400000
-  const duration = event.endDate.getTime() - event.startDate.getTime()
-  if (duration > MILLISECONDSINADAY || (duration === MILLISECONDSINADAY && !isSameDay(event.startDate, event.endDate)) && !startsAtMidnight(event)) {
+  const duration = end.getTime() - start.getTime()
+  if (duration > MILLISECONDSINADAY || (duration === MILLISECONDSINADAY && !isSameDay(start, end)) && !startsAtMidnight(start)) {
     return 'multiday'
   }
-  else if (duration === MILLISECONDSINADAY && !isSameDay(event.startDate, event.endDate) && startsAtMidnight(event)) {
+  else if (duration === MILLISECONDSINADAY && !isSameDay(start, end) && startsAtMidnight(start)) {
     return 'allday'
   }
-  else if (duration < MILLISECONDSINADAY && !isSameDay(event.startDate, event.endDate)) {
+  else if (duration < MILLISECONDSINADAY && !isSameDay(start, end)) {
     return 'crossover'
   }
   else {

@@ -20,7 +20,7 @@ export default function EventBar({ event, date }: EventBarProps) {
   // If the event ends at midnight, remove the day representing the end date from the dates array
   if (isEqual(event.endDate, startOfDay(event.endDate))) dates.splice(dates.length - 1)
   const day = dates.findIndex((element) => isSameDay(date, element))
-  const eventClass = getEventClass(event)
+  const eventClass = getEventClass(event.startDate, event.endDate)
   return (
     <PressableOpacity onPress={() => router.navigate({ pathname: '/event-form', params: { id: event.id } })}>
       <View style={[styles.container, { backgroundColor: theme.accent, borderColor: theme.grey200 }]}>
