@@ -140,8 +140,9 @@ export function getActiveRecurrenceEvents(events: Event[]): Event[] {
     // console.log(duration / 3600000)
     const occurrences = getOccurrencesThatTakePlaceBetweenLookbackAndRightNow(duration, event.recurring)
     // console.log(occurrences)
-    if (occurrences) {
-      const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrences[0])
+    if (!occurrences) return
+    occurrences.forEach(occurrence => {
+      const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
       const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
       const now = dayjs()
       if (now.isBetween(recurredStartDate, recurredEndDate)) {
@@ -152,7 +153,7 @@ export function getActiveRecurrenceEvents(events: Event[]): Event[] {
         }
         eventArray.push(newEvt)
       }
-    }
+    });
   });
   return eventArray
 }

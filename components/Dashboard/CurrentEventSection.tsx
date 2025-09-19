@@ -17,8 +17,8 @@ export default function CurrentEventSection() {
       <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
       {events.map(function (event) {
         const eventClass = getEventClass(event)
-        if (eventClass === 'regular' || eventClass === 'crossover') return <EventCard key={event.id} event={event} />
-        else return <EventBar key={event.id} event={event} date={today} />
+        if (eventClass === 'regular' || eventClass === 'crossover') return <EventCard key={`${event.id}.${event.startDate}`} event={event} />
+        else return <EventBar key={`${event.id}.${event.startDate}`} event={event} date={today} />
       })}
     </View>
   )
