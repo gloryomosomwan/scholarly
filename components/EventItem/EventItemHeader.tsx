@@ -13,7 +13,7 @@ type EventItemHeaderProps = {
 export default function EventItemHeader({ eventWasEarlierToday, hasCourse, eventType, eventName }: EventItemHeaderProps) {
   const theme = useTheme()
   let text;
-  if (hasCourse) {
+  if (hasCourse && eventType !== 'general') {
     text = eventType?.replace(/\w/, c => c.toUpperCase())
   }
   else {
