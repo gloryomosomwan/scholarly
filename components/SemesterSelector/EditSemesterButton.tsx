@@ -27,16 +27,16 @@ export default function EditSemesterButton({ translateX, semesterID }: EditSemes
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: withTiming(
-      translateX.value < -50 ? 1 : 0
+      translateX.value < -80 ? 1 : 0
     )
   }))
 
   return (
-    <PressableOpacity onPress={() => router.navigate({ pathname: '/assignment-form', params: { id: semesterID } })}>
-      <Animated.View style={[styles.container, { backgroundColor: theme.grey100 }, animatedStyle]}>
+    <Animated.View style={[styles.container, { backgroundColor: theme.grey100 }, animatedStyle]}>
+      <PressableOpacity onPress={() => router.navigate({ pathname: '/assignment-form', params: { id: semesterID } })}>
         <SymbolView name='pencil' tintColor={theme.grey400} />
-      </Animated.View>
-    </PressableOpacity>
+      </PressableOpacity>
+    </Animated.View>
   )
 }
 
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     right: 30,
     borderRadius: 10,
     position: 'absolute',
-    zIndex: 11,
+    zIndex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   }
