@@ -33,7 +33,7 @@ export default function EditSemesterButton({ translateX, semesterID }: EditSemes
 
   return (
     <Animated.View style={[styles.container, { backgroundColor: theme.grey100 }, animatedStyle]}>
-      <PressableOpacity onPress={() => router.navigate({ pathname: '/assignment-form', params: { id: semesterID } })}>
+      <PressableOpacity onPress={() => router.navigate({ pathname: '/semester-form', params: { id: semesterID } })}>
         <SymbolView name='pencil' tintColor={theme.grey400} />
       </PressableOpacity>
     </Animated.View>
