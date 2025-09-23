@@ -85,6 +85,11 @@ export function useCourses() {
   return courseData
 }
 
+export function useNumberOfCoursesBySemester(id: number) {
+  const { data } = useLiveQuery(db.select().from(courses).where(eq(courses.semester_id, id)), [id])
+  return data.length
+}
+
 export function getCourseById(id: number | null) {
   const data = useSQLiteContext().getFirstSync<rawCourse>(`
       SELECT 

@@ -1,9 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View, ViewStyle } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withClamp, withSpring } from 'react-native-reanimated';
 
 import { useTheme } from '@/hooks'
+import { useNumberOfCoursesBySemester } from '@/hooks/useDatabase';
 import { Semester } from '@/types'
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
@@ -16,13 +17,13 @@ export type SemesterItemProps = {
 
 export default function SemesterItem({ item, onSelect }: SemesterItemProps) {
   const theme = useTheme()
-  const translateX_SV = useSharedValue(0)
+  const numberOfCourses = useNumberOfCoursesBySemester(item.id)
 
+  const translateX_SV = useSharedValue(0)
   const panGesture = Gesture.Pan()
     .onUpdate((e) => {
       translateX_SV.value = Math.max(e.translationX, -100)
     })
-
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{
       translateX: withClamp({ min: -100, max: 0 }, withSpring(translateX_SV.value, { mass: 0.75, damping: 90, stiffness: 200 }))
@@ -46,7 +47,7 @@ export default function SemesterItem({ item, onSelect }: SemesterItemProps) {
               </Text>
             </View>
             <Text style={[styles.courseCountText, { color: theme.grey500 }]}>
-              {4} courses
+              {numberOfCourses} courses
             </Text>
           </PressableOpacity>
         </Animated.View>
