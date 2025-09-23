@@ -1,14 +1,59 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { SymbolView } from 'expo-symbols'
+import { StyleSheet, Text, View, ViewStyle } from 'react-native'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import Animated, { useAnimatedStyle, useSharedValue, withClamp, withSpring } from 'react-native-reanimated';
 
 import { useTheme } from '@/hooks'
-import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import { Semester } from '@/types'
+
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
+import EditSemesterButton from '@/components/SemesterSelector/EditSemesterButton';
 
 export type SemesterItemProps = {
   item: Semester
   onSelect?: (semester: { name: string }) => void
+}
+
+export default function SemesterItem({ item, onSelect }: SemesterItemProps) {
+  const theme = useTheme()
+  const translateX = useSharedValue(0)
+
+  const panGesture = Gesture.Pan()
+    .onUpdate((e) => {
+      translateX.value = Math.max(e.translationX, -100)
+    })
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{
+      translateX: withClamp({ min: -100, max: 0 }, withSpring(translateX.value))
+    }]
+  }))
+
+  return (
+    <View style={styles.container}>
+      <GestureDetector gesture={panGesture}>
+        <Animated.View style={[animatedStyle, { flex: 1 }]}>
+          <PressableOpacity
+            style={[styles.buttonContainer, { backgroundColor: theme.primary }]}
+            onPress={() => onSelect?.({ name: item.name })}
+          >
+            <View style={styles.semesterInfoContainer}>
+              <Text style={[styles.semesterNameText, { color: theme.text }]}>
+                {item.name}
+              </Text>
+              <Text style={[styles.semesterRangeText, { color: theme.grey500 }]}>
+                {formatDate(item.start)} to {formatDate(item.end)}
+              </Text>
+            </View>
+            <Text style={[styles.courseCountText, { color: theme.grey500 }]}>
+              {4} courses
+            </Text>
+          </PressableOpacity>
+        </Animated.View>
+      </GestureDetector>
+      <EditSemesterButton translateX={translateX} />
+    </View>
+  )
 }
 
 function formatDate(date: Date) {
@@ -19,59 +64,35 @@ function formatDate(date: Date) {
   })
 }
 
-export default function SemesterItem({ item, onSelect }: SemesterItemProps) {
-  const theme = useTheme()
-  return (
-    <PressableOpacity
-      style={[styles.semesterItem, { backgroundColor: theme.primary }]}
-      onPress={() => onSelect?.({ name: item.name })}
-    >
-      <View style={styles.semesterInfo}>
-        <Text style={[styles.semesterName, { color: theme.text }]}>
-          {item.name}
-        </Text>
-        <Text style={[styles.semesterDates, { color: theme.grey500 }]}>
-          {formatDate(item.start)} to {formatDate(item.end)}
-        </Text>
-      </View>
-      <View style={styles.courseCountContainer}>
-        <Text style={[styles.courseCount, { color: theme.accent }]}>
-          {4} courses
-        </Text>
-      </View>
-    </PressableOpacity>
-  )
-}
-
 const styles = StyleSheet.create({
-  semesterItem: {
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  buttonContainer: {
     borderRadius: 14,
+    // flex: 1,
     padding: 18,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    elevation: 2,
+    // elevation: 2,
   },
-  semesterInfo: {
-    flex: 1,
+  semesterInfoContainer: {
+    // flex: 1,
   },
-  semesterName: {
+  semesterNameText: {
     fontSize: 20,
     fontWeight: '600',
     marginBottom: 4,
   },
-  semesterDates: {
+  semesterRangeText: {
     fontSize: 14,
     fontWeight: '400',
   },
-  courseCountContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  courseCount: {
+  courseCountText: {
     fontSize: 15,
     fontWeight: '500',
-    marginLeft: 4,
+    // marginLeft: 4,
   },
 })
