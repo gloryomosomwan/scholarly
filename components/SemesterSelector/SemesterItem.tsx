@@ -16,16 +16,16 @@ export type SemesterItemProps = {
 
 export default function SemesterItem({ item, onSelect }: SemesterItemProps) {
   const theme = useTheme()
-  const translateX = useSharedValue(0)
+  const translateX_SV = useSharedValue(0)
 
   const panGesture = Gesture.Pan()
     .onUpdate((e) => {
-      translateX.value = Math.max(e.translationX, -100)
+      translateX_SV.value = Math.max(e.translationX, -100)
     })
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{
-      translateX: withClamp({ min: -100, max: 0 }, withSpring(translateX.value))
+      translateX: withClamp({ min: -100, max: 0 }, withSpring(translateX_SV.value, { mass: 0.75, damping: 90, stiffness: 200 }))
     }]
   }))
 
@@ -51,7 +51,7 @@ export default function SemesterItem({ item, onSelect }: SemesterItemProps) {
           </PressableOpacity>
         </Animated.View>
       </GestureDetector>
-      <EditSemesterButton translateX={translateX} />
+      <EditSemesterButton translateX={translateX_SV} semesterID={item.id} />
     </View>
   )
 }

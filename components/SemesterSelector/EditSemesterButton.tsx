@@ -5,11 +5,15 @@ import Animated, { SharedValue, useAnimatedReaction, useAnimatedStyle, withTimin
 
 import { useTheme } from '@/hooks/useTheme'
 
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
+import { router } from 'expo-router'
+
 type EditSemesterButtonProps = {
   translateX: SharedValue<number>
+  semesterID: number
 }
 
-export default function EditSemesterButton({ translateX }: EditSemesterButtonProps) {
+export default function EditSemesterButton({ translateX, semesterID }: EditSemesterButtonProps) {
   const theme = useTheme()
 
   // useAnimatedReaction(
@@ -28,9 +32,11 @@ export default function EditSemesterButton({ translateX }: EditSemesterButtonPro
   }))
 
   return (
-    <Animated.View style={[styles.container, { backgroundColor: theme.grey100 }, animatedStyle]}>
-      <SymbolView name='pencil' tintColor={theme.grey400} />
-    </Animated.View>
+    <PressableOpacity onPress={() => router.navigate({ pathname: '/assignment-form', params: { id: semesterID } })}>
+      <Animated.View style={[styles.container, { backgroundColor: theme.grey100 }, animatedStyle]}>
+        <SymbolView name='pencil' tintColor={theme.grey400} />
+      </Animated.View>
+    </PressableOpacity>
   )
 }
 
