@@ -4,17 +4,16 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
 
-import DatePicker from '@/components/Form/DatePicker'
-import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
-import ButtonRow from '@/components/Form/ButtonRow'
-
 import { useUserStore } from '@/stores'
 import { useTheme } from '@/hooks'
 import { getSemesterById } from '@/hooks/useDatabase'
 import { semesters } from '@/db/schema'
 import { db } from '@/db/init'
 import { semesterInsertSchema, semesterUpdateSchema } from '@/db/drizzle-zod'
+
+import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import SemesterDatePicker from '@/components/SemesterForm/SemesterDatePicker'
+import ButtonRow from '@/components/Form/ButtonRow'
 
 export default function SemesterForm() {
   const theme = useTheme()
@@ -88,10 +87,8 @@ export default function SemesterForm() {
       <View style={[styles.container, { backgroundColor: theme.primary }]}>
         <View style={[styles.formContainer, {}]}>
           <PrimaryTextInputField placeholder='Add semester name' value={name} onChangeText={setName} />
-          {/* <DatePicker dateType='start' date={start} setDate={setStart} form='semester' />
-          <DatePicker dateType='end' date={end} setDate={setEnd} form='semester' /> */}
-          <SemesterDatePicker />
-          <SemesterDatePicker />
+          <SemesterDatePicker label='Start Date' date={start} setDate={setStart} />
+          <SemesterDatePicker label='End Date' date={end} setDate={setEnd} />
         </View>
         <ButtonRow create={createSemester} update={updateSemester} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={!semesterInsertSchema.safeParse(semester).success} />
       </View>
