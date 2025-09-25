@@ -12,10 +12,12 @@ import { useTheme } from '@/hooks'
 import { db } from '@/db/init'
 import { courses } from '@/db/schema'
 import { getCourseById } from '@/hooks/useDatabase'
+import { useUserStore } from '@/stores'
 
 export default function CourseForm() {
   const theme = useTheme()
 
+  const semesterID = useUserStore((state) => state.semesterID)
   const { id } = useLocalSearchParams<{ id: string }>()
   let convertedID = Number(id)
   const course = id ? getCourseById(convertedID) : null
@@ -31,7 +33,7 @@ export default function CourseForm() {
         name: name,
         code: code,
         color: color,
-        semester_id: 1,
+        semester_id: Number(semesterID),
         instructor: instructor,
       })
       router.back()
