@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { addWeeks } from 'date-fns';
 import { SymbolView } from 'expo-symbols';
-import { RRule } from 'rrule';
 
 import { useTheme } from '@/hooks/useTheme'
 import { passJSDateToDatetime } from '@/utils/event';
@@ -11,73 +10,43 @@ import { passJSDateToDatetime } from '@/utils/event';
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 type UntilSelectorProps = {
-  rule: RRule
-  setRecurring: React.Dispatch<React.SetStateAction<string | null>>
   start: Date
+  until: Date | null
+  setUntil: React.Dispatch<React.SetStateAction<Date | null>>
 }
 
-export default function UntilSelector({ rule, setRecurring, start }: UntilSelectorProps) {
+export default function UntilSelector({ start, until, setUntil }: UntilSelectorProps) {
   const theme = useTheme()
-  const until = rule.options.until
-  const [hasUntil, setHasUntil] = useState<boolean>(until ? true : false)
-  const n = addWeeks(new Date(), 1).setHours(start.getHours(), start.getMinutes(), 0)
-  const [internalDate, setInternalDate] = useState(until || new Date(n))
+  const aWeekFromNow = addWeeks(new Date(), 1).setHours(start.getHours(), start.getMinutes(), 0)
+  const [internalDate, setInternalDate] = useState(until || new Date(aWeekFromNow))
 
   useEffect(() => {
-    const d = new Date()
-    d.setHours(start.getHours(), start.getMinutes(), 0)
-    const newRule = new RRule({
-      freq: rule.options.freq,
-      dtstart: rule.options.dtstart,
-      interval: rule.options.interval,
-      byweekday: rule.options.byweekday,
-      until: passJSDateToDatetime(d)
-    })
-    setRecurring(newRule.toString())
+    if (!until) return
+    const date = new Date()
+    date.setHours(start.getHours(), start.getMinutes(), 0)
+    setUntil(passJSDateToDatetime(date))
   }, [start])
 
   function handlePickerChange(event: DateTimePickerEvent, selectedDate?: Date): void {
     if (event.type === 'dismissed') return
-    const currentDate = selectedDate || internalDate;
-    currentDate.setHours(start.getHours(), start.getMinutes())
-    const newRule = new RRule({
-      freq: rule.options.freq,
-      dtstart: rule.options.dtstart,
-      interval: rule.options.interval,
-      byweekday: rule.options.byweekday,
-      until: passJSDateToDatetime(currentDate)
-    })
-    setRecurring(newRule.toString())
+    const date = new Date(selectedDate || internalDate)
+    date.setHours(start.getHours(), start.getMinutes())
+    setUntil(passJSDateToDatetime(date))
   }
 
   function activate(): void {
-    setHasUntil(true)
-    const newRule = new RRule({
-      freq: rule.options.freq,
-      dtstart: rule.options.dtstart,
-      interval: rule.options.interval,
-      byweekday: rule.options.byweekday,
-      until: passJSDateToDatetime(internalDate)
-    })
-    setRecurring(newRule.toString())
+    setUntil(passJSDateToDatetime(internalDate))
   }
 
   function clear() {
-    const newRule = new RRule({
-      freq: rule.options.freq,
-      dtstart: rule.options.dtstart,
-      interval: rule.options.interval,
-      byweekday: rule.options.byweekday,
-    })
-    setInternalDate(new Date(n))
-    setRecurring(newRule.toString())
-    setHasUntil(false)
+    setInternalDate(new Date(aWeekFromNow))
+    setUntil(null)
   }
 
   return (
     <View>
       {
-        hasUntil ?
+        until ?
           <View style={[styles.container, {}]}>
             <Text style={[styles.text, { color: theme.text }]}>End Date</Text>
             <View style={[styles.rightSide, {}]}>
