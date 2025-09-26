@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useItemsByDateRange } from '@/hooks/useDatabase';
 import { pretty } from '@/utils';
-import { countMap } from '@/utils/calendar';
+import { getItemMap } from '@/utils/calendar';
 
 import Day from '@/components/AgendaCalendar/Day'
 
@@ -45,7 +45,7 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   const start = rawDates[0];
   const end = rawDates[rawDates.length - 1];
   const items = useItemsByDateRange(start, end)
-  const map: Record<string, number> = useMemo(() => countMap(items, start, end), [items])
+  const map: Record<string, number> = useMemo(() => getItemMap(items, start, end), [items])
 
   const days = useMemo(() => {
     return rawDates.map(date => {

@@ -2,7 +2,7 @@ import { eachDayOfInterval, isEqual, startOfDay, format } from "date-fns"
 import { getEventOccurrencesBetweenDays, convertRRuleOccurrenceToJSDate, getEventClass } from "@/utils/event"
 import { Event, Assignment, Task } from "@/types"
 
-export function countMap(items: (Event | Assignment | Task)[], start: Date, end: Date) {
+export function getItemMap(items: (Event | Assignment | Task)[], start: Date, end: Date) {
   const m: Record<string, number> = {}
   items.forEach(item => {
     if ('recurring' in item && item.recurring !== undefined) {
