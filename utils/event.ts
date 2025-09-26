@@ -36,7 +36,7 @@ export function convertRRuleOccurrenceToJSDate(occurrence: Date): Date {
   return new Date(occurrence.getUTCFullYear(), occurrence.getUTCMonth(), occurrence.getUTCDate(), occurrence.getUTCHours(), occurrence.getUTCMinutes(), occurrence.getUTCSeconds()) // CHECK: does month not need to be decremented by one here?
 }
 
-function passJSDateToDatetime(date: Date): Date {
+export function passJSDateToDatetime(date: Date): Date {
   return datetime(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds())
 }
 

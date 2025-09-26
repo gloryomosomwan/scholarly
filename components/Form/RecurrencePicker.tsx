@@ -6,6 +6,7 @@ import { datetime, RRule, Frequency } from 'rrule'
 import RecFreqPicker from '@/components/Form/Recurrence/RecFreqPicker'
 import IntervalCounter from '@/components/Form/Recurrence/IntervalCounter'
 import WeeklyPicker from '@/components/Form/Recurrence/WeeklyPicker'
+import UntilSelector from '@/components/Form/Recurrence/UntilSelector'
 
 import { useTheme } from '@/hooks'
 
@@ -23,18 +24,19 @@ export default function RecurrencePicker({ recurring, setRecurring, startDate }:
   useEffect(() => {
     const dtstart = datetime(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate(), startDate.getHours(), startDate.getMinutes(), startDate.getSeconds())
     const interval = rule ? rule.options.interval : 1
+    const until = rule ? rule.options.until : undefined
     switch (frequency) {
       case 'once':
         setRecurring(null);
         break;
       case RRule.DAILY:
-        setRecurring(new RRule({ freq: RRule.DAILY, dtstart: dtstart, interval: interval, count: 3 }).toString());
+        setRecurring(new RRule({ freq: RRule.DAILY, dtstart: dtstart, interval: interval, until: until }).toString());
         break;
       case RRule.WEEKLY:
-        setRecurring(new RRule({ freq: RRule.WEEKLY, dtstart: dtstart, interval: interval, byweekday: rule.options.byweekday, count: 3 }).toString());
+        setRecurring(new RRule({ freq: RRule.WEEKLY, dtstart: dtstart, interval: interval, byweekday: rule.options.byweekday, until: until }).toString());
         break;
       case RRule.MONTHLY:
-        setRecurring(new RRule({ freq: RRule.MONTHLY, dtstart: dtstart, interval: interval }).toString());
+        setRecurring(new RRule({ freq: RRule.MONTHLY, dtstart: dtstart, interval: interval, until: until }).toString());
         break;
     }
   }, [frequency, startDate])
@@ -49,6 +51,7 @@ export default function RecurrencePicker({ recurring, setRecurring, startDate }:
       <RecFreqPicker frequency={frequency} setFrequency={setFrequency} />
       {frequency !== 'once' && <IntervalCounter rule={rule} setRecurring={setRecurring} />}
       {frequency === RRule.WEEKLY && <WeeklyPicker start={startDate} rule={rule} setRecurring={setRecurring} />}
+      {frequency !== 'once' && <UntilSelector rule={rule} setRecurring={setRecurring} start={startDate} />}
     </View>
   )
 }
