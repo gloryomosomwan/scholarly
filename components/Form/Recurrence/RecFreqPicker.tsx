@@ -6,11 +6,11 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks/useTheme'
 
-const frequencies: ('once' | 3 | 2 | 1)[] = ['once', RRule.DAILY, RRule.WEEKLY, RRule.MONTHLY]
+const frequencies: (Frequency | undefined)[] = [undefined, RRule.DAILY, RRule.WEEKLY, RRule.MONTHLY]
 
 type RecFreqPickerProps = {
-  frequency: Frequency | 'once'
-  setFrequency: React.Dispatch<React.SetStateAction<Frequency | 'once'>>
+  frequency: Frequency | undefined
+  setFrequency: React.Dispatch<React.SetStateAction<Frequency | undefined>>
 }
 
 export default function RecFreqPicker({ frequency, setFrequency }: RecFreqPickerProps) {
@@ -18,13 +18,14 @@ export default function RecFreqPicker({ frequency, setFrequency }: RecFreqPicker
   return (
     <View style={[styles.container, { borderColor: theme.accent }]} >
       {frequencies.map(function (value, index) {
+        const text = value === undefined ? 'Once' : textMap[value]
         return (
           <PressableOpacity
             key={index}
             style={[styles.item, frequency === value && { backgroundColor: theme.accent }]}
             onPress={() => setFrequency(value)}
           >
-            <Text style={[styles.itemText, { color: frequency === value ? theme.primary : theme.accent }]}>{text[value]}</Text>
+            <Text style={[styles.itemText, { color: frequency === value ? theme.primary : theme.accent }]}>{text}</Text>
           </PressableOpacity>
         )
       })}
@@ -32,8 +33,7 @@ export default function RecFreqPicker({ frequency, setFrequency }: RecFreqPicker
   )
 }
 
-const text = {
-  'once': 'Once',
+const textMap: Partial<Record<Frequency, string>> = {
   3: 'Daily',
   2: 'Weekly',
   1: 'Monthly'
