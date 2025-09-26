@@ -1,15 +1,14 @@
 import { Platform, StyleSheet, View } from 'react-native'
 import React, { useMemo } from 'react'
-import { startOfMonth, addDays, subDays, getDay, getDaysInMonth, format, isSameMonth, isSameDay, eachDayOfInterval, startOfDay, isEqual } from 'date-fns'
+import { startOfMonth, addDays, subDays, getDay, getDaysInMonth, format, isSameMonth } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import Day from '@/components/AgendaCalendar/Day'
-
-import { useAssignmentsByDateRange, useEventsByDateRange, useTasksByDateRange } from '@/hooks/useDatabase';
-import { convertRRuleOccurrenceToJSDate, getEventClass, getEventOccurrencesBetweenDays } from '@/utils/event';
+import { useItemsByDateRange } from '@/hooks/useDatabase';
 import { pretty } from '@/utils';
-import { Assignment, Event, Task } from '@/types';
+import { countMap } from '@/utils/calendar';
+
+import Day from '@/components/AgendaCalendar/Day'
 
 type MonthProps = {
   initialDay: Date
@@ -17,23 +16,9 @@ type MonthProps = {
   setCalendarBottom: (y: number) => void
 }
 
-function chunk<T>(array: T[], size: number): T[][] {
-  const result: T[][] = []
-  for (let i = 0; i < array.length; i += size) {
-    result.push(array.slice(i, i + size))
-  }
-  return result
-}
-
 export default function Month({ initialDay, selectedDatePosition, setCalendarBottom }: MonthProps) {
   const insets = useSafeAreaInsets()
-  let paddingTop = 0;
-  if (Platform.OS === 'android') {
-    paddingTop = 0
-  }
-  else if (Platform.OS === 'ios') {
-    paddingTop = insets.top
-  }
+  const paddingTop = Platform.OS === 'ios' ? insets.top : 0
 
   const rawDates = useMemo(() => {
     const numDaysInMonth = getDaysInMonth(initialDay)
@@ -59,59 +44,8 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
 
   const start = rawDates[0];
   const end = rawDates[rawDates.length - 1];
-
-  const events: Event[] = useEventsByDateRange(start, end);
-  const assignments: Assignment[] = useAssignmentsByDateRange(start, end);
-  const tasks: Task[] = useTasksByDateRange(start, end);
-
-  // const items = useMemo(() => [...events, ...assignments, ...tasks], [events, assignments, tasks]);
-  const items = useMemo(() => [...events], [events]);
-
-  const map: Record<string, number> = useMemo(function () {
-    const m: Record<string, number> = {}
-    items.forEach(item => {
-      if ('recurring' in item && item.recurring !== undefined) {
-        const occurrences = getEventOccurrencesBetweenDays(item.recurring, start, end)
-        if (occurrences) {
-          occurrences.forEach(occurrence => {
-            const duration = item.endDate.getTime() - item.startDate.getTime()
-            const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
-            const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
-            const dates = eachDayOfInterval({ start: recurredStartDate, end: recurredEndDate })
-            if (isEqual(item.endDate, startOfDay(item.endDate))) dates.splice(dates.length - 1)
-            dates.forEach(date => {
-              const key = format(date, 'yyyy-MM-dd')
-              m[key] = (m[key] || 0) + 1
-            });
-          })
-        }
-      }
-      // If item is an activity
-      else if ('due' in item && item.due instanceof Date) {
-        const dateToUse = item.due;
-        const key = format(dateToUse, 'yyyy-MM-dd')
-        m[key] = (m[key] || 0) + 1
-      }
-      // Item is an event
-      else if ('startDate' in item && 'endDate' in item && item.startDate instanceof Date && item.endDate instanceof Date) {
-        if (getEventClass(item.startDate, item.endDate) !== 'regular') {
-          const dates = eachDayOfInterval({ start: item.startDate, end: item.endDate })
-          // If the event ends at midnight, remove the day representing the end date from the dates array
-          if (isEqual(item.endDate, startOfDay(item.endDate))) dates.splice(dates.length - 1)
-          dates.forEach(date => {
-            const key = format(date, 'yyyy-MM-dd')
-            m[key] = (m[key] || 0) + 1
-          });
-        }
-        else {
-          const dateToUse = item.endDate;
-          const key = format(dateToUse, 'yyyy-MM-dd')
-          m[key] = (m[key] || 0) + 1
-        }
-      }
-    })
-    return m
-  }, [items])
+  const items = useItemsByDateRange(start, end)
+  const map: Record<string, number> = useMemo(() => countMap(items, start, end), [items])
 
   const days = useMemo(() => {
     return rawDates.map(date => {
@@ -136,6 +70,14 @@ export default function Month({ initialDay, selectedDatePosition, setCalendarBot
   }, [map])
 
   const weeks = useMemo(() => chunk(days, 7), [days])
+
+  function chunk<T>(array: T[], size: number): T[][] {
+    const result: T[][] = []
+    for (let i = 0; i < array.length; i += size) {
+      result.push(array.slice(i, i + size))
+    }
+    return result
+  }
 
   return (
     <View style={[styles.container]}>

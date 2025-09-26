@@ -10,6 +10,7 @@ import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignm
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask } from "@/types/drizzle";
 import { getActiveRecurrenceEvents, getRecurrenceEventsByDay } from "@/utils/event";
+import { Assignment, Event, Task } from '@/types';
 import { pretty } from "@/utils";
 
 // Assignments
@@ -268,4 +269,13 @@ export function useTasksByDateRange(firstDay: Date, lastDay: Date) {
   ))
   const taskData = data.map(convertRawTask)
   return taskData
+}
+
+// Other
+
+export function useItemsByDateRange(start: Date, end: Date) {
+  const events: Event[] = useEventsByDateRange(start, end);
+  const assignments: Assignment[] = useAssignmentsByDateRange(start, end);
+  const tasks: Task[] = useTasksByDateRange(start, end);
+  return [...events, ...assignments, ...tasks]
 }
