@@ -1,4 +1,4 @@
-CREATE TABLE semesters (
+CREATE TABLE IF NOT EXISTS semesters (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     start TEXT NOT NULL, 
@@ -9,7 +9,7 @@ INSERT INTO semesters (id, name, start, end) VALUES
 (1, 'Summer 2025', '2025-07-04T06:00:00.000Z', '2025-08-21T06:00:00.000Z'),
 (2, 'Spring 2025', '2025-05-07T06:00:00.000Z', '2025-06-23T06:00:00.000Z');
 
-CREATE TABLE courses (
+CREATE TABLE IF NOT EXISTS courses (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     code TEXT NOT NULL,
@@ -24,7 +24,7 @@ INSERT INTO courses (id, name, code, color, semester_id, instructor) VALUES
 (2, 'Build Systems', 'DEV 319', '#EF4444', 1, 'Dr. Linda Chou'),
 (3, 'Introduction to Product Development', 'PROD 101', '#8B5CF6', 2, 'Bill Hawley');
 
-CREATE TABLE tasks (
+CREATE TABLE IF NOT EXISTS tasks (
     id INTEGER PRIMARY KEY,
     title TEXT NOT NULL,
     course_id INTEGER,
@@ -41,7 +41,7 @@ INSERT INTO tasks (id, title, course_id, description, due, priority, completed_a
 (2, 'Learn about Hevy positioning', 2, 'Check their subreddit', '2025-08-20T06:00:00.000Z', 'medium', '2025-08-14T02:29:01.842Z', 'date'),
 (3, 'Review lecture slides', NULL, 'Go through slides', '2025-08-30T06:00:00.000Z', 'low', NULL, 'date');
 
-create table assignments (
+create table IF NOT EXISTS assignments (
     id INTEGER PRIMARY KEY,
     title TEXT NOT NULL,
     course_id INTEGER NOT NULL,
@@ -58,7 +58,7 @@ INSERT INTO assignments (id, title, course_id, description, due, due_type, compl
 (1, 'Assignment 2', 1, 'Check with jeff', '2025-08-29T06:00:00.000Z', 'date', NULL, 50, NULL);
 
 
-create table events (
+create table IF NOT EXISTS events (
     id INTEGER PRIMARY KEY,
     type TEXT NOT NULL,
     start_date TEXT NOT NULL,
