@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router';
-import { isBefore, isSameDay } from 'date-fns';
+import { isAfter, isSameDay } from 'date-fns';
 
 import EventItemTimeRange from '@/components/EventItem/EventItemTimeRange';
 import EventItemDivider from '@/components/EventItem/EventItemDivider';
@@ -43,7 +43,7 @@ export default function EventItem({ event }: EventItemProps) {
 
 const checkEventWasEarlierToday = (startDate: Date, endDate: Date): boolean => {
   const today = new Date()
-  return isSameDay(startDate, today) && isBefore(endDate, Date.now())
+  return (isSameDay(startDate, today) || isSameDay(endDate, today)) && isAfter(Date.now(), endDate)
 }
 
 const styles = StyleSheet.create({
