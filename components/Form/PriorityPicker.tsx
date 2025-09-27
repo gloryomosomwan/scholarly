@@ -5,6 +5,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import PriorityModal from '@/components/Modals/PriorityModal'
+import ClearButton from '@/components/Buttons/ClearButton'
 
 import { usePriorityPalette, useTheme } from '@/hooks'
 import { PriorityOption } from '@/types'
@@ -34,6 +35,7 @@ export default function PriorityPicker({ priority, setPriority }: PriorityPicker
                   <Text style={[styles.priorityText, { color: priorityPalette.color }]}>
                     {priority.toUpperCase()}
                   </Text>
+                  <ClearButton onPress={() => setPriority(null)} />
                 </View>
               )
             })()

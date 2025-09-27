@@ -5,6 +5,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import DateModal from '@/components/Modals/DateModal'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
+import ClearButton from '@/components/Buttons/ClearButton'
 
 import { useTheme } from '@/hooks'
 
@@ -30,7 +31,11 @@ export default function DatePicker({ date, setDate, dateType, form }: DatePicker
         {
           !date
             ? <Text style={[styles.text, { color: theme.grey500 }]}>{placeholder}</Text>
-            : <Text style={[styles.text, { color: theme.grey500 }]}>{`${date?.toLocaleString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}`}</Text>
+            :
+            <View>
+              <Text style={[styles.text, { color: theme.grey500 }]}>{`${date?.toLocaleString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}`}</Text>
+              <ClearButton onPress={() => setDate(null)} />
+            </View>
         }
       </PressableOpacity>
       <DateModal dateType={dateType} initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} form={form} />

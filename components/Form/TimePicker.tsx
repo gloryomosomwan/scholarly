@@ -5,6 +5,7 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import { startOfDay } from 'date-fns';
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
+import ClearButton from '@/components/Buttons/ClearButton'
 
 import { useTheme } from '@/hooks'
 import { DueType } from '@/types'
@@ -52,9 +53,7 @@ export default function TimePicker({ date, setDate, setDueType, dueType }: TimeP
               onChange={handlePickerChange}
               accentColor={theme.accent}
             />
-            <PressableOpacity onPress={deactivate}>
-              <SymbolView name={'x.circle'} tintColor={theme.grey500} size={24} />
-            </PressableOpacity>
+            <ClearButton onPress={deactivate} />
           </View>
           :
           <PressableOpacity onPress={activate}>

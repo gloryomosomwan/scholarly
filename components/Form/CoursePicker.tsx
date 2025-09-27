@@ -5,6 +5,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import CourseModal from '@/components/Modals/CourseModal'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
+import ClearButton from '@/components/Buttons/ClearButton'
 
 import { useTheme } from '@/hooks'
 import { getCourseById } from '@/hooks/useDatabase'
@@ -34,9 +35,7 @@ export default function CoursePicker({ courseID, setCourseID }: CoursePickerProp
                 <Text style={[styles.courseText, { color: theme.text }]}>{course.code}</Text>
               </View>
             </PressableOpacity>
-            <PressableOpacity onPress={() => setCourseID(null)}>
-              <SymbolView name={'x.circle'} tintColor={theme.grey500} size={24} />
-            </PressableOpacity>
+            <ClearButton onPress={() => setCourseID(null)} />
           </View>
           :
           <PressableOpacity onPress={handlePresentModal}>
