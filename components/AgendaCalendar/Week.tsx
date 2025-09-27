@@ -4,9 +4,10 @@ import { addDays, format, startOfWeek } from 'date-fns'
 import { SharedValue } from 'react-native-reanimated'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import Day from '@/components/AgendaCalendar/Day'
+import { useItemsByDateRange } from '@/hooks/useDatabase';
+import { getItemMap } from '@/utils/calendar';
 
-import { useAssignmentsByDateRange, useEventsByDateRange, useTasksByDateRange } from '@/hooks/useDatabase';
+import Day from '@/components/AgendaCalendar/Day'
 
 type WeekProps = {
   initialDay: Date
@@ -15,14 +16,7 @@ type WeekProps = {
 
 export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
   const insets = useSafeAreaInsets()
-
-  let paddingTop = 0;
-  if (Platform.OS === 'android') {
-    paddingTop = 0
-  }
-  else if (Platform.OS === 'ios') {
-    paddingTop = insets.top
-  }
+  const paddingTop = Platform.OS === 'ios' ? insets.top : 0
 
   const rawDates = useMemo(() => {
     let firstDayOfWeek = startOfWeek(initialDay)
@@ -33,26 +27,10 @@ export default function Week({ initialDay, selectedDatePosition }: WeekProps) {
     return rawDates
   }, [initialDay])
 
-  const map: Record<string, number> = {}
-  const items = [
-    ...useEventsByDateRange(rawDates[0], rawDates[rawDates.length - 1]),
-    ...useAssignmentsByDateRange(rawDates[0], rawDates[rawDates.length - 1]),
-    ...useTasksByDateRange(rawDates[0], rawDates[rawDates.length - 1])
-  ]
-  items.forEach(item => {
-    let dateToUse: Date | undefined;
-
-    if ('startDate' in item && item.startDate instanceof Date) {
-      dateToUse = item.startDate;
-    } else if ('due' in item && item.due instanceof Date) {
-      dateToUse = item.due;
-    }
-
-    if (dateToUse) {
-      const key = format(dateToUse, 'yyyy-MM-dd')
-      map[key] = (map[key] || 0) + 1
-    }
-  })
+  const start = rawDates[0];
+  const end = rawDates[rawDates.length - 1];
+  const items = useItemsByDateRange(start, end)
+  const map: Record<string, number> = useMemo(() => getItemMap(items, start, end), [items])
 
   const days = useMemo(() => {
     return rawDates.map(date => {
