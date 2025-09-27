@@ -24,33 +24,30 @@ export default function PriorityPicker({ priority, setPriority }: PriorityPicker
     modalRef.current?.present();
   }, []);
   return (
-    <View>
-      <PressableOpacity onPress={handlePresentModal}>
-        <View style={styles.row}>
-          <SymbolView name={'flag'} tintColor={theme.grey500} size={24} />
-          {priority ?
-            (() => {
-              return (
-                <View style={[styles.tag, { backgroundColor: priorityPalette.backgroundColor }]}>
-                  <Text style={[styles.priorityText, { color: priorityPalette.color }]}>
-                    {priority.toUpperCase()}
-                  </Text>
-                  <ClearButton onPress={() => setPriority(null)} />
-                </View>
-              )
-            })()
-            :
-            <Text style={[styles.text, { color: theme.grey500 }]}>Add priority</Text>
-          }
-        </View>
+    <View style={styles.container}>
+      <PressableOpacity style={styles.button} onPress={handlePresentModal}>
+        <SymbolView name={'flag'} tintColor={theme.grey500} size={24} />
+        {priority ?
+          <View style={[styles.tag, { backgroundColor: priorityPalette.backgroundColor }]}>
+            <Text style={[styles.priorityText, { color: priorityPalette.color }]}>
+              {priority.toUpperCase()}
+            </Text>
+          </View>
+          :
+          <Text style={[styles.text, { color: theme.grey500 }]}>Add priority</Text>
+        }
       </PressableOpacity>
+      {priority && <ClearButton onPress={() => setPriority(null)} />}
       <PriorityModal setPriority={setPriority} prioritySelectorModalRef={modalRef} />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  row: {
+  container: {
+    flexDirection: 'row'
+  },
+  button: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 16,
