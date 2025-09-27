@@ -1,13 +1,13 @@
 import { Platform, StyleSheet } from 'react-native'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { addWeeks, differenceInCalendarWeeks, isSameWeek, setDay, startOfWeek } from 'date-fns';
 import InfinitePager, { InfinitePagerImperativeApi } from "react-native-infinite-pager";
 import Animated, { SharedValue, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import Week from '@/components/AgendaCalendar/Week';
-
 import { useCalendarStore } from '@/stores/calendar';
+
+import Week from '@/components/AgendaCalendar/Week';
 
 type WeekPagerProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -63,7 +63,7 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
     }
   })
 
-  const WeekPage = ({ index }: { index: number }) => {
+  const WeekPage = useCallback(({ index }: { index: number }) => {
     const selectedDatePosition = useSharedValue(0)
     return (
       <Animated.View style={[rPageStyle]} >
@@ -73,7 +73,8 @@ export default function WeekPager({ bottomSheetTranslationY, calendarBottom }: W
         />
       </Animated.View>
     );
-  };
+  }, []);
+
   return (
     <Animated.View style={[styles.weekPagerContainer, { top: paddingTop + 52 }, rWeekPagerStyle]}>
       {/* top = 20 (top inset/paddingTop) + 30 (size of header) + 5 (header margin) + 17 (weekday name text height) */}
