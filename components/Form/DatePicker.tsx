@@ -36,7 +36,7 @@ export default function DatePicker({ date, setDate, dateType, form }: DatePicker
           </View>
         }
       </PressableOpacity>
-      <ClearButton onPress={() => setDate(null)} />
+      {date && <ClearButton onPress={() => setDate(null)} />}
       <DateModal dateType={dateType} initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} form={form} />
     </View>
   )
