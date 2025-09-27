@@ -25,19 +25,18 @@ export default function DatePicker({ date, setDate, dateType, form }: DatePicker
     modalRef.current?.present();
   }, []);
   return (
-    <View>
-      <PressableOpacity style={styles.row} onPress={handlePresentModal}>
+    <View style={styles.container}>
+      <PressableOpacity style={styles.button} onPress={handlePresentModal}>
         <SymbolView name={'calendar'} tintColor={theme.grey500} size={24} />
-        {
-          !date
-            ? <Text style={[styles.text, { color: theme.grey500 }]}>{placeholder}</Text>
-            :
-            <View>
-              <Text style={[styles.text, { color: theme.grey500 }]}>{`${date?.toLocaleString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}`}</Text>
-              <ClearButton onPress={() => setDate(null)} />
-            </View>
+        {!date ?
+          <Text style={[styles.text, { color: theme.grey500 }]}>{placeholder}</Text>
+          :
+          <View>
+            <Text style={[styles.text, { color: theme.grey500 }]}>{`${date?.toLocaleString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}`}</Text>
+          </View>
         }
       </PressableOpacity>
+      <ClearButton onPress={() => setDate(null)} />
       <DateModal dateType={dateType} initialDate={date} setDate={setDate} bottomSheetModalRef={modalRef} form={form} />
     </View>
   )
@@ -53,7 +52,10 @@ function getPlaceholder(type: string) {
 }
 
 const styles = StyleSheet.create({
-  row: {
+  container: {
+    flexDirection: 'row'
+  },
+  button: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 16,
