@@ -2,13 +2,13 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { addWeeks } from 'date-fns';
-import { SymbolView } from 'expo-symbols';
 import { RRule } from 'rrule';
 
 import { useTheme } from '@/hooks/useTheme'
 import { passJSDateToDatetime } from '@/utils/event';
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
+import ClearButton from '@/components/Buttons/ClearButton';
 
 type UntilSelectorProps = {
   rule: RRule
@@ -89,9 +89,7 @@ export default function UntilSelector({ rule, setRecurring, start }: UntilSelect
                 onChange={handlePickerChange}
                 accentColor={theme.accent}
               />
-              <PressableOpacity style={[styles.clearButton, { backgroundColor: theme.grey200 }]} onPress={clear}>
-                <SymbolView name='xmark' size={15} tintColor={theme.grey400} />
-              </PressableOpacity>
+              <ClearButton onPress={clear} />
             </View>
           </View>
           :
@@ -118,14 +116,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15
-  },
-  clearButton: {
-    padding: 8,
-    borderRadius: 20,
-    height: 30,
-    width: 30,
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   rightSide: {
     flexDirection: 'row',
