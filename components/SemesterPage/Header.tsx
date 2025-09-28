@@ -9,7 +9,11 @@ import { useUserStore } from '@/stores';
 import { useTheme } from '@/hooks'
 import { getSemesterById } from '@/hooks/useDatabase'
 
-export default function Header() {
+type HeaderProps = {
+  numOfSemesters: number
+}
+
+export default function Header({ numOfSemesters }: HeaderProps) {
   const theme = useTheme()
   const semesterID = useUserStore((state) => state.semesterID)
   const semester = getSemesterById(semesterID ? semesterID : null)
@@ -19,9 +23,12 @@ export default function Header() {
         <View style={styles.semesterInfoContainer}>
           <Text style={[styles.semesterText, { color: theme.text }]}>{semester ? semester.name : ''}</Text>
         </View>
-        <PressableOpacity onPress={() => router.navigate('/select-semester')}>
-          <SymbolView name="calendar" size={35} tintColor={theme.text} />
-        </PressableOpacity>
+        {
+          numOfSemesters > 0 && semesterID !== undefined &&
+          <PressableOpacity onPress={() => router.navigate('/select-semester')}>
+            <SymbolView name="calendar" size={35} tintColor={theme.text} />
+          </PressableOpacity>
+        }
       </View>
     </View>
   )

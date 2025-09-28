@@ -1,44 +1,38 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { SymbolView } from 'expo-symbols'
+import { SFSymbol, SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks'
 import { getColorWithOpacity } from '@/utils'
+
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 type AddButtonProps = {
   handlePress: () => void
   title: string
   description?: string
+  icon?: SFSymbol
 }
 
-export default function AddButton({ handlePress, title, description }: AddButtonProps) {
+export default function AddButton({ handlePress, title, description, icon = 'plus' }: AddButtonProps) {
   const theme = useTheme()
   return (
-    <View style={styles.addCourseContainer}>
-      <PressableOpacity style={[styles.addCourseButtonContainer, { backgroundColor: theme.secondary, borderColor: theme.grey400 }]} onPress={handlePress}>
-        <View style={styles.addCourseContentContainer}>
-          <View style={[styles.addCourseIconContainer, { backgroundColor: getColorWithOpacity(theme.accent, 0.05) }]}>
-            <SymbolView name="plus" size={20} tintColor={theme.accent} />
-          </View>
-          <View style={styles.addCourseTextContainer}>
-            <Text style={[styles.addCourseText, { color: theme.text }]}>{title}</Text>
-            {
-              description && <Text style={[styles.addCourseSubtitleText, { color: theme.grey500 }]}>{description}</Text>
-            }
-          </View>
+    <PressableOpacity style={[styles.container, { backgroundColor: theme.secondary, borderColor: theme.grey400 }]} onPress={handlePress}>
+      <View style={styles.contentContainer}>
+        <View style={[styles.iconContainer, { backgroundColor: getColorWithOpacity(theme.accent, 0.05) }]}>
+          <SymbolView name={icon} size={20} tintColor={theme.accent} />
         </View>
-      </PressableOpacity>
-    </View>
+        <View style={styles.textContainer}>
+          <Text style={[styles.text, { color: theme.text }]}>{title}</Text>
+          {description && <Text style={[styles.descriptionText, { color: theme.grey500 }]}>{description}</Text>}
+        </View>
+      </View>
+    </PressableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-  addCourseContainer: {
-    // paddingTop: 12,
-    // paddingBottom: 16,
-  },
-  addCourseButtonContainer: {
+  container: {
     borderWidth: 2,
     borderStyle: 'dashed',
     borderRadius: 16,
@@ -46,11 +40,11 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingHorizontal: 16,
   },
-  addCourseContentContainer: {
+  contentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  addCourseIconContainer: {
+  iconContainer: {
     width: 48,
     height: 48,
     borderRadius: 24,
@@ -58,15 +52,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 16,
   },
-  addCourseTextContainer: {
+  textContainer: {
     flex: 1,
   },
-  addCourseText: {
+  text: {
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 2,
   },
-  addCourseSubtitleText: {
+  descriptionText: {
     fontSize: 14,
   },
 })
