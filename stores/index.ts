@@ -4,7 +4,7 @@ import { StateStorage, persist, createJSONStorage } from 'zustand/middleware'
 
 type UserStore = {
   semesterID: number | undefined,
-  setSemesterID: (newSemesterID: number) => void
+  setSemesterID: (newSemesterID: number | undefined) => void
 }
 
 const storage = new MMKV()

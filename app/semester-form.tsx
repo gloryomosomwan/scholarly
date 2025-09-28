@@ -39,9 +39,7 @@ export default function SemesterForm() {
     try {
       const parsed = semesterInsertSchema.parse(semester)
       const semesterData = await db.insert(semesters).values(parsed)
-      if (currentSemesterID === undefined) {
-        setSemesterID(semesterData.lastInsertRowId)
-      }
+      if (currentSemesterID === undefined) setSemesterID(semesterData.lastInsertRowId)
       router.back()
     } catch (error) {
       console.log(error)
@@ -76,6 +74,7 @@ export default function SemesterForm() {
           // Cancel action
         } else if (buttonIndex === 1) {
           await db.delete(semesters).where(eq(semesters.id, convertedID))
+          if (currentSemesterID === convertedID) setSemesterID(undefined)
           router.back()
         }
       }
