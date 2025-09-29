@@ -1,7 +1,7 @@
 import { drizzle } from 'drizzle-orm/expo-sqlite'
 import { openDatabaseSync } from 'expo-sqlite'
 
-export const sqlite = openDatabaseSync('test-DB', { enableChangeListener: true })
+export const sqlite = openDatabaseSync('databaseName', { enableChangeListener: true })
 
 sqlite.execSync(`
 CREATE TABLE IF NOT EXISTS semesters (
