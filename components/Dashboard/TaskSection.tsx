@@ -12,13 +12,14 @@ export default function TaskSection() {
   const taskData = useTasksForToday()
 
   let numberOfOverdueTasks = 0;
-  for (const el of taskData) {
-    if (el.due && el.completedAt === undefined) {
-      if (isBefore(el.due, new Date())) {
-        numberOfOverdueTasks += 1
-      }
-    }
-  }
+  taskData.forEach(task => {
+    if (task.due && (task.completedAt === undefined) && isBefore(task.due, new Date())) numberOfOverdueTasks += 1
+  });
+
+  let subheaderText: string;
+  if (taskData.length === 0) subheaderText = 'No tasks due today'
+  else if (taskData.length === 1) subheaderText = '1 task due today'
+  else subheaderText = `${taskData} tasks due today`
 
   return (
     <View>
@@ -27,8 +28,8 @@ export default function TaskSection() {
           <Text style={[styles.headerText, { color: theme.text }]}>Today's Tasks:</Text>
         </View>
         <Text style={[styles.subheaderText, { color: theme.grey400 }]}>
-          {taskData.length} tasks due today
-          <Text style={[styles.subheaderText, { color: theme.grey500, fontWeight: 700 }]}> ({numberOfOverdueTasks} overdue)</Text>
+          {subheaderText}
+          {taskData.length > 0 && <Text style={[styles.overdueText, { color: theme.grey500, }]}> ({numberOfOverdueTasks} overdue)</Text>}
         </Text>
       </View>
       {taskData.map((task) => <TaskCard key={task.id} task={task} />)}
@@ -40,6 +41,10 @@ const styles = StyleSheet.create({
   subheaderText: {
     fontSize: 16,
     fontWeight: '600',
+  },
+  overdueText: {
+    fontSize: 16,
+    fontWeight: '700'
   },
   headerText: {
     fontSize: 20,

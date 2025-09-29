@@ -12,13 +12,14 @@ export default function AssignmentSection() {
   const assignmentData = useTodayAssignments()
 
   let numberOfOverdueTasks = 0;
-  for (const el of assignmentData) {
-    if (el.due && el.completedAt === undefined) {
-      if (isBefore(el.due, new Date())) {
-        numberOfOverdueTasks += 1
-      }
-    }
-  }
+  assignmentData.forEach(assignment => {
+    if (assignment.due && (assignment.completedAt === undefined) && isBefore(assignment.due, new Date())) numberOfOverdueTasks += 1
+  });
+
+  let subheaderText: string;
+  if (assignmentData.length === 0) subheaderText = 'No assignments due today'
+  else if (assignmentData.length === 1) subheaderText = '1 assignment due today'
+  else subheaderText = `${assignmentData} assignments due today`
 
   return (
     <View>
@@ -27,8 +28,8 @@ export default function AssignmentSection() {
           <Text style={[styles.headerText, { color: theme.text }]}>Today's Assignments:</Text>
         </View>
         <Text style={[styles.subheaderText, { color: theme.grey400 }]}>
-          {assignmentData.length} assignments due today
-          <Text style={[styles.subheaderText, { color: theme.grey500, fontWeight: 700 }]}> ({numberOfOverdueTasks} overdue)</Text>
+          {subheaderText}
+          {assignmentData.length > 0 && <Text style={[styles.overdueText, { color: theme.grey500 }]}> ({numberOfOverdueTasks} overdue)</Text>}
         </Text>
       </View>
       {assignmentData.map((assignment) => <AssignmentCard key={assignment.id} assignment={assignment} />)}
@@ -40,6 +41,10 @@ const styles = StyleSheet.create({
   subheaderText: {
     fontSize: 16,
     fontWeight: '600',
+  },
+  overdueText: {
+    fontSize: 16,
+    fontWeight: '700'
   },
   headerText: {
     fontSize: 20,
