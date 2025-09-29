@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 import { CourseColorMap } from "@/constants/coursePalettes";
 import { CourseColor } from "@/types";
 
@@ -23,4 +25,17 @@ export const getCoursePalette = (color: CourseColor) => {
 
 export const pretty = (data: any): void => {
   console.log(JSON.stringify(data, null, 2))
+}
+
+export function getTimeOfDay(): string {
+  const now = dayjs()
+  const midnight = now.startOf('day')
+  const fourAM = midnight.add(4, 'hour')
+  const noon = midnight.add(12, 'hour')
+  const fivePM = midnight.add(17, 'hour')
+  const ninePM = midnight.add(21, 'hour')
+  if (now.isBetween(fourAM, noon, null, '[)')) return 'morning'
+  else if (now.isBetween(noon, fivePM, null, '[)')) return 'afternoon'
+  else if (now.isBetween(fivePM, ninePM, null, '[)')) return 'evening'
+  else return 'night'
 }
