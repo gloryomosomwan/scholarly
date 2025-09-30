@@ -16,28 +16,27 @@ type ButtonRowProps = {
 export default function ButtonRow({ create, confirmDelete, update, disabled, isCreateForm }: ButtonRowProps) {
   const theme = useTheme()
   return (
-    <View style={[styles.buttonContainer]}>
+    <View style={[styles.container]}>
       {
         isCreateForm === false &&
         <PressableOpacity onPress={confirmDelete}>
-          <Text style={[styles.buttonText, { color: theme.dangerText }]}>Delete</Text>
+          <Text style={[styles.text, { color: theme.dangerText }]}>Delete</Text>
         </PressableOpacity>
       }
       <PressableOpacity onPress={isCreateForm ? create : update} disabled={disabled}>
-        <Text style={[styles.buttonText, { color: disabled ? theme.accentInactive : theme.accent }]}>Save</Text>
+        <Text style={[styles.text, { color: disabled ? theme.accentInactive : theme.accent }]}>Save</Text>
       </PressableOpacity>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    bottom: 125
   },
-  buttonText: {
+  text: {
     fontSize: 18,
     fontWeight: '600',
   },

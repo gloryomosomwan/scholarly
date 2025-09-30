@@ -1,6 +1,5 @@
 import { ActionSheetIOS, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
 import { addHours, isBefore, roundToNearestHours } from 'date-fns'
@@ -12,6 +11,7 @@ import CoursePicker from '@/components/Form/CoursePicker'
 import ButtonRow from '@/components/Form/ButtonRow'
 import EventTypePicker from '@/components/Form/EventTypePicker'
 import RecurrencePicker from '@/components/Form/Recurrence/RecurrencePicker'
+import FormContainer from '@/components/Form/FormContainer'
 
 import { useTheme } from '@/hooks'
 import { EventType } from '@/types'
@@ -97,31 +97,23 @@ export default function EventForm() {
   }
 
   return (
-    <BottomSheetModalProvider>
-      <View style={[styles.container, {}]}>
-        <View style={[styles.formContainer, {}]}>
-          <PrimaryTextInputField placeholder='Enter name' value={name} onChangeText={setName} />
-          <DateTimePicker date={startDate} setDate={changeStartDate} />
-          <DateTimePicker date={endDate} invalid={invalid} setDate={setEndDate} />
-          <EventTypePicker eventType={type} setEventType={setType} />
-          <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />
-          <CoursePicker courseID={courseID} setCourseID={setCourseID} />
-          <RecurrencePicker recurring={recurring} setRecurring={setRecurring} startDate={startDate} />
-        </View>
-        <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={invalid} />
+    <FormContainer>
+      <View style={[styles.fieldContainer, {}]}>
+        <PrimaryTextInputField placeholder='Enter name' value={name} onChangeText={setName} />
+        <DateTimePicker date={startDate} setDate={changeStartDate} />
+        <DateTimePicker date={endDate} invalid={invalid} setDate={setEndDate} />
+        <EventTypePicker eventType={type} setEventType={setType} />
+        <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />
+        <CoursePicker courseID={courseID} setCourseID={setCourseID} />
+        <RecurrencePicker recurring={recurring} setRecurring={setRecurring} startDate={startDate} />
       </View>
-    </BottomSheetModalProvider>
+      <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={invalid} />
+    </FormContainer>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-  },
-  formContainer: {
+  fieldContainer: {
     gap: 24,
   },
 })
