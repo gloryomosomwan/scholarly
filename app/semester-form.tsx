@@ -1,8 +1,8 @@
 import { ActionSheetIOS, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
+import FormContainer from '@/components/Form/FormContainer'
 
 import { useUserStore } from '@/stores'
 import { useTheme } from '@/hooks'
@@ -82,26 +82,18 @@ export default function SemesterForm() {
   }
 
   return (
-    <BottomSheetModalProvider>
-      <View style={[styles.container, { backgroundColor: theme.primary }]}>
-        <View style={[styles.formContainer, {}]}>
-          <PrimaryTextInputField placeholder='Add semester name' value={name} onChangeText={setName} />
-          <SemesterDatePicker label='Start Date' date={start} setDate={setStart} />
-          <SemesterDatePicker label='End Date' date={end} setDate={setEnd} />
-        </View>
-        <ButtonRow create={createSemester} update={updateSemester} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={!semesterInsertSchema.safeParse(semester).success} />
+    <FormContainer>
+      <View style={[styles.formContainer, {}]}>
+        <PrimaryTextInputField placeholder='Add semester name' value={name} onChangeText={setName} />
+        <SemesterDatePicker label='Start Date' date={start} setDate={setStart} />
+        <SemesterDatePicker label='End Date' date={end} setDate={setEnd} />
       </View>
-    </BottomSheetModalProvider>
+      <ButtonRow create={createSemester} update={updateSemester} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={!semesterInsertSchema.safeParse(semester).success} />
+    </FormContainer>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-  },
   formContainer: {
     gap: 24,
   },

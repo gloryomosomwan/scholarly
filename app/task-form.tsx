@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, ActionSheetIOS, Text } from 'react-native'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
 
@@ -11,6 +10,7 @@ import TextInputField from '@/components/Form/TextInputField'
 import ButtonRow from '@/components/Form/ButtonRow'
 import DatePicker from '@/components/Form/DatePicker'
 import TimePicker from '@/components/Form/TimePicker'
+import FormContainer from '@/components/Form/FormContainer'
 
 import { useTheme } from '@/hooks'
 import { DueType, PriorityOption } from '@/types'
@@ -24,9 +24,9 @@ export default function TaskForm() {
 
   const { id } = useLocalSearchParams<{ id: string }>()
   const convertedID = Number(id)
-  const taskData = id ? getTaskById(convertedID) : null // should this violate hook rules?
+  const taskData = id ? getTaskById(convertedID) : null // CHECK: should this violate hook rules?
 
-  const [date, setDate] = useState<Date | null>(taskData?.due ? new Date(taskData.due) : null); // this should be a date already? // rename this
+  const [date, setDate] = useState<Date | null>(taskData?.due ? new Date(taskData.due) : null); // CHECK: this should be a date already? // rename this
   const [dueType, setDueType] = useState<DueType>(taskData?.dueType ? taskData.dueType : 'date');
   const [courseID, setCourseID] = useState<number | null>(taskData?.courseID ? taskData.courseID : null);
   const [priority, setPriority] = useState<PriorityOption | null>(taskData?.priority ? taskData.priority : null);
@@ -84,20 +84,18 @@ export default function TaskForm() {
   }
 
   return (
-    <BottomSheetModalProvider>
-      <View style={[styles.container, { backgroundColor: theme.secondary }]}>
-        <View style={styles.formContainer}>
-          <PrimaryTextInputField placeholder='Enter title' value={title} onChangeText={setTitle} />
-          <Text style={{ color: theme.text }}>{date?.toISOString() || 'null'}</Text>
-          <DatePicker dateType='general' date={date} setDate={setDate} form='activity' />
-          {date && <TimePicker date={date} setDate={setDate} dueType={dueType} setDueType={setDueType} />}
-          <CoursePicker courseID={courseID} setCourseID={setCourseID} />
-          <PriorityPicker priority={priority} setPriority={setPriority} />
-          <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
-        </View>
-        <ButtonRow confirmDelete={confirmDelete} create={createTask} update={updateTask} isCreateForm={id === undefined} disabled={!taskInsertSchema.safeParse(task).success} />
-      </View >
-    </BottomSheetModalProvider>
+    <FormContainer>
+      <View style={styles.fieldContainer}>
+        <PrimaryTextInputField placeholder='Enter title' value={title} onChangeText={setTitle} />
+        <Text style={{ color: theme.text }}>{date?.toISOString() || 'null'}</Text>
+        <DatePicker dateType='general' date={date} setDate={setDate} form='activity' />
+        {date && <TimePicker date={date} setDate={setDate} dueType={dueType} setDueType={setDueType} />}
+        <CoursePicker courseID={courseID} setCourseID={setCourseID} />
+        <PriorityPicker priority={priority} setPriority={setPriority} />
+        <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
+      </View>
+      <ButtonRow confirmDelete={confirmDelete} create={createTask} update={updateTask} isCreateForm={id === undefined} disabled={!taskInsertSchema.safeParse(task).success} />
+    </FormContainer>
   )
 }
 
@@ -109,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 10,
   },
-  formContainer: {
+  fieldContainer: {
     gap: 24,
   },
 })

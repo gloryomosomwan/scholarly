@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, ActionSheetIOS } from 'react-native'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
 
@@ -9,6 +8,7 @@ import DateTimePicker from '@/components/Form/DateTimePicker'
 import CoursePicker from '@/components/Form/CoursePicker'
 import TextInputField from '@/components/Form/TextInputField'
 import ButtonRow from '@/components/Form/ButtonRow'
+import FormContainer from '@/components/Form/FormContainer'
 
 import { useTheme } from '@/hooks'
 import { DueType } from '@/types'
@@ -81,29 +81,20 @@ export default function AssignmentForm() {
   }
 
   return (
-    <BottomSheetModalProvider>
-      <View style={[styles.container, { backgroundColor: theme.secondary }]}>
-        <View style={styles.formContainer}>
-          <PrimaryTextInputField placeholder='Enter title' value={title} onChangeText={setTitle} />
-          <DateTimePicker date={date} setDate={setDate} dueType={dueType} setDueType={setDueType} />
-          <CoursePicker courseID={courseID} setCourseID={setCourseID} />
-          <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
-        </View>
-        <ButtonRow confirmDelete={confirmDelete} create={createAssignment} update={updateAssignment} isCreateForm={id === undefined} disabled={!assignmentInsertSchema.safeParse(assignment).success} />
-      </View >
-    </BottomSheetModalProvider>
+    <FormContainer>
+      <View style={styles.fieldContainer}>
+        <PrimaryTextInputField placeholder='Enter title' value={title} onChangeText={setTitle} />
+        <DateTimePicker date={date} setDate={setDate} dueType={dueType} setDueType={setDueType} />
+        <CoursePicker courseID={courseID} setCourseID={setCourseID} />
+        <TextInputField placeholder="Add notes" value={notes} onChangeText={setNotes} />
+      </View>
+      <ButtonRow confirmDelete={confirmDelete} create={createAssignment} update={updateAssignment} isCreateForm={id === undefined} disabled={!assignmentInsertSchema.safeParse(assignment).success} />
+    </FormContainer>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    justifyContent: 'space-between',
-    gap: 10,
-  },
-  formContainer: {
+  fieldContainer: {
     gap: 24,
   },
 })

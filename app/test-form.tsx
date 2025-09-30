@@ -1,6 +1,6 @@
 import { StyleSheet, View, } from 'react-native'
 import React, { useState } from 'react'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import FormContainer from '@/components/Form/FormContainer'
 
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import DateTimePicker from '@/components/Form/DateTimePicker'
@@ -18,17 +18,15 @@ export default function EventForm() {
   const [dueType, setDueType] = useState<DueType | null>(null)
   const [location, setLocation] = useState('')
   return (
-    <BottomSheetModalProvider>
-      <View style={[styles.container, {}]}>
-        <View style={[styles.formContainer, {}]}>
-          <PrimaryTextInputField placeholder='Add name' value={title} onChangeText={setTitle} />
-          <DateTimePicker placeholder='Add start date' date={start} setDate={setStart} dueType={dueType} setDueType={setDueType} />
-          <DateTimePicker placeholder='Add end date' date={end} setDate={setEnd} dueType={dueType} setDueType={setDueType} />
-          <TextInputField placeholder='Add location' value={location} onChangeText={setLocation} />
-        </View>
-        {/* <ButtonRow /> */}
+    <FormContainer>
+      <View style={[styles.formContainer, {}]}>
+        <PrimaryTextInputField placeholder='Add name' value={title} onChangeText={setTitle} />
+        <DateTimePicker placeholder='Add start date' date={start} setDate={setStart} dueType={dueType} setDueType={setDueType} />
+        <DateTimePicker placeholder='Add end date' date={end} setDate={setEnd} dueType={dueType} setDueType={setDueType} />
+        <TextInputField placeholder='Add location' value={location} onChangeText={setLocation} />
       </View>
-    </BottomSheetModalProvider>
+      {/* <ButtonRow /> */}
+    </FormContainer>
   )
 }
 

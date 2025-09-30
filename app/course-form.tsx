@@ -7,6 +7,7 @@ import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import TextInputField from '@/components/Form/TextInputField'
 import ColorPicker from '@/components/Form/ColorPicker'
 import ButtonRow from '@/components/Form/ButtonRow'
+import FormContainer from '@/components/Form/FormContainer'
 
 import { useTheme } from '@/hooks'
 import { db } from '@/db/init'
@@ -74,27 +75,20 @@ export default function CourseForm() {
   }
 
   return (
-    <View style={[styles.container, {}]}>
-      <View style={[styles.formContainer, {}]}>
+    <FormContainer>
+      <View style={[styles.fieldContainer, {}]}>
         <PrimaryTextInputField placeholder='Add course code' value={code} onChangeText={setCode} />
         <TextInputField icon='graduationcap' placeholder="Add course name" value={name} onChangeText={setName} />
         <TextInputField icon='person' placeholder="Add instructor name" value={instructor} onChangeText={setInstructor} />
         <ColorPicker selectedColor={color} setSelectedColor={setColor} />
       </View>
       <ButtonRow create={createCourse} update={updateCourse} confirmDelete={confirmDelete} disabled={name === null || code === null || color === null} isCreateForm={id === undefined} />
-    </View>
+    </FormContainer>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    paddingBottom: 150
-  },
-  formContainer: {
+  fieldContainer: {
     gap: 24,
   },
 })
