@@ -63,7 +63,7 @@ export default function TaskCard({ task }: TaskCardProps) {
               <TimeTag />
             </View>
 
-            {task.due && <Due due={task.due} />}
+            {task.due && task.dueType === 'datetime' && <Due due={task.due} />}
           </View>
         </View>
         {completedAt && (<Completion />)}
