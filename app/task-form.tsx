@@ -40,7 +40,7 @@ export default function TaskForm() {
     due: date ? date.toISOString() : null,
     dueType: dueType,
     priority: priority,
-    completed_at: null
+    completed_at: taskData?.completedAt || null
   }
 
   const createTask = async () => {

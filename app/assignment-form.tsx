@@ -36,7 +36,7 @@ export default function AssignmentForm() {
     description: notes,
     due: date?.toISOString(),
     due_type: dueType,
-    completed_at: null
+    completed_at: assignmentData?.completedAt || null
   }
 
   const createAssignment = async () => {
