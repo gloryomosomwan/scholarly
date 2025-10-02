@@ -3,6 +3,8 @@ import dayjs from 'dayjs'
 import { CourseColorMap } from "@/constants/coursePalettes";
 import { CourseColor } from "@/types";
 
+const MILLISECONDSINAMINUTE = 60000
+
 export function formatTime(date: Date) {
   return date.toLocaleTimeString('en-US', {
     hour: 'numeric',
@@ -38,4 +40,10 @@ export function getTimeOfDay(): string {
   else if (now.isBetween(noon, fivePM, null, '[)')) return 'afternoon'
   else if (now.isBetween(fivePM, ninePM, null, '[)')) return 'evening'
   else return 'night'
+}
+
+export function refresh(set: React.Dispatch<React.SetStateAction<Date>>) {
+  setInterval(() => {
+    set(new Date())
+  }, MILLISECONDSINAMINUTE)
 }
