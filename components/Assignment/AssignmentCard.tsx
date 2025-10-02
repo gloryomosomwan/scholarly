@@ -60,7 +60,7 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
             {assignment.due && <Due due={assignment.due} />}
           </View>
         </View>
-        {completedAt && (<Completion />)}
+        {completedAt && assignment.completedAt && (<Completion />)}
       </View>
     </View>
   );
