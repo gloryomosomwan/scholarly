@@ -108,7 +108,8 @@ export function getCourseById(id: number | null) {
 }
 
 // Events
-export function useCurrentEvents() {
+export function useCurrentEvents(date: Date) {
+  console.log('new ce')
   const { data: originalEventData } = useLiveQuery(db.select().from(events).where(
     and(
       and(
@@ -117,7 +118,7 @@ export function useCurrentEvents() {
       ),
       isNull(events.recurring)
     )
-  ))
+  ), [date])
   const originalEventArray = originalEventData.map(convertRawEvent)
   const { data: recurredEventData } = useLiveQuery(db.select().from(events).where(isNotNull(events.recurring)))
   const rawRecurredEventArray = recurredEventData.map(convertRawEvent)

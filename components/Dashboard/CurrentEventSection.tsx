@@ -11,8 +11,8 @@ import { refresh } from '@/utils'
 
 export default function CurrentEventSection() {
   const theme = useTheme()
-  const events = useCurrentEvents()
   const [now, setNow] = useState(new Date())
+  const events = useCurrentEvents(now)
   refresh(setNow)
   return (
     <View style={styles.container}>
