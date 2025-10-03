@@ -4,3 +4,4 @@ export type rawCourse = typeof schema.courses.$inferSelect
 export type rawSemester = typeof schema.semesters.$inferSelect
 export type rawAssignment = typeof schema.assignments.$inferSelect
 export type rawEvent = typeof schema.events.$inferSelect
+export type rawTest = typeof schema.tests.$inferSelect

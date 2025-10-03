@@ -24,8 +24,8 @@ export interface Test {
   id: number;
   start: Date;
   end: Date;
-  name: string;
-  course: string;
+  title?: string;
+  courseID: number;
   location?: string;
   notes?: string;
   weight?: number;

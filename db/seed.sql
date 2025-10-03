@@ -75,3 +75,19 @@ INSERT INTO events (type, start_date, end_date, name, course_id, location, recur
 ('lecture', '2025-08-20T14:00:00.000Z', '2025-08-20T14:50:00.000Z', NULL, 1, 'ESB-4A', NULL),
 ('lecture', '2025-08-20T15:00:00.000Z', '2025-08-20T15:50:00.000Z', NULL, 2, 'JE-02', NULL),
 ('seminar', '2025-08-19T16:00:00.000Z', '2025-08-29T16:50:00.000Z', NULL, 1, 'ESB-9A', NULL);
+
+create table IF NOT EXISTS tests (
+    id INTEGER PRIMARY KEY,
+    start TEXT NOT NULL,
+    end TEXT NOT NULL,
+    title TEXT,
+    course_id INTEGER,
+    location TEXT,
+    notes TEXT,
+    weight REAL,
+    grade REAL,
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+
+INSERT INTO tests (start, end) VALUES 
+('2025-10-04T12:00:00.000Z', '2025-10-04T14:00:00.000Z');

@@ -4,9 +4,9 @@ import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
 import { endOfDay, startOfDay } from "date-fns";
 
-import { assignments, courses, events, semesters, tasks } from '@/db/schema';
+import { assignments, courses, events, semesters, tasks, tests } from '@/db/schema';
 import { db } from '@/db/init';
-import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent } from '@/utils/database';
+import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent, convertRawTest } from '@/utils/database';
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask } from "@/types/drizzle";
 import { getActiveRecurrenceEvents, getRecurrenceEventsByDay } from "@/utils/event";
@@ -269,6 +269,14 @@ export function useTasksByDateRange(firstDay: Date, lastDay: Date) {
   ))
   const taskData = data.map(convertRawTask)
   return taskData
+}
+
+// Tests
+
+export function useTestsByCourse(courseID: number) {
+  const { data } = useLiveQuery(db.select().from(tests).where(eq(tests.course_id, courseID)), [courseID])
+  const testData = data.map(convertRawTest)
+  return testData
 }
 
 // Other

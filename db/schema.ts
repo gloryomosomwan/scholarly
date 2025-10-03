@@ -49,3 +49,15 @@ export const events = sqliteTable('events', {
   location: text('location'),
   recurring: text('recurring')
 })
+
+export const tests = sqliteTable('tests', {
+  id: integer('id').primaryKey(),
+  start: text('start').notNull(),
+  end: text('end').notNull(),
+  title: text('title'),
+  course_id: integer('course_id').references(() => courses.id).notNull(),
+  location: text('location'),
+  notes: text('notes'),
+  weight: real('weight'),
+  grade: real('grade')
+})

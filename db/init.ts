@@ -53,6 +53,18 @@ create table IF NOT EXISTS events (
     recurring TEXT,
     FOREIGN KEY (course_id) REFERENCES courses(id)
 );
+create table IF NOT EXISTS tests (
+    id INTEGER PRIMARY KEY,
+    start TEXT NOT NULL,
+    end TEXT NOT NULL,
+    title TEXT,
+    course_id INTEGER,
+    location TEXT,
+    notes TEXT,
+    weight REAL,
+    grade REAL,
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);
   `)
 
 export const db = drizzle(sqlite, { logger: false })
