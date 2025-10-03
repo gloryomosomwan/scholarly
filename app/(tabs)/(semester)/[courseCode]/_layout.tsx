@@ -28,7 +28,7 @@ export default function TabLayout() {
         tabBarItemStyle: { flexDirection: 'row' },
         tabBarIndicatorStyle: { backgroundColor: color }
       }}>
-        <MaterialTopTabs.Screen name="schedule" options={{
+        <MaterialTopTabs.Screen name="schedule" initialParams={{ courseID: id }} options={{
           title: "Schedule",
           tabBarIcon: () => <SymbolView size={20} name="calendar" tintColor={color} />,
         }

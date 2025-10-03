@@ -24,7 +24,7 @@ import { useCalendarStore } from '@/stores/calendar'
 export default function EventForm() {
   const theme = useTheme()
 
-  const { id } = useLocalSearchParams<{ id: string }>()
+  const { id, coursePageID } = useLocalSearchParams<{ id: string, coursePageID: string }>()
   const convertedID = Number(id)
   const eventData = id ? getEventById(convertedID) : null
   const { currentDate } = useCalendarStore()
@@ -36,7 +36,7 @@ export default function EventForm() {
   const [startDate, setStartDate] = useState<Date>(eventData?.startDate ? eventData.startDate : roundToNearestHours(initialDate, { roundingMethod: 'ceil' }))
   const [endDate, setEndDate] = useState<Date>(eventData?.endDate ? eventData.endDate : addHours(roundToNearestHours(initialDate, { roundingMethod: 'ceil' }), 1))
   const [location, setLocation] = useState(eventData?.location ? eventData.location : null)
-  const [courseID, setCourseID] = useState<number | null>(eventData?.courseID ? eventData.courseID : null)
+  const [courseID, setCourseID] = useState<number | null>(eventData?.courseID ? eventData.courseID : (coursePageID ? parseInt(coursePageID) : null))
   const [recurring, setRecurring] = useState<string | null>(eventData?.recurring ? eventData.recurring : null)
 
   const invalid = (startDate && endDate && isBefore(endDate, startDate)) ? true : false

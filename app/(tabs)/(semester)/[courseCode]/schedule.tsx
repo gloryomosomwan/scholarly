@@ -4,6 +4,9 @@ import { useTheme } from '@/hooks';
 import ScheduleCard from '@/components/CoursePage/ScheduleCard';
 import type { ScheduleCardProps } from '@/components/CoursePage/ScheduleCard';
 import AddButton from '@/components/Buttons/AddButton';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { CourseTabsParamList } from '@/types/navigation';
+import { router } from 'expo-router';
 
 const lecture: ScheduleCardProps['schedule'] = {
   id: 1,
@@ -15,13 +18,15 @@ const lecture: ScheduleCardProps['schedule'] = {
   topic: 'Idek'
 }
 
+type AssignmentsRoute = RouteProp<CourseTabsParamList, 'Assignments'>;
+
 export default function Schedule() {
   const theme = useTheme()
-
+  const { params: { courseID } } = useRoute<AssignmentsRoute>()
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} >
       <ScheduleCard schedule={lecture} />
-      <AddButton route='/event-form' title='Add Event' description='Add an event to your schedule' />
+      <AddButton handlePress={() => router.navigate({ pathname: '/event-form', params: { coursePageID: courseID } })} title='Add Event' description='Add an event to your schedule' />
     </ScrollView>
   );
 }
