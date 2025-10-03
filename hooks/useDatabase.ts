@@ -109,7 +109,6 @@ export function getCourseById(id: number | null) {
 
 // Events
 export function useCurrentEvents(date: Date) {
-  console.log('new ce')
   const { data: originalEventData } = useLiveQuery(db.select().from(events).where(
     and(
       and(
