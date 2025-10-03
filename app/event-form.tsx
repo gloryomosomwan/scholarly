@@ -107,6 +107,7 @@ export default function EventForm() {
         <CoursePicker courseID={courseID} setCourseID={setCourseID} />
         <RecurrencePicker recurring={recurring} setRecurring={setRecurring} startDate={startDate} />
       </View>
+      {/* disabled = invalid because since dates are already preselected, the only invalid event is one with out of order dates */}
       <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={invalid} />
     </FormContainer>
   )
