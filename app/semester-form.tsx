@@ -2,7 +2,7 @@ import { ActionSheetIOS, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
-import FormContainer from '@/components/Form/FormContainer'
+import { isBefore } from 'date-fns'
 
 import { useUserStore } from '@/stores'
 import { useTheme } from '@/hooks'
@@ -14,6 +14,7 @@ import { semesterInsertSchema, semesterUpdateSchema } from '@/db/drizzle-zod'
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import SemesterDatePicker from '@/components/SemesterForm/SemesterDatePicker'
 import ButtonRow from '@/components/Form/ButtonRow'
+import FormContainer from '@/components/Form/FormContainer'
 
 export default function SemesterForm() {
   const theme = useTheme()
@@ -25,6 +26,8 @@ export default function SemesterForm() {
   const [name, setName] = useState<string | null>(semesterData?.name ?? null)
   const [start, setStart] = useState<Date | null>(semesterData?.start ?? null)
   const [end, setEnd] = useState<Date | null>(semesterData?.end ?? null)
+
+  const invalid = (start && end && isBefore(end, start)) ? true : false
 
   const currentSemesterID = useUserStore((state) => state.semesterID)
   const setSemesterID = useUserStore((state) => state.setSemesterID)
@@ -86,9 +89,9 @@ export default function SemesterForm() {
       <View style={[styles.formContainer, {}]}>
         <PrimaryTextInputField placeholder='Add semester name' value={name} onChangeText={setName} />
         <SemesterDatePicker label='Start Date' date={start} setDate={setStart} />
-        <SemesterDatePicker label='End Date' date={end} setDate={setEnd} />
+        <SemesterDatePicker label='End Date' date={end} setDate={setEnd} invalid={invalid} />
       </View>
-      <ButtonRow create={createSemester} update={updateSemester} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={!semesterInsertSchema.safeParse(semester).success} />
+      <ButtonRow create={createSemester} update={updateSemester} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={!semesterInsertSchema.safeParse(semester).success || invalid} />
     </FormContainer>
   )
 }

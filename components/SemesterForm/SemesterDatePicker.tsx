@@ -13,9 +13,10 @@ type SemesterDatePickerProps = {
   date: Date | null
   setDate: React.Dispatch<React.SetStateAction<Date | null>>
   label: string
+  invalid?: boolean
 }
 
-export default function SemesterDatePicker({ date, setDate, label }: SemesterDatePickerProps) {
+export default function SemesterDatePicker({ date, setDate, label, invalid }: SemesterDatePickerProps) {
   const theme = useTheme()
   const [internalDate, setInternalDate] = useState(date || new Date())
 
@@ -55,7 +56,7 @@ export default function SemesterDatePicker({ date, setDate, label }: SemesterDat
       <View style={styles.fieldContainer}>
         <View style={styles.halfFieldContainer}>
           <SymbolView name="calendar" />
-          <Text style={[styles.labelText, { color: theme.text }]}>{label}</Text>
+          <Text style={[styles.labelText, { color: invalid ? 'red' : theme.text }]}>{label}</Text>
         </View>
         <View style={styles.halfFieldContainer}>
           <PressableOpacity style={[styles.button, { backgroundColor: theme.grey200 }]} onPress={handlePress}>
