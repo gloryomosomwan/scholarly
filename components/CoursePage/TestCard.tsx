@@ -4,7 +4,9 @@ import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/hooks';
 import { Test } from '@/types';
-import Graded from './Graded';
+
+import Graded from '@/components/CoursePage/Graded';
+import TestCardMenu from '@/components/TestCard/TestCardMenu';
 
 function getDateString(date: Date) {
   const day = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
@@ -12,7 +14,7 @@ function getDateString(date: Date) {
   return day + ' at ' + time
 }
 
-export default function ExamCard({ title, notes, start, end, location, weight, grade }: Test) {
+export default function ExamCard({ id, title, notes, start, end, location, weight, grade }: Test) {
   const theme = useTheme();
   const [graded, setGraded] = useState(grade ? true : false)
 
@@ -24,7 +26,7 @@ export default function ExamCard({ title, notes, start, end, location, weight, g
         </View>
         <View style={styles.mainTextContainer}>
           <Text style={[styles.titleText, { color: theme.text }]}>{title || 'Test'}</Text>
-          <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
+          <TestCardMenu testID={id} />
         </View>
       </View>
       <View style={styles.detailRowContainer}>
