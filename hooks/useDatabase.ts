@@ -8,7 +8,7 @@ import { assignments, courses, events, semesters, tasks, tests } from '@/db/sche
 import { db } from '@/db/init';
 import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent, convertRawTest } from '@/utils/database';
 import { useUserStore } from "@/stores";
-import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask } from "@/types/drizzle";
+import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask, rawTest } from "@/types/drizzle";
 import { getActiveRecurrenceEvents, getRecurrenceEventsByDay } from "@/utils/event";
 import { Assignment, Event, Task } from '@/types';
 import { pretty } from "@/utils";
@@ -277,6 +277,25 @@ export function useTestsByCourse(courseID: number) {
   const { data } = useLiveQuery(db.select().from(tests).where(eq(tests.course_id, courseID)), [courseID])
   const testData = data.map(convertRawTest)
   return testData
+}
+
+export function getTestById(id: number | null) {
+  const data = useSQLiteContext().getFirstSync<rawTest>(`
+    SELECT
+    start,
+    end,
+    title,
+    course_id,
+    location,
+    notes,
+    weight,
+    grade
+    FROM tests 
+    WHERE id = ${id}
+    `)
+  if (data === null) return null
+  const test = convertRawTest(data)
+  return test
 }
 
 // Other

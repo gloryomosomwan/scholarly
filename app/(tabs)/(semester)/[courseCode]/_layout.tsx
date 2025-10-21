@@ -37,7 +37,7 @@ export default function TabLayout() {
           title: "Assignments",
           tabBarIcon: () => <SymbolView size={20} name="square.and.pencil" tintColor={color} />,
         }} />
-        <MaterialTopTabs.Screen name="tests" options={{
+        <MaterialTopTabs.Screen name="tests" initialParams={{ courseID: id }} options={{
           title: "Tests",
           tabBarIcon: () => <SymbolView size={20} name="doc.text" tintColor={color} />,
         }} />
