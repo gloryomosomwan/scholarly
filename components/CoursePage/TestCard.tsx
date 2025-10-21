@@ -12,7 +12,7 @@ function getDateString(date: Date) {
   return day + ' at ' + time
 }
 
-export default function ExamCard({ name, notes, start, end, location, weight, grade }: Test) {
+export default function ExamCard({ title, notes, start, end, location, weight, grade }: Test) {
   const theme = useTheme();
   const [graded, setGraded] = useState(grade ? true : false)
 
@@ -23,7 +23,7 @@ export default function ExamCard({ name, notes, start, end, location, weight, gr
           <SymbolView name={"doc.text"} size={20} tintColor={theme.text} />
         </View>
         <View style={styles.mainTextContainer}>
-          <Text style={[styles.titleText, { color: theme.text }]}>{name}</Text>
+          <Text style={[styles.titleText, { color: theme.text }]}>{title || 'Test'}</Text>
           <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
         </View>
       </View>
@@ -37,21 +37,30 @@ export default function ExamCard({ name, notes, start, end, location, weight, gr
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Ends: '}</Text>
         <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(end)}</Text>
       </View>
-      <View style={styles.detailRowContainer}>
-        <SymbolView name={'mappin.circle'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
-        <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Location: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{location}</Text>
-      </View>
-      {/* <View style={styles.detailRowContainer}>
-        <SymbolView name={'scalemass'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
-        <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Weight: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{weight}</Text>
-      </View> */}
-      <View style={styles.detailRowContainer}>
-        <SymbolView name={'note.text'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
-        <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Notes: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{notes}</Text>
-      </View>
+      {
+        location &&
+        <View style={styles.detailRowContainer}>
+          <SymbolView name={'mappin.circle'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
+          <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Location: '}</Text>
+          <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{location}</Text>
+        </View>
+      }
+      {
+        weight &&
+        <View style={styles.detailRowContainer}>
+          <SymbolView name={'scalemass'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
+          <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Weight: '}</Text>
+          <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{weight}</Text>
+        </View>
+      }
+      {
+        notes &&
+        <View style={styles.detailRowContainer}>
+          <SymbolView name={'note.text'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
+          <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Notes: '}</Text>
+          <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{notes}</Text>
+        </View>
+      }
       {/* {graded && grade && <Graded grade={grade} />} */}
     </View>
   );
