@@ -14,20 +14,21 @@ export default function NumericInputField({ icon, placeholder, value, onChangeTe
   const theme = useTheme()
   return (
     <View style={styles.row}>
-      <SymbolView name={icon ? icon : 'note.text'} tintColor={theme.grey500} size={24} />
-      <TextInput
-        placeholder={placeholder}
-        style={[styles.text, { color: invalid ? 'red' : theme.text, flex: 1 }]}
-        placeholderTextColor={theme.grey500}
-        multiline
-        returnKeyType='done'
-        blurOnSubmit
-        value={value ? value : ''}
-        onChangeText={onChangeText}
-        keyboardType='decimal-pad'
-        maxLength={4}
-      />
-      <SymbolView name={'percent'} tintColor={theme.grey500} size={24} />
+      <SymbolView name={icon ? icon : 'percent'} tintColor={theme.grey500} size={24} />
+      <View style={styles.field}>
+        <TextInput
+          placeholder={placeholder}
+          style={[styles.text, { color: invalid ? 'red' : theme.grey500 }]}
+          placeholderTextColor={theme.grey500}
+          // multiline
+          returnKeyType='done'
+          blurOnSubmit
+          value={value ? value : ''}
+          onChangeText={onChangeText}
+          keyboardType='decimal-pad'
+          maxLength={4}
+        />
+      </View>
     </View>
   )
 }
@@ -43,4 +44,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingTop: 0,
   },
+  field: {
+    flexDirection: 'row',
+    gap: 2,
+    alignItems: 'center'
+  }
 })

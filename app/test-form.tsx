@@ -114,7 +114,7 @@ export default function TestForm() {
         <DateTimePicker date={end} setDate={setEnd} invalid={invalidDates} />
         <TextInputField placeholder='Add location' value={location} onChangeText={setLocation} icon='mappin.circle.fill' />
         <TextInputField placeholder='Add notes' value={notes} onChangeText={setNotes} />
-        <NumericInputField placeholder='Add test weight' value={weight} onChangeText={setWeight} invalid={!weightString.safeParse(weight).success} />
+        <NumericInputField placeholder='Add item weight' value={weight} onChangeText={setWeight} invalid={!weightString.safeParse(weight).success} />
       </View>
       <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={invalidDates || !testInsertSchema.safeParse(test).success || !weightString.safeParse(weight).success} />
     </FormContainer>
