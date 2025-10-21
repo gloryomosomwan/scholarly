@@ -11,9 +11,10 @@ import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMen
 
 type TestCardMenuProps = {
   testID: number
+  courseID: number
 }
 
-export default function TestCardMenu({ testID }: TestCardMenuProps) {
+export default function TestCardMenu({ testID, courseID }: TestCardMenuProps) {
   const theme = useTheme()
   const router = useRouter()
 
@@ -46,7 +47,8 @@ export default function TestCardMenu({ testID }: TestCardMenuProps) {
           {
             pathname: '/test-form',
             params: {
-              id: testID
+              id: testID,
+              courseID: courseID
             }
           }
         )}>

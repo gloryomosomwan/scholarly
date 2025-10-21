@@ -14,7 +14,7 @@ function getDateString(date: Date) {
   return day + ' at ' + time
 }
 
-export default function ExamCard({ id, title, notes, start, end, location, weight, grade }: Test) {
+export default function TestCard({ id, title, notes, start, end, location, weight, grade, courseID }: Test) {
   const theme = useTheme();
   const [graded, setGraded] = useState(grade ? true : false)
 
@@ -26,7 +26,7 @@ export default function ExamCard({ id, title, notes, start, end, location, weigh
         </View>
         <View style={styles.mainTextContainer}>
           <Text style={[styles.titleText, { color: theme.text }]}>{title || 'Test'}</Text>
-          <TestCardMenu testID={id} />
+          <TestCardMenu testID={id} courseID={courseID} />
         </View>
       </View>
       <View style={styles.detailRowContainer}>
