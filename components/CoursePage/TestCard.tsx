@@ -7,6 +7,7 @@ import { Test } from '@/types';
 
 import Graded from '@/components/CoursePage/Graded';
 import TestCardMenu from '@/components/TestCard/TestCardMenu';
+import GradeModal from '@/components/TestCard/GradeModal';
 
 function getDateString(date: Date) {
   const day = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
@@ -16,8 +17,7 @@ function getDateString(date: Date) {
 
 export default function TestCard({ id, title, notes, start, end, location, weight, grade, courseID }: Test) {
   const theme = useTheme();
-  const [graded, setGraded] = useState(grade ? true : false)
-
+  const [gradeModalVisible, setGradeModalVisible] = useState(false)
   return (
     <View style={[styles.cardContainer, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]}>
       <View style={styles.mainContentContainer}>
@@ -26,7 +26,7 @@ export default function TestCard({ id, title, notes, start, end, location, weigh
         </View>
         <View style={styles.mainTextContainer}>
           <Text style={[styles.titleText, { color: theme.text }]}>{title || 'Test'}</Text>
-          <TestCardMenu testID={id} courseID={courseID} />
+          <TestCardMenu testID={id} courseID={courseID} setGradeModalVisible={setGradeModalVisible} grade={grade} />
         </View>
       </View>
       <View style={styles.detailRowContainer}>
@@ -48,7 +48,7 @@ export default function TestCard({ id, title, notes, start, end, location, weigh
         </View>
       }
       {
-        weight &&
+        weight !== undefined &&
         <View style={styles.detailRowContainer}>
           <SymbolView name={'scalemass'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
           <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Weight: '}</Text>
@@ -63,7 +63,8 @@ export default function TestCard({ id, title, notes, start, end, location, weigh
           <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{notes}</Text>
         </View>
       }
-      {/* {graded && grade && <Graded grade={grade} />} */}
+      {grade && <Graded grade={grade} />}
+      <GradeModal gradeModalVisible={gradeModalVisible} setGradeModalVisible={setGradeModalVisible} testID={id} />
     </View>
   );
 }

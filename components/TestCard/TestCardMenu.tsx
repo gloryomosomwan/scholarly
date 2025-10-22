@@ -5,18 +5,24 @@ import { ActionSheetIOS } from 'react-native'
 
 import { useTheme } from '@/hooks/useTheme'
 import { db } from '@/db/init'
-import { tests, tasks } from '@/db/schema'
+import { tests } from '@/db/schema'
 
 import { DropdownMenuRoot, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuItemTitle, DropdownMenuItemIcon } from '@/components/Zeego'
 
 type TestCardMenuProps = {
   testID: number
   courseID: number
+  setGradeModalVisible: React.Dispatch<React.SetStateAction<boolean>>
+  grade: number | undefined
 }
 
-export default function TestCardMenu({ testID, courseID }: TestCardMenuProps) {
+export default function TestCardMenu({ testID, courseID, setGradeModalVisible, grade }: TestCardMenuProps) {
   const theme = useTheme()
   const router = useRouter()
+
+  async function removeGrade() {
+    await db.update(tests).set({ grade: null }).where(eq(tests.id, testID))
+  }
 
   const confirmDelete = () => {
     ActionSheetIOS.showActionSheetWithOptions(
@@ -43,6 +49,7 @@ export default function TestCardMenu({ testID, courseID }: TestCardMenuProps) {
         <SymbolView name={'ellipsis'} size={20} tintColor={theme.grey400} />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
+
         <DropdownMenuItem key="edit" onSelect={() => router.navigate(
           {
             pathname: '/test-form',
@@ -55,12 +62,22 @@ export default function TestCardMenu({ testID, courseID }: TestCardMenuProps) {
           <DropdownMenuItemIcon ios={{
             name: 'pencil',
             pointSize: 20,
-            weight: 'semibold',
             scale: 'medium',
             paletteColors: [{ dark: theme.text, light: theme.text, }],
           }} />
           <DropdownMenuItemTitle>Edit test</DropdownMenuItemTitle>
         </DropdownMenuItem>
+
+        <DropdownMenuItem key="grade" onSelect={() => grade === undefined ? setGradeModalVisible(true) : removeGrade()}>
+          <DropdownMenuItemTitle>{grade === undefined ? 'Add grade' : 'Remove grade'}</DropdownMenuItemTitle>
+          <DropdownMenuItemIcon ios={{
+            name: 'percent',
+            pointSize: 20,
+            scale: 'medium',
+            paletteColors: [{ dark: theme.text, light: theme.text, }],
+          }} />
+        </DropdownMenuItem>
+
         <DropdownMenuItem key="delete" destructive onSelect={confirmDelete}>
           <DropdownMenuItemTitle>Delete test</DropdownMenuItemTitle>
           <DropdownMenuItemIcon ios={{
@@ -71,6 +88,7 @@ export default function TestCardMenu({ testID, courseID }: TestCardMenuProps) {
             paletteColors: [{ dark: 'red', light: 'red', }],
           }} />
         </DropdownMenuItem>
+
       </DropdownMenuContent>
     </DropdownMenuRoot>
   )

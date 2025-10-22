@@ -4,7 +4,7 @@ import React from 'react'
 import { useTheme } from '@/hooks'
 
 type GradedProps = {
-  grade: string
+  grade: number
 }
 
 export default function Graded({ grade }: GradedProps) {
