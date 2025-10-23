@@ -3,7 +3,7 @@ import React from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
-import CourseModalItem from '@/components/Modals/Items/CourseModalItem'
+import CourseModalItem from '@/components/Modals/ModalItems/CourseModalItem'
 
 import { useCourses } from '@/hooks/useDatabase'
 

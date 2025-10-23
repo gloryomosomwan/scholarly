@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { isAfter } from 'date-fns';
 import { eq } from 'drizzle-orm';
 
-import TaskCardMenu from '@/components/Task/TaskCardMenu';
+import TaskCardMenu from '@/components/TaskCard/TaskCardMenu';
 import Checkbox from '@/components/ActivityCard/Checkbox';
 import Description from '@/components/ActivityCard/Description';
 import Title from '@/components/ActivityCard/Title';

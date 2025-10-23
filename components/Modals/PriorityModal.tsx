@@ -3,7 +3,7 @@ import React from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
-import PriorityModalItem from '@/components/Modals/Items/PriorityModalItem'
+import PriorityModalItem from '@/components/Modals/ModalItems/PriorityModalItem'
 
 import { PriorityOption } from '@/types'
 

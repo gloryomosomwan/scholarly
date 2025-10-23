@@ -3,7 +3,7 @@ import React from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
-import EventTypeModalItem from '@/components/Modals/Items/EventTypeModalItem'
+import EventTypeModalItem from '@/components/Modals/ModalItems/EventTypeModalItem'
 
 import { EventType } from '@/types'
 

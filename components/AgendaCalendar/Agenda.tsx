@@ -6,7 +6,7 @@ import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import ScheduleItem from "@/components/AgendaCalendar/ScheduleItem/ScheduleItem";
-import TaskCard from '@/components/Task/TaskCard';
+import TaskCard from '@/components/TaskCard/TaskCard';
 import AssignmentCard from '@/components/Assignment/AssignmentCard';
 import EventBar from '@/components/EventCard/EventBar';
 

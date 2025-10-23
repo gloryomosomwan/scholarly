@@ -4,7 +4,7 @@ import { SymbolView } from 'expo-symbols';
 import { router } from 'expo-router';
 import { useState } from 'react';
 
-import TaskCard from '@/components/Task/TaskCard';
+import TaskCard from '@/components/TaskCard/TaskCard';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 import TaskSortMenu from '@/components/TasksPage/TaskSortMenu';
 import TaskFilterMenu from '@/components/TasksPage/TaskFilterMenu';

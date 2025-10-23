@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { isBefore } from 'date-fns'
 
-import TaskCard from '@/components/Task/TaskCard'
+import TaskCard from '@/components/TaskCard/TaskCard'
 
 import { useTasksForToday } from '@/hooks/useDatabase'
 import { useTheme } from '@/hooks/useTheme'
