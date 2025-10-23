@@ -6,7 +6,7 @@ import { endOfDay, startOfDay } from "date-fns";
 
 import { assignments, courses, events, semesters, tasks, tests } from '@/db/schema';
 import { db } from '@/db/init';
-import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent, convertRawTest } from '@/utils/database';
+import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent, convertRawTest } from '@/utils/conversion';
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask, rawTest } from "@/types/drizzle";
 import { getActiveRecurrenceEvents, getRecurrenceEventsByDay } from "@/utils/event";
