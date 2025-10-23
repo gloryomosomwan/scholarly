@@ -52,9 +52,9 @@ export const events = sqliteTable('events', {
 
 export const tests = sqliteTable('tests', {
   id: integer('id').primaryKey(),
-  start: text('start').notNull(),
-  end: text('end').notNull(),
-  title: text('title'),
+  start_date: text('start_date').notNull(),
+  end_date: text('end_date').notNull(),
+  name: text('name').notNull(),
   course_id: integer('course_id').references(() => courses.id).notNull(),
   location: text('location'),
   notes: text('notes'),

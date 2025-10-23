@@ -1,6 +1,6 @@
-import { Assignment, Event, Task } from "@/types";
+import { Assignment, Event, Task, Test } from "@/types";
 
-export function sortEventsByStart(a: Event, b: Event) {
+export function sortScheduleItems(a: Event | Test, b: Event | Test) {
   return a.startDate.toISOString().localeCompare(b.startDate.toISOString())
 }
 

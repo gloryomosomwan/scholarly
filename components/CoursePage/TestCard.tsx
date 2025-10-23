@@ -15,7 +15,7 @@ function getDateString(date: Date) {
   return day + ' at ' + time
 }
 
-export default function TestCard({ id, title, notes, start, end, location, weight, grade, courseID }: Test) {
+export default function TestCard({ id, name, notes, startDate, endDate, location, weight, grade, courseID }: Test) {
   const theme = useTheme();
   const [gradeModalVisible, setGradeModalVisible] = useState(false)
   return (
@@ -25,19 +25,19 @@ export default function TestCard({ id, title, notes, start, end, location, weigh
           <SymbolView name={"doc.text"} size={20} tintColor={theme.text} />
         </View>
         <View style={styles.mainTextContainer}>
-          <Text style={[styles.titleText, { color: theme.text }]}>{title || 'Test'}</Text>
+          <Text style={[styles.titleText, { color: theme.text }]}>{name || 'Test'}</Text>
           <TestCardMenu testID={id} courseID={courseID} setGradeModalVisible={setGradeModalVisible} grade={grade} />
         </View>
       </View>
       <View style={styles.detailRowContainer}>
         <SymbolView name={'clock'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Starts: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(start)}</Text>
+        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(startDate)}</Text>
       </View>
       <View style={styles.detailRowContainer}>
         <SymbolView name={'clock'} size={18} tintColor={theme.grey500} style={styles.detailRowIcon} />
         <Text style={[styles.detailRowLabelText, { color: theme.grey500 }]}>{'Ends: '}</Text>
-        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(end)}</Text>
+        <Text style={[styles.detailRowText, { color: theme.grey600 }]}>{getDateString(endDate)}</Text>
       </View>
       {
         location &&

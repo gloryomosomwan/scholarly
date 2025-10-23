@@ -5,21 +5,24 @@ import { isAfter } from 'date-fns'
 import EventCard from '@/components/EventCard/EventCard'
 
 import { useTheme } from '@/hooks/useTheme'
-import { useEventsByDay } from '@/hooks/useDatabase'
+import { useEventsByDay, useTestsByDay } from '@/hooks/useDatabase'
 import { useCalendarStore } from '@/stores/calendar'
-import { sortEventsByStart } from '@/utils/sort'
+import { sortScheduleItems } from '@/utils/sort'
 import { getEventClass } from '@/utils/event'
 
 export default function UpNextSection() {
   const theme = useTheme()
   const { todayDate } = useCalendarStore()
   const events = useEventsByDay(todayDate)
-  events.sort(sortEventsByStart)
+  events.sort(sortScheduleItems)
+  const tests = useTestsByDay(todayDate)
+  tests.sort(sortScheduleItems)
+  const scheduleItems = [...tests, ...events]
 
   let upNext = null
-  for (let event of events) {
-    if (isAfter(event.startDate, new Date())) {
-      upNext = event
+  for (let item of scheduleItems) {
+    if (isAfter(item.startDate, new Date())) {
+      upNext = item
       break;
     }
   }

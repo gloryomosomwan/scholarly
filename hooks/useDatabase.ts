@@ -282,9 +282,9 @@ export function useTestsByCourse(courseID: number) {
 export function getTestById(id: number | null) {
   const data = useSQLiteContext().getFirstSync<rawTest>(`
     SELECT
-    start,
-    end,
-    title,
+    start_date,
+    end_date,
+    name,
     course_id,
     location,
     notes,
@@ -296,6 +296,28 @@ export function getTestById(id: number | null) {
   if (data === null) return null
   const test = convertRawTest(data)
   return test
+}
+
+export function useTestsByDay(date: Date) {
+  const { data } = useLiveQuery(db.select().from(tests).where(
+    and(
+      gte(tests.start_date, startOfDay(date).toISOString()),
+      lte(tests.end_date, endOfDay(date).toISOString())
+    )
+  ), [date])
+  const testData = data.map(convertRawTest)
+  return testData
+}
+
+export function useCurrentTests(date: Date) {
+  const { data } = useLiveQuery(db.select().from(tests).where(
+    and(
+      lte(tests.start_date, new Date().toISOString()),
+      gte(tests.end_date, new Date().toISOString())
+    )
+  ), [date])
+  const testData = data.map(convertRawTest)
+  return testData
 }
 
 // Other

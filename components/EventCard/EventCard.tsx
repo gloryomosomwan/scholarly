@@ -10,12 +10,12 @@ import EventHeader from '@/components/EventCard/EventHeader';
 import RelativeTime from '@/components/EventCard/RelativeTime';
 
 import { useTheme } from '@/hooks';
-import { Event } from '@/types';
+import { Event, Test } from '@/types';
 import { getCourseById } from '@/hooks/useDatabase';
 import { checkCurrentEvent } from '@/utils/event';
 
 type EventCardProps = {
-  event: Event;
+  event: Event | Test;
 };
 
 export default function EventCard({ event }: EventCardProps) {
@@ -25,13 +25,13 @@ export default function EventCard({ event }: EventCardProps) {
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
       <View style={styles.topRowContainer}>
-        <EventPill text={course ? course.code : event.type} courseColor={course?.color} />
+        {course && <EventPill text={course.code} courseColor={course.color} />}
         <EventTimeRange startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} />
       </View>
       <RelativeTime start={event.startDate} end={event.endDate} />
       <View style={styles.mainContentContainer}>
-        <EventHeader text={course ? event.type : event.name} courseColor={course?.color} />
-        <EventLocation location={event.location} courseColor={course?.color} />
+        <EventHeader text={course ? ('type' in event ? event.type : event.name) : event.name} courseColor={course?.color} />
+        {event.location && <EventLocation location={event.location} courseColor={course?.color} />}
       </View>
       <View style={styles.progressSection}>
         <ProgressBar startDate={event.startDate} endDate={event.endDate} isCurrentEvent={isCurrentEvent} courseColor={course?.color} />

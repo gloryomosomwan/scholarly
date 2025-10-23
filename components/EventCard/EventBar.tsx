@@ -6,11 +6,11 @@ import { router } from 'expo-router'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks/useTheme'
-import { Event } from '@/types'
+import { Event, Test } from '@/types'
 import { getEventClass } from '@/utils/event'
 
 type EventBarProps = {
-  event: Event;
+  event: Event | Test;
   date: Date;
 }
 

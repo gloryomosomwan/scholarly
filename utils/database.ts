@@ -58,9 +58,9 @@ export function convertRawEvent(rawEvent: rawEvent): Event {
 export function convertRawTest(rawTest: rawTest): Test {
   return {
     id: rawTest.id,
-    start: new Date(rawTest.start),
-    end: new Date(rawTest.end),
-    title: rawTest.title ?? undefined,
+    startDate: new Date(rawTest.start_date),
+    endDate: new Date(rawTest.end_date),
+    name: rawTest.name,
     courseID: rawTest.course_id,
     location: rawTest.location ?? undefined,
     weight: rawTest.weight ?? undefined,

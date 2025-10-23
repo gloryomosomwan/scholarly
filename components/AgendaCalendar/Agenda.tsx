@@ -12,8 +12,8 @@ import EventBar from '@/components/EventCard/EventBar';
 
 import { useTheme } from '@/hooks'
 import { useCalendarStore } from '@/stores/calendar';
-import { useAssignmentsByDay, useEventsByDay, useTasksByDay } from '@/hooks/useDatabase';
-import { sortAssignmentsByDue, sortEventsByStart, sortTasksByDue } from '@/utils/sort';
+import { useAssignmentsByDay, useEventsByDay, useTasksByDay, useTestsByDay } from '@/hooks/useDatabase';
+import { sortAssignmentsByDue, sortScheduleItems, sortTasksByDue } from '@/utils/sort';
 import { getEventClass } from '@/utils/event';
 
 type AgendaProps = {
@@ -33,12 +33,15 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const snapPoints = useMemo(() => [height - initialCalendarBottom - bottomTabBarHeight, height - initialCalendarBottom + 235 - bottomTabBarHeight], []);
 
   const events = useEventsByDay(currentDate)
-  events.sort(sortEventsByStart)
-  const eventElements = events.map((event) => {
-    const eventClass = getEventClass(event.startDate, event.endDate)
-    if (eventClass === 'regular' || eventClass === 'crossover') return <EventItem key={`${event.id}.${event.startDate}`} event={event} />
-    else return <EventBar key={`${event.id}.${event.startDate}`} event={event} date={currentDate} />
+  const tests = useTestsByDay(currentDate)
+  const scheduleItems = [...events, ...tests]
+  scheduleItems.sort(sortScheduleItems)
+  const scheduleElements = scheduleItems.map((item) => {
+    const itemClass = getEventClass(item.startDate, item.endDate)
+    if (itemClass === 'regular' || itemClass === 'crossover') return <EventItem key={`${item.id}.${item.startDate}`} event={item} />
+    // else return <EventBar key={`${item.id}.${item.startDate}`} event={event} date={currentDate} />
   })
+
   const assignments = useAssignmentsByDay(currentDate)
   assignments.sort(sortAssignmentsByDue)
   const assignmentElements = assignments.map(assignment => <AssignmentCard key={assignment.id} assignment={assignment} />)
@@ -64,7 +67,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
       <BottomSheetScrollView style={{ backgroundColor: theme.primary }}>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Schedule"}</Text>
-          {events.length > 0 ? eventElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No events"}</Text>}
+          {scheduleElements.length > 0 ? scheduleElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No events"}</Text>}
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Assignments"}</Text>
@@ -72,7 +75,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
         </View>
         <View style={styles.section}>
           <Text style={[styles.sectionHeadingText, { color: theme.text }]}>{"Tasks"}</Text>
-          {tasks.length > 0 ? taskElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No tasks"}</Text>}
+          {taskElements.length > 0 ? taskElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]} >{"No tasks"}</Text>}
         </View>
       </BottomSheetScrollView>
     </BottomSheet>

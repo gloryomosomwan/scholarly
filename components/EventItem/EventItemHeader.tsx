@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TextStyle, View } from 'react-native'
 import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
@@ -6,23 +6,25 @@ import { useTheme } from '@/hooks/useTheme'
 type EventItemHeaderProps = {
   eventWasEarlierToday: boolean
   hasCourse: boolean
-  eventType: string;
-  eventName: string | undefined;
+  eventType: string
+  eventName: string | undefined
+  courseColor: string | undefined
 }
 
-export default function EventItemHeader({ eventWasEarlierToday, hasCourse, eventType, eventName }: EventItemHeaderProps) {
+export default function EventItemHeader({ eventWasEarlierToday, hasCourse, eventType, eventName, courseColor }: EventItemHeaderProps) {
   const theme = useTheme()
   let text;
-  if (hasCourse && eventType !== 'general') {
+  if (eventType !== 'general' && eventType !== 'test') {
     text = eventType?.replace(/\w/, c => c.toUpperCase())
   }
   else {
-    text = eventName || '(No title)'
+    text = eventName
   }
+  const testStyle: TextStyle = { fontWeight: '500', color: eventWasEarlierToday ? theme.grey400 : courseColor }
   return (
     <View style={styles.container}>
       {hasCourse && <Text style={styles.icon}>{'📚'}</Text>}
-      <Text style={[styles.text, { color: eventWasEarlierToday ? theme.grey400 : theme.text }]}>{text}</Text>
+      <Text style={[styles.text, { color: eventWasEarlierToday ? theme.grey400 : theme.text }, eventType === 'test' && testStyle]}>{text}</Text>
     </View>
   )
 }

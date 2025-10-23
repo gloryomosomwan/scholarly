@@ -29,19 +29,19 @@ export default function TestForm() {
   const initialDate = new Date(currentDate.getTime())
   initialDate.setUTCHours(new Date().getUTCHours(), new Date().getUTCMinutes())
 
-  const [title, setTitle] = useState<string | null>(testData?.title ? testData.title : null)
-  const [start, setStart] = useState<Date>(testData?.start ? testData.start : roundToNearestHours(initialDate, { roundingMethod: 'ceil' }))
-  const [end, setEnd] = useState<Date>(testData?.end ? testData.end : addHours(roundToNearestHours(initialDate, { roundingMethod: 'ceil' }), 1))
+  const [name, setName] = useState<string | null>(testData?.name ? testData.name : null)
+  const [startDate, setStartDate] = useState<Date>(testData?.startDate ? testData.startDate : roundToNearestHours(initialDate, { roundingMethod: 'ceil' }))
+  const [endDate, setEndDate] = useState<Date>(testData?.endDate ? testData.endDate : addHours(roundToNearestHours(initialDate, { roundingMethod: 'ceil' }), 1))
   const [location, setLocation] = useState(testData?.location ? testData.location : null)
   const [notes, setNotes] = useState<string | null>(testData?.notes ? testData.notes : null)
   const [weight, setWeight] = useState<string | null>(testData?.weight ? testData.weight.toString() : null)
   const [grade, setGrade] = useState<number | null>(testData?.grade ? testData.grade : null)
 
-  const invalidDates = (start && end && isBefore(end, start)) ? true : false
+  const invalidDates = (startDate && endDate && isBefore(endDate, startDate)) ? true : false
 
   function changeStartDate(date: Date) {
-    setStart(date)
-    setEnd(addHours(roundToNearestHours(date, { roundingMethod: 'ceil' }), 1))
+    setStartDate(date)
+    setEndDate(addHours(roundToNearestHours(date, { roundingMethod: 'ceil' }), 1))
   }
 
   useEffect(() => {
@@ -56,10 +56,10 @@ export default function TestForm() {
     .nullable();
 
   const test = {
-    title: title,
-    start: start?.toISOString(),
-    end: end?.toISOString(),
-    course_id: parseInt(courseID),
+    name: name,
+    start_date: startDate?.toISOString(),
+    end_date: endDate?.toISOString(),
+    course_id: courseID ? parseInt(courseID) : testData?.courseID,
     location: location,
     notes: notes,
     grade: grade,
@@ -109,9 +109,9 @@ export default function TestForm() {
   return (
     <FormContainer>
       <View style={[styles.formContainer, {}]}>
-        <PrimaryTextInputField placeholder='Add title' value={title} onChangeText={setTitle} />
-        <DateTimePicker date={start} setDate={changeStartDate} />
-        <DateTimePicker date={end} setDate={setEnd} invalid={invalidDates} />
+        <PrimaryTextInputField placeholder='Add name' value={name} onChangeText={setName} />
+        <DateTimePicker date={startDate} setDate={changeStartDate} />
+        <DateTimePicker date={endDate} setDate={setEndDate} invalid={invalidDates} />
         <TextInputField placeholder='Add location' value={location} onChangeText={setLocation} icon='mappin.circle.fill' />
         <TextInputField placeholder='Add notes' value={notes} onChangeText={setNotes} />
         <NumericInputField placeholder='Add item weight' value={weight} onChangeText={setWeight} invalid={!weightString.safeParse(weight).success} />

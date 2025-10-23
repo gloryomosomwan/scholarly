@@ -55,9 +55,9 @@ create table IF NOT EXISTS events (
 );
 create table IF NOT EXISTS tests (
     id INTEGER PRIMARY KEY,
-    start TEXT NOT NULL,
-    end TEXT NOT NULL,
-    title TEXT,
+    start_date TEXT NOT NULL,
+    end_date TEXT NOT NULL,
+    name TEXT NOT NULL,
     course_id INTEGER,
     location TEXT,
     notes TEXT,

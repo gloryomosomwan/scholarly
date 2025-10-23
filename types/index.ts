@@ -22,9 +22,9 @@ export interface Event {
 
 export interface Test {
   id: number;
-  start: Date;
-  end: Date;
-  title?: string;
+  startDate: Date;
+  endDate: Date;
+  name: string;
   courseID: number;
   location?: string;
   notes?: string;

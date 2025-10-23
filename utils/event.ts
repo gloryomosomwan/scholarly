@@ -2,7 +2,7 @@ import { endOfDay, isEqual, isSameDay, startOfDay } from "date-fns";
 import dayjs from "dayjs";
 import { datetime, rrulestr } from "rrule";
 
-import { Event, EventClass } from "@/types";
+import { Event, EventClass, Test } from "@/types";
 import { pretty } from ".";
 
 // debugging constants
@@ -115,9 +115,9 @@ function getOccurrencesThatTakePlaceBetweenLookbackAndRightNow(eventDuration: nu
   else return occurrences
 }
 
-export const checkCurrentEvent = (event: Event): boolean => {
+export const checkCurrentEvent = (item: Event | Test): boolean => {
   const now = dayjs()
-  return now.isBetween(event.startDate, event.endDate)
+  return now.isBetween(item.startDate, item.endDate)
 }
 
 export function getActiveRecurrenceEvents(events: Event[]): Event[] {
