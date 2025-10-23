@@ -4,13 +4,13 @@ import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks/useTheme'
 
-type EventItemLocationProps = {
+type ScheduleItemLocationProps = {
   eventWasEarlierToday: boolean
   location: string
   courseColor: string | undefined
 }
 
-export default function EventItemLocation({ eventWasEarlierToday, location, courseColor }: EventItemLocationProps) {
+export default function ScheduleItemLocation({ eventWasEarlierToday, location, courseColor }: ScheduleItemLocationProps) {
   const theme = useTheme()
   return (
     <View style={styles.container}>

@@ -3,14 +3,14 @@ import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
 
-type EventItemCourseTextProps = {
+type ScheduleItemCourseTextProps = {
   courseCode: string | undefined
   courseColor: string | undefined
   eventWasEarlierToday: boolean
   eventType: string
 }
 
-export default function EventItemCourseText({ courseColor, courseCode, eventWasEarlierToday, eventType }: EventItemCourseTextProps) {
+export default function ScheduleItemCourseText({ courseColor, courseCode, eventWasEarlierToday, eventType }: ScheduleItemCourseTextProps) {
   const theme = useTheme()
   const testStyle: TextStyle = { fontWeight: '500' }
   return (

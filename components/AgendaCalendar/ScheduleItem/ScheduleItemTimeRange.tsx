@@ -6,13 +6,13 @@ import { SymbolView } from 'expo-symbols'
 import { useTheme } from '@/hooks/useTheme'
 import { useCalendarStore } from '@/stores/calendar'
 
-type EventItemTimeRangeProps = {
+type ScheduleItemTimeRangeProps = {
   start: Date
   end: Date
   eventWasEarlierToday: boolean
 }
 
-export default function EventItemTimeRange({ start, end, eventWasEarlierToday }: EventItemTimeRangeProps) {
+export default function ScheduleItemTimeRange({ start, end, eventWasEarlierToday }: ScheduleItemTimeRangeProps) {
   const theme = useTheme()
   const { currentDate } = useCalendarStore()
   return (
