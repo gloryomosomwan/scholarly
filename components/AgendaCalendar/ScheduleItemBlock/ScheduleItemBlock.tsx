@@ -3,11 +3,11 @@ import React from 'react'
 import { Route, router } from 'expo-router';
 import { isAfter, isSameDay } from 'date-fns';
 
-import ScheduleItemTimeRange from '@/components/AgendaCalendar/ScheduleItem/ScheduleItemTimeRange';
-import ScheduleItemDivider from '@/components/AgendaCalendar/ScheduleItem/ScheduleItemDivider';
-import ScheduleItemHeader from '@/components/AgendaCalendar/ScheduleItem/ScheduleItemHeader';
-import ScheduleItemLocation from '@/components/AgendaCalendar/ScheduleItem/ScheduleItemLocation';
-import ScheduleItemCourseText from '@/components/AgendaCalendar/ScheduleItem/ScheduleItemCourseText';
+import ScheduleItemTimeRange from '@/components/AgendaCalendar/ScheduleItemBlock/TimeRange';
+import ScheduleItemDivider from '@/components/AgendaCalendar/ScheduleItemBlock/Divider';
+import ScheduleItemHeader from '@/components/AgendaCalendar/ScheduleItemBlock/Header';
+import ScheduleItemLocation from '@/components/AgendaCalendar/ScheduleItemBlock/Location';
+import ScheduleItemCourseText from '@/components/AgendaCalendar/ScheduleItemBlock/CourseText';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 
 import { useTheme } from '@/hooks';
@@ -15,11 +15,11 @@ import { Event, Test } from '@/types';
 import { getCourseById } from '@/hooks/useDatabase';
 import { useCalendarStore } from '@/stores/calendar';
 
-type EventItemProps = {
+type ScheduleItemBlockProps = {
   event: Event | Test;
 }
 
-export default function ScheduleItem({ event }: EventItemProps) {
+export default function ScheduleItemBlock({ event }: ScheduleItemBlockProps) {
   const theme = useTheme()
   const course = getCourseById(event.courseID ?? null)
   const { currentDate } = useCalendarStore()

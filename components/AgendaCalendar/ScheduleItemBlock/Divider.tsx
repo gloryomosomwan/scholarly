@@ -3,14 +3,14 @@ import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
 
-type ScheduleItemDividerProps = {
+type DividerProps = {
   startDate: Date
   endDate: Date
   eventWasEarlierToday: boolean
   courseColor: string | undefined
 }
 
-export default function ScheduleItemDivider({ eventWasEarlierToday, courseColor, startDate, endDate }: ScheduleItemDividerProps) {
+export default function Divider({ eventWasEarlierToday, courseColor, startDate, endDate }: DividerProps) {
   const theme = useTheme()
   const eventStartMS = startDate.getTime()
   const eventEndMS = endDate.getTime()

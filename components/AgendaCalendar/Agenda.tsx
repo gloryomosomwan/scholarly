@@ -5,7 +5,7 @@ import { SharedValue } from 'react-native-reanimated';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
-import ScheduleItem from "@/components/AgendaCalendar/ScheduleItem/ScheduleItem";
+import ScheduleItem from "@/components/AgendaCalendar/ScheduleItemBlock/ScheduleItemBlock";
 import TaskCard from '@/components/TaskCard/TaskCard';
 import AssignmentCard from '@/components/Assignment/AssignmentCard';
 import ScheduleItemBar from '@/components/Dashboard/ScheduleItemCard/ScheduleItemBar';

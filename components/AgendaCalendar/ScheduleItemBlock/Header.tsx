@@ -3,7 +3,7 @@ import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
 
-type ScheduleItemHeaderProps = {
+type HeaderProps = {
   eventWasEarlierToday: boolean
   hasCourse: boolean
   eventType: string
@@ -11,7 +11,7 @@ type ScheduleItemHeaderProps = {
   courseColor: string | undefined
 }
 
-export default function ScheduleItemHeader({ eventWasEarlierToday, hasCourse, eventType, eventName, courseColor }: ScheduleItemHeaderProps) {
+export default function Header({ eventWasEarlierToday, hasCourse, eventType, eventName, courseColor }: HeaderProps) {
   const theme = useTheme()
   let text;
   if (eventType !== 'general' && eventType !== 'test') {
