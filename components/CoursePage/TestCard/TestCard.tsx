@@ -6,8 +6,8 @@ import { useTheme } from '@/hooks';
 import { Test } from '@/types';
 
 import Graded from '@/components/CoursePage/Graded';
-import TestCardMenu from '@/components/TestCard/TestCardMenu';
-import GradeModal from '@/components/TestCard/GradeModal';
+import TestCardMenu from '@/components/CoursePage/TestCard/TestCardMenu';
+import GradeModal from '@/components/CoursePage/TestCard/GradeModal';
 
 function getDateString(date: Date) {
   const day = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })

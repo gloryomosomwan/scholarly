@@ -6,7 +6,7 @@ import { useTheme } from '@/hooks';
 import { useTestsByCourse } from '@/hooks/useDatabase';
 import { CourseTabsParamList } from '@/types/navigation';
 
-import TestCard from '@/components/CoursePage/TestCard';
+import TestCard from '@/components/CoursePage/TestCard/TestCard';
 import AddButton from '@/components/Buttons/AddButton';
 
 type AssignmentsRoute = RouteProp<CourseTabsParamList, 'Assignments'>;
