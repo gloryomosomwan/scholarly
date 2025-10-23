@@ -4,12 +4,12 @@ import React from 'react'
 import { useTheme } from '@/hooks/useTheme'
 import { getColorWithOpacity } from '@/utils'
 
-type EventPillProps = {
+type PillProps = {
   text: string
   courseColor: string | undefined
 }
 
-export default function EventPill({ text, courseColor }: EventPillProps) {
+export default function Pill({ text, courseColor }: PillProps) {
   const theme = useTheme()
   const eventHasCourse: boolean = courseColor !== undefined
   if (!eventHasCourse) text = text?.replace(/\w/, c => c.toUpperCase())

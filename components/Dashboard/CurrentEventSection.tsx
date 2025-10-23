@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text } from 'react-native'
 import React, { useState } from 'react'
 
-import EventCard from '@/components/EventCard/EventCard'
-import EventBar from '@/components/EventCard/EventBar'
+import ScheduleItemCard from '@/components/Dashboard/ScheduleItemCard/ScheduleItemCard'
+import ScheduleItemBar from '@/components/Dashboard/ScheduleItemCard/ScheduleItemBar'
 
 import { useTheme } from '@/hooks/useTheme'
 import { useCurrentEvents, useCurrentTests } from '@/hooks/useDatabase'
@@ -15,15 +15,14 @@ export default function CurrentEventSection() {
   const events = useCurrentEvents(now)
   const tests = useCurrentTests(now)
   const scheduleItems = [...tests, ...events]
-  // console.log(scheduleItems[0])
   refresh(setNow)
   return (
     <View style={styles.container}>
       <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
       {scheduleItems.map(function (item) {
         const eventClass = getEventClass(item.startDate, item.endDate)
-        if (eventClass === 'regular' || eventClass === 'crossover') return <EventCard key={`${item.id}.${item.startDate}`} event={item} />
-        else return <EventBar key={`${item.id}.${item.startDate}`} event={item} date={now} />
+        if (eventClass === 'regular' || eventClass === 'crossover') return <ScheduleItemCard key={`${item.id}.${item.startDate}`} item={item} />
+        else return <ScheduleItemBar key={`${item.id}.${item.startDate}`} item={item} date={now} />
       })}
     </View>
   )

@@ -5,13 +5,13 @@ import { useTheme } from '@/hooks/useTheme'
 import { formatTime } from '@/utils'
 import dayjs from '@/utils/dayjs'
 
-type EventTimeRangeProps = {
+type TimeRangeProps = {
   startDate: Date
   endDate: Date
   isCurrentEvent: boolean
 }
 
-export default function EventTimeRange({ startDate, endDate, isCurrentEvent }: EventTimeRangeProps) {
+export default function TimeRange({ startDate, endDate, isCurrentEvent }: TimeRangeProps) {
   const theme = useTheme()
   const now = dayjs()
   const isUpNext = now.isBefore(startDate)

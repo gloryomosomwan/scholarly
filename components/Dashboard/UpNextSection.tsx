@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { isAfter } from 'date-fns'
 
-import EventCard from '@/components/EventCard/EventCard'
+import ScheduleItemCard from '@/components/Dashboard/ScheduleItemCard/ScheduleItemCard'
 
 import { useTheme } from '@/hooks/useTheme'
 import { useEventsByDay, useTestsByDay } from '@/hooks/useDatabase'
@@ -34,7 +34,7 @@ export default function UpNextSection() {
       <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
       {upNext && eventClass && (eventClass === 'regular' || eventClass === 'crossover') ?
         <View>
-          {<EventCard key={upNext.id} event={upNext} />}
+          {<ScheduleItemCard key={upNext.id} item={upNext} />}
         </View>
         :
         <View>

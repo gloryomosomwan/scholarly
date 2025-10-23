@@ -4,12 +4,12 @@ import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks/useTheme'
 
-type EventLocationProps = {
+type LocationProps = {
   location: string | undefined
   courseColor: string | undefined
 }
 
-export default function EventLocation({ location, courseColor }: EventLocationProps) {
+export default function Location({ location, courseColor }: LocationProps) {
   const theme = useTheme()
   return (
     <View style={styles.container}>

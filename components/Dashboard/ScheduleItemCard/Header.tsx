@@ -4,12 +4,12 @@ import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks/useTheme'
 
-type EventHeaderProps = {
+type HeaderProps = {
   text: string | undefined
   courseColor: string | undefined
 }
 
-export default function EventHeader({ text, courseColor }: EventHeaderProps) {
+export default function Header({ text, courseColor }: HeaderProps) {
   const theme = useTheme()
   const eventHasCourse: boolean = courseColor !== undefined
   if (eventHasCourse) text = text?.replace(/\w/, c => c.toUpperCase())
