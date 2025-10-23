@@ -25,7 +25,7 @@ export default function ScheduleItemBlock({ event }: ScheduleItemBlockProps) {
   const { currentDate } = useCalendarStore()
   const today = new Date()
   const eventWasEarlierToday = isSameDay(currentDate, today) ? checkEventWasEarlierToday(event.startDate, event.endDate) : false
-  const pathname: Route = "type" in event ? '/event-form' : '/test-form'
+  const pathname: Route = "type" in event ? '/schedule-item-details' : '/test-form'
   return (
     <PressableOpacity style={styles.container} onPress={() => router.navigate({ pathname: pathname, params: { id: event.id } })}>
       <ScheduleItemTimeRange start={event.startDate} end={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />

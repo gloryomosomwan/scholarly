@@ -3,14 +3,14 @@ import React from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { SymbolView } from 'expo-symbols'
 
-import EventDetailsHeader from '@/components/EventDetailsScreen/EventDetailsHeader'
-import EventDetailsDatetime from '@/components/EventDetailsScreen/EventDetailsDatetime'
+import Header from '@/components/ScheduleItemDetails/Header'
+import Datetime from '@/components/ScheduleItemDetails/Datetime'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks'
 import { getEventById } from '@/hooks/useDatabase'
 
-export default function EventDetails() {
+export default function ScheduleItemDetails() {
   const theme = useTheme()
   const { id } = useLocalSearchParams<{ id: string }>()
   const convertedID = Number(id)
@@ -27,8 +27,8 @@ export default function EventDetails() {
         </PressableOpacity>
       </View>
       <View style={[styles.detailContainer]}>
-        <EventDetailsHeader event={eventData} />
-        <EventDetailsDatetime start={eventData?.startDate} end={eventData?.endDate} />
+        <Header event={eventData} />
+        <Datetime start={eventData?.startDate} end={eventData?.endDate} />
         {
           eventData?.location &&
           <View style={styles.locationContainer}>

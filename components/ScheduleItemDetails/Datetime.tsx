@@ -3,12 +3,12 @@ import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
 
-type EventDetailsDatetimeProps = {
+type DatetimeProps = {
   start: Date | undefined
   end: Date | undefined
 }
 
-export default function EventDetailsDatetime({ start, end }: EventDetailsDatetimeProps) {
+export default function Datetime({ start, end }: DatetimeProps) {
   const theme = useTheme()
   const datetimeStringStartDate = `${start?.toLocaleString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })} at ${start?.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}`
   const datetimeStringEndDate = `${end?.toLocaleString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })} at ${end?.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}`

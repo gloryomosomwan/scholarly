@@ -87,7 +87,7 @@ export default function RootLayout() {
             }}
           />
           <Stack.Screen
-            name="event-details"
+            name="schedule-item-details"
             options={{
               headerShown: false,
               presentation: 'modal'

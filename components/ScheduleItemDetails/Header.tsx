@@ -6,11 +6,11 @@ import { useTheme } from '@/hooks/useTheme'
 import { Event } from '@/types'
 import { getCourseById } from '@/hooks/useDatabase'
 
-type EventDetailsHeaderProps = {
+type HeaderProps = {
   event: Event | null
 }
 
-export default function EventDetailsHeader({ event }: EventDetailsHeaderProps) {
+export default function Header({ event }: HeaderProps) {
   const theme = useTheme()
   const text = event?.type === 'general' ? (event.name || '(No name)') : event?.type.replace(/\w/, c => c.toUpperCase())
   const course = getCourseById(event?.courseID || null)
