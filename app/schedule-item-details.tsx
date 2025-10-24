@@ -8,14 +8,13 @@ import Datetime from '@/components/ScheduleItemDetails/Datetime'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks'
-import { getEventById } from '@/hooks/useDatabase'
+import { getEventById, getTestById } from '@/hooks/useDatabase'
 
 export default function ScheduleItemDetails() {
   const theme = useTheme()
-  const { id } = useLocalSearchParams<{ id: string }>()
+  const { id, itemType } = useLocalSearchParams<{ id: string, itemType: string }>()
   const convertedID = Number(id)
-  const eventData = id ? getEventById(convertedID) : null
-  console.log(eventData)
+  const itemData = id ? (itemType === 'event' ? getEventById(convertedID) : getTestById(convertedID)) : null
   return (
     <View style={styles.container}>
       <View style={[styles.buttonContainer, {}]}>
@@ -27,13 +26,13 @@ export default function ScheduleItemDetails() {
         </PressableOpacity>
       </View>
       <View style={[styles.detailContainer]}>
-        <Header event={eventData} />
-        <Datetime start={eventData?.startDate} end={eventData?.endDate} />
+        <Header item={itemData} />
+        <Datetime start={itemData?.startDate} end={itemData?.endDate} />
         {
-          eventData?.location &&
+          itemData?.location &&
           <View style={styles.locationContainer}>
             <SymbolView name='mappin.circle.fill' size={20} tintColor={theme.grey400} style={{ width: 30 }} type='hierarchical' />
-            <Text style={[styles.locationText, { color: theme.text }]}>{eventData?.location}</Text>
+            <Text style={[styles.locationText, { color: theme.text }]}>{itemData?.location}</Text>
           </View>
         }
       </View>

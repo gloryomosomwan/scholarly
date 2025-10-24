@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import { Route, router } from 'expo-router';
+import { router } from 'expo-router';
 import { isAfter, isSameDay } from 'date-fns';
 
 import ScheduleItemTimeRange from '@/components/AgendaCalendar/ScheduleItemBlock/TimeRange';
@@ -25,9 +25,9 @@ export default function ScheduleItemBlock({ event }: ScheduleItemBlockProps) {
   const { currentDate } = useCalendarStore()
   const today = new Date()
   const eventWasEarlierToday = isSameDay(currentDate, today) ? checkEventWasEarlierToday(event.startDate, event.endDate) : false
-  const pathname: Route = event.type !== 'test' ? '/schedule-item-details' : '/test-form'
+  const params = { id: event.id, itemType: event.type === 'test' ? 'test' : 'event' }
   return (
-    <PressableOpacity style={styles.container} onPress={() => router.navigate({ pathname: pathname, params: { id: event.id } })}>
+    <PressableOpacity style={styles.container} onPress={() => router.navigate({ pathname: '/schedule-item-details', params: params })}>
       <ScheduleItemTimeRange start={event.startDate} end={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />
       <ScheduleItemDivider startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} courseColor={course ? course.color : theme.accent} />
       <View style={styles.eventDetailsContainer}>

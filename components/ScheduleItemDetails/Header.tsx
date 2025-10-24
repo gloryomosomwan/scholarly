@@ -3,17 +3,17 @@ import React from 'react'
 import { SymbolView } from 'expo-symbols'
 
 import { useTheme } from '@/hooks/useTheme'
-import { Event } from '@/types'
+import { Event, Test } from '@/types'
 import { getCourseById } from '@/hooks/useDatabase'
 
 type HeaderProps = {
-  event: Event | null
+  item: Event | Test | null
 }
 
-export default function Header({ event }: HeaderProps) {
+export default function Header({ item: item }: HeaderProps) {
   const theme = useTheme()
-  const text = event?.type === 'general' ? (event.name || '(No name)') : event?.type.replace(/\w/, c => c.toUpperCase())
-  const course = getCourseById(event?.courseID || null)
+  const text = item?.type === 'general' || item?.type === 'test' ? (item.name || '(No name)') : item?.type.replace(/\w/, c => c.toUpperCase())
+  const course = getCourseById(item?.courseID || null)
   return (
     <View style={[styles.container, {}]}>
       <SymbolView name='square.fill' tintColor={course?.color || theme.grey400} style={{ width: 30 }} />
