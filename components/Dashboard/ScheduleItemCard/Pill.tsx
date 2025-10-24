@@ -11,8 +11,8 @@ type PillProps = {
 
 export default function Pill({ text, courseColor }: PillProps) {
   const theme = useTheme()
-  const eventHasCourse: boolean = courseColor !== undefined
-  if (!eventHasCourse) text = text?.replace(/\w/, c => c.toUpperCase())
+  const itemHasCourse: boolean = courseColor !== undefined
+  if (!itemHasCourse) text = text?.replace(/\w/, c => c.toUpperCase())
   return (
     <View style={[styles.background, { backgroundColor: courseColor ? getColorWithOpacity(courseColor, 0.25) : theme.grey200 }]}>
       <Text style={[styles.text, { color: courseColor ?? theme.grey400 }]}>{text}</Text>

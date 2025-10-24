@@ -2,10 +2,9 @@ import { endOfDay, isEqual, isSameDay, startOfDay } from "date-fns";
 import dayjs from "dayjs";
 import { datetime, rrulestr } from "rrule";
 
-import { Event, EventClass, Test } from "@/types";
+import { Event, ScheduleItemClass, Test } from "@/types";
 import { pretty } from ".";
 
-// debugging constants
 const MILLISECONDSINMINUTE = 60000
 const MILLISECONDSINHOUR = MILLISECONDSINMINUTE * 60
 const MILLISECONDSINDAY = 24 * MILLISECONDSINHOUR
@@ -14,7 +13,7 @@ function startsAtMidnight(start: Date): boolean {
   return isEqual(start, startOfDay(start))
 }
 
-export const getEventClass = (start: Date, end: Date): EventClass => {
+export const getScheduleItemClass = (start: Date, end: Date): ScheduleItemClass => {
   const MILLISECONDSINADAY = 86400000
   const duration = end.getTime() - start.getTime()
   if (duration > MILLISECONDSINADAY || (duration === MILLISECONDSINADAY && !isSameDay(start, end)) && !startsAtMidnight(start)) {
@@ -115,7 +114,7 @@ function getOccurrencesThatTakePlaceBetweenLookbackAndRightNow(eventDuration: nu
   else return occurrences
 }
 
-export const checkCurrentEvent = (item: Event | Test): boolean => {
+export const checkIsHappening = (item: Event | Test): boolean => {
   const now = dayjs()
   return now.isBetween(item.startDate, item.endDate)
 }

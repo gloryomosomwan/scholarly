@@ -16,33 +16,33 @@ import CourseText from '@/components/AgendaCalendar/ScheduleItemBlock/CourseText
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 
 type ScheduleItemBlockProps = {
-  event: Event | Test;
+  item: Event | Test;
 }
 
-export default function ScheduleItemBlock({ event }: ScheduleItemBlockProps) {
+export default function ScheduleItemBlock({ item }: ScheduleItemBlockProps) {
   const theme = useTheme()
-  const course = getCourseById(event.courseID ?? null)
+  const course = getCourseById(item.courseID ?? null)
   const { currentDate } = useCalendarStore()
   const today = new Date()
-  const eventWasEarlierToday = isSameDay(currentDate, today) ? checkEventWasEarlierToday(event.startDate, event.endDate) : false
-  const params = { id: event.id, itemType: event.type === 'test' ? 'test' : 'event' }
+  const itemHasOccurred = isSameDay(currentDate, today) ? checkItemHasOccurred(item.startDate, item.endDate) : false
+  const params = { id: item.id, itemType: item.type === 'test' ? 'test' : 'event' }
   return (
     <PressableOpacity style={styles.container} onPress={() => router.navigate({ pathname: '/schedule-item-details', params: params })}>
-      <TimeRange start={event.startDate} end={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />
-      <Divider startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} courseColor={course ? course.color : theme.accent} />
+      <TimeRange start={item.startDate} end={item.endDate} itemHasOccurred={itemHasOccurred} />
+      <Divider startDate={item.startDate} endDate={item.endDate} itemHasOccurred={itemHasOccurred} courseColor={course ? course.color : theme.accent} />
       <View style={styles.eventDetailsContainer}>
-        {course && <CourseText courseCode={course.code} courseColor={course.color} eventWasEarlierToday={eventWasEarlierToday} eventType={event.type} />}
-        <Header eventType={event.type} eventName={event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} courseColor={course ? course.color : theme.accent} />
+        {course && <CourseText courseCode={course.code} courseColor={course.color} itemHasOccurred={itemHasOccurred} itemType={item.type} />}
+        <Header itemType={item.type} itemName={item.name} itemHasOccurred={itemHasOccurred} hasCourse={course !== null} courseColor={course ? course.color : theme.accent} />
         {
-          event.location &&
-          <Location courseColor={course ? course.color : theme.accent} location={event.location} eventWasEarlierToday={eventWasEarlierToday} />
+          item.location &&
+          <Location courseColor={course ? course.color : theme.accent} location={item.location} itemHasOccurred={itemHasOccurred} />
         }
       </View>
     </PressableOpacity>
   )
 }
 
-const checkEventWasEarlierToday = (startDate: Date, endDate: Date): boolean => {
+const checkItemHasOccurred = (startDate: Date, endDate: Date): boolean => {
   const today = new Date()
   return (isSameDay(startDate, today) || isSameDay(endDate, today)) && isAfter(Date.now(), endDate)
 }

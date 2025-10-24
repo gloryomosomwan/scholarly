@@ -9,10 +9,10 @@ import { useCalendarStore } from '@/stores/calendar'
 type TimeRangeProps = {
   start: Date
   end: Date
-  eventWasEarlierToday: boolean
+  itemHasOccurred: boolean
 }
 
-export default function TimeRange({ start, end, eventWasEarlierToday }: TimeRangeProps) {
+export default function TimeRange({ start, end, itemHasOccurred }: TimeRangeProps) {
   const theme = useTheme()
   const { currentDate } = useCalendarStore()
   return (
@@ -20,7 +20,7 @@ export default function TimeRange({ start, end, eventWasEarlierToday }: TimeRang
       <View style={styles.row}>
         {/* CHECK */}
         {isSameDay(start, subDays(currentDate, 1)) && <SymbolView name='arrow.turn.up.left' size={11} />}
-        <Text style={[styles.startText, { color: eventWasEarlierToday ? theme.grey400 : theme.text }]}>
+        <Text style={[styles.startText, { color: itemHasOccurred ? theme.grey400 : theme.text }]}>
           {start.toLocaleTimeString("en-US", { hour: 'numeric', minute: 'numeric' })}
         </Text>
       </View>

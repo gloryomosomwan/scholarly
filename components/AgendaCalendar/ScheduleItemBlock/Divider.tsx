@@ -6,24 +6,24 @@ import { useTheme } from '@/hooks/useTheme'
 type DividerProps = {
   startDate: Date
   endDate: Date
-  eventWasEarlierToday: boolean
+  itemHasOccurred: boolean
   courseColor: string | undefined
 }
 
-export default function Divider({ eventWasEarlierToday, courseColor, startDate, endDate }: DividerProps) {
+export default function Divider({ itemHasOccurred, courseColor, startDate, endDate }: DividerProps) {
   const theme = useTheme()
-  const eventStartMS = startDate.getTime()
-  const eventEndMS = endDate.getTime()
+  const itemStartMS = startDate.getTime()
+  const itemEndMS = endDate.getTime()
   const isHappeningNow = (() => {
-    if (Date.now() > eventStartMS && Date.now() < eventEndMS) {
+    if (Date.now() > itemStartMS && Date.now() < itemEndMS) {
       return true
     }
     return false
   })()
   const dynamicDividerHeightPct: DimensionValue = (() => {
     if (isHappeningNow) {
-      let gap = eventEndMS - eventStartMS
-      let soFar = Date.now() - eventStartMS
+      let gap = itemEndMS - itemStartMS
+      let soFar = Date.now() - itemStartMS
       let percentage = (soFar / gap) * 100
       return `${Math.floor(percentage)}%`
     }
@@ -31,7 +31,7 @@ export default function Divider({ eventWasEarlierToday, courseColor, startDate, 
   })()
   return (
     <View style={styles.container}>
-      <View style={[styles.staticDivider, { backgroundColor: eventWasEarlierToday ? theme.grey400 : courseColor }]} />
+      <View style={[styles.staticDivider, { backgroundColor: itemHasOccurred ? theme.grey400 : courseColor }]} />
       <View style={[styles.dynamicDivider, { backgroundColor: theme.grey400, height: dynamicDividerHeightPct }]} />
     </View>
   )

@@ -9,7 +9,7 @@ import { db } from '@/db/init';
 import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent, convertRawTest } from '@/utils/conversion';
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask, rawTest } from "@/types/drizzle";
-import { getActiveRecurrenceEvents, getRecurrenceEventsByDay } from "@/utils/event";
+import { getActiveRecurrenceEvents, getRecurrenceEventsByDay } from "@/utils/scheduleItem";
 import { Assignment, Event, Task } from '@/types';
 import { pretty } from "@/utils";
 

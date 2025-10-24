@@ -14,7 +14,7 @@ import { useTheme } from '@/hooks'
 import { useCalendarStore } from '@/stores/calendar';
 import { useAssignmentsByDay, useEventsByDay, useTasksByDay, useTestsByDay } from '@/hooks/useDatabase';
 import { sortAssignmentsByDue, sortScheduleItems, sortTasksByDue } from '@/utils/sort';
-import { getEventClass } from '@/utils/event';
+import { getScheduleItemClass } from '@/utils/scheduleItem';
 
 type AgendaProps = {
   bottomSheetTranslationY: SharedValue<number>
@@ -38,8 +38,8 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   scheduleItems.sort(sortScheduleItems)
   const scheduleElements = scheduleItems.map((item) => {
     const key = `${item.id}.${item.startDate}.${item.type}`
-    const itemClass = getEventClass(item.startDate, item.endDate)
-    if (itemClass === 'regular' || itemClass === 'crossover') return <ScheduleItem key={key} event={item} />
+    const itemClass = getScheduleItemClass(item.startDate, item.endDate)
+    if (itemClass === 'regular' || itemClass === 'crossover') return <ScheduleItem key={key} item={item} />
     else return <ScheduleItemBar key={key} item={item} date={currentDate} />
   })
 

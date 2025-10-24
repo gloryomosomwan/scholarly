@@ -6,15 +6,15 @@ import { useTheme } from '@/hooks/useTheme'
 type CourseTextProps = {
   courseCode: string | undefined
   courseColor: string | undefined
-  eventWasEarlierToday: boolean
-  eventType: string
+  itemHasOccurred: boolean
+  itemType: string
 }
 
-export default function CourseText({ courseColor, courseCode, eventWasEarlierToday, eventType }: CourseTextProps) {
+export default function CourseText({ courseColor, courseCode, itemHasOccurred, itemType }: CourseTextProps) {
   const theme = useTheme()
   const testStyle: TextStyle = { fontWeight: '500' }
   return (
-    <Text style={[styles.text, { color: eventWasEarlierToday ? theme.grey400 : courseColor }, eventType === 'test' && testStyle]}>{courseCode}</Text>
+    <Text style={[styles.text, { color: itemHasOccurred ? theme.grey400 : courseColor }, itemType === 'test' && testStyle]}>{courseCode}</Text>
   )
 }
 

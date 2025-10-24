@@ -1,5 +1,5 @@
 import { eachDayOfInterval, isEqual, startOfDay, format } from "date-fns"
-import { getEventOccurrencesBetweenDays, convertRRuleOccurrenceToJSDate, getEventClass } from "@/utils/event"
+import { getEventOccurrencesBetweenDays, convertRRuleOccurrenceToJSDate, getScheduleItemClass } from "@/utils/scheduleItem"
 import { Event, Assignment, Task } from "@/types"
 
 export function getItemMap(items: (Event | Assignment | Task)[], start: Date, end: Date): Record<string, number> {
@@ -29,7 +29,7 @@ export function getItemMap(items: (Event | Assignment | Task)[], start: Date, en
     }
     // Item is an event
     else if ('startDate' in item && 'endDate' in item && item.startDate instanceof Date && item.endDate instanceof Date) {
-      if (getEventClass(item.startDate, item.endDate) !== 'regular') {
+      if (getScheduleItemClass(item.startDate, item.endDate) !== 'regular') {
         const dates = eachDayOfInterval({ start: item.startDate, end: item.endDate })
         // If the event ends at midnight, remove the day representing the end date from the dates array
         if (isEqual(item.endDate, startOfDay(item.endDate))) dates.splice(dates.length - 1)

@@ -11,11 +11,11 @@ type HeaderProps = {
 
 export default function Header({ text, courseColor }: HeaderProps) {
   const theme = useTheme()
-  const eventHasCourse: boolean = courseColor !== undefined
-  if (eventHasCourse) text = text?.replace(/\w/, c => c.toUpperCase())
+  const itemHasCourse: boolean = courseColor !== undefined
+  if (itemHasCourse) text = text?.replace(/\w/, c => c.toUpperCase())
   return (
     <View style={styles.container}>
-      {eventHasCourse && <SymbolView name={'book'} size={28} tintColor={courseColor} style={[styles.icon]} />}
+      {itemHasCourse && <SymbolView name={'book'} size={28} tintColor={courseColor} style={[styles.icon]} />}
       <Text style={[styles.text, { color: theme.text }]}>{text}</Text>
     </View>
   )

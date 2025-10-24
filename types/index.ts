@@ -7,7 +7,7 @@ export type TaskSortOption = 'Course' | 'Priority'
 export type TaskFilterOption = 'Course' | 'Priority'
 export type PriorityOption = 'high' | 'medium' | 'low'
 export type Frequency = 'once' | 'daily' | 'weekly' | 'monthly'
-export type EventClass = 'regular' | 'multiday' | 'allday' | 'crossover'
+export type ScheduleItemClass = 'regular' | 'multiday' | 'allday' | 'crossover'
 
 export interface Event {
   id: number;

@@ -6,10 +6,10 @@ import ScheduleItemBar from '@/components/ScheduleItemBar'
 
 import { useTheme } from '@/hooks/useTheme'
 import { useCurrentEvents, useCurrentTests } from '@/hooks/useDatabase'
-import { getEventClass } from '@/utils/event'
+import { getScheduleItemClass } from '@/utils/scheduleItem'
 import { refresh } from '@/utils'
 
-export default function CurrentEventSection() {
+export default function CurrentlySection() {
   const theme = useTheme()
   const [now, setNow] = useState(new Date())
   const events = useCurrentEvents(now)
@@ -21,8 +21,8 @@ export default function CurrentEventSection() {
       <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
       {scheduleItems.map(function (item) {
         const key = `${item.id}.${item.startDate}.${item.type}`
-        const eventClass = getEventClass(item.startDate, item.endDate)
-        if (eventClass === 'regular' || eventClass === 'crossover') return <ScheduleItemCard key={key} item={item} />
+        const itemClass = getScheduleItemClass(item.startDate, item.endDate)
+        if (itemClass === 'regular' || itemClass === 'crossover') return <ScheduleItemCard key={key} item={item} />
         else return <ScheduleItemBar key={key} item={item} date={now} />
       })}
     </View>

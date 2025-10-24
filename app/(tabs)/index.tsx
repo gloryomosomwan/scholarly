@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TaskSection from "@/components/Dashboard/TaskSection";
 import AssignmentSection from "@/components/Dashboard/AssignmentSection";
 import UpNextSection from "@/components/Dashboard/UpNextSection";
-import CurrentEventSection from "@/components/Dashboard/CurrentEventSection";
+import CurrentlySection from "@/components/Dashboard/CurrentlySection";
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import UpcomingDatesSection from "@/components/Dashboard/UpcomingDatesSection";
 
@@ -18,7 +18,7 @@ export default function Index() {
     <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25, flex: 1 }}>
       <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
         <DashboardHeader />
-        <CurrentEventSection />
+        <CurrentlySection />
         <UpNextSection />
         <UpcomingDatesSection />
         <AssignmentSection />

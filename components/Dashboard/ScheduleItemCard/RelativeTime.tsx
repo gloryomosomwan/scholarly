@@ -3,7 +3,7 @@ import React from 'react'
 import { isSameDay } from 'date-fns';
 
 import { useTheme } from '@/hooks/useTheme'
-import { getEventClass } from '@/utils/event';
+import { getScheduleItemClass } from '@/utils/scheduleItem';
 
 type RelativeTimeProps = {
   start: Date;
@@ -19,8 +19,8 @@ export default function RelativeTime({ start, end }: RelativeTimeProps) {
 }
 
 function getRelativeTimeString(start: Date, end: Date) {
-  const eventClass = getEventClass(start, end)
-  if (eventClass === 'crossover') {
+  const itemClass = getScheduleItemClass(start, end)
+  if (itemClass === 'crossover') {
     const today = new Date()
     if (isSameDay(today, start)) return `Ends tomorrow`
     else if (isSameDay(today, end)) return `Started yesterday`

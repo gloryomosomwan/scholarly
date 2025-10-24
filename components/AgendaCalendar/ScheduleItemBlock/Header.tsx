@@ -4,27 +4,27 @@ import React from 'react'
 import { useTheme } from '@/hooks/useTheme'
 
 type HeaderProps = {
-  eventWasEarlierToday: boolean
+  itemHasOccurred: boolean
   hasCourse: boolean
-  eventType: string
-  eventName: string | undefined
+  itemType: string
+  itemName: string | undefined
   courseColor: string | undefined
 }
 
-export default function Header({ eventWasEarlierToday, hasCourse, eventType, eventName, courseColor }: HeaderProps) {
+export default function Header({ itemHasOccurred, hasCourse, itemType, itemName, courseColor }: HeaderProps) {
   const theme = useTheme()
   let text;
-  if (eventType !== 'general' && eventType !== 'test') {
-    text = eventType?.replace(/\w/, c => c.toUpperCase())
+  if (itemType !== 'general' && itemType !== 'test') {
+    text = itemType?.replace(/\w/, c => c.toUpperCase())
   }
   else {
-    text = eventName
+    text = itemName
   }
-  const testStyle: TextStyle = { fontWeight: '500', color: eventWasEarlierToday ? theme.grey400 : courseColor }
+  const testStyle: TextStyle = { fontWeight: '500', color: itemHasOccurred ? theme.grey400 : courseColor }
   return (
     <View style={styles.container}>
       {hasCourse && <Text style={styles.icon}>{'📚'}</Text>}
-      <Text style={[styles.text, { color: eventWasEarlierToday ? theme.grey400 : theme.text }, eventType === 'test' && testStyle]}>{text}</Text>
+      <Text style={[styles.text, { color: itemHasOccurred ? theme.grey400 : theme.text }, itemType === 'test' && testStyle]}>{text}</Text>
     </View>
   )
 }

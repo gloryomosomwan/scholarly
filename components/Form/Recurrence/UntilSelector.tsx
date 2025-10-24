@@ -5,7 +5,7 @@ import { addWeeks } from 'date-fns';
 import { SymbolView } from 'expo-symbols';
 
 import { useTheme } from '@/hooks/useTheme'
-import { passJSDateToDatetime } from '@/utils/event';
+import { passJSDateToDatetime } from '@/utils/scheduleItem';
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import ClearButton from '@/components/Buttons/ClearButton';

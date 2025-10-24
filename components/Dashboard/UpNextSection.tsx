@@ -8,7 +8,7 @@ import { useTheme } from '@/hooks/useTheme'
 import { useEventsByDay, useTestsByDay } from '@/hooks/useDatabase'
 import { useCalendarStore } from '@/stores/calendar'
 import { sortScheduleItems } from '@/utils/sort'
-import { getEventClass } from '@/utils/event'
+import { getScheduleItemClass } from '@/utils/scheduleItem'
 
 export default function UpNextSection() {
   const theme = useTheme()
@@ -27,7 +27,7 @@ export default function UpNextSection() {
     }
   }
 
-  const eventClass = upNext && getEventClass(upNext.startDate, upNext.endDate)
+  const eventClass = upNext && getScheduleItemClass(upNext.startDate, upNext.endDate)
 
   return (
     <View style={styles.container}>

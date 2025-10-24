@@ -8,10 +8,10 @@ import dayjs from '@/utils/dayjs'
 type TimeRangeProps = {
   startDate: Date
   endDate: Date
-  isCurrentEvent: boolean
+  isHappening: boolean
 }
 
-export default function TimeRange({ startDate, endDate, isCurrentEvent }: TimeRangeProps) {
+export default function TimeRange({ startDate, endDate, isHappening }: TimeRangeProps) {
   const theme = useTheme()
   const now = dayjs()
   const isUpNext = now.isBefore(startDate)
@@ -25,7 +25,7 @@ export default function TimeRange({ startDate, endDate, isCurrentEvent }: TimeRa
       <Text style={[styles.rangeText, { color: theme.grey600 }]}>
         {formatTime(startDate)} - {formatTime(endDate)}
       </Text>
-      {!isCurrentEvent && <Text style={[styles.agoText, { color: theme.grey400 }]}> {timeFromNowString} </Text>}
+      {!isHappening && <Text style={[styles.agoText, { color: theme.grey400 }]}> {timeFromNowString} </Text>}
     </View>
   )
 }

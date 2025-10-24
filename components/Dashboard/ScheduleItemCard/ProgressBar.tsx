@@ -7,11 +7,11 @@ import { useTheme } from '@/hooks/useTheme'
 type ProgressBarProps = {
   startDate: Date
   endDate: Date
-  isCurrentEvent: boolean
+  isHappening: boolean
   courseColor: string | undefined
 }
 
-export default function ProgressBar({ startDate, endDate, isCurrentEvent, courseColor }: ProgressBarProps) {
+export default function ProgressBar({ startDate, endDate, isHappening, courseColor }: ProgressBarProps) {
   const theme = useTheme()
   const now = new Date()
   const elapsed = now.getTime() - startDate.getTime()
@@ -20,7 +20,7 @@ export default function ProgressBar({ startDate, endDate, isCurrentEvent, course
   return (
     <View style={styles.container}>
       <View style={[styles.background, { backgroundColor: courseColor ? tinycolor(courseColor).setAlpha(0.15).toRgbString() : theme.grey200 }]}>
-        {isCurrentEvent &&
+        {isHappening &&
           <View
             style={[
               styles.fill,

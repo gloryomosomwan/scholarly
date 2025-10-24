@@ -12,7 +12,7 @@ import RelativeTime from '@/components/Dashboard/ScheduleItemCard/RelativeTime';
 import { useTheme } from '@/hooks';
 import { Event, Test } from '@/types';
 import { getCourseById } from '@/hooks/useDatabase';
-import { checkCurrentEvent } from '@/utils/event';
+import { checkIsHappening } from '@/utils/scheduleItem';
 
 type ScheduleItemCardProps = {
   item: Event | Test;
@@ -20,13 +20,13 @@ type ScheduleItemCardProps = {
 
 export default function ScheduleItemCard({ item }: ScheduleItemCardProps) {
   const theme = useTheme()
-  const isCurrentEvent = checkCurrentEvent(item)
+  const isHappening = checkIsHappening(item)
   const course = getCourseById(item.courseID ? item.courseID : null)
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
       <View style={styles.topRowContainer}>
         {course && <Pill text={course.code} courseColor={course.color} />}
-        <TimeRange startDate={item.startDate} endDate={item.endDate} isCurrentEvent={isCurrentEvent} />
+        <TimeRange startDate={item.startDate} endDate={item.endDate} isHappening={isHappening} />
       </View>
       <RelativeTime start={item.startDate} end={item.endDate} />
       <View style={styles.mainContentContainer}>
@@ -34,9 +34,9 @@ export default function ScheduleItemCard({ item }: ScheduleItemCardProps) {
         {item.location && <Location location={item.location} courseColor={course?.color} />}
       </View>
       <View style={styles.progressSection}>
-        <ProgressBar startDate={item.startDate} endDate={item.endDate} isCurrentEvent={isCurrentEvent} courseColor={course?.color} />
+        <ProgressBar startDate={item.startDate} endDate={item.endDate} isHappening={isHappening} courseColor={course?.color} />
         {
-          isCurrentEvent &&
+          isHappening &&
           <ProgressBarLabels startDate={item.startDate} endDate={item.endDate} />
         }
       </View>
