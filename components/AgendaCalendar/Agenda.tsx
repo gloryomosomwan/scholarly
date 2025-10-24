@@ -8,7 +8,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import ScheduleItem from "@/components/AgendaCalendar/ScheduleItemBlock/ScheduleItemBlock";
 import TaskCard from '@/components/TaskCard/TaskCard';
 import AssignmentCard from '@/components/Assignment/AssignmentCard';
-import ScheduleItemBar from '@/components/Dashboard/ScheduleItemCard/ScheduleItemBar';
+import ScheduleItemBar from '@/components/ScheduleItemBar';
 
 import { useTheme } from '@/hooks'
 import { useCalendarStore } from '@/stores/calendar';

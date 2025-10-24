@@ -2,7 +2,7 @@ import { StyleSheet, View, Text } from 'react-native'
 import React, { useState } from 'react'
 
 import ScheduleItemCard from '@/components/Dashboard/ScheduleItemCard/ScheduleItemCard'
-import ScheduleItemBar from '@/components/Dashboard/ScheduleItemCard/ScheduleItemBar'
+import ScheduleItemBar from '@/components/ScheduleItemBar'
 
 import { useTheme } from '@/hooks/useTheme'
 import { useCurrentEvents, useCurrentTests } from '@/hooks/useDatabase'
