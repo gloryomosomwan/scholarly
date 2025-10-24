@@ -3,11 +3,11 @@ import React from 'react'
 import { router } from 'expo-router';
 import { isAfter, isSameDay } from 'date-fns';
 
-import ScheduleItemTimeRange from '@/components/AgendaCalendar/ScheduleItemBlock/TimeRange';
-import ScheduleItemDivider from '@/components/AgendaCalendar/ScheduleItemBlock/Divider';
-import ScheduleItemHeader from '@/components/AgendaCalendar/ScheduleItemBlock/Header';
-import ScheduleItemLocation from '@/components/AgendaCalendar/ScheduleItemBlock/Location';
-import ScheduleItemCourseText from '@/components/AgendaCalendar/ScheduleItemBlock/CourseText';
+import TimeRange from '@/components/AgendaCalendar/ScheduleItemBlock/TimeRange';
+import Divider from '@/components/AgendaCalendar/ScheduleItemBlock/Divider';
+import Header from '@/components/AgendaCalendar/ScheduleItemBlock/Header';
+import Location from '@/components/AgendaCalendar/ScheduleItemBlock/Location';
+import CourseText from '@/components/AgendaCalendar/ScheduleItemBlock/CourseText';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
 
 import { useTheme } from '@/hooks';
@@ -28,14 +28,14 @@ export default function ScheduleItemBlock({ event }: ScheduleItemBlockProps) {
   const params = { id: event.id, itemType: event.type === 'test' ? 'test' : 'event' }
   return (
     <PressableOpacity style={styles.container} onPress={() => router.navigate({ pathname: '/schedule-item-details', params: params })}>
-      <ScheduleItemTimeRange start={event.startDate} end={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />
-      <ScheduleItemDivider startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} courseColor={course ? course.color : theme.accent} />
+      <TimeRange start={event.startDate} end={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />
+      <Divider startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} courseColor={course ? course.color : theme.accent} />
       <View style={styles.eventDetailsContainer}>
-        {course && <ScheduleItemCourseText courseCode={course.code} courseColor={course.color} eventWasEarlierToday={eventWasEarlierToday} eventType={event.type} />}
-        <ScheduleItemHeader eventType={event.type} eventName={event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} courseColor={course ? course.color : theme.accent} />
+        {course && <CourseText courseCode={course.code} courseColor={course.color} eventWasEarlierToday={eventWasEarlierToday} eventType={event.type} />}
+        <Header eventType={event.type} eventName={event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} courseColor={course ? course.color : theme.accent} />
         {
           event.location &&
-          <ScheduleItemLocation courseColor={course ? course.color : theme.accent} location={event.location} eventWasEarlierToday={eventWasEarlierToday} />
+          <Location courseColor={course ? course.color : theme.accent} location={event.location} eventWasEarlierToday={eventWasEarlierToday} />
         }
       </View>
     </PressableOpacity>
