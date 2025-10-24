@@ -15,13 +15,14 @@ export default function ScheduleItemDetails() {
   const { id, itemType } = useLocalSearchParams<{ id: string, itemType: string }>()
   const convertedID = Number(id)
   const itemData = id ? (itemType === 'event' ? getEventById(convertedID) : getTestById(convertedID)) : null
+  const pathname = itemType === 'event' ? '/event-form' : '/test-form'
   return (
     <View style={styles.container}>
       <View style={[styles.buttonContainer, {}]}>
         <PressableOpacity onPress={() => router.dismiss()}>
           <SymbolView name='xmark' tintColor={theme.text} />
         </PressableOpacity>
-        <PressableOpacity onPress={() => router.navigate({ pathname: '/event-form', params: { id: id } })}>
+        <PressableOpacity onPress={() => router.navigate({ pathname: pathname, params: { id: id } })}>
           <SymbolView name='pencil' tintColor={theme.text} />
         </PressableOpacity>
       </View>
