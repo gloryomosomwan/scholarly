@@ -20,9 +20,10 @@ export default function CurrentEventSection() {
     <View style={styles.container}>
       <Text style={[styles.headerText, { color: theme.text }]}>Currently:</Text>
       {scheduleItems.map(function (item) {
+        const key = `${item.id}.${item.startDate}.${item.type}`
         const eventClass = getEventClass(item.startDate, item.endDate)
-        if (eventClass === 'regular' || eventClass === 'crossover') return <ScheduleItemCard key={`${item.id}.${item.startDate}`} item={item} />
-        else return <ScheduleItemBar key={`${item.id}.${item.startDate}`} item={item} date={now} />
+        if (eventClass === 'regular' || eventClass === 'crossover') return <ScheduleItemCard key={key} item={item} />
+        else return <ScheduleItemBar key={key} item={item} date={now} />
       })}
     </View>
   )

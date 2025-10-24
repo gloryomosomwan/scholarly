@@ -37,9 +37,10 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const scheduleItems = [...events, ...tests]
   scheduleItems.sort(sortScheduleItems)
   const scheduleElements = scheduleItems.map((item) => {
+    const key = `${item.id}.${item.startDate}.${item.type}`
     const itemClass = getEventClass(item.startDate, item.endDate)
-    if (itemClass === 'regular' || itemClass === 'crossover') return <ScheduleItem key={`${item.id}.${item.startDate}`} event={item} />
-    // else return <EventBar key={`${item.id}.${item.startDate}`} event={event} date={currentDate} />
+    if (itemClass === 'regular' || itemClass === 'crossover') return <ScheduleItem key={key} event={item} />
+    else return <ScheduleItemBar key={key} item={item} date={currentDate} />
   })
 
   const assignments = useAssignmentsByDay(currentDate)

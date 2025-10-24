@@ -21,8 +21,9 @@ export default function ScheduleItemBar({ item, date }: ScheduleItemBarProps) {
   if (isEqual(item.endDate, startOfDay(item.endDate))) dates.splice(dates.length - 1)
   const day = dates.findIndex((element) => isSameDay(date, element))
   const eventClass = getEventClass(item.startDate, item.endDate)
+  const pathname = item.type === 'test' ? '/test-form' : '/event-form'
   return (
-    <PressableOpacity onPress={() => router.navigate({ pathname: '/event-form', params: { id: item.id } })}>
+    <PressableOpacity onPress={() => router.navigate({ pathname: pathname, params: { id: item.id } })}>
       <View style={[styles.container, { backgroundColor: theme.accent, borderColor: theme.grey200 }]}>
         <Text style={[styles.titleText, { color: 'white' }]}>{item.name || '(No title)'}</Text>
         {eventClass === 'multiday' && <Text style={[styles.titleText, { color: 'white' }]}>{`Day ${day + 1}/${dates.length}`}</Text>}
