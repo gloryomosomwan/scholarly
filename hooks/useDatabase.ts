@@ -301,8 +301,21 @@ export function getTestById(id: number | null) {
 export function useTestsByDay(date: Date) {
   const { data } = useLiveQuery(db.select().from(tests).where(
     and(
-      gte(tests.start_date, startOfDay(date).toISOString()),
-      lte(tests.end_date, endOfDay(date).toISOString())
+      or(
+        and(
+          gte(tests.start_date, startOfDay(date).toISOString()),
+          lte(tests.start_date, endOfDay(date).toISOString())
+        ),
+        and(
+          gt(tests.end_date, startOfDay(date).toISOString()), // CHECK gt vs gte
+          lte(tests.end_date, endOfDay(date).toISOString())
+        ),
+        // CHECK: this logic may not be complete
+        and(
+          lte(tests.start_date, startOfDay(date).toISOString()),
+          gte(tests.end_date, endOfDay(date).toISOString())
+        )
+      ),
     )
   ), [date])
   const testData = data.map(convertRawTest)
