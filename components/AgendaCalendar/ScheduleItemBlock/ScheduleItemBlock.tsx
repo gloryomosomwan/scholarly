@@ -25,14 +25,14 @@ export default function ScheduleItemBlock({ event }: ScheduleItemBlockProps) {
   const { currentDate } = useCalendarStore()
   const today = new Date()
   const eventWasEarlierToday = isSameDay(currentDate, today) ? checkEventWasEarlierToday(event.startDate, event.endDate) : false
-  const pathname: Route = "type" in event ? '/schedule-item-details' : '/test-form'
+  const pathname: Route = event.type !== 'test' ? '/schedule-item-details' : '/test-form'
   return (
     <PressableOpacity style={styles.container} onPress={() => router.navigate({ pathname: pathname, params: { id: event.id } })}>
       <ScheduleItemTimeRange start={event.startDate} end={event.endDate} eventWasEarlierToday={eventWasEarlierToday} />
       <ScheduleItemDivider startDate={event.startDate} endDate={event.endDate} eventWasEarlierToday={eventWasEarlierToday} courseColor={course ? course.color : theme.accent} />
       <View style={styles.eventDetailsContainer}>
-        {course && <ScheduleItemCourseText courseCode={course.code} courseColor={course.color} eventWasEarlierToday={eventWasEarlierToday} eventType={"type" in event ? event.type : 'test'} />}
-        <ScheduleItemHeader eventType={"type" in event ? event.type : 'test'} eventName={event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} courseColor={course ? course.color : theme.accent} />
+        {course && <ScheduleItemCourseText courseCode={course.code} courseColor={course.color} eventWasEarlierToday={eventWasEarlierToday} eventType={event.type} />}
+        <ScheduleItemHeader eventType={event.type} eventName={event.name} eventWasEarlierToday={eventWasEarlierToday} hasCourse={course !== null} courseColor={course ? course.color : theme.accent} />
         {
           event.location &&
           <ScheduleItemLocation courseColor={course ? course.color : theme.accent} location={event.location} eventWasEarlierToday={eventWasEarlierToday} />

@@ -30,7 +30,7 @@ export default function ScheduleItemCard({ item }: ScheduleItemCardProps) {
       </View>
       <RelativeTime start={item.startDate} end={item.endDate} />
       <View style={styles.mainContentContainer}>
-        <Header text={course ? ('type' in item ? item.type : item.name) : item.name} courseColor={course?.color} />
+        <Header text={course ? (item.type !== 'test' ? item.type : item.name) : item.name} courseColor={course?.color} />
         {item.location && <Location location={item.location} courseColor={course?.color} />}
       </View>
       <View style={styles.progressSection}>

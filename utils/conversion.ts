@@ -61,6 +61,7 @@ export function convertRawTest(rawTest: rawTest): Test {
     startDate: new Date(rawTest.start_date),
     endDate: new Date(rawTest.end_date),
     name: rawTest.name,
+    type: 'test',
     courseID: rawTest.course_id,
     location: rawTest.location ?? undefined,
     weight: rawTest.weight ?? undefined,

@@ -26,6 +26,7 @@ export interface Test {
   endDate: Date;
   name: string;
   courseID: number;
+  type: string;
   location?: string;
   notes?: string;
   weight?: number;
