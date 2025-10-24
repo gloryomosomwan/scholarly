@@ -63,7 +63,7 @@ export default function TestForm() {
     location: location,
     notes: notes,
     grade: grade,
-    weight: Number(weight)
+    weight: Number(weight) || null
   }
 
   const create = async () => {
