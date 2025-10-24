@@ -29,7 +29,7 @@ export default function EventForm() {
   const eventData = id ? getEventById(convertedID) : null
   const { currentDate } = useCalendarStore()
   const initialDate = new Date(currentDate.getTime())
-  initialDate.setUTCHours(new Date().getUTCHours(), new Date().getUTCMinutes())
+  initialDate.setHours(new Date().getHours(), new Date().getMinutes())
 
   const [type, setType] = useState<EventType | null>(eventData?.type ? eventData.type : 'general')
   const [name, setName] = useState<string | null>(eventData?.name ? eventData.name : null)

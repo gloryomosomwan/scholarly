@@ -27,7 +27,7 @@ export default function TestForm() {
 
   const { currentDate } = useCalendarStore()
   const initialDate = new Date(currentDate.getTime())
-  initialDate.setUTCHours(new Date().getUTCHours(), new Date().getUTCMinutes())
+  initialDate.setHours(new Date().getHours(), new Date().getMinutes())
 
   const [name, setName] = useState<string | null>(testData?.name ? testData.name : null)
   const [startDate, setStartDate] = useState<Date>(testData?.startDate ? testData.startDate : roundToNearestHours(initialDate, { roundingMethod: 'ceil' }))
