@@ -3,17 +3,17 @@ import React from 'react'
 import { router } from 'expo-router';
 import { isAfter, isSameDay } from 'date-fns';
 
+import { useTheme } from '@/hooks';
+import { Event, Test } from '@/types';
+import { getCourseById } from '@/hooks/useDatabase';
+import { useCalendarStore } from '@/stores/calendar';
+
 import TimeRange from '@/components/AgendaCalendar/ScheduleItemBlock/TimeRange';
 import Divider from '@/components/AgendaCalendar/ScheduleItemBlock/Divider';
 import Header from '@/components/AgendaCalendar/ScheduleItemBlock/Header';
 import Location from '@/components/AgendaCalendar/ScheduleItemBlock/Location';
 import CourseText from '@/components/AgendaCalendar/ScheduleItemBlock/CourseText';
 import PressableOpacity from '@/components/Buttons/PressableOpacity';
-
-import { useTheme } from '@/hooks';
-import { Event, Test } from '@/types';
-import { getCourseById } from '@/hooks/useDatabase';
-import { useCalendarStore } from '@/stores/calendar';
 
 type ScheduleItemBlockProps = {
   event: Event | Test;
