@@ -77,7 +77,6 @@ function getEventOccurrencesByDay(eventDuration: number, date: Date, recurrence:
 }
 
 export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
-  // Takes in an array of unconverted recurring Events and returns an array of JS-converted Events that take place on the given day (i.e. creates events with correct dates)
   const eventArray: Event[] = []
   events.forEach(event => {
     if (!event.recurring) return // there shouldn't be events w/o recurrences in here but this is needed as a type guard
