@@ -118,8 +118,8 @@ For example, lets say someone had had basketball practice every Friday from 6 p.
 {
    // ... other properties
    "name": "Basketball practice",
-   "startDate": 2025-10-25T00:00:00.000Z, 
-   "endDate": 2025-10-25T02:00:00.000Z,
+   "startDate": "2025-10-25T00:00:00.000Z", 
+   "endDate": "2025-10-25T02:00:00.000Z",
    "recurring": "DTSTART:20251024T180000Z RRULE:INTERVAL=1;FREQ=WEEKLY;UNTIL=20251031T180000Z;BYDAY=FR"
 }
 ```
@@ -140,8 +140,8 @@ Then it would take this occurrence and create an Event from it. In this particul
 {
    // ... other properties
    "name": "Basketball practice",
-   "startDate": 2025-11-01T00:00:00.000Z, 
-   "endDate": 2025-11-01T02:00:00.000Z,
+   "startDate": "2025-11-01T00:00:00.000Z", 
+   "endDate": "2025-11-01T02:00:00.000Z",
    "recurring": "DTSTART:20251024T180000Z RRULE:INTERVAL=1;FREQ=WEEKLY;UNTIL=20251031T180000Z;BYDAY=FR"
 }
 ```
