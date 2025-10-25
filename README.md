@@ -114,7 +114,7 @@ This function takes in an array of recurring Events, and returns the Event repre
 
 For example, lets say someone had had basketball practice every Friday from 6 p.m. to 8 p.m., starting on October 24th. That event would look like this:
 
-```JSON
+```typescript
 {
    // ... other properties
    "name": "Basketball practice",
@@ -136,7 +136,7 @@ console.log(occurrences)
 
 Then it would take this occurrence and create an Event from it. In this particular scenario, the event would look like this:
 
-```JSON
+```typescript
 {
    // ... other properties
    "name": "Basketball practice",
