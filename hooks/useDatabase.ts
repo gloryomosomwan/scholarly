@@ -127,7 +127,7 @@ export function useCurrentEvents(date: Date) {
 }
 
 export function useEventsByDay(date: Date) {
-  const { data: originalEventData } = useLiveQuery(db.select().from(events).where(
+  const { data: rawNonRecurringEventArray } = useLiveQuery(db.select().from(events).where(
     and(
       or(
         and(
@@ -147,11 +147,11 @@ export function useEventsByDay(date: Date) {
       isNull(events.recurring)
     )
   ), [date])
-  const originalEventArray = originalEventData.map(convertRawEvent)
-  const { data: recurredEventData } = useLiveQuery(db.select().from(events).where(isNotNull(events.recurring)), [date])
-  const rawRecurredEventArray = recurredEventData.map(convertRawEvent)
-  const recurredEventArray = getRecurrenceEventsByDay(rawRecurredEventArray, date)
-  const finalEventArray = originalEventArray.concat(recurredEventArray)
+  const nonRecurringEventArray = rawNonRecurringEventArray.map(convertRawEvent)
+  const { data: rawRecurringEventArray } = useLiveQuery(db.select().from(events).where(isNotNull(events.recurring)), [date])
+  const recurringEventArray = rawRecurringEventArray.map(convertRawEvent)
+  const recurrenceEventArray = getRecurrenceEventsByDay(recurringEventArray, date)
+  const finalEventArray = nonRecurringEventArray.concat(recurrenceEventArray)
   return finalEventArray
 }
 
