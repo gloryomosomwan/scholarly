@@ -102,7 +102,7 @@ export default function EventForm() {
           // Cancel action
         } else if (buttonIndex === 1) {
           await db.delete(events).where(eq(events.id, convertedID))
-          router.back()
+          router.dismissAll()
         }
       }
     )

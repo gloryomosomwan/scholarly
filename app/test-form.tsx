@@ -112,7 +112,7 @@ export default function TestForm() {
           // Cancel action
         } else if (buttonIndex === 1) {
           await db.delete(tests).where(eq(tests.id, convertedID))
-          router.back()
+          router.dismissAll()
         }
       }
     )
