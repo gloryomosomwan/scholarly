@@ -120,7 +120,7 @@ export default function EventForm() {
         <RecurrencePicker recurring={recurring} setRecurring={setRecurring} startDate={startDate} />
       </View>
       {/* disabled = invalid because since dates are already preselected, the only invalid event is one with out of order dates */}
-      <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={invalid || !eventInsertSchema.safeParse(test).success} />
+      <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={invalid || !eventInsertSchema.safeParse(event).success} />
     </FormContainer>
   )
 }
