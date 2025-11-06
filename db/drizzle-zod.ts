@@ -36,9 +36,9 @@ export const eventUpdateSchema = createInsertSchema(events, {
 })
 
 export const testInsertSchema = createInsertSchema(tests, {
-  // title: (schema) => schema.min(1)
+  name: (schema) => schema.min(1)
 })
 
 export const testUpdateSchema = createUpdateSchema(tests, {
-  // title: (schema) => schema.min(1)
+  name: (schema) => schema.min(1)
 })
