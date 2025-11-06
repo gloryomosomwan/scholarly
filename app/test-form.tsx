@@ -37,6 +37,18 @@ export default function TestForm() {
   const [weight, setWeight] = useState<string | null>(testData?.weight ? testData.weight.toString() : null)
   const [grade, setGrade] = useState<number | null>(testData?.grade ? testData.grade : null)
 
+  useEffect(() => {
+    if (testData) {
+      setName(testData.name ? testData.name : null)
+      setStartDate(testData.startDate ? testData.startDate : roundToNearestHours(initialDate, { roundingMethod: 'ceil' }))
+      setEndDate(testData.endDate ? testData.endDate : addHours(roundToNearestHours(initialDate, { roundingMethod: 'ceil' }), 1))
+      setLocation(testData.location ? testData.location : null)
+      setNotes(testData.notes ? testData.notes : null)
+      setWeight(testData.weight ? testData.weight.toString() : null)
+      setGrade(testData.grade ? testData.grade : null)
+    }
+  }, [testData])
+
   const invalidDates = (startDate && endDate && isBefore(endDate, startDate)) ? true : false
 
   function changeStartDate(date: Date) {

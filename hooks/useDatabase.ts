@@ -308,9 +308,11 @@ export function useTestsByCourse(courseID: number) {
 export function useTestById(id: number | null) {
   if (id == null) return null;
   const { data } = useLiveQuery(db.select().from(tests).where(eq(tests.id, id)), [id])
-  if (!data || data.length === 0) return null
-  const test = convertRawTest(data[0])
-  return test
+  return useMemo(() => {
+    if (!data || data.length === 0) return null
+    const test = convertRawTest(data[0])
+    return test
+  }, [data])
 }
 
 export function useTestsByDay(date: Date) {
