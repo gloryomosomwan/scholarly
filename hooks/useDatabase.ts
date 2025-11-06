@@ -9,7 +9,7 @@ import { db } from '@/db/init';
 import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent, convertRawTest } from '@/utils/conversion';
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask, rawTest } from "@/types/drizzle";
-import { getActiveRecurrenceEvents, getRecurrenceEventsByDay, getUpcomingRecurrenceEvents } from "@/utils/scheduleItem";
+import { getActiveRecurrenceEvents, getRecurrenceEventsByDay, getUpNextRecurrenceEvents } from "@/utils/scheduleItem";
 import { Assignment, Event, Task } from '@/types';
 import { pretty } from "@/utils";
 
@@ -197,7 +197,7 @@ export function useUpcomingEvents() {
   const nonRecurringEventArray = rawNonRecurringEventArray.map(convertRawEvent)
   const { data: rawRecurringEventArray } = useLiveQuery(db.select().from(events).where(isNotNull(events.recurring)))
   const recurringEventArray = rawRecurringEventArray.map(convertRawEvent)
-  const recurrenceEventArray = getUpcomingRecurrenceEvents(recurringEventArray)
+  const recurrenceEventArray = getUpNextRecurrenceEvents(recurringEventArray)
   const finalEventArray = nonRecurringEventArray.concat(recurrenceEventArray)
   return finalEventArray
 }
@@ -349,7 +349,7 @@ export function useCurrentTests(date: Date) {
   return testData
 }
 
-export function useUpcomingTests() {
+export function useUpNextTests() {
   const { data } = useLiveQuery(db.select().from(tests).where(gte(tests.start_date, new Date().toISOString())))
   const testData = data.map(convertRawTest)
   return testData

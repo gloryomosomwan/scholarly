@@ -146,19 +146,19 @@ export function getActiveRecurrenceEvents(events: Event[]): Event[] {
 
 // Upcoming Events
 
-function getUpcomingEventOccurrence(recurrence: string): Date | null {
+function getNextEventOccurrence(recurrence: string): Date | null {
   const now = new Date()
   const nowDT = passJSDateToDatetime(now)
   const occurrences = rrulestr(recurrence).after(nowDT) // CHECK: is it okay if it's just one date?
   return occurrences
 }
 
-export function getUpcomingRecurrenceEvents(events: Event[]): Event[] {
+export function getUpNextRecurrenceEvents(events: Event[]): Event[] {
   const eventArray: Event[] = []
   events.forEach(event => {
     if (!event.recurring) return
     const duration = event.endDate.getTime() - event.startDate.getTime()
-    const occurrence = getUpcomingEventOccurrence(event.recurring)
+    const occurrence = getNextEventOccurrence(event.recurring)
     if (!occurrence) return
     const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
     const recurredEndDate = new Date(recurredStartDate.getTime() + duration)

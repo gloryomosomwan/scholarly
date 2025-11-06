@@ -3,7 +3,7 @@ import React from 'react'
 import { isEqual } from 'date-fns'
 
 import { useTheme } from '@/hooks/useTheme'
-import { useUpcomingEvents, useUpcomingTests } from '@/hooks/useDatabase'
+import { useUpcomingEvents, useUpNextTests } from '@/hooks/useDatabase'
 import { useCalendarStore } from '@/stores/calendar'
 import { sortScheduleItems } from '@/utils/sort'
 import { getScheduleItemClass } from '@/utils/scheduleItem'
@@ -16,12 +16,13 @@ import ScheduleItemBar from '@/components/ScheduleItemBar'
 export default function UpNextSection() {
   const theme = useTheme()
   const events = useUpcomingEvents()
-  const tests = useUpcomingTests()
+  const tests = useUpNextTests()
   const scheduleItems = [...tests, ...events]
   scheduleItems.sort(sortScheduleItems)
   let scheduleElements: React.JSX.Element[] = []
   let upNextItems: (Event | Test)[] = []
   const upNext = scheduleItems.shift()
+  const { currentDate } = useCalendarStore()
 
   if (upNext) {
     upNextItems.push(upNext)
@@ -34,7 +35,6 @@ export default function UpNextSection() {
         break
       }
     }
-    const { currentDate } = useCalendarStore()
     scheduleElements = upNextItems.map((item) => {
       const key = `${item.id}.${item.startDate}.${item.type}`
       const itemClass = getScheduleItemClass(item.startDate, item.endDate)
