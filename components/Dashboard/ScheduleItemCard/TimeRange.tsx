@@ -33,6 +33,7 @@ export default function TimeRange({ startDate, endDate, isHappening }: TimeRange
 const styles = StyleSheet.create({
   container: {
     alignItems: 'flex-end',
+    marginLeft: 'auto'
   },
   rangeText: {
     fontSize: 14,
