@@ -10,8 +10,9 @@ import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignm
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask, rawTest } from "@/types/drizzle";
 import { getActiveRecurrenceEvents, getRecurrenceEventsByDay, getUpNextRecurrenceEvents } from "@/utils/scheduleItem";
-import { Assignment, Event, Task } from '@/types';
+import { Assignment, Event, Task, Test } from '@/types';
 import { pretty } from "@/utils";
+import { sortScheduleItems } from "@/utils/sort";
 
 // Assignments
 export function useTodayAssignments() {
@@ -202,6 +203,22 @@ export function useUpNextEvents() {
   return finalEventArray
 }
 
+// Schedule Items
+export function useItemsByDateRange(start: Date, end: Date) {
+  const events: Event[] = useEventsByDateRange(start, end);
+  const assignments: Assignment[] = useAssignmentsByDateRange(start, end);
+  const tasks: Task[] = useTasksByDateRange(start, end);
+  return [...events, ...assignments, ...tasks]
+}
+
+export function useUpNextScheduleItems(): (Event | Test)[] {
+  const events = useUpNextEvents()
+  const tests = useUpNextTests()
+  const scheduleItems = [...tests, ...events]
+  scheduleItems.sort(sortScheduleItems)
+  return scheduleItems
+}
+
 // Semesters
 export function useSemesters() {
   const { data } = useLiveQuery(db.select().from(semesters))
@@ -353,13 +370,4 @@ export function useUpNextTests() {
   const { data } = useLiveQuery(db.select().from(tests).where(gte(tests.start_date, new Date().toISOString())))
   const testData = data.map(convertRawTest)
   return testData
-}
-
-// Other
-
-export function useItemsByDateRange(start: Date, end: Date) {
-  const events: Event[] = useEventsByDateRange(start, end);
-  const assignments: Assignment[] = useAssignmentsByDateRange(start, end);
-  const tasks: Task[] = useTasksByDateRange(start, end);
-  return [...events, ...assignments, ...tasks]
 }

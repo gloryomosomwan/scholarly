@@ -1,40 +1,21 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { isEqual } from 'date-fns'
 
 import { useTheme } from '@/hooks/useTheme'
-import { useUpNextEvents, useUpNextTests } from '@/hooks/useDatabase'
 import { useCalendarStore } from '@/stores/calendar'
-import { sortScheduleItems } from '@/utils/sort'
-import { getScheduleItemClass } from '@/utils/scheduleItem'
+import { getScheduleItemClass, getUpNextScheduleItems } from '@/utils/scheduleItem'
 import { pretty } from '@/utils'
-import { Event, Test } from '@/types'
 
 import ScheduleItemCard from '@/components/Dashboard/ScheduleItemCard/ScheduleItemCard'
 import ScheduleItemBar from '@/components/ScheduleItemBar'
 
 export default function UpNextSection() {
   const theme = useTheme()
-  const events = useUpNextEvents()
-  const tests = useUpNextTests()
-  const scheduleItems = [...tests, ...events]
-  scheduleItems.sort(sortScheduleItems)
-  let scheduleElements: React.JSX.Element[] = []
-  let upNextItems: (Event | Test)[] = []
-  const upNext = scheduleItems.shift()
   const { currentDate } = useCalendarStore()
+  const upNextItems = getUpNextScheduleItems()
+  let scheduleElements: React.JSX.Element[] = []
 
-  if (upNext) {
-    upNextItems.push(upNext)
-    for (let scheduleItem of scheduleItems) {
-      if (isEqual(scheduleItem.startDate, upNext?.startDate)) {
-        const item = scheduleItems.shift()
-        if (item !== undefined) upNextItems.push(item)
-      }
-      else {
-        break
-      }
-    }
+  if (upNextItems) {
     scheduleElements = upNextItems.map((item) => {
       const key = `${item.id}.${item.startDate}.${item.type}`
       const itemClass = getScheduleItemClass(item.startDate, item.endDate)
