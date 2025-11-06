@@ -1,40 +1,45 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-import AssessmentCard from '@/components/Dashboard/AssessmentCard'
-
 import { useTheme } from '@/hooks/useTheme'
+import { getUpNextScheduleItems } from '@/utils/scheduleItem'
+import { useUpcomingScheduleItems, useUpcomingTests } from '@/hooks/useDatabase'
 
-type UpcomingDatesSectionProps = {
+import ScheduleItemElement from '@/components/ScheduleItemElement'
 
-}
-const exam = {
-  type: 'Final Exam',
-  course: 'MATH 119',
-  emoji: '➕',
-  start: new Date(2025, 5, 21, 13, 0),
-  end: new Date(2025, 5, 21, 15, 0),
-  location: 'GMH 5-18',
-}
+type UpcomingDatesSectionProps = {}
 
 export default function UpcomingDatesSection({ }: UpcomingDatesSectionProps) {
   const theme = useTheme()
+  const scheduleItems = useUpcomingScheduleItems()
+  const upNextItems = getUpNextScheduleItems(scheduleItems)
+  const upNextItemsFiltered = upNextItems?.filter(item => item.type === 'test')
+  const upcomingTests = useUpcomingTests()
+  const upcomingTestsFiltered = upcomingTests.filter(test => !upNextItemsFiltered?.some(ft => ft.id === test.id))
+  const scheduleElements = upcomingTestsFiltered.map((item) => {
+    const key = `${item.id}.${item.startDate}.${item.type}`
+    return <ScheduleItemElement item={item} key={key} />
+  })
   return (
     <View style={styles.container}>
       <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
-      <AssessmentCard assessment={exam} />
+      {scheduleElements.length > 0
+        ? scheduleElements
+        : <Text style={[styles.placeholderText, { color: theme.grey400 }]}>{"No upcoming dates"}</Text>}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-
-  },
+  container: {},
   headerText: {
     marginBottom: 15,
     fontSize: 20,
     fontWeight: '600',
     letterSpacing: 0.25
+  },
+  placeholderText: {
+    fontSize: 18,
+    fontWeight: '400'
   },
 })

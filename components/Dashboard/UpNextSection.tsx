@@ -2,25 +2,22 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
-import { useCalendarStore } from '@/stores/calendar'
-import { getScheduleItemClass, getUpNextScheduleItems } from '@/utils/scheduleItem'
+import { useUpcomingScheduleItems } from '@/hooks/useDatabase'
+import { getUpNextScheduleItems } from '@/utils/scheduleItem'
 import { pretty } from '@/utils'
 
-import ScheduleItemCard from '@/components/Dashboard/ScheduleItemCard/ScheduleItemCard'
-import ScheduleItemBar from '@/components/ScheduleItemBar'
+import ScheduleItemElement from '../ScheduleItemElement'
 
 export default function UpNextSection() {
   const theme = useTheme()
-  const { currentDate } = useCalendarStore()
-  const upNextItems = getUpNextScheduleItems()
+  const upcomingScheduleItems = useUpcomingScheduleItems()
   let scheduleElements: React.JSX.Element[] = []
+  const upNextItems = getUpNextScheduleItems(upcomingScheduleItems)
 
   if (upNextItems) {
     scheduleElements = upNextItems.map((item) => {
       const key = `${item.id}.${item.startDate}.${item.type}`
-      const itemClass = getScheduleItemClass(item.startDate, item.endDate)
-      if (itemClass === 'regular' || itemClass === 'crossover') return <ScheduleItemCard key={key} item={item} />
-      else return <ScheduleItemBar key={key} item={item} date={currentDate} />
+      return <ScheduleItemElement item={item} key={key} />
     })
   }
 

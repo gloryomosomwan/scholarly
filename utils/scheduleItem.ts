@@ -173,8 +173,7 @@ export function getUpNextRecurrenceEvents(events: Event[]): Event[] {
   return eventArray
 }
 
-export function getUpNextScheduleItems(): (Event | Test)[] | null {
-  const items = useUpcomingScheduleItems()
+export function getUpNextScheduleItems(items: (Event | Test)[]): (Event | Test)[] | null {
   const upNextItems: (Event | Test)[] = []
   const upNext = items.shift()
   if (!upNext) return null

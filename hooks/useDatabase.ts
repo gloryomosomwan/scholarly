@@ -2,7 +2,7 @@ import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { and, eq, getTableColumns, gt, gte, isNotNull, isNull, lte, or } from 'drizzle-orm';
 import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
-import { endOfDay, startOfDay } from "date-fns";
+import { addDays, endOfDay, startOfDay } from "date-fns";
 
 import { assignments, courses, events, semesters, tasks, tests } from '@/db/schema';
 import { db } from '@/db/init';
@@ -367,7 +367,14 @@ export function useCurrentTests(date: Date) {
 }
 
 export function useUpcomingTests() {
-  const { data } = useLiveQuery(db.select().from(tests).where(gte(tests.start_date, new Date().toISOString())))
+  const now = new Date()
+  const sevenDaysFromNow = addDays(now, 7)
+  const { data } = useLiveQuery(db.select().from(tests).where(
+    and(
+      gte(tests.start_date, now.toISOString()),
+      lte(tests.start_date, endOfDay(sevenDaysFromNow).toISOString())
+    )
+  ))
   const testData = data.map(convertRawTest)
   return testData
 }
