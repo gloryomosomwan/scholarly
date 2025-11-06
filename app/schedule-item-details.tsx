@@ -8,13 +8,13 @@ import Datetime from '@/components/ScheduleItemDetails/Datetime'
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useTheme } from '@/hooks'
-import { getEventById, getTestById } from '@/hooks/useDatabase'
+import { useEventById, useTestById } from '@/hooks/useDatabase'
 
 export default function ScheduleItemDetails() {
   const theme = useTheme()
   const { id, itemType } = useLocalSearchParams<{ id: string, itemType: string }>()
   const convertedID = Number(id)
-  const itemData = id ? (itemType === 'event' ? getEventById(convertedID) : getTestById(convertedID)) : null
+  const itemData = id ? (itemType === 'event' ? useEventById(convertedID) : useTestById(convertedID)) : null
   const pathname = itemType === 'event' ? '/event-form' : '/test-form'
   return (
     <View style={styles.container}>

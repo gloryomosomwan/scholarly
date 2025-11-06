@@ -6,7 +6,7 @@ import { router, useLocalSearchParams } from 'expo-router'
 import * as z from "zod";
 
 import { useTheme } from '@/hooks'
-import { getTestById } from '@/hooks/useDatabase'
+import { useTestById } from '@/hooks/useDatabase'
 import { useCalendarStore } from '@/stores/calendar'
 import { testInsertSchema, testUpdateSchema } from '@/db/drizzle-zod'
 import { db } from '@/db/init'
@@ -23,7 +23,7 @@ export default function TestForm() {
   const theme = useTheme()
   const { id, courseID } = useLocalSearchParams<{ id: string, courseID: string }>()
   const convertedID = Number(id)
-  const testData = id ? getTestById(convertedID) : null
+  const testData = id ? useTestById(convertedID) : null
 
   const { currentDate } = useCalendarStore()
   const initialDate = new Date(currentDate.getTime())

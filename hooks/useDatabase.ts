@@ -169,7 +169,7 @@ export function useEventsByDateRange(firstDay: Date, lastDay: Date) {
   return eventData
 }
 
-export function getEventById(id: number | null) {
+export function useEventById(id: number | null) {
   if (id === null) return null;
   const { data } = useLiveQuery(db.select().from(events).where(eq(events.id, id)))
   if (!data || data.length === 0) return null
@@ -302,7 +302,7 @@ export function useTestsByCourse(courseID: number) {
   return testData
 }
 
-export function getTestById(id: number | null) {
+export function useTestById(id: number | null) {
   if (id == null) return null;
   const { data } = useLiveQuery(db.select().from(tests).where(eq(tests.id, id)), [id])
   if (!data || data.length === 0) return null

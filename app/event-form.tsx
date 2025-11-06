@@ -18,7 +18,7 @@ import { EventType } from '@/types'
 import { eventInsertSchema, eventUpdateSchema } from '@/db/drizzle-zod'
 import { db } from '@/db/init'
 import { events } from '@/db/schema'
-import { getEventById } from '@/hooks/useDatabase'
+import { useEventById } from '@/hooks/useDatabase'
 import { useCalendarStore } from '@/stores/calendar'
 
 export default function EventForm() {
@@ -26,7 +26,7 @@ export default function EventForm() {
 
   const { id, coursePageID } = useLocalSearchParams<{ id: string, coursePageID: string }>()
   const convertedID = Number(id)
-  const eventData = id ? getEventById(convertedID) : null
+  const eventData = id ? useEventById(convertedID) : null
   const { currentDate } = useCalendarStore()
   const initialDate = new Date(currentDate.getTime())
   initialDate.setHours(new Date().getHours(), new Date().getMinutes())
