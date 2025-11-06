@@ -32,7 +32,7 @@ export default function ScheduleItemBlock({ item }: ScheduleItemBlockProps) {
       <Divider startDate={item.startDate} endDate={item.endDate} itemHasOccurred={itemHasOccurred} courseColor={course ? course.color : theme.accent} />
       <View style={styles.eventDetailsContainer}>
         {course && <CourseText courseCode={course.code} courseColor={course.color} itemHasOccurred={itemHasOccurred} itemType={item.type} />}
-        <Header itemType={item.type} itemName={item.name} itemHasOccurred={itemHasOccurred} hasCourse={course !== null} courseColor={course ? course.color : theme.accent} />
+        <Header type={item.type} title={item.name} itemHasOccurred={itemHasOccurred} isCourseEvent={course !== null && item.type !== 'general' && item.type !== 'test'} hasCourse={course !== null} courseColor={course ? course.color : theme.accent} />
         {
           item.location &&
           <Location courseColor={course ? course.color : theme.accent} location={item.location} itemHasOccurred={itemHasOccurred} />
