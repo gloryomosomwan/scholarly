@@ -380,6 +380,10 @@ cd Documents/SQLite
 
 The database files will be located there.
 
+### Changing schemas
+
+When changing schemas make sure to update both `db/init.ts` and `db/seed.sql`
+
 ## How `refresh()` works in dashboard components
 
 ## How Events and Tests are differentiated
