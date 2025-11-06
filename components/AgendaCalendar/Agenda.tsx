@@ -5,7 +5,7 @@ import { SharedValue } from 'react-native-reanimated';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
-import ScheduleItem from "@/components/AgendaCalendar/ScheduleItemBlock/ScheduleItemBlock";
+import ScheduleItemBlock from "@/components/AgendaCalendar/ScheduleItemBlock/ScheduleItemBlock";
 import TaskCard from '@/components/TaskCard/TaskCard';
 import AssignmentCard from '@/components/Assignment/AssignmentCard';
 import ScheduleItemBar from '@/components/ScheduleItemBar';
@@ -39,7 +39,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const scheduleElements = scheduleItems.map((item) => {
     const key = `${item.id}.${item.startDate}.${item.type}`
     const itemClass = getScheduleItemClass(item.startDate, item.endDate)
-    if (itemClass === 'regular' || itemClass === 'crossover') return <ScheduleItem key={key} item={item} />
+    if (itemClass === 'regular' || itemClass === 'crossover') return <ScheduleItemBlock key={key} item={item} />
     else return <ScheduleItemBar key={key} item={item} date={currentDate} />
   })
 

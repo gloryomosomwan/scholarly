@@ -1,46 +1,52 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { isAfter } from 'date-fns'
-
-import ScheduleItemCard from '@/components/Dashboard/ScheduleItemCard/ScheduleItemCard'
+import { isEqual } from 'date-fns'
 
 import { useTheme } from '@/hooks/useTheme'
-import { useEventsByDay, useTestsByDay } from '@/hooks/useDatabase'
+import { useUpcomingEvents, useUpcomingTests } from '@/hooks/useDatabase'
 import { useCalendarStore } from '@/stores/calendar'
 import { sortScheduleItems } from '@/utils/sort'
 import { getScheduleItemClass } from '@/utils/scheduleItem'
+import { pretty } from '@/utils'
+import { Event, Test } from '@/types'
+
+import ScheduleItemCard from '@/components/Dashboard/ScheduleItemCard/ScheduleItemCard'
+import ScheduleItemBar from '@/components/ScheduleItemBar'
 
 export default function UpNextSection() {
   const theme = useTheme()
-  const { todayDate } = useCalendarStore()
-  const events = useEventsByDay(todayDate)
-  events.sort(sortScheduleItems)
-  const tests = useTestsByDay(todayDate)
-  tests.sort(sortScheduleItems)
+  const events = useUpcomingEvents()
+  const tests = useUpcomingTests()
   const scheduleItems = [...tests, ...events]
+  scheduleItems.sort(sortScheduleItems)
+  let scheduleElements: React.JSX.Element[] = []
+  let upNextItems: (Event | Test)[] = []
+  const upNext = scheduleItems.shift()
 
-  let upNext = null
-  for (let item of scheduleItems) {
-    if (isAfter(item.startDate, new Date())) {
-      upNext = item
-      break;
+  if (upNext) {
+    upNextItems.push(upNext)
+    for (let scheduleItem of scheduleItems) {
+      if (isEqual(scheduleItem.startDate, upNext?.startDate)) {
+        const item = scheduleItems.shift()
+        if (item !== undefined) upNextItems.push(item)
+      }
+      else {
+        break
+      }
     }
+    const { currentDate } = useCalendarStore()
+    scheduleElements = upNextItems.map((item) => {
+      const key = `${item.id}.${item.startDate}.${item.type}`
+      const itemClass = getScheduleItemClass(item.startDate, item.endDate)
+      if (itemClass === 'regular' || itemClass === 'crossover') return <ScheduleItemCard key={key} item={item} />
+      else return <ScheduleItemBar key={key} item={item} date={currentDate} />
+    })
   }
-
-  const eventClass = upNext && getScheduleItemClass(upNext.startDate, upNext.endDate)
 
   return (
     <View style={styles.container}>
       <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
-      {upNext && eventClass && (eventClass === 'regular' || eventClass === 'crossover') ?
-        <View>
-          {<ScheduleItemCard key={upNext.id} item={upNext} />}
-        </View>
-        :
-        <View>
-          <Text style={[styles.placeholderText, { color: theme.grey400 }]}>No events up next</Text>
-        </View>
-      }
+      {scheduleElements.length > 0 ? scheduleElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]}>{"No events up next"}</Text>}
     </View>
   )
 }

@@ -9,7 +9,7 @@ import { db } from '@/db/init';
 import { convertRawTask, convertRawCourse, convertRawSemester, convertRawAssignment, convertRawEvent, convertRawTest } from '@/utils/conversion';
 import { useUserStore } from "@/stores";
 import { rawAssignment, rawCourse, rawEvent, rawSemester, rawTask, rawTest } from "@/types/drizzle";
-import { getActiveRecurrenceEvents, getRecurrenceEventsByDay } from "@/utils/scheduleItem";
+import { getActiveRecurrenceEvents, getRecurrenceEventsByDay, getUpcomingRecurrenceEvents } from "@/utils/scheduleItem";
 import { Assignment, Event, Task } from '@/types';
 import { pretty } from "@/utils";
 
@@ -186,6 +186,22 @@ export function getEventById(id: number | null) {
   return event // If id is null, data is null too
 }
 
+export function useUpcomingEvents() {
+  // CHECK: this may need a dependency array to refresh the query
+  const { data: rawNonRecurringEventArray } = useLiveQuery(db.select().from(events).where(
+    and(
+      gte(events.start_date, new Date().toISOString()),
+      isNull(events.recurring)
+    )
+  ))
+  const nonRecurringEventArray = rawNonRecurringEventArray.map(convertRawEvent)
+  const { data: rawRecurringEventArray } = useLiveQuery(db.select().from(events).where(isNotNull(events.recurring)))
+  const recurringEventArray = rawRecurringEventArray.map(convertRawEvent)
+  const recurrenceEventArray = getUpcomingRecurrenceEvents(recurringEventArray)
+  const finalEventArray = nonRecurringEventArray.concat(recurrenceEventArray)
+  return finalEventArray
+}
+
 // Semesters
 export function useSemesters() {
   const { data } = useLiveQuery(db.select().from(semesters))
@@ -300,7 +316,7 @@ export function getTestById(id: number | null) {
 
 export function useTestsByDay(date: Date) {
   const { data } = useLiveQuery(db.select().from(tests).where(
-    and(
+    and( // CHECK: this AND statement seems useless
       or(
         and(
           gte(tests.start_date, startOfDay(date).toISOString()),
@@ -329,6 +345,12 @@ export function useCurrentTests(date: Date) {
       gte(tests.end_date, new Date().toISOString())
     )
   ), [date])
+  const testData = data.map(convertRawTest)
+  return testData
+}
+
+export function useUpcomingTests() {
+  const { data } = useLiveQuery(db.select().from(tests).where(gte(tests.start_date, new Date().toISOString())))
   const testData = data.map(convertRawTest)
   return testData
 }
