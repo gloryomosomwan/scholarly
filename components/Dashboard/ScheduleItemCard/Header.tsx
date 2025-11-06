@@ -5,17 +5,21 @@ import { SymbolView } from 'expo-symbols'
 import { useTheme } from '@/hooks/useTheme'
 
 type HeaderProps = {
-  text: string | undefined
   courseColor: string | undefined
+  hasCourse: boolean
+  isCourseEvent: boolean
+  title: string | undefined
+  type: string
 }
 
-export default function Header({ text, courseColor }: HeaderProps) {
+export default function Header({ courseColor, isCourseEvent, title, type, hasCourse }: HeaderProps) {
   const theme = useTheme()
-  const itemHasCourse: boolean = courseColor !== undefined
-  if (itemHasCourse) text = text?.replace(/\w/, c => c.toUpperCase())
+  let text;
+  if (isCourseEvent) text = type.replace(/\w/, c => c.toUpperCase())
+  else text = title || '(No title)'
   return (
     <View style={styles.container}>
-      {itemHasCourse && <SymbolView name={'book'} size={28} tintColor={courseColor} style={[styles.icon]} />}
+      {hasCourse && <SymbolView name={'book'} size={28} tintColor={courseColor} style={[styles.icon]} />}
       <Text style={[styles.text, { color: theme.text }]}>{text}</Text>
     </View>
   )
