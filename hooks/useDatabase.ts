@@ -170,20 +170,10 @@ export function useEventsByDateRange(firstDay: Date, lastDay: Date) {
 }
 
 export function getEventById(id: number | null) {
-  const data = useSQLiteContext().getFirstSync<rawEvent>(`
-    SELECT
-    type,
-    name,
-    start_date,
-    end_date,
-    location,
-    course_id,
-    recurring
-    FROM events
-    WHERE id = ${id}
-    `)
-  if (data === null) return null
-  const event = convertRawEvent(data)
+  if (id === null) return null;
+  const { data } = useLiveQuery(db.select().from(events).where(eq(events.id, id)))
+  if (!data || data.length === 0) return null
+  const event = convertRawEvent(data[0])
   return event // If id is null, data is null too
 }
 
@@ -313,21 +303,10 @@ export function useTestsByCourse(courseID: number) {
 }
 
 export function getTestById(id: number | null) {
-  const data = useSQLiteContext().getFirstSync<rawTest>(`
-    SELECT
-    start_date,
-    end_date,
-    name,
-    course_id,
-    location,
-    notes,
-    weight,
-    grade
-    FROM tests 
-    WHERE id = ${id}
-    `)
-  if (data === null) return null
-  const test = convertRawTest(data)
+  if (id == null) return null;
+  const { data } = useLiveQuery(db.select().from(tests).where(eq(tests.id, id)), [id])
+  if (!data || data.length === 0) return null
+  const test = convertRawTest(data[0])
   return test
 }
 
