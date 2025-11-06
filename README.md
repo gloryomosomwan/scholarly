@@ -356,6 +356,12 @@ The database can be switched by changing the `openDatabaseSync`'s `databaseName`
 export const sqlite = openDatabaseSync('myDatabase', { enableChangeListener: true })
 ```
 
+And changing `SQLiteProvider`'s `databaseName` in `app/layout.tsx`:
+
+```typescript
+      <SQLiteProvider databaseName="myDatabase">
+```
+
 Databases can also be deleted from simulators by locating deleting their respective .sqlite files in a directory.
 
 To find out the data directory for the currently running simulator run the following command:
