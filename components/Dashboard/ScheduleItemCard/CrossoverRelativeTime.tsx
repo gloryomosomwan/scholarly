@@ -5,29 +5,23 @@ import { isSameDay } from 'date-fns';
 import { useTheme } from '@/hooks/useTheme'
 import { getScheduleItemClass } from '@/utils/scheduleItem';
 
-type RelativeTimeProps = {
+type CrossoverRelativeTimeProps = {
   start: Date;
   end: Date
 }
 
-export default function RelativeTime({ start, end }: RelativeTimeProps) {
+export default function CrossoverRelativeTime({ start, end }: CrossoverRelativeTimeProps) {
   const theme = useTheme()
-  const string = getRelativeTimeString(start, end)
-  return (
-    <Text style={[styles.text, { color: theme.grey400 }]}>{string}</Text>
-  )
-}
-
-function getRelativeTimeString(start: Date, end: Date) {
   const itemClass = getScheduleItemClass(start, end)
+  let string = null;
   if (itemClass === 'crossover') {
     const today = new Date()
-    if (isSameDay(today, start)) return `Ends tomorrow`
-    else if (isSameDay(today, end)) return `Started yesterday`
+    if (isSameDay(today, start)) string = `Ends tomorrow`
+    else if (isSameDay(today, end)) string = `Started yesterday`
   }
-  else {
-    return ``
-  }
+  return (
+    <Text style={[styles.text, { color: theme.grey400 }]}>{string || ''}</Text>
+  )
 }
 
 const styles = StyleSheet.create({

@@ -7,7 +7,7 @@ import ProgressBar from '@/components/Dashboard/ScheduleItemCard/ProgressBar';
 import ProgressBarLabels from '@/components/Dashboard/ScheduleItemCard/ProgressBarLabels';
 import Location from '@/components/Dashboard/ScheduleItemCard/Location';
 import Header from '@/components/Dashboard/ScheduleItemCard/Header';
-import RelativeTime from '@/components/Dashboard/ScheduleItemCard/RelativeTime';
+import CrossoverRelativeTime from '@/components/Dashboard/ScheduleItemCard/CrossoverRelativeTime';
 
 import { useTheme } from '@/hooks';
 import { Event, Test } from '@/types';
@@ -28,7 +28,7 @@ export default function ScheduleItemCard({ item }: ScheduleItemCardProps) {
         {course && <Pill text={course.code} courseColor={course.color} />}
         <TimeRange startDate={item.startDate} endDate={item.endDate} isHappening={isHappening} />
       </View>
-      <RelativeTime start={item.startDate} end={item.endDate} />
+      <CrossoverRelativeTime start={item.startDate} end={item.endDate} />
       <View style={styles.mainContentContainer}>
         <Header isCourseEvent={course !== null && item.type !== 'general' && item.type !== 'test'} hasCourse={course !== null} title={item.name} type={item.type} courseColor={course?.color} />
         {item.location && <Location location={item.location} courseColor={course?.color} />}
