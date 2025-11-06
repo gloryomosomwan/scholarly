@@ -186,7 +186,7 @@ export function getEventById(id: number | null) {
   return event // If id is null, data is null too
 }
 
-export function useUpcomingEvents() {
+export function useUpNextEvents() {
   // CHECK: this may need a dependency array to refresh the query
   const { data: rawNonRecurringEventArray } = useLiveQuery(db.select().from(events).where(
     and(
