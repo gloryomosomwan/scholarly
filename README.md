@@ -278,6 +278,64 @@ return assignmentData
 }
 ```
 
+## Data Flow and Memoization for Asynchronous Form Data
+
+A common challenge in this application is correctly populating a form (e.g., `event-form.tsx`) with data that is loaded asynchronously from the database. This requires handling an initial loading state and updating the form's state when the data arrives, without causing an infinite re-render loop. The interaction between `useLiveQuery`, `useEventById`, `useMemo`, and the form component is a key pattern to understand.
+
+### The Chain of Interaction
+
+1.  **`useLiveQuery` (The Source):** This hook from `drizzle-orm/expo-sqlite` is the foundation. It fetches data from the database.
+    *   **Behavior:** On its first run, it returns an empty array (`[]`) and starts the database query in the background. When the query completes, `useLiveQuery` receives the data and triggers a re-render in the component that called it.
+    *   **Referential Stability:** Crucially, `useLiveQuery` returns a stable object reference. The `data` object it returns is only a *new* object if the underlying database results have actually changed. On re-renders where the data is the same, it returns the *exact same object reference* as the previous render.
+
+2.  **`useEventById` (The Processor):** This custom hook consumes `useLiveQuery` and processes its data.
+    *   It calls `convertRawEvent` to transform the raw database row into a usable JavaScript object, notably converting date strings into `Date` objects.
+
+3.  **The Problem (The Infinite Loop):** The `convertRawEvent` function always creates a *new* object with *new `Date` instances* every time it runs. Before the fix, `useEventById` would call this function on every render. This meant that `eventData` in `EventForm` was a new object on every render.
+
+    This causes an infinite loop if used in a `useEffect` dependency array:
+    *   `useEffect` sees a "new" `eventData` object and runs.
+    *   The effect updates the form's state (`setName`, `setStartDate`, etc.).
+    *   Updating state causes a re-render.
+    *   The re-render creates another *new* `eventData` object.
+    *   The cycle repeats.
+
+4.  **The Solution (`useMemo`):** We break the cycle by wrapping the data processing in `useMemo` inside the `useEventById` hook.
+
+    ```typescript
+    // in hooks/useDatabase.ts
+    export function useEventById(id: number | null) {
+      const { data } = useLiveQuery(...);
+
+      return useMemo(() => {
+        if (!data || data.length === 0) return null;
+        const event = convertRawEvent(data[0]);
+        return event;
+      }, [data]); // The dependency array is key!
+    }
+    ```
+
+    *   `useMemo` acts as a cache. It only re-runs the code inside it if a dependency in its array (`[data]`) has changed.
+    *   Because `useLiveQuery` provides a stable `data` reference (from step 1), `useMemo`'s dependency check works perfectly. On re-renders where the database data is the same, `data` is the same object reference, so `useMemo` skips its function and returns the previously cached `event` object.
+    *   This provides a **stable, memoized `eventData` object** to the form component.
+
+5.  **`EventForm.tsx` (The Consumer):** The form can now safely use this stable data in a `useEffect`.
+
+    ```typescript
+    // in app/event-form.tsx
+    const eventData = id ? useEventById(convertedID) : null;
+
+    useEffect(() => {
+      if (eventData) {
+        // ...set form state (setName, setStartDate, etc.)
+      }
+    }, [eventData]);
+    ```
+
+    *   **First Render:** `eventData` is `null`. The effect does nothing.
+    *   **Second Render (Data Arrives):** `useEventById` returns the new, populated, memoized `eventData` object. The `useEffect` sees the dependency has changed (from `null` to an object) and runs once, populating the form.
+    *   **Subsequent Renders:** On further re-renders (e.g., from user input), `useEventById` returns the *same cached `eventData` object*. The `useEffect` sees no change in its dependency and does not run again, breaking the infinite loop.
+
 ## Display quirks 
 
 - `DateTimePicker` needs to be within a `View` to consistently display in inline mode

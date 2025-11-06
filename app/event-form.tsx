@@ -1,5 +1,5 @@
 import { ActionSheetIOS, StyleSheet, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
 import { addHours, isBefore, roundToNearestHours } from 'date-fns'
@@ -38,6 +38,18 @@ export default function EventForm() {
   const [location, setLocation] = useState(eventData?.location ? eventData.location : null)
   const [courseID, setCourseID] = useState<number | null>(eventData?.courseID ? eventData.courseID : (coursePageID ? parseInt(coursePageID) : null))
   const [recurring, setRecurring] = useState<string | null>(eventData?.recurring ? eventData.recurring : null)
+
+  useEffect(() => {
+    if (eventData) {
+      setType(eventData.type ? eventData.type : 'general')
+      setName(eventData.name ? eventData.name : null)
+      setStartDate(eventData.startDate ? eventData.startDate : roundToNearestHours(initialDate, { roundingMethod: 'ceil' }))
+      setEndDate(eventData.endDate ? eventData.endDate : addHours(roundToNearestHours(initialDate, { roundingMethod: 'ceil' }), 1))
+      setLocation(eventData.location ? eventData.location : null)
+      setCourseID(eventData.courseID ? eventData.courseID : (coursePageID ? parseInt(coursePageID) : null))
+      setRecurring(eventData.recurring ? eventData.recurring : null)
+    }
+  }, [eventData])
 
   const invalid = (startDate && endDate && isBefore(endDate, startDate)) ? true : false
 

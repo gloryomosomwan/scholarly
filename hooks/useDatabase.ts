@@ -3,6 +3,7 @@ import { and, eq, getTableColumns, gt, gte, isNotNull, isNull, lte, or } from 'd
 import { useSQLiteContext } from "expo-sqlite";
 import { AnySQLiteTable } from "drizzle-orm/sqlite-core";
 import { addDays, endOfDay, startOfDay } from "date-fns";
+import { useMemo } from "react";
 
 import { assignments, courses, events, semesters, tasks, tests } from '@/db/schema';
 import { db } from '@/db/init';
@@ -172,9 +173,11 @@ export function useEventsByDateRange(firstDay: Date, lastDay: Date) {
 export function useEventById(id: number | null) {
   if (id === null) return null;
   const { data } = useLiveQuery(db.select().from(events).where(eq(events.id, id)))
-  if (!data || data.length === 0) return null
-  const event = convertRawEvent(data[0])
-  return event // If id is null, data is null too
+  return useMemo(() => {
+    if (!data || data.length === 0) return null
+    const event = convertRawEvent(data[0])
+    return event
+  }, [data])
 }
 
 export function useUpcomingEvents() {
