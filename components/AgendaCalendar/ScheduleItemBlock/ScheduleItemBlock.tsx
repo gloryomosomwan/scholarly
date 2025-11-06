@@ -5,7 +5,7 @@ import { isAfter, isSameDay } from 'date-fns';
 
 import { useTheme } from '@/hooks';
 import { Event, Test } from '@/types';
-import { getCourseById } from '@/hooks/useDatabase';
+import { useCourseById } from '@/hooks/useDatabase';
 import { useCalendarStore } from '@/stores/calendar';
 
 import TimeRange from '@/components/AgendaCalendar/ScheduleItemBlock/TimeRange';
@@ -21,7 +21,7 @@ type ScheduleItemBlockProps = {
 
 export default function ScheduleItemBlock({ item }: ScheduleItemBlockProps) {
   const theme = useTheme()
-  const course = getCourseById(item.courseID ?? null)
+  const course = useCourseById(item.courseID ?? null)
   const { currentDate } = useCalendarStore()
   const today = new Date()
   const itemHasOccurred = isSameDay(currentDate, today) ? checkItemHasOccurred(item.startDate, item.endDate) : false

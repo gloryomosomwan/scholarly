@@ -7,7 +7,7 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 import { useUserStore } from '@/stores';
 import { useTheme } from '@/hooks'
-import { getSemesterById } from '@/hooks/useDatabase'
+import { useSemesterById } from '@/hooks/useDatabase'
 
 type HeaderProps = {
   numOfSemesters: number
@@ -16,7 +16,7 @@ type HeaderProps = {
 export default function Header({ numOfSemesters }: HeaderProps) {
   const theme = useTheme()
   const semesterID = useUserStore((state) => state.semesterID)
-  const semester = getSemesterById(semesterID ? semesterID : null)
+  const semester = useSemesterById(semesterID ? semesterID : null)
   return (
     <View style={[styles.headerContainer, { backgroundColor: theme.primary }]}>
       <View style={styles.headerTopContainer}>

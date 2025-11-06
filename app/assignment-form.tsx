@@ -14,7 +14,7 @@ import { useTheme } from '@/hooks'
 import { DueType } from '@/types'
 import { db } from '@/db/init'
 import { assignments } from '@/db/schema'
-import { getAssignmentById } from '@/hooks/useDatabase'
+import { useAssignmentById } from '@/hooks/useDatabase'
 import { assignmentInsertSchema, assignmentUpdateSchema } from '@/db/drizzle-zod'
 
 export default function AssignmentForm() {
@@ -22,7 +22,7 @@ export default function AssignmentForm() {
 
   const { id, initialCourseID } = useLocalSearchParams<{ id: string, initialCourseID: string }>()
   const convertedID = Number(id)
-  const assignmentData = id ? getAssignmentById(convertedID) : null // should this violate hook rules?
+  const assignmentData = id ? useAssignmentById(convertedID) : null // should this violate hook rules?
 
   const [date, setDate] = useState<Date | null>(assignmentData?.due ? new Date(assignmentData.due) : null);
   const [dueType, setDueType] = useState<DueType | null>(assignmentData?.dueType ? assignmentData.dueType : null);

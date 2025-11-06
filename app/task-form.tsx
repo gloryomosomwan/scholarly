@@ -16,7 +16,7 @@ import { useTheme } from '@/hooks'
 import { DueType, PriorityOption } from '@/types'
 import { db } from '@/db/init'
 import { tasks } from '@/db/schema'
-import { getTaskById } from '@/hooks/useDatabase'
+import { useTaskById } from '@/hooks/useDatabase'
 import { taskInsertSchema, taskUpdateSchema } from '@/db/drizzle-zod'
 
 export default function TaskForm() {
@@ -24,7 +24,7 @@ export default function TaskForm() {
 
   const { id } = useLocalSearchParams<{ id: string }>()
   const convertedID = Number(id)
-  const taskData = id ? getTaskById(convertedID) : null // CHECK: should this violate hook rules?
+  const taskData = id ? useTaskById(convertedID) : null // CHECK: should this violate hook rules?
 
   const [date, setDate] = useState<Date | null>(taskData?.due ? new Date(taskData.due) : null); // CHECK: this should be a date already? // rename this
   const [dueType, setDueType] = useState<DueType>(taskData?.dueType ? taskData.dueType : 'date');

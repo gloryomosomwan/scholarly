@@ -54,7 +54,7 @@ export function useAssignmentsByDay(date: Date) {
   return assignmentData
 }
 
-export function getAssignmentById(id: number | null) {
+export function useAssignmentById(id: number | null) {
   const data = useSQLiteContext().getFirstSync<rawAssignment>(`
       SELECT 
       id,
@@ -93,7 +93,7 @@ export function useNumberOfCoursesBySemester(id: number) {
   return data.length
 }
 
-export function getCourseById(id: number | null) {
+export function useCourseById(id: number | null) {
   const data = useSQLiteContext().getFirstSync<rawCourse>(`
       SELECT 
       code,
@@ -219,7 +219,7 @@ export function useSemesters() {
   return semesterData
 }
 
-export function getSemesterById(id: number | null) {
+export function useSemesterById(id: number | null) {
   const data = useSQLiteContext().getFirstSync<rawSemester>(`
    SELECT
    name,
@@ -257,7 +257,7 @@ export function useAllTasks() {
   return taskData
 }
 
-export function getTaskById(id: number | null) {
+export function useTaskById(id: number | null) {
   const data = useSQLiteContext().getFirstSync<rawTask>(`
       SELECT 
       id,

@@ -8,7 +8,7 @@ import PressableOpacity from '@/components/Buttons/PressableOpacity'
 import ClearButton from '@/components/Buttons/ClearButton'
 
 import { useTheme } from '@/hooks'
-import { getCourseById } from '@/hooks/useDatabase'
+import { useCourseById } from '@/hooks/useDatabase'
 
 type CoursePickerProps = {
   courseID: number | null
@@ -18,7 +18,7 @@ type CoursePickerProps = {
 export default function CoursePicker({ courseID, setCourseID }: CoursePickerProps) {
   const theme = useTheme()
   const modalRef = useRef<BottomSheetModal>(null)
-  const course = getCourseById(courseID)
+  const course = useCourseById(courseID)
   const handlePresentModal = useCallback(() => {
     Keyboard.dismiss()
     modalRef.current?.present();

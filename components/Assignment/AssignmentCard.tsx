@@ -14,7 +14,7 @@ import Completion from '@/components/ActivityCard/Completion';
 
 import { Assignment } from '@/types';
 import { useTheme } from '@/hooks';
-import { getCourseById } from '@/hooks/useDatabase';
+import { useCourseById } from '@/hooks/useDatabase';
 import { db } from '@/db/init';
 import { assignments } from '@/db/schema';
 
@@ -26,7 +26,7 @@ export default function AssignmentCard({ assignment }: AssignmentCardProps) {
   const theme = useTheme();
   const completedAt = assignment.completedAt
   const overdue = assignment.due && isAfter(new Date(), assignment.due)
-  const course = getCourseById(assignment.courseID === undefined ? null : assignment.courseID)
+  const course = useCourseById(assignment.courseID === undefined ? null : assignment.courseID)
 
   const toggleCompleted = async () => {
     if (completedAt) {

@@ -15,7 +15,7 @@ import Completion from '@/components/ActivityCard/Completion';
 
 import { Task } from '@/types';
 import { useTheme } from '@/hooks';
-import { getCourseById } from '@/hooks/useDatabase';
+import { useCourseById } from '@/hooks/useDatabase';
 import { db } from '@/db/init';
 import { tasks } from '@/db/schema';
 
@@ -27,7 +27,7 @@ export default function TaskCard({ task }: TaskCardProps) {
   const theme = useTheme();
   const completedAt = task.completedAt
   const overdue = task.due && isAfter(new Date(), task.due)
-  const course = getCourseById(task.courseID === undefined ? null : task.courseID)
+  const course = useCourseById(task.courseID === undefined ? null : task.courseID)
 
   const toggleCompleted = async () => {
     if (completedAt) {

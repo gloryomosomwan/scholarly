@@ -12,7 +12,7 @@ import FormContainer from '@/components/Form/FormContainer'
 import { useTheme } from '@/hooks'
 import { db } from '@/db/init'
 import { courses } from '@/db/schema'
-import { getCourseById } from '@/hooks/useDatabase'
+import { useCourseById } from '@/hooks/useDatabase'
 import { useUserStore } from '@/stores'
 
 export default function CourseForm() {
@@ -21,7 +21,7 @@ export default function CourseForm() {
   const semesterID = useUserStore((state) => state.semesterID)
   const { id } = useLocalSearchParams<{ id: string }>()
   let convertedID = Number(id)
-  const course = id ? getCourseById(convertedID) : null
+  const course = id ? useCourseById(convertedID) : null
 
   const [code, setCode] = useState<string | null>(course?.code ?? null)
   const [name, setName] = useState<string | null>(course?.name ?? null)

@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import { useTheme } from '@/hooks'
-import { getCourseById } from '@/hooks/useDatabase'
+import { useCourseById } from '@/hooks/useDatabase'
 
 type FilterPillProps = {
   filterValue: string | null
@@ -14,7 +14,7 @@ export default function FilterPill({ filterValue, clear }: FilterPillProps) {
   return (
     <View style={[styles.container, {}]}>
       <View style={[styles.pill, { backgroundColor: theme.grey100 }]}>
-        <Text style={[styles.text, { color: theme.text }]}>Filtered by: {getCourseById(Number(filterValue))?.code}</Text>
+        <Text style={[styles.text, { color: theme.text }]}>Filtered by: {useCourseById(Number(filterValue))?.code}</Text>
       </View>
       <Pressable style={[styles.clearContainer, { backgroundColor: theme.grey100 }]} onPress={clear}>
         <Text style={[styles.clearText, { color: theme.text }]}>X</Text>

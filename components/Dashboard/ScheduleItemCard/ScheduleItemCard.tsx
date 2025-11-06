@@ -11,7 +11,7 @@ import RelativeTime from '@/components/Dashboard/ScheduleItemCard/RelativeTime';
 
 import { useTheme } from '@/hooks';
 import { Event, Test } from '@/types';
-import { getCourseById } from '@/hooks/useDatabase';
+import { useCourseById } from '@/hooks/useDatabase';
 import { checkIsHappening } from '@/utils/scheduleItem';
 
 type ScheduleItemCardProps = {
@@ -21,7 +21,7 @@ type ScheduleItemCardProps = {
 export default function ScheduleItemCard({ item }: ScheduleItemCardProps) {
   const theme = useTheme()
   const isHappening = checkIsHappening(item)
-  const course = getCourseById(item.courseID ? item.courseID : null)
+  const course = useCourseById(item.courseID ? item.courseID : null)
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary, borderColor: theme.grey200 }]} >
       <View style={styles.topRowContainer}>

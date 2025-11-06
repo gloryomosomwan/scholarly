@@ -6,7 +6,7 @@ import { isBefore } from 'date-fns'
 
 import { useUserStore } from '@/stores'
 import { useTheme } from '@/hooks'
-import { getSemesterById } from '@/hooks/useDatabase'
+import { useSemesterById } from '@/hooks/useDatabase'
 import { semesters } from '@/db/schema'
 import { db } from '@/db/init'
 import { semesterInsertSchema, semesterUpdateSchema } from '@/db/drizzle-zod'
@@ -21,7 +21,7 @@ export default function SemesterForm() {
 
   const { id } = useLocalSearchParams<{ id: string }>()
   const convertedID = Number(id)
-  const semesterData = id ? getSemesterById(convertedID) : null
+  const semesterData = id ? useSemesterById(convertedID) : null
 
   const [name, setName] = useState<string | null>(semesterData?.name ?? null)
   const [start, setStart] = useState<Date | null>(semesterData?.start ?? null)
