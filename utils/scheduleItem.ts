@@ -4,7 +4,7 @@ import { datetime, rrulestr } from "rrule";
 
 import { Event, ScheduleItemClass, Test } from "@/types";
 import { pretty } from ".";
-import { useUpNextScheduleItems } from "@/hooks/useDatabase";
+import { useUpcomingScheduleItems } from "@/hooks/useDatabase";
 
 const MILLISECONDSINMINUTE = 60000
 const MILLISECONDSINHOUR = MILLISECONDSINMINUTE * 60
@@ -174,7 +174,7 @@ export function getUpNextRecurrenceEvents(events: Event[]): Event[] {
 }
 
 export function getUpNextScheduleItems(): (Event | Test)[] | null {
-  const items = useUpNextScheduleItems()
+  const items = useUpcomingScheduleItems()
   const upNextItems: (Event | Test)[] = []
   const upNext = items.shift()
   if (!upNext) return null

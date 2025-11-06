@@ -187,7 +187,7 @@ export function getEventById(id: number | null) {
   return event // If id is null, data is null too
 }
 
-export function useUpNextEvents() {
+export function useUpcomingEvents() {
   // CHECK: this may need a dependency array to refresh the query
   const { data: rawNonRecurringEventArray } = useLiveQuery(db.select().from(events).where(
     and(
@@ -211,9 +211,9 @@ export function useItemsByDateRange(start: Date, end: Date) {
   return [...events, ...assignments, ...tasks]
 }
 
-export function useUpNextScheduleItems(): (Event | Test)[] {
-  const events = useUpNextEvents()
-  const tests = useUpNextTests()
+export function useUpcomingScheduleItems(): (Event | Test)[] {
+  const events = useUpcomingEvents()
+  const tests = useUpcomingTests()
   const scheduleItems = [...tests, ...events]
   scheduleItems.sort(sortScheduleItems)
   return scheduleItems
@@ -366,7 +366,7 @@ export function useCurrentTests(date: Date) {
   return testData
 }
 
-export function useUpNextTests() {
+export function useUpcomingTests() {
   const { data } = useLiveQuery(db.select().from(tests).where(gte(tests.start_date, new Date().toISOString())))
   const testData = data.map(convertRawTest)
   return testData
