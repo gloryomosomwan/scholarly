@@ -28,11 +28,11 @@ export const assignmentUpdateSchema = createUpdateSchema(assignments, {
 })
 
 export const eventInsertSchema = createInsertSchema(events, {
-  name: (schema) => schema.min(1)
+  // name: (schema) => schema.min(1)
 })
 
 export const eventUpdateSchema = createInsertSchema(events, {
-  name: (schema) => schema.min(1)
+  // name: (schema) => schema.min(1)
 })
 
 export const testInsertSchema = createInsertSchema(tests, {
