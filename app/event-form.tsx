@@ -12,6 +12,7 @@ import ButtonRow from '@/components/Form/ButtonRow'
 import EventTypePicker from '@/components/Form/EventTypePicker'
 import RecurrencePicker from '@/components/Form/Recurrence/RecurrencePicker'
 import FormContainer from '@/components/Form/FormContainer'
+import CourseTag from '@/components/Form/CourseTag'
 
 import { useTheme } from '@/hooks'
 import { EventType } from '@/types'
@@ -24,14 +25,14 @@ import { useCalendarStore } from '@/stores/calendar'
 export default function EventForm() {
   const theme = useTheme()
 
-  const { id, coursePageID } = useLocalSearchParams<{ id: string, coursePageID: string }>()
+  const { id, coursePageID, formType } = useLocalSearchParams<{ id: string, coursePageID: string, formType: string }>()
   const convertedID = Number(id)
   const eventData = id ? useEventById(convertedID) : null
   const { currentDate } = useCalendarStore()
   const initialDate = new Date(currentDate.getTime())
   initialDate.setHours(new Date().getHours(), new Date().getMinutes())
 
-  const [type, setType] = useState<EventType | null>(eventData?.type ? eventData.type : 'general')
+  const [type, setType] = useState<EventType | null>(eventData?.type ? eventData.type : (formType === 'general' ? 'general' : 'lecture'))
   const [name, setName] = useState<string | null>(eventData?.name ? eventData.name : null)
   const [startDate, setStartDate] = useState<Date>(eventData?.startDate ? eventData.startDate : roundToNearestHours(initialDate, { roundingMethod: 'ceil' }))
   const [endDate, setEndDate] = useState<Date>(eventData?.endDate ? eventData.endDate : addHours(roundToNearestHours(initialDate, { roundingMethod: 'ceil' }), 1))
@@ -114,9 +115,9 @@ export default function EventForm() {
         <PrimaryTextInputField placeholder='Enter name' value={name} onChangeText={setName} />
         <DateTimePicker date={startDate} setDate={changeStartDate} />
         <DateTimePicker date={endDate} invalid={invalid} setDate={setEndDate} />
-        <EventTypePicker eventType={type} setEventType={setType} />
+        {formType !== 'general' && <EventTypePicker eventType={type} setEventType={setType} />}
         <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />
-        <CoursePicker courseID={courseID} setCourseID={setCourseID} />
+        {formType === 'general' ? <CoursePicker courseID={courseID} setCourseID={setCourseID} /> : <CourseTag courseID={courseID} />}
         <RecurrencePicker recurring={recurring} setRecurring={setRecurring} startDate={startDate} />
       </View>
       {/* disabled = invalid because since dates are already preselected, the only invalid event is one with out of order dates */}

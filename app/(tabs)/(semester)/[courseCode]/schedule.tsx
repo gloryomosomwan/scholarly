@@ -26,7 +26,7 @@ export default function Schedule() {
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} >
       <ScheduleCard schedule={lecture} />
-      <AddButton handlePress={() => router.navigate({ pathname: '/event-form', params: { coursePageID: courseID } })} title='Add Event' description='Add an event to your schedule' />
+      <AddButton handlePress={() => router.navigate({ pathname: '/event-form', params: { coursePageID: courseID, formType: 'course' } })} title='Add Event' description='Add an event to your schedule' />
     </ScrollView>
   );
 }

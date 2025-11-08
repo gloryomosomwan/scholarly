@@ -7,7 +7,7 @@ import EventTypeModalItem from '@/components/Modals/ModalItems/EventTypeModalIte
 
 import { EventType } from '@/types'
 
-const eventTypes: EventType[] = ['lecture', 'lab', 'seminar', 'general']
+const eventTypes: EventType[] = ['lecture', 'lab', 'seminar']
 
 type EventTypeModalProps = {
   eventTypeSelectorModalRef: React.RefObject<BottomSheetModal>

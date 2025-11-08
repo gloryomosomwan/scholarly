@@ -14,7 +14,7 @@ type AddEventButtonProps = {
 export default function AddEventButton({ }: AddEventButtonProps) {
   const theme = useTheme()
   return (
-    <PressableOpacity style={styles.container} onPress={() => router.navigate('/event-form')} testID='add task button'>
+    <PressableOpacity style={styles.container} onPress={() => router.navigate({ pathname: '/event-form', params: { formType: 'general' } })} testID='add task button'>
       <SymbolView name='plus' />
     </PressableOpacity>
   )
