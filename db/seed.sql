@@ -1,3 +1,5 @@
+PRAGMA foreign_keys = ON
+
 CREATE TABLE IF NOT EXISTS semesters (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
@@ -16,7 +18,7 @@ CREATE TABLE IF NOT EXISTS courses (
     color TEXT NOT NULL,
     semester_id INTEGER NOT NULL,
     instructor TEXT,
-    FOREIGN KEY (semester_id) REFERENCES semesters(id) 
+    FOREIGN KEY (semester_id) REFERENCES semesters(id) ON DELETE CASCADE
 );
 
 INSERT INTO courses (id, name, code, color, semester_id, instructor) VALUES
@@ -33,7 +35,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     priority TEXT,
     completed_at TEXT,
     due_type TEXT,
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
 INSERT INTO tasks (id, title, course_id, description, due, priority, completed_at, due_type) VALUES
@@ -51,7 +53,7 @@ create table IF NOT EXISTS assignments (
     completed_at TEXT,
     weight REAL,
     grade REAL,
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
 INSERT INTO assignments (id, title, course_id, description, due, due_type, completed_at, weight, grade) VALUES
@@ -67,7 +69,7 @@ create table IF NOT EXISTS events (
     course_id INTEGER,
     location TEXT,
     recurring TEXT,
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
 INSERT INTO events (type, start_date, end_date, name, course_id, location, recurring) VALUES 
@@ -86,7 +88,7 @@ create table IF NOT EXISTS tests (
     notes TEXT,
     weight REAL,
     grade REAL,
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
 INSERT INTO tests (start, end) VALUES 

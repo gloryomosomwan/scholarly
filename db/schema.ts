@@ -3,7 +3,7 @@ import { sqliteTable, integer, text, real } from 'drizzle-orm/sqlite-core';
 export const tasks = sqliteTable('tasks', {
   id: integer('id').primaryKey(),
   title: text('title').notNull(),
-  course_id: integer('course_id').references(() => courses.id),
+  course_id: integer('course_id').references(() => courses.id, { onDelete: 'cascade' }),
   due: text('due'), // Store as ISO string
   dueType: text('due_type'),
   description: text('description'),
@@ -16,7 +16,7 @@ export const courses = sqliteTable('courses', {
   name: text('name').notNull(),
   code: text('code').notNull(),
   color: text('color').notNull(),
-  semester_id: integer('semester_id').notNull().references(() => semesters.id),
+  semester_id: integer('semester_id').notNull().references(() => semesters.id, { onDelete: 'cascade' }),
   instructor: text('instructor'),
 })
 
@@ -30,7 +30,7 @@ export const semesters = sqliteTable('semesters', {
 export const assignments = sqliteTable('assignments', {
   id: integer('id').primaryKey(),
   title: text('title').notNull(),
-  course_id: integer('course_id').references(() => courses.id).notNull(),
+  course_id: integer('course_id').references(() => courses.id, { onDelete: 'cascade' }).notNull(),
   description: text('description'),
   due: text('due').notNull(),
   due_type: text('due_type').notNull(),
@@ -42,7 +42,7 @@ export const assignments = sqliteTable('assignments', {
 export const events = sqliteTable('events', {
   id: integer('id').primaryKey(),
   type: text('type').notNull(),
-  course_id: integer('course_id').references(() => courses.id),
+  course_id: integer('course_id').references(() => courses.id, { onDelete: 'cascade' }),
   start_date: text('start_date').notNull(),
   end_date: text('end_date').notNull(),
   name: text('name'),
@@ -55,7 +55,7 @@ export const tests = sqliteTable('tests', {
   start_date: text('start_date').notNull(),
   end_date: text('end_date').notNull(),
   name: text('name').notNull(),
-  course_id: integer('course_id').references(() => courses.id).notNull(),
+  course_id: integer('course_id').references(() => courses.id, { onDelete: 'cascade' }).notNull(),
   location: text('location'),
   notes: text('notes'),
   weight: real('weight'),

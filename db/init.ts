@@ -4,6 +4,7 @@ import { openDatabaseSync } from 'expo-sqlite'
 export const sqlite = openDatabaseSync('databaseName', { enableChangeListener: true })
 
 sqlite.execSync(`
+PRAGMA foreign_keys = ON;
 CREATE TABLE IF NOT EXISTS semesters (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
@@ -17,7 +18,7 @@ CREATE TABLE IF NOT EXISTS courses (
     color TEXT NOT NULL,
     semester_id INTEGER NOT NULL,
     instructor TEXT,
-    FOREIGN KEY (semester_id) REFERENCES semesters(id) 
+    FOREIGN KEY (semester_id) REFERENCES semesters(id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS tasks (
     id INTEGER PRIMARY KEY,
@@ -28,7 +29,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     priority TEXT,
     completed_at TEXT,
     due_type TEXT,
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 create table IF NOT EXISTS assignments (
     id INTEGER PRIMARY KEY,
@@ -40,7 +41,7 @@ create table IF NOT EXISTS assignments (
     completed_at TEXT,
     weight REAL,
     grade REAL,
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 create table IF NOT EXISTS events (
     id INTEGER PRIMARY KEY,
@@ -51,7 +52,7 @@ create table IF NOT EXISTS events (
     course_id INTEGER,
     location TEXT,
     recurring TEXT,
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 create table IF NOT EXISTS tests (
     id INTEGER PRIMARY KEY,
@@ -63,8 +64,8 @@ create table IF NOT EXISTS tests (
     notes TEXT,
     weight REAL,
     grade REAL,
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
-  `)
+`)
 
 export const db = drizzle(sqlite, { logger: false })
