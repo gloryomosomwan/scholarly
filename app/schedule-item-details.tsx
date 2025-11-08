@@ -22,7 +22,7 @@ export default function ScheduleItemDetails() {
         <PressableOpacity onPress={() => router.dismiss()}>
           <SymbolView name='xmark' tintColor={theme.text} />
         </PressableOpacity>
-        <PressableOpacity onPress={() => router.navigate({ pathname: pathname, params: { id: id } })}>
+        <PressableOpacity onPress={() => router.navigate({ pathname: pathname, params: { id: id, formType: 'general' } })}>
           <SymbolView name='pencil' tintColor={theme.text} />
         </PressableOpacity>
       </View>
