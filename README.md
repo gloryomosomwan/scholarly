@@ -350,13 +350,19 @@ A **day** generally refers to a day (e.g. October 24th), and is usually represen
 
 ## Database management
 
-The database can be switched by changing the `openDatabaseSync`'s `databaseName` in `db/init.ts`:
+The database can be switched by changing `openDatabaseSync`'s `databaseName` in `db/init.ts`:
 
 ```typescript
 export const sqlite = openDatabaseSync('myDatabase', { enableChangeListener: true })
 ```
 
-Databases can also be deleted from simulators by locating deleting their respective .sqlite files in a directory.
+And changing the `SQLiteProvider`'s `databaseName` in `app/layout.tsx`:
+
+```typescript
+      <SQLiteProvider databaseName="myDatabase">
+```
+
+Databases can also be deleted from simulators by deleting their respective .sqlite files in a directory.
 
 To find out the data directory for the currently running simulator run the following command:
 
@@ -373,6 +379,10 @@ cd Documents/SQLite
 ```
 
 The database files will be located there.
+
+### Changing schemas
+
+When changing schemas make sure to update both `db/init.ts` and `db/seed.sql`
 
 ## How `refresh()` works in dashboard components
 
