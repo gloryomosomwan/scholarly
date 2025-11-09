@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { SymbolView } from 'expo-symbols'
-import { datetime, RRule, Frequency } from 'rrule'
+import { RRule } from 'rrule'
 
 import { useTheme } from '@/hooks'
 
@@ -19,40 +19,18 @@ type RecurrencePickerProps = {
 export default function RecurrencePicker({ recurring, setRecurring, startDate }: RecurrencePickerProps) {
   const theme = useTheme()
   const rule = recurring ? RRule.fromString(recurring) : new RRule()
-  const [frequency, setFrequency] = useState<Frequency | undefined>(recurring ? rule.options.freq : undefined)
-  const [interval, setInterval] = useState<number>(rule ? rule.options.interval : 1)
-  const [until, setUntil] = useState<Date | null>(rule.options.until)
-
-  useEffect(() => {
-    if (!frequency) {
-      setUntil(null)
-      setRecurring(null)
-      return
-    }
-    const dtstart = datetime(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate(), startDate.getHours(), startDate.getMinutes(), startDate.getSeconds())
-    const byweekday = rule.options.byweekday
-    const newRule = new RRule({
-      dtstart: dtstart,
-      interval: interval,
-      freq: frequency,
-      until: until,
-      byweekday: frequency === RRule.WEEKLY ? byweekday : null
-    })
-    setRecurring(newRule.toString())
-  }, [frequency, startDate, interval, until])
-
   return (
     <View style={[styles.container]}>
       <View style={[styles.header]}>
         <SymbolView name={'repeat'} tintColor={theme.grey500} size={24} />
-        <Text style={[styles.fieldText, { color: theme.grey500 }]}>Repeat</Text>
+        <Text style={[styles.fieldText, { color: theme.grey500 }]}>{"Repeat"}</Text>
       </View>
-      <Text style={{ color: theme.text }}>{recurring || 'null'}</Text>
-      <Text style={{ color: theme.text }}>{until?.toISOString() || 'not until'}</Text>
-      <RecFreqPicker frequency={frequency} setFrequency={setFrequency} />
-      {frequency && <IntervalCounter interval={interval} setInterval={setInterval} />}
-      {frequency === RRule.WEEKLY && <WeeklyPicker start={startDate} rule={rule} setRecurring={setRecurring} />}
-      {frequency && <UntilSelector start={startDate} until={until} setUntil={setUntil} />}
+      <Text style={{ color: theme.text }}>{recurring || 'null recurrence string'}</Text>
+      <Text style={{ color: theme.text }}>{rule.options.until?.toISOString() || 'null until value'}</Text>
+      <RecFreqPicker setRecurring={setRecurring} rule={rule} startDate={startDate} recurring={recurring} />
+      {recurring !== null && <IntervalCounter rule={rule} start={startDate} setRecurring={setRecurring} />}
+      {rule.options.freq === RRule.WEEKLY && <WeeklyPicker start={startDate} rule={rule} setRecurring={setRecurring} />}
+      {recurring !== null && <UntilSelector start={startDate} rule={rule} setRecurring={setRecurring} />}
     </View>
   )
 }

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { addWeeks } from 'date-fns';
-import { SymbolView } from 'expo-symbols';
+import { datetime, RRule } from 'rrule';
 
 import { useTheme } from '@/hooks/useTheme'
 import { passJSDateToDatetime } from '@/utils/scheduleItem';
@@ -12,19 +12,40 @@ import ClearButton from '@/components/Buttons/ClearButton';
 
 type UntilSelectorProps = {
   start: Date
-  until: Date | null
-  setUntil: React.Dispatch<React.SetStateAction<Date | null>>
+  rule: RRule
+  setRecurring: React.Dispatch<React.SetStateAction<string | null>>
 }
 
-export default function UntilSelector({ start, until, setUntil }: UntilSelectorProps) {
+export default function UntilSelector({ start, rule, setRecurring }: UntilSelectorProps) {
   const theme = useTheme()
   const aWeekFromNow = addWeeks(new Date(), 1).setHours(start.getHours(), start.getMinutes(), 0)
+  const until = rule?.options.until
   const [internalDate, setInternalDate] = useState(until || new Date(aWeekFromNow))
+  const [skippedAdjust, setSkippedAdjust] = useState(false)
+
+  useEffect(() => {
+    setInternalDate(until || new Date(aWeekFromNow))
+  }, [until])
+
+  function setUntil(unt: Date | null) {
+    const dtstart = datetime(start.getFullYear(), start.getMonth() + 1, start.getDate(), start.getHours(), start.getMinutes(), start.getSeconds())
+    const newRule = new RRule({
+      dtstart: dtstart,
+      interval: rule.options.interval,
+      freq: rule.options.freq,
+      until: unt,
+      byweekday: rule.options.byweekday
+    })
+    setRecurring(newRule.toString())
+  }
 
   useEffect(() => {
     if (!until) return
-    const date = new Date()
-    date.setHours(start.getHours(), start.getMinutes(), 0)
+    if (!skippedAdjust) {
+      setSkippedAdjust(true)
+      return
+    }
+    const date = new Date(start)
     setUntil(passJSDateToDatetime(date))
   }, [start])
 
@@ -49,12 +70,13 @@ export default function UntilSelector({ start, until, setUntil }: UntilSelectorP
       {
         until ?
           <View style={[styles.container, {}]}>
-            <Text style={[styles.text, { color: theme.text }]}>End Date</Text>
+            <Text style={[styles.text, { color: theme.text }]}>{"End Date"}</Text>
             <View style={[styles.rightSide, {}]}>
               <DateTimePicker
                 testID="datePicker"
                 value={internalDate}
                 mode={'date'}
+                minimumDate={start}
                 display={'compact'}
                 onChange={handlePickerChange}
                 accentColor={theme.accent}
@@ -64,8 +86,8 @@ export default function UntilSelector({ start, until, setUntil }: UntilSelectorP
           </View>
           :
           <PressableOpacity style={[styles.button, { backgroundColor: theme.grey200 }]} onPress={activate}>
-            < Text style={[styles.text, { color: theme.text }]} > Set End Date</Text >
-          </PressableOpacity >
+            <Text style={[styles.text, { color: theme.text }]}>{"Set End Date"}</Text >
+          </PressableOpacity>
       }
     </View>
   )

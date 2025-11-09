@@ -1,19 +1,22 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Frequency, RRule } from 'rrule'
-
-import PressableOpacity from '@/components/Buttons/PressableOpacity'
+import { datetime, Frequency, RRule } from 'rrule'
+import { getDay } from 'date-fns'
 
 import { useTheme } from '@/hooks/useTheme'
+
+import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
 const frequencies: (Frequency | undefined)[] = [undefined, RRule.DAILY, RRule.WEEKLY, RRule.MONTHLY]
 
 type RecFreqPickerProps = {
-  frequency: Frequency | undefined
-  setFrequency: React.Dispatch<React.SetStateAction<Frequency | undefined>>
+  setRecurring: React.Dispatch<React.SetStateAction<string | null>>
+  rule: RRule
+  recurring: string | null
+  startDate: Date
 }
 
-export default function RecFreqPicker({ frequency, setFrequency }: RecFreqPickerProps) {
+export default function RecFreqPicker({ rule, startDate, setRecurring, recurring }: RecFreqPickerProps) {
   const theme = useTheme()
   return (
     <View style={[styles.container, { borderColor: theme.accent }]} >
@@ -22,10 +25,26 @@ export default function RecFreqPicker({ frequency, setFrequency }: RecFreqPicker
         return (
           <PressableOpacity
             key={index}
-            style={[styles.item, frequency === value && { backgroundColor: theme.accent }]}
-            onPress={() => setFrequency(value)}
+            style={[styles.item, (rule.options.freq === value || (value === undefined && recurring === null)) && { backgroundColor: theme.accent }]}
+            onPress={() => {
+              if (value === undefined) {
+                setRecurring(null)
+              }
+              else {
+                const dtstart = datetime(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate(), startDate.getHours(), startDate.getMinutes(), startDate.getSeconds())
+                const byweekday = rule.options.byweekday
+                const newRule = new RRule({
+                  dtstart: dtstart,
+                  interval: rule.options.interval,
+                  freq: value,
+                  until: rule.options.until,
+                  byweekday: value === RRule.WEEKLY ? (byweekday || getDay(startDate) - 1) : null
+                })
+                setRecurring(newRule.toString())
+              }
+            }}
           >
-            <Text style={[styles.itemText, { color: frequency === value ? theme.primary : theme.accent }]}>{text}</Text>
+            <Text style={[styles.itemText, { color: (rule.options.freq === value || (value === undefined && recurring === null)) ? theme.primary : theme.accent }]}>{text}</Text>
           </PressableOpacity>
         )
       })}
