@@ -13,8 +13,24 @@ type IntervalCounterProps = {
   setRecurring: React.Dispatch<React.SetStateAction<string | null>>
 }
 
+const intervalMap = new Map([
+  [RRule.DAILY, "day"],
+  [RRule.WEEKLY, "week"],
+  [RRule.MONTHLY, "month"],
+]);
+
 export default function IntervalCounter({ start, rule, setRecurring }: IntervalCounterProps) {
   const theme = useTheme()
+  const interval = rule.options.interval
+  const freq = rule.options.freq
+  const intervalText = intervalMap.get(freq)
+  let text;
+  if (interval === 1) {
+    text = `Every ${intervalText}`
+  }
+  else if (interval > 1) {
+    text = `Every ${interval} ${intervalText}s`
+  }
   function increase() {
     const dtstart = datetime(start.getFullYear(), start.getMonth() + 1, start.getDate(), start.getHours(), start.getMinutes(), start.getSeconds())
     const newRule = new RRule({
@@ -39,7 +55,7 @@ export default function IntervalCounter({ start, rule, setRecurring }: IntervalC
   }
   return (
     <View style={[styles.container, { backgroundColor: theme.grey200 }]}>
-      <Text style={[{ color: theme.text }]}>{`Every ${rule.options.interval} days`}</Text>
+      <Text style={[{ color: theme.text }]}>{text}</Text>
       <View style={[styles.buttonContainer, { backgroundColor: theme.grey100 }]}>
         <PressableOpacity onPress={rule.options.interval > 1 ? () => decrease() : undefined} style={[styles.button, {}]}>
           <SymbolView name={'minus'} />
