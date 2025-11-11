@@ -362,3 +362,20 @@ export function useUpcomingTests() {
   const testData = data.map(convertRawTest)
   return testData
 }
+
+// Other
+
+export function useCourseEvents(courseID: number) {
+  const { data } = useLiveQuery(db.select().from(events).where(
+    and(
+      or(
+        eq(events.type, 'lecture'),
+        eq(events.type, 'lab'),
+        eq(events.type, 'seminar'),
+      ),
+      eq(events.course_id, courseID)
+    )
+  ), [courseID])
+  const eventData = data.map(convertRawEvent)
+  return eventData
+}

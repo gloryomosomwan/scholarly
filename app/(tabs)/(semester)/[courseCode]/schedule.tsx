@@ -1,31 +1,25 @@
 import { StyleSheet, ScrollView } from 'react-native';
-
-import { useTheme } from '@/hooks';
-import ScheduleCard from '@/components/CoursePage/ScheduleCard';
-import type { ScheduleCardProps } from '@/components/CoursePage/ScheduleCard';
-import AddButton from '@/components/Buttons/AddButton';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { CourseTabsParamList } from '@/types/navigation';
 import { router } from 'expo-router';
 
-const lecture: ScheduleCardProps['schedule'] = {
-  id: 1,
-  type: 'Lecture',
-  time: '10:00AM - 11:00AM',
-  days: 'Every Week S M T W T F S',
-  location: 'BRJ 2-30',
-  status: 'upcoming',
-  topic: 'Idek'
-}
+import { useTheme } from '@/hooks';
+import { useCourseEvents } from '@/hooks/useDatabase';
+import { CourseTabsParamList } from '@/types/navigation';
+
+import CourseEventCard from '@/components/CoursePage/CourseEventCard/CourseEventCard';
+import AddButton from '@/components/Buttons/AddButton';
 
 type AssignmentsRoute = RouteProp<CourseTabsParamList, 'Assignments'>;
 
 export default function Schedule() {
   const theme = useTheme()
   const { params: { courseID } } = useRoute<AssignmentsRoute>()
+  const events = useCourseEvents(Number(courseID))
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} >
-      <ScheduleCard schedule={lecture} />
+      {events.map((event) => {
+        return <CourseEventCard key={event.type} event={event} />
+      })}
       <AddButton handlePress={() => router.navigate({ pathname: '/event-form', params: { coursePageID: courseID, formType: 'course' } })} title='Add Event' description='Add an event to your schedule' />
     </ScrollView>
   );
