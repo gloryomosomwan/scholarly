@@ -1,4 +1,4 @@
-import { ActionSheetIOS, StyleSheet, View } from 'react-native'
+import { ActionSheetIOS, StyleSheet, View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
@@ -17,16 +17,16 @@ import DateTimePicker from '@/components/Form/DateTimePicker'
 import TextInputField from '@/components/Form/TextInputField'
 import CoursePicker from '@/components/Form/CoursePicker'
 import ButtonRow from '@/components/Form/ButtonRow'
-import EventTypePicker from '@/components/Form/EventTypePicker'
 import RecurrencePicker from '@/components/Form/Recurrence/RecurrencePicker'
 import FormContainer from '@/components/Form/FormContainer'
 import CourseTag from '@/components/Form/CourseTag'
 import CourseRecurrencePicker from '@/components/Form/Recurrence/CourseRecurrencePicker'
+import PrimaryText from '@/components/Form/PrimaryText'
 
 export default function EventForm() {
   const theme = useTheme()
 
-  const { id, coursePageID, formType } = useLocalSearchParams<{ id: string, coursePageID: string, formType: string }>()
+  const { id, coursePageID, formType, eventType } = useLocalSearchParams<{ id: string, coursePageID: string, formType: string, eventType: string }>()
   const convertedID = Number(id)
   const eventData = id ? useEventById(convertedID) : null
   const { currentDate } = useCalendarStore()
@@ -113,10 +113,11 @@ export default function EventForm() {
   return (
     <FormContainer>
       <View style={[styles.fieldContainer, {}]}>
-        <PrimaryTextInputField placeholder='Enter name' value={name} onChangeText={setName} />
+        {formType === 'general'
+          ? <PrimaryTextInputField placeholder='Enter name' value={name} onChangeText={setName} />
+          : <PrimaryText text={eventType} />}
         <DateTimePicker date={startDate} setDate={changeStartDate} />
         <DateTimePicker date={endDate} invalid={invalid} setDate={setEndDate} />
-        {formType !== 'general' && <EventTypePicker eventType={type} setEventType={setType} />}
         <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />
         {formType === 'general' ? <CoursePicker courseID={courseID} setCourseID={setCourseID} /> : <CourseTag courseID={courseID} />}
         {formType === 'general'

@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
 import React from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { router } from 'expo-router'
 
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import EventTypeModalItem from '@/components/Modals/ModalItems/EventTypeModalItem'
@@ -11,10 +12,10 @@ const eventTypes: EventType[] = ['lecture', 'lab', 'seminar']
 
 type EventTypeModalProps = {
   eventTypeSelectorModalRef: React.RefObject<BottomSheetModal>
-  setEventType: React.Dispatch<React.SetStateAction<EventType | null>>
+  courseID: string
 }
 
-export default function EventTypeModal({ eventTypeSelectorModalRef, setEventType }: EventTypeModalProps) {
+export default function EventTypeModal({ eventTypeSelectorModalRef, courseID }: EventTypeModalProps) {
   return (
     <CustomBottomSheetModal bottomSheetModalRef={eventTypeSelectorModalRef} scrollable>
       {eventTypes.map(eventType => (
@@ -22,8 +23,8 @@ export default function EventTypeModal({ eventTypeSelectorModalRef, setEventType
           key={eventType}
           eventType={eventType}
           onSelect={() => {
-            setEventType(eventType)
             eventTypeSelectorModalRef.current?.dismiss()
+            router.navigate({ pathname: '/event-form', params: { coursePageID: courseID, formType: 'course', eventType: eventType } })
           }}
         />
       ))}
