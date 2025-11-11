@@ -4,6 +4,14 @@ import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
 import { addHours, isBefore, roundToNearestHours } from 'date-fns'
 
+import { useTheme } from '@/hooks'
+import { EventType } from '@/types'
+import { eventInsertSchema, eventUpdateSchema } from '@/db/drizzle-zod'
+import { db } from '@/db/init'
+import { events } from '@/db/schema'
+import { useEventById } from '@/hooks/useDatabase'
+import { useCalendarStore } from '@/stores/calendar'
+
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import DateTimePicker from '@/components/Form/DateTimePicker'
 import TextInputField from '@/components/Form/TextInputField'
@@ -13,14 +21,7 @@ import EventTypePicker from '@/components/Form/EventTypePicker'
 import RecurrencePicker from '@/components/Form/Recurrence/RecurrencePicker'
 import FormContainer from '@/components/Form/FormContainer'
 import CourseTag from '@/components/Form/CourseTag'
-
-import { useTheme } from '@/hooks'
-import { EventType } from '@/types'
-import { eventInsertSchema, eventUpdateSchema } from '@/db/drizzle-zod'
-import { db } from '@/db/init'
-import { events } from '@/db/schema'
-import { useEventById } from '@/hooks/useDatabase'
-import { useCalendarStore } from '@/stores/calendar'
+import CourseRecurrencePicker from '@/components/Form/Recurrence/CourseRecurrencePicker'
 
 export default function EventForm() {
   const theme = useTheme()
@@ -33,7 +34,7 @@ export default function EventForm() {
   initialDate.setHours(new Date().getHours(), new Date().getMinutes())
 
   const [type, setType] = useState<EventType | null>(eventData?.type ? eventData.type : (formType === 'general' ? 'general' : 'lecture'))
-  const [name, setName] = useState<string | null>(eventData?.name ? eventData.name : null)
+  const [name, setName] = useState<string | null>(convertedID ? (eventData?.name ? eventData.name : null) : null)
   const [startDate, setStartDate] = useState<Date>(eventData?.startDate ? eventData.startDate : roundToNearestHours(initialDate, { roundingMethod: 'ceil' }))
   const [endDate, setEndDate] = useState<Date>(eventData?.endDate ? eventData.endDate : addHours(roundToNearestHours(initialDate, { roundingMethod: 'ceil' }), 1))
   const [location, setLocation] = useState(eventData?.location ? eventData.location : null)
@@ -118,7 +119,9 @@ export default function EventForm() {
         {formType !== 'general' && <EventTypePicker eventType={type} setEventType={setType} />}
         <TextInputField placeholder='Add location' icon='mappin.circle.fill' value={location} onChangeText={setLocation} />
         {formType === 'general' ? <CoursePicker courseID={courseID} setCourseID={setCourseID} /> : <CourseTag courseID={courseID} />}
-        <RecurrencePicker recurring={recurring} setRecurring={setRecurring} startDate={startDate} />
+        {formType === 'general'
+          ? <RecurrencePicker recurring={recurring} setRecurring={setRecurring} startDate={startDate} />
+          : <CourseRecurrencePicker recurring={recurring} setRecurring={setRecurring} startDate={startDate} />}
       </View>
       {/* disabled = invalid because since dates are already preselected, the only invalid event is one with out of order dates */}
       <ButtonRow create={create} update={update} confirmDelete={confirmDelete} isCreateForm={id === undefined} disabled={invalid || !eventInsertSchema.safeParse(event).success} />
