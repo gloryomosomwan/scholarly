@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
 import { addHours, isBefore, roundToNearestHours } from 'date-fns'
+import { datetime, RRule } from 'rrule'
 
 import { useTheme } from '@/hooks'
 import { EventType } from '@/types'
@@ -22,7 +23,6 @@ import FormContainer from '@/components/Form/FormContainer'
 import CourseTag from '@/components/Form/CourseTag'
 import CourseRecurrencePicker from '@/components/Form/Recurrence/CourseRecurrencePicker'
 import PrimaryText from '@/components/Form/PrimaryText'
-import { datetime, RRule } from 'rrule'
 
 export default function EventForm() {
   const theme = useTheme()

@@ -16,13 +16,14 @@ export default function ScheduleItemDetails() {
   const convertedID = Number(id)
   const itemData = id ? (itemType === 'event' ? useEventById(convertedID) : useTestById(convertedID)) : null
   const pathname = itemType === 'event' ? '/event-form' : '/test-form'
+  const formType = (itemData?.type === 'lecture' || itemData?.type === 'lab' || itemData?.type === 'seminar') ? 'course' : 'general'
   return (
     <View style={styles.container}>
       <View style={[styles.buttonContainer, {}]}>
         <PressableOpacity onPress={() => router.dismiss()}>
           <SymbolView name='xmark' tintColor={theme.text} />
         </PressableOpacity>
-        <PressableOpacity onPress={() => router.navigate({ pathname: pathname, params: { id: id, formType: 'general' } })}>
+        <PressableOpacity onPress={() => router.navigate({ pathname: pathname, params: { id: id, formType: formType, eventType: itemData?.type } })}>
           <SymbolView name='pencil' tintColor={theme.text} />
         </PressableOpacity>
       </View>
