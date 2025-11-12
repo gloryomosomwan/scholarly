@@ -26,14 +26,15 @@ import PrimaryText from '@/components/Form/PrimaryText'
 export default function EventForm() {
   const theme = useTheme()
 
-  const { id, coursePageID, formType, eventType } = useLocalSearchParams<{ id: string, coursePageID: string, formType: string, eventType: string }>()
+  const { id, coursePageID, formType, eventType } = useLocalSearchParams<{ id: string, coursePageID: string, formType: string, eventType: EventType }>()
   const convertedID = Number(id)
   const eventData = id ? useEventById(convertedID) : null
   const { currentDate } = useCalendarStore()
   const initialDate = new Date(currentDate.getTime())
   initialDate.setHours(new Date().getHours(), new Date().getMinutes())
 
-  const [type, setType] = useState<EventType | null>(eventData?.type ? eventData.type : (formType === 'general' ? 'general' : 'lecture'))
+  const [type, setType] = useState<EventType | null>(eventData?.type ? eventData.type : (formType === 'general' ? 'general' : eventType))
+
   const [name, setName] = useState<string | null>(convertedID ? (eventData?.name ? eventData.name : null) : null)
   const [startDate, setStartDate] = useState<Date>(eventData?.startDate ? eventData.startDate : roundToNearestHours(initialDate, { roundingMethod: 'ceil' }))
   const [endDate, setEndDate] = useState<Date>(eventData?.endDate ? eventData.endDate : addHours(roundToNearestHours(initialDate, { roundingMethod: 'ceil' }), 1))

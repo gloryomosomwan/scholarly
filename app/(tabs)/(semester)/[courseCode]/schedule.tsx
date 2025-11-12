@@ -6,6 +6,7 @@ import { useRef, useCallback } from 'react';
 import { useTheme } from '@/hooks';
 import { useCourseEvents } from '@/hooks/useDatabase';
 import { CourseTabsParamList } from '@/types/navigation';
+import { EventType } from '@/types';
 
 import CourseEventCard from '@/components/CoursePage/CourseEventCard/CourseEventCard';
 import AddButton from '@/components/Buttons/AddButton';
@@ -13,10 +14,13 @@ import EventTypeModal from '@/components/Modals/EventTypeModal';
 
 type AssignmentsRoute = RouteProp<CourseTabsParamList, 'Assignments'>;
 
+const eventTypes: EventType[] = ['lecture', 'lab', 'seminar']
+
 export default function Schedule() {
   const theme = useTheme()
   const { params: { courseID } } = useRoute<AssignmentsRoute>()
-  const events = useCourseEvents(Number(courseID))
+  const courseEvents = useCourseEvents(Number(courseID))
+  const filtered = eventTypes.filter((eventType) => courseEvents.every((courseEvent) => courseEvent.type !== eventType))
   const modalRef = useRef<BottomSheetModal>(null)
   const handlePresentModal = useCallback(() => {
     Keyboard.dismiss()
@@ -24,11 +28,11 @@ export default function Schedule() {
   }, []);
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} >
-      {events.map((event) => {
+      {courseEvents.map((event) => {
         return <CourseEventCard key={event.type} event={event} />
       })}
-      <AddButton handlePress={handlePresentModal} title='Add Event' description='Add an event to your schedule' />
-      <EventTypeModal eventTypeSelectorModalRef={modalRef} courseID={courseID} courseEvents={events} />
+      {filtered.length > 0 && <AddButton handlePress={handlePresentModal} title='Add Course Event' description="Add an event to this course's schedule" />}
+      <EventTypeModal eventTypeSelectorModalRef={modalRef} courseID={courseID} events={filtered} />
     </ScrollView>
   );
 }

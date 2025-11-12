@@ -8,19 +8,17 @@ import EventTypeModalItem from '@/components/Modals/ModalItems/EventTypeModalIte
 
 import { Event, EventType } from '@/types'
 
-const eventTypes: EventType[] = ['lecture', 'lab', 'seminar']
 
 type EventTypeModalProps = {
   eventTypeSelectorModalRef: React.RefObject<BottomSheetModal>
   courseID: string
-  courseEvents: Event[]
+  events: EventType[]
 }
 
-export default function EventTypeModal({ eventTypeSelectorModalRef, courseID, courseEvents }: EventTypeModalProps) {
-  const filtered = eventTypes.filter((eventType) => courseEvents.every((courseEvent) => courseEvent.type !== eventType))
+export default function EventTypeModal({ eventTypeSelectorModalRef, courseID, events }: EventTypeModalProps) {
   return (
     <CustomBottomSheetModal bottomSheetModalRef={eventTypeSelectorModalRef} scrollable>
-      {filtered.map(eventType => (
+      {events.map(eventType => (
         <EventTypeModalItem
           key={eventType}
           eventType={eventType}
