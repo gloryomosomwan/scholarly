@@ -1,6 +1,6 @@
-import { endOfDay, isEqual, isSameDay, startOfDay } from "date-fns";
+import { endOfDay, getDay, isEqual, isSameDay, startOfDay } from "date-fns";
 import dayjs from "dayjs";
-import { datetime, rrulestr } from "rrule";
+import { datetime, RRule, rrulestr, Weekday } from "rrule";
 
 import { Event, ScheduleItemClass, Test } from "@/types";
 import { pretty } from ".";
@@ -59,6 +59,15 @@ function getRecurredEndDate(startDate: Date, endDate: Date, recurredStartDate: D
   const duration = endDate.getTime() - startDate.getTime()
   const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
   return recurredEndDate
+}
+
+export function findDay(date: Date): Weekday | null {
+  const daysOfTheWeek = [RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR, RRule.SA, RRule.SU]
+  const day = getDay(date)
+  for (let dayOfTheWeek of daysOfTheWeek) {
+    if (dayOfTheWeek.getJsWeekday() === day) return dayOfTheWeek
+  }
+  return null
 }
 
 // Events By Day

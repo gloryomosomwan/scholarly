@@ -1,9 +1,9 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { RRule } from 'rrule'
-import { getDay } from 'date-fns'
 
 import { useTheme } from '@/hooks/useTheme'
+import { findDay } from '@/utils/scheduleItem'
 
 const weekdays = [RRule.SU, RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR, RRule.SA]
 
@@ -19,7 +19,7 @@ export default function WeeklyPicker({ rule, setRecurring, start }: WeeklyPicker
   return (
     <View style={[styles.dayContainer]}>
       {weekdays.map(function (day, index) {
-        const locked = day.weekday === getDay(start) - 1
+        const locked = day.weekday === findDay(start)?.weekday
         return (
           <Pressable
             key={index}

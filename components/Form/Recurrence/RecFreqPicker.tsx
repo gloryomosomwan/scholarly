@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { datetime, Frequency, RRule } from 'rrule'
-import { getDay } from 'date-fns'
 
 import { useTheme } from '@/hooks/useTheme'
+import { findDay } from '@/utils/scheduleItem'
 
 import PressableOpacity from '@/components/Buttons/PressableOpacity'
 
@@ -38,7 +38,7 @@ export default function RecFreqPicker({ rule, startDate, setRecurring, recurring
                   interval: rule.options.interval,
                   freq: value,
                   until: rule.options.until,
-                  byweekday: value === RRule.WEEKLY ? (byweekday || getDay(startDate) - 1) : null
+                  byweekday: value === RRule.WEEKLY ? (byweekday || findDay(startDate)) : null
                 })
                 setRecurring(newRule.toString())
               }

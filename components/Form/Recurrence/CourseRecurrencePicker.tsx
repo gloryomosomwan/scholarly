@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { SymbolView } from 'expo-symbols'
-import { datetime, RRule, Weekday } from 'rrule'
-import { getDay } from 'date-fns'
+import { datetime, RRule } from 'rrule'
 
 import { useTheme } from '@/hooks'
+import { findDay } from '@/utils/scheduleItem'
 
 import WeeklyPicker from '@/components/Form/Recurrence/WeeklyPicker'
 
@@ -14,15 +14,13 @@ type CourseRecurrencePickerProps = {
   startDate: Date;
 }
 
-const daysOfTheWeek = [RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR, RRule.SA, RRule.SU]
-
 export default function CourseRecurrencePicker({ recurring, setRecurring, startDate }: CourseRecurrencePickerProps) {
   const theme = useTheme()
   const newRule = new RRule({
     dtstart: datetime(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate(), startDate.getHours(), startDate.getMinutes(), startDate.getSeconds()),
     freq: RRule.WEEKLY,
     interval: 1,
-    byweekday: findDay(getDay(startDate))
+    byweekday: findDay(startDate)
   })
   let rule = recurring ? RRule.fromString(recurring) : newRule
   useEffect(() => {
@@ -38,13 +36,6 @@ export default function CourseRecurrencePicker({ recurring, setRecurring, startD
       <WeeklyPicker start={startDate} rule={rule} setRecurring={setRecurring} />
     </View>
   )
-}
-
-function findDay(day: number): Weekday | null {
-  for (let rruleDay of daysOfTheWeek) {
-    if (rruleDay.getJsWeekday() === day) return rruleDay
-  }
-  return null
 }
 
 const styles = StyleSheet.create({

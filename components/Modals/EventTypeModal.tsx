@@ -3,11 +3,10 @@ import React from 'react'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { router } from 'expo-router'
 
+import { EventType } from '@/types'
+
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import EventTypeModalItem from '@/components/Modals/ModalItems/EventTypeModalItem'
-
-import { Event, EventType } from '@/types'
-
 
 type EventTypeModalProps = {
   eventTypeSelectorModalRef: React.RefObject<BottomSheetModal>
