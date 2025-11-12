@@ -6,19 +6,21 @@ import { router } from 'expo-router'
 import CustomBottomSheetModal from '@/components/Modals/BottomSheetModal'
 import EventTypeModalItem from '@/components/Modals/ModalItems/EventTypeModalItem'
 
-import { EventType } from '@/types'
+import { Event, EventType } from '@/types'
 
 const eventTypes: EventType[] = ['lecture', 'lab', 'seminar']
 
 type EventTypeModalProps = {
   eventTypeSelectorModalRef: React.RefObject<BottomSheetModal>
   courseID: string
+  courseEvents: Event[]
 }
 
-export default function EventTypeModal({ eventTypeSelectorModalRef, courseID }: EventTypeModalProps) {
+export default function EventTypeModal({ eventTypeSelectorModalRef, courseID, courseEvents }: EventTypeModalProps) {
+  const filtered = eventTypes.filter((eventType) => courseEvents.every((courseEvent) => courseEvent.type !== eventType))
   return (
     <CustomBottomSheetModal bottomSheetModalRef={eventTypeSelectorModalRef} scrollable>
-      {eventTypes.map(eventType => (
+      {filtered.map(eventType => (
         <EventTypeModalItem
           key={eventType}
           eventType={eventType}

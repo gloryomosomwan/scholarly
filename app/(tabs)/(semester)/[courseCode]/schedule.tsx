@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView, Keyboard } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useRef, useCallback } from 'react';
 
 import { useTheme } from '@/hooks';
@@ -28,7 +28,7 @@ export default function Schedule() {
         return <CourseEventCard key={event.type} event={event} />
       })}
       <AddButton handlePress={handlePresentModal} title='Add Event' description='Add an event to your schedule' />
-      <EventTypeModal eventTypeSelectorModalRef={modalRef} courseID={courseID} />
+      <EventTypeModal eventTypeSelectorModalRef={modalRef} courseID={courseID} courseEvents={events} />
     </ScrollView>
   );
 }
