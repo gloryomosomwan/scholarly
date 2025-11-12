@@ -180,22 +180,6 @@ export function useEventById(id: number | null) {
   }, [data])
 }
 
-export function useUpcomingEvents() {
-  // CHECK: this may need a dependency array to refresh the query
-  const { data: rawNonRecurringEventArray } = useLiveQuery(db.select().from(events).where(
-    and(
-      gte(events.start_date, new Date().toISOString()),
-      isNull(events.recurring)
-    )
-  ))
-  const nonRecurringEventArray = rawNonRecurringEventArray.map(convertRawEvent)
-  const { data: rawRecurringEventArray } = useLiveQuery(db.select().from(events).where(isNotNull(events.recurring)))
-  const recurringEventArray = rawRecurringEventArray.map(convertRawEvent)
-  const recurrenceEventArray = getUpNextRecurrenceEvents(recurringEventArray)
-  const finalEventArray = nonRecurringEventArray.concat(recurrenceEventArray)
-  return finalEventArray
-}
-
 // Schedule Items
 export function useItemsByDateRange(start: Date, end: Date) {
   const events: Event[] = useEventsByDateRange(start, end);
@@ -205,12 +189,36 @@ export function useItemsByDateRange(start: Date, end: Date) {
   return [...events, ...tests, ...assignments, ...tasks]
 }
 
-export function useUpcomingScheduleItems(): (Event | Test)[] {
-  const events = useUpcomingEvents()
-  const tests = useUpcomingTests()
-  const scheduleItems = [...tests, ...events]
-  scheduleItems.sort(sortScheduleItems)
-  return scheduleItems
+export function useItemsWithinNextDay(now: Date): (Event | Test)[] {
+  const aDayFromNow = addDays(now, 1)
+
+  // non-recurring events
+  const { data: rawNonRecurringEventArray } = useLiveQuery(db.select().from(events).where(
+    and(
+      gte(events.start_date, now.toISOString()),
+      lte(events.start_date, aDayFromNow.toISOString()),
+      isNull(events.recurring)
+    )
+  ), [now])
+  const nonRecurringEventArray = rawNonRecurringEventArray.map(convertRawEvent)
+
+  // recurring events
+  const { data: rawRecurringEventArray } = useLiveQuery(db.select().from(events).where(isNotNull(events.recurring)))
+  const recurringEventArray = rawRecurringEventArray.map(convertRawEvent)
+  const recurrenceEventArray = getUpNextRecurrenceEvents(recurringEventArray)
+
+  // tests
+  const { data: rawTestArray } = useLiveQuery(db.select().from(tests).where(
+    and(
+      gte(tests.start_date, now.toISOString()),
+      lte(tests.start_date, aDayFromNow.toISOString())
+    )
+  ), [now])
+  const testData = rawTestArray.map(convertRawTest)
+
+  const scheduleItemArray = [...recurrenceEventArray, ...nonRecurringEventArray, ...testData]
+  scheduleItemArray.sort(sortScheduleItems)
+  return scheduleItemArray
 }
 
 // Semesters
@@ -351,8 +359,7 @@ export function useCurrentTests(date: Date) {
   return testData
 }
 
-export function useUpcomingTests() {
-  const now = new Date()
+export function useUpcomingTests(now: Date) {
   const sevenDaysFromNow = addDays(now, 7)
   const { data } = useLiveQuery(db.select().from(tests).where(
     and(

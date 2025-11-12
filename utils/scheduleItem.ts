@@ -1,10 +1,10 @@
-import { endOfDay, getDay, isEqual, isSameDay, startOfDay } from "date-fns";
+import { addDays, endOfDay, getDay, isEqual, isSameDay, startOfDay } from "date-fns";
 import dayjs from "dayjs";
 import { datetime, RRule, rrulestr, Weekday } from "rrule";
 
 import { Event, ScheduleItemClass, Test } from "@/types";
 import { pretty } from ".";
-import { useUpcomingScheduleItems } from "@/hooks/useDatabase";
+import { useItemsWithinNextDay } from "@/hooks/useDatabase";
 
 const MILLISECONDSINMINUTE = 60000
 const MILLISECONDSINHOUR = MILLISECONDSINMINUTE * 60
@@ -161,10 +161,12 @@ export function getActiveRecurrenceEvents(events: Event[]): Event[] {
 
 // Upcoming Events
 
-function getNextEventOccurrence(recurrence: string): Date | null {
+function getNextEventOccurrence(recurrence: string): Date[] | null {
   const now = new Date()
   const nowDT = passJSDateToDatetime(now)
-  const occurrences = rrulestr(recurrence).after(nowDT) // CHECK: is it okay if it's just one date?
+  const aDayFromNow = addDays(now, 1)
+  const aDayFromNowDT = passJSDateToDatetime(aDayFromNow)
+  const occurrences = rrulestr(recurrence).between(nowDT, aDayFromNowDT, false)
   return occurrences
 }
 
@@ -173,16 +175,18 @@ export function getUpNextRecurrenceEvents(events: Event[]): Event[] {
   events.forEach(event => {
     if (!event.recurring) return
     const duration = event.endDate.getTime() - event.startDate.getTime()
-    const occurrence = getNextEventOccurrence(event.recurring)
-    if (!occurrence) return
-    const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
-    const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
-    const newEvt: Event = {
-      ...event,
-      startDate: recurredStartDate,
-      endDate: recurredEndDate
-    }
-    eventArray.push(newEvt)
+    const occurrences = getNextEventOccurrence(event.recurring)
+    if (!occurrences) return
+    occurrences.forEach(occurrence => {
+      const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
+      const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
+      const newEvt: Event = {
+        ...event,
+        startDate: recurredStartDate,
+        endDate: recurredEndDate
+      }
+      eventArray.push(newEvt)
+    })
   });
   return eventArray
 }

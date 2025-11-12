@@ -1,18 +1,20 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
-import { useUpcomingScheduleItems } from '@/hooks/useDatabase'
+import { useItemsWithinNextDay } from '@/hooks/useDatabase'
 import { getUpNextScheduleItems } from '@/utils/scheduleItem'
-import { pretty } from '@/utils'
+import { pretty, refresh } from '@/utils'
 
-import ScheduleItemElement from '../ScheduleItemElement'
+import ScheduleItemElement from '@/components/ScheduleItemElement'
 
 export default function UpNextSection() {
   const theme = useTheme()
-  const upcomingScheduleItems = useUpcomingScheduleItems()
+  const [now, setNow] = useState(new Date())
+  refresh(setNow)
+  const itemsWithinNextDay = useItemsWithinNextDay(now)
+  const upNextItems = getUpNextScheduleItems(itemsWithinNextDay)
   let scheduleElements: React.JSX.Element[] = []
-  const upNextItems = getUpNextScheduleItems(upcomingScheduleItems)
 
   if (upNextItems) {
     scheduleElements = upNextItems.map((item) => {
