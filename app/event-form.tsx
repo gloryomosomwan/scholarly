@@ -44,7 +44,7 @@ export default function EventForm() {
 
   useEffect(() => {
     if (eventData) {
-      setType(eventData.type ? eventData.type : 'general')
+      setType((eventData?.type ? eventData.type : (formType === 'general' ? 'general' : eventType)))
       setName(eventData.name ? eventData.name : null)
       setStartDate(eventData.startDate ? eventData.startDate : roundToNearestHours(initialDate, { roundingMethod: 'ceil' }))
       setEndDate(eventData.endDate ? eventData.endDate : addHours(roundToNearestHours(initialDate, { roundingMethod: 'ceil' }), 1))
