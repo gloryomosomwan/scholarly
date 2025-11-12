@@ -22,6 +22,7 @@ import FormContainer from '@/components/Form/FormContainer'
 import CourseTag from '@/components/Form/CourseTag'
 import CourseRecurrencePicker from '@/components/Form/Recurrence/CourseRecurrencePicker'
 import PrimaryText from '@/components/Form/PrimaryText'
+import { datetime, RRule } from 'rrule'
 
 export default function EventForm() {
   const theme = useTheme()
@@ -59,6 +60,16 @@ export default function EventForm() {
   function changeStartDate(date: Date) {
     setStartDate(date)
     setEndDate(addHours(roundToNearestHours(date, { roundingMethod: 'ceil' }), 1))
+    if (!recurring) return
+    const oldRule = RRule.fromString(recurring)
+    const newRule = new RRule({
+      dtstart: datetime(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()),
+      interval: oldRule.options.interval,
+      freq: oldRule.options.freq,
+      until: oldRule.options.until,
+      byweekday: oldRule.options.byweekday
+    })
+    setRecurring(newRule.toString())
   }
 
   const event = {
@@ -97,7 +108,7 @@ export default function EventForm() {
         options: ['Cancel', 'Delete event'],
         destructiveButtonIndex: 1,
         cancelButtonIndex: 0,
-        userInterfaceStyle: 'light',
+        userInterfaceStyle: 'dark',
       }
       ,
       async buttonIndex => {
