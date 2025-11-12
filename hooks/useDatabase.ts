@@ -162,9 +162,18 @@ export function useEventsByDateRange(firstDay: Date, lastDay: Date) {
     or(
       and(
         gte(events.start_date, startOfDay(firstDay).toISOString()),
+        lte(events.start_date, endOfDay(lastDay).toISOString())
+      ),
+      and(
+        gte(events.end_date, startOfDay(firstDay).toISOString()),
         lte(events.end_date, endOfDay(lastDay).toISOString())
       ),
-      isNotNull(events.recurring))
+      and(
+        lte(events.start_date, startOfDay(firstDay).toISOString()),
+        gte(events.end_date, endOfDay(lastDay).toISOString())
+      ),
+      isNotNull(events.recurring)
+    )
   ))
   const eventData = data.map(convertRawEvent)
   return eventData
