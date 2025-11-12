@@ -1,8 +1,9 @@
 import { eachDayOfInterval, isEqual, startOfDay, format } from "date-fns"
-import { getEventOccurrencesBetweenDays, convertRRuleOccurrenceToJSDate, getScheduleItemClass } from "@/utils/scheduleItem"
-import { Event, Assignment, Task } from "@/types"
 
-export function getItemMap(items: (Event | Assignment | Task)[], start: Date, end: Date): Record<string, number> {
+import { getEventOccurrencesBetweenDays, convertRRuleOccurrenceToJSDate, getScheduleItemClass } from "@/utils/scheduleItem"
+import { Event, Assignment, Task, Test } from "@/types"
+
+export function getItemMap(items: (Event | Assignment | Task | Test)[], start: Date, end: Date): Record<string, number> {
   const m: Record<string, number> = {}
   items.forEach(item => {
     if ('recurring' in item && item.recurring !== undefined) {

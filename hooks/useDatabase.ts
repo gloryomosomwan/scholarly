@@ -199,9 +199,10 @@ export function useUpcomingEvents() {
 // Schedule Items
 export function useItemsByDateRange(start: Date, end: Date) {
   const events: Event[] = useEventsByDateRange(start, end);
+  const tests: Test[] = useTestsByDateRange(start, end)
   const assignments: Assignment[] = useAssignmentsByDateRange(start, end);
   const tasks: Task[] = useTasksByDateRange(start, end);
-  return [...events, ...assignments, ...tasks]
+  return [...events, ...tests, ...assignments, ...tasks]
 }
 
 export function useUpcomingScheduleItems(): (Event | Test)[] {
@@ -357,6 +358,17 @@ export function useUpcomingTests() {
     and(
       gte(tests.start_date, now.toISOString()),
       lte(tests.start_date, endOfDay(sevenDaysFromNow).toISOString())
+    )
+  ))
+  const testData = data.map(convertRawTest)
+  return testData
+}
+
+export function useTestsByDateRange(firstDay: Date, lastDay: Date) {
+  const { data } = useLiveQuery(db.select().from(tests).where(
+    and(
+      gte(tests.start_date, startOfDay(firstDay).toISOString()),
+      lte(tests.end_date, endOfDay(lastDay).toISOString())
     )
   ))
   const testData = data.map(convertRawTest)
