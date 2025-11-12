@@ -7,7 +7,8 @@ import ScheduleItemBar from '@/components/ScheduleItemBar'
 import { useTheme } from '@/hooks/useTheme'
 import { useCurrentEvents, useCurrentTests } from '@/hooks/useDatabase'
 import { getScheduleItemClass } from '@/utils/scheduleItem'
-import { refresh } from '@/utils'
+import { pretty, refresh } from '@/utils'
+import { sortByItemClass, sortScheduleItems } from '@/utils/sort'
 
 export default function CurrentlySection() {
   const theme = useTheme()
@@ -15,6 +16,8 @@ export default function CurrentlySection() {
   const events = useCurrentEvents(now)
   const tests = useCurrentTests(now)
   const scheduleItems = [...tests, ...events]
+  scheduleItems.sort(sortScheduleItems)
+  scheduleItems.sort(sortByItemClass)
   refresh(setNow)
   return (
     <View style={styles.container}>

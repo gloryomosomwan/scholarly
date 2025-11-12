@@ -13,7 +13,7 @@ import ScheduleItemBar from '@/components/ScheduleItemBar';
 import { useTheme } from '@/hooks'
 import { useCalendarStore } from '@/stores/calendar';
 import { useAssignmentsByDay, useEventsByDay, useTasksByDay, useTestsByDay } from '@/hooks/useDatabase';
-import { sortAssignmentsByDue, sortScheduleItems, sortTasksByDue } from '@/utils/sort';
+import { sortByItemClass, sortAssignmentsByDue, sortScheduleItems, sortTasksByDue } from '@/utils/sort';
 import { getScheduleItemClass } from '@/utils/scheduleItem';
 
 type AgendaProps = {
@@ -36,6 +36,7 @@ export default function Agenda({ bottomSheetTranslationY }: AgendaProps) {
   const tests = useTestsByDay(currentDate)
   const scheduleItems = [...events, ...tests]
   scheduleItems.sort(sortScheduleItems)
+  scheduleItems.sort(sortByItemClass)
   const scheduleElements = scheduleItems.map((item) => {
     const key = `${item.id}.${item.startDate}.${item.type}`
     const itemClass = getScheduleItemClass(item.startDate, item.endDate)

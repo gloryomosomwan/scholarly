@@ -8,7 +8,12 @@ import { useUpcomingScheduleItems } from "@/hooks/useDatabase";
 
 const MILLISECONDSINMINUTE = 60000
 const MILLISECONDSINHOUR = MILLISECONDSINMINUTE * 60
-const MILLISECONDSINDAY = 24 * MILLISECONDSINHOUR
+export const MILLISECONDSINDAY = 24 * MILLISECONDSINHOUR
+
+export function getDuration(item: Event | Test) {
+  const duration = item.endDate.getTime() - item.startDate.getTime()
+  return duration
+}
 
 function startsAtMidnight(start: Date): boolean {
   return isEqual(start, startOfDay(start))
