@@ -23,6 +23,7 @@ import FormContainer from '@/components/Form/FormContainer'
 import CourseTag from '@/components/Form/CourseTag'
 import CourseRecurrencePicker from '@/components/Form/Recurrence/CourseRecurrencePicker'
 import PrimaryText from '@/components/Form/PrimaryText'
+import { findDay } from '@/utils/scheduleItem'
 
 export default function EventForm() {
   const theme = useTheme()
@@ -67,7 +68,7 @@ export default function EventForm() {
       interval: oldRule.options.interval,
       freq: oldRule.options.freq,
       until: oldRule.options.until,
-      byweekday: oldRule.options.byweekday
+      byweekday: oldRule.options.freq === RRule.WEEKLY ? findDay(date) : oldRule.options.byweekday
     })
     setRecurring(newRule.toString())
   }
