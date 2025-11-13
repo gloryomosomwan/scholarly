@@ -75,6 +75,40 @@ export function findDay(date: Date): Weekday | null {
   return null
 }
 
+export function generateRecurredEndDate(startDate: Date, endDate: Date, duration: number, recurredStartDate: Date): Date {
+  const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
+  const originalEventOffset = startDate.getTimezoneOffset() - endDate.getTimezoneOffset()
+  const recurrenceEventOffset = recurredStartDate.getTimezoneOffset() - recurredEndDate.getTimezoneOffset()
+  const isOriginalEvent: boolean = startDate.getTime() === recurredStartDate.getTime()
+  let adjustedEndDate = null // for DST adjustment
+
+  if (originalEventOffset !== 0 && !isOriginalEvent) { // don't adjust the original event if it crosses DST, the duration already works for it
+    if (originalEventOffset / 60 === -1) {
+      let adjustedDuration = duration - (MILLISECONDSINHOUR)
+      adjustedEndDate = new Date(recurredStartDate.getTime() + adjustedDuration)
+    }
+    else if ((originalEventOffset / 60 === 1)) {
+      let adjustedDuration = duration + (MILLISECONDSINHOUR)
+      adjustedEndDate = new Date(recurredStartDate.getTime() + adjustedDuration)
+    }
+  }
+  else if (recurrenceEventOffset !== 0 && !isOriginalEvent) { // only adjust this specific recurrence event because duration is based on a non-DST crossover event
+    if (recurrenceEventOffset / 60 === -1) {
+      let adjustedDuration = duration + (MILLISECONDSINHOUR)
+      adjustedEndDate = new Date(recurredStartDate.getTime() + adjustedDuration)
+    }
+    else if ((recurrenceEventOffset / 60 === 1)) {
+      let adjustedDuration = duration - (MILLISECONDSINHOUR)
+      adjustedEndDate = new Date(recurredStartDate.getTime() + adjustedDuration)
+    }
+  }
+
+  if (adjustedEndDate) {
+    return adjustedEndDate
+  }
+  else return recurredEndDate
+}
+
 // Events By Day
 
 function getEventOccurrencesByDay(eventDuration: number, date: Date, recurrence: string): Date[] | null {
@@ -95,12 +129,12 @@ export function getRecurrenceEventsByDay(events: Event[], date: Date): Event[] {
   const eventArray: Event[] = []
   events.forEach(event => {
     if (!event.recurring) return // there shouldn't be events w/o recurrences in here but this is needed as a type guard
-    const duration = event.endDate.getTime() - event.startDate.getTime()
+    let duration = event.endDate.getTime() - event.startDate.getTime()
     const occurrences = getEventOccurrencesByDay(duration, date, event.recurring)
     if (!occurrences) return
     occurrences.forEach(occurrence => {
       const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
-      const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
+      const recurredEndDate = generateRecurredEndDate(event.startDate, event.endDate, duration, recurredStartDate)
       const newEvt: Event = {
         ...event,
         startDate: recurredStartDate,
@@ -144,7 +178,7 @@ export function getActiveRecurrenceEvents(events: Event[]): Event[] {
     if (!occurrences) return
     occurrences.forEach(occurrence => {
       const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
-      const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
+      const recurredEndDate = generateRecurredEndDate(event.startDate, event.endDate, duration, recurredStartDate)
       const now = dayjs()
       if (now.isBetween(recurredStartDate, recurredEndDate)) {
         const newEvt: Event = {
@@ -179,7 +213,7 @@ export function getUpNextRecurrenceEvents(events: Event[]): Event[] {
     if (!occurrences) return
     occurrences.forEach(occurrence => {
       const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
-      const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
+      const recurredEndDate = generateRecurredEndDate(event.startDate, event.endDate, duration, recurredStartDate)
       const newEvt: Event = {
         ...event,
         startDate: recurredStartDate,

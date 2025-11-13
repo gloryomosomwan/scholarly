@@ -1,6 +1,6 @@
 import { eachDayOfInterval, isEqual, startOfDay, format } from "date-fns"
 
-import { getEventOccurrencesBetweenDays, convertRRuleOccurrenceToJSDate, getScheduleItemClass } from "@/utils/scheduleItem"
+import { getEventOccurrencesBetweenDays, convertRRuleOccurrenceToJSDate, getScheduleItemClass, generateRecurredEndDate } from "@/utils/scheduleItem"
 import { Event, Assignment, Task, Test } from "@/types"
 
 export function getItemMap(items: (Event | Assignment | Task | Test)[], start: Date, end: Date): Record<string, number> {
@@ -12,7 +12,7 @@ export function getItemMap(items: (Event | Assignment | Task | Test)[], start: D
         occurrences.forEach(occurrence => {
           const duration = item.endDate.getTime() - item.startDate.getTime()
           const recurredStartDate = convertRRuleOccurrenceToJSDate(occurrence)
-          const recurredEndDate = new Date(recurredStartDate.getTime() + duration)
+          const recurredEndDate = generateRecurredEndDate(item.startDate, item.endDate, duration, recurredStartDate)
           const dates = eachDayOfInterval({ start: recurredStartDate, end: recurredEndDate })
           if (isEqual(item.endDate, startOfDay(item.endDate))) dates.splice(dates.length - 1)
           dates.forEach(date => {

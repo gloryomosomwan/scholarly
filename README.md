@@ -10,6 +10,7 @@
     - [Recurrence utility functions](#recurrence-utility-functions)
     - [Setting Recurrences](#setting-recurrences)
     - [Boundaries](#boundaries)
+    - [Daylight Savings Time](#daylight-savings-time)
   - [Agenda Calendar](#agenda-calendar)
     - [Implementation](#implementation)
     - [Interpolation and positioning](#interpolation-and-positioning)
@@ -180,6 +181,18 @@ The way recurrences are handled is that each event can have a recurrence string.
 
 ### Boundaries
 (WIP)
+
+### Daylight Savings Time
+
+The issue with handling a switch to Daylight Savings Time or Standard Time arises when you have **recurrence** events that crossover **or** **recurring** events that crossover. This is because **recurrence** events generate their `endDate` based on their `startDate`, and if their `startDate` is in DST and their `endDate` is in Standard Time, or vice versa, the actual event is going to either be shorter or longer in duration by an hour. The solution is to detect when this is occurring and to either add or subtract an hour from the duration of the individual **recurrence event** that crosses over the switch, **or**, to either add or subtract an hour from the **recurrence events** of an **original event** that crosses over the switch. This ensures that the appropriate `endDate` is set on the recurrence `Event`. The function `getRecurredEndDate()` handles this. 
+
+> A daily event that starts at 11pm on October 31st, 2025 and ends at 3am on November 1st, 2025. One of this event's recurrence events will crossover the switch from DST to Standard time, and will have to be adjusted.
+
+> A daily event that starts at 11pm on November 1st, 2025 and ends at 3am on November 2nd, 2025. The original event here (recurring event) will crossover the switch from DST to Standard time, and all its recurrence events will have to be adjusted.
+
+The general explanation is that when the event duration is calculated using an original event that crosses over an offset switch, the duration will not correctly be applied to the resulting recurrence events. Conversely, when the event duration is calculated using an original event that **doesn't** cross over an offset switch, then that duration will not be correctly applied to a recurrence event that **does** cross over the offset switch.
+
+> Note: Non-recurring events don't seem to have this issue
 
 ## Agenda Calendar 
 
