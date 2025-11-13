@@ -192,6 +192,8 @@ The issue with handling a switch to Daylight Savings Time or Standard Time arise
 
 The general explanation is that when the event duration is calculated using an original event that crosses over an offset switch, the duration will not correctly be applied to the resulting recurrence events. Conversely, when the event duration is calculated using an original event that **doesn't** cross over an offset switch, then that duration will not be correctly applied to a recurrence event that **does** cross over the offset switch.
 
+In short, if you have an original event that does **not** cross over a DST transition, you will need to handle any of its generated recurrence events that **do** cross over a DST transition. If you have an original event that **does** cross over a DST transition, you will need to adjust the duration **all** of its resulting generated recurrence events.
+
 > Note: Non-recurring events don't seem to have this issue
 
 ## Agenda Calendar 
