@@ -18,19 +18,18 @@ type UntilSelectorProps = {
 
 export default function UntilSelector({ start, rule, setRecurring }: UntilSelectorProps) {
   const theme = useTheme()
-  const aWeekFromNow = addWeeks(new Date(), 1).setHours(start.getHours(), start.getMinutes(), 0)
+  const aWeekFromNow = addWeeks(start, 1).setHours(start.getHours(), start.getMinutes(), 0)
   const until = rule?.options.until
   const [internalDate, setInternalDate] = useState(until || new Date(aWeekFromNow))
-  const [skippedAdjust, setSkippedAdjust] = useState(false)
 
   useEffect(() => {
     setInternalDate(until || new Date(aWeekFromNow))
   }, [until])
 
   function setUntil(unt: Date | null) {
-    const dtstart = datetime(start.getFullYear(), start.getMonth() + 1, start.getDate(), start.getHours(), start.getMinutes(), start.getSeconds())
+    // const dtstart = datetime(start.getFullYear(), start.getMonth() + 1, start.getDate(), start.getHours(), start.getMinutes(), start.getSeconds())
     const newRule = new RRule({
-      dtstart: dtstart,
+      dtstart: rule.options.dtstart,
       interval: rule.options.interval,
       freq: rule.options.freq,
       until: unt,
@@ -38,16 +37,6 @@ export default function UntilSelector({ start, rule, setRecurring }: UntilSelect
     })
     setRecurring(newRule.toString())
   }
-
-  useEffect(() => {
-    if (!until) return
-    if (!skippedAdjust) {
-      setSkippedAdjust(true)
-      return
-    }
-    const date = new Date(start)
-    setUntil(passJSDateToDatetime(date))
-  }, [start])
 
   function handlePickerChange(event: DateTimePickerEvent, selectedDate?: Date): void {
     if (event.type === 'dismissed') return

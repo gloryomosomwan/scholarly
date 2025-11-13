@@ -8,6 +8,7 @@
     - [`rrule` and `datetime()`](#rrule-and-datetime)
     - [Lookbacks](#lookbacks)
     - [Recurrence utility functions](#recurrence-utility-functions)
+    - [Setting Recurrences](#setting-recurrences)
     - [Boundaries](#boundaries)
   - [Agenda Calendar](#agenda-calendar)
     - [Implementation](#implementation)
@@ -19,9 +20,12 @@
     - [Regular](#regular)
   - [Managing data types](#managing-data-types)
   - [`useLiveQuery()`](#uselivequery)
+  - [Data Flow and Memoization for Asynchronous Form Data](#data-flow-and-memoization-for-asynchronous-form-data)
+    - [The Chain of Interaction](#the-chain-of-interaction)
   - [Display quirks](#display-quirks)
   - [Dates vs. Days](#dates-vs-days)
   - [Database management](#database-management)
+    - [Changing schemas](#changing-schemas)
   - [How `refresh()` works in dashboard components](#how-refresh-works-in-dashboard-components)
   - [How Events and Tests are differentiated](#how-events-and-tests-are-differentiated)
   - [Comment annotations](#comment-annotations)
@@ -169,6 +173,10 @@ Similar to `getEventOccurrencesByDay()` but only looks back from the current mom
 #### `getEventOccurrencesBetweenDays()`
 
 Similar to `getEventOccurrencesByDay()` but starts its search at midnight of a given day and ends it at the end of another.
+
+### Setting Recurrences
+
+The way recurrences are handled is that each event can have a recurrence string. Inside `event-form`, that string is represented as a state variable, and any recurrence component that wants to update the string has to create a brand new recurrence rule, and set that rule's string as the new recurrence string for the `Event`.
 
 ### Boundaries
 (WIP)
@@ -399,6 +407,7 @@ Events and Tests are differentiated by adding a `type` property to Tests as they
 ## How to run tests
 
 Maestro is used for end-to-end testing
+
 
 ## Other things to keep in mind
 

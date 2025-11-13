@@ -2,7 +2,7 @@ import { ActionSheetIOS, StyleSheet, View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { eq } from 'drizzle-orm'
-import { addHours, isBefore, roundToNearestHours } from 'date-fns'
+import { addDays, addHours, isBefore, roundToNearestHours } from 'date-fns'
 import { datetime, RRule } from 'rrule'
 
 import { useTheme } from '@/hooks'
@@ -12,6 +12,7 @@ import { db } from '@/db/init'
 import { events } from '@/db/schema'
 import { useEventById } from '@/hooks/useDatabase'
 import { useCalendarStore } from '@/stores/calendar'
+import { findDay, passJSDateToDatetime } from '@/utils/scheduleItem'
 
 import PrimaryTextInputField from '@/components/Form/PrimaryTextInputField'
 import DateTimePicker from '@/components/Form/DateTimePicker'
@@ -23,7 +24,6 @@ import FormContainer from '@/components/Form/FormContainer'
 import CourseTag from '@/components/Form/CourseTag'
 import CourseRecurrencePicker from '@/components/Form/Recurrence/CourseRecurrencePicker'
 import PrimaryText from '@/components/Form/PrimaryText'
-import { findDay } from '@/utils/scheduleItem'
 
 export default function EventForm() {
   const theme = useTheme()
@@ -58,17 +58,17 @@ export default function EventForm() {
 
   const invalid = (startDate && endDate && isBefore(endDate, startDate)) ? true : false
 
-  function changeStartDate(date: Date) {
-    setStartDate(date)
-    setEndDate(addHours(roundToNearestHours(date, { roundingMethod: 'ceil' }), 1))
+  function changeStartDate(newDate: Date) {
+    setStartDate(newDate)
+    setEndDate(addHours(roundToNearestHours(newDate, { roundingMethod: 'ceil' }), 1))
     if (!recurring) return
     const oldRule = RRule.fromString(recurring)
     const newRule = new RRule({
-      dtstart: datetime(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()),
+      dtstart: datetime(newDate.getFullYear(), newDate.getMonth() + 1, newDate.getDate(), newDate.getHours(), newDate.getMinutes(), newDate.getSeconds()),
       interval: oldRule.options.interval,
       freq: oldRule.options.freq,
-      until: oldRule.options.until,
-      byweekday: oldRule.options.freq === RRule.WEEKLY ? findDay(date) : oldRule.options.byweekday
+      until: oldRule.options.until ? passJSDateToDatetime(addDays(newDate, 7)) : oldRule.options.until,
+      byweekday: oldRule.options.freq === RRule.WEEKLY ? findDay(newDate) : oldRule.options.byweekday
     })
     setRecurring(newRule.toString())
   }
