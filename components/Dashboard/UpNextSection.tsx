@@ -7,6 +7,7 @@ import { getUpNextScheduleItems } from '@/utils/scheduleItem'
 import { pretty, refresh } from '@/utils'
 
 import ScheduleItemElement from '@/components/ScheduleItemElement'
+import Empty from '@/components/Empty'
 
 export default function UpNextSection() {
   const theme = useTheme()
@@ -25,15 +26,15 @@ export default function UpNextSection() {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.headerText, { color: theme.text }]}>Up Next:</Text>
-      {scheduleElements.length > 0 ? scheduleElements : <Text style={[styles.placeholderText, { color: theme.grey400 }]}>{"No events up next"}</Text>}
+      <Text style={[styles.headerText, { color: theme.text }]}>Up Next</Text>
+      {scheduleElements.length > 0 ? scheduleElements : <Empty icon='calendar.day.timeline.leading' text='No events up next' />}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 5
+    // marginBottom: 5
   },
   placeholderText: {
     fontSize: 18,

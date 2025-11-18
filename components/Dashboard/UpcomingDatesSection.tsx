@@ -7,6 +7,7 @@ import { useItemsWithinNextDay, useUpcomingTests, useCurrentTests } from '@/hook
 import { refresh } from '@/utils'
 
 import ScheduleItemElement from '@/components/ScheduleItemElement'
+import Empty from '../Empty'
 
 type UpcomingDatesSectionProps = {}
 
@@ -31,10 +32,8 @@ export default function UpcomingDatesSection({ }: UpcomingDatesSectionProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates:</Text>
-      {scheduleElements.length > 0
-        ? scheduleElements
-        : <Text style={[styles.placeholderText, { color: theme.grey400 }]}>{"No upcoming dates"}</Text>}
+      <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates</Text>
+      {scheduleElements.length > 0 ? scheduleElements : <Empty icon='calendar' text='No upcoming dates' />}
     </View>
   )
 }

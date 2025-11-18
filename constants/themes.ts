@@ -8,6 +8,7 @@ type theme = {
   textOnDarkBackground: string,
   grey100: string
   grey200: string
+  grey300: string,
   grey400: string,
   grey500: string
   grey600: string
@@ -33,6 +34,7 @@ export const lightTheme: theme = {
   textOnDarkBackground: '#F9FAFB',
   grey100: '#F3F4F6',
   grey200: '#E5E7EB',
+  grey300: '#D1D5DB',
   grey400: '#9CA3AF',
   grey500: '#6B7280',
   grey600: '#4B5563',
@@ -60,6 +62,7 @@ export const darkTheme: theme = {
   textOnDarkBackground: '#F9FAFB',
   grey100: '#374151',
   grey200: '#374151',
+  grey300: '#c5cad1',
   grey400: '#6B7280',
   grey500: '#9CA3AF',
   grey600: '#D1D5DB',
