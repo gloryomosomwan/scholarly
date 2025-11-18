@@ -18,41 +18,46 @@ export default function TabLayout() {
           style={[StyleSheet.absoluteFill]}
         />
       ),
-      tabBarShowLabel: false,
-      tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary, display: 'flex' },
-      tabBarIconStyle: { top: 15 },
+      // tabBarShowLabel: false,
+      tabBarStyle: { backgroundColor: theme.primary, borderColor: theme.primary, display: 'flex', paddingHorizontal: 5 },
+      tabBarIconStyle: { top: 5 },
+      tabBarLabelStyle: { top: 10 },
       headerShown: false,
       sceneStyle: { backgroundColor: theme.primary }
     }}>
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({ color }) => <SymbolView size={35} name="square.grid.2x2" tintColor={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={33} name="square.grid.2x2" tintColor={color} />,
+          title: 'Dashboard'
         }}
       />
       <Tabs.Screen
         name="calendar"
         options={{
-          tabBarIcon: ({ color }) => <SymbolView size={35} name="calendar" tintColor={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={33} name="calendar" tintColor={color} />,
+          title: 'Calendar'
         }}
       />
       <Tabs.Screen
         name="(semester)"
         options={{
-          tabBarIcon: ({ color }) => <SymbolView size={35} name="graduationcap.fill" tintColor={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={33} name="graduationcap.fill" tintColor={color} />,
+          title: 'Semester'
         }}
       />
       <Tabs.Screen
         name="tasks"
         options={{
-          tabBarIcon: ({ color }) => <SymbolView size={35} name="checklist" tintColor={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={33} name="checklist" tintColor={color} />,
+          title: 'Tasks'
         }}
       />
       <Tabs.Screen
         name="(settings)"
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color }) => <SymbolView size={35} name="gearshape" tintColor={color} />,
+          tabBarIcon: ({ color }) => <SymbolView size={33} name="gearshape" tintColor={color} />,
           headerShown: false
         }}
       />
