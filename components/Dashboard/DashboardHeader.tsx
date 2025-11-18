@@ -12,8 +12,8 @@ export default function DashboardHeader() {
   return (
     <View style={styles.container}>
       <View style={styles.greetingDateContainer}>
-        <Text style={[styles.greetingText, { color: theme.text }]}>Good {timeOfDay}, Glory 👋</Text>
         <Text style={[styles.dateText, { color: theme.grey400 }]}>{dayjs().format('dddd, MMMM D')}</Text>
+        <Text style={[styles.greetingText, { color: theme.text }]}>Good {timeOfDay}, Glory 👋</Text>
       </View>
       <SymbolView style={styles.icon} name={'person.crop.circle.fill'} size={45} tintColor={theme.grey400} />
     </View>
@@ -27,13 +27,13 @@ const styles = StyleSheet.create({
   },
   greetingText: {
     fontSize: 26,
-    marginBottom: 5,
+    marginBottom: 20,
     fontWeight: '600'
   },
   dateText: {
     fontSize: 20,
-    marginBottom: 25,
-    fontWeight: '600',
+    marginBottom: 2,
+    fontWeight: '500',
   },
   greetingDateContainer: {
     maxWidth: '80%',
