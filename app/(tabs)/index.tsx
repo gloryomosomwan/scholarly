@@ -1,5 +1,6 @@
-import { StyleSheet, ScrollView, View, Platform } from "react-native";
+import { StyleSheet, ScrollView, View, Platform, Dimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { BlurView } from "expo-blur";
 
 import TaskSection from "@/components/Dashboard/TaskSection";
 import AssignmentSection from "@/components/Dashboard/AssignmentSection";
@@ -14,9 +15,11 @@ export default function Index() {
   const theme = useTheme()
   const insets = useSafeAreaInsets();
   let paddingTop = Platform.OS === "android" ? 0 : insets.top;
+  const width = Dimensions.get('window').width
   return (
-    <View style={{ overflow: 'hidden', paddingTop: paddingTop + 25, flex: 1 }}>
-      <ScrollView style={[styles.container, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
+    <View style={theme.scheme === 'light' ? styles.container : { overflow: 'hidden', paddingTop: paddingTop, flex: 1 }}>
+      {theme.scheme === 'light' && <BlurView intensity={70} tint='light' style={[styles.blurContainer, { height: paddingTop, width: width, }]} />}
+      <ScrollView style={[styles.scrollContainer, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
         <DashboardHeader />
         <CurrentlySection />
         <UpNextSection />
@@ -29,7 +32,15 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: {},
+  scrollContainer: {
     paddingHorizontal: 20,
+  },
+  blurContainer: {
+    flex: 1,
+    borderBottomWidth: 0.15,
+    position: 'absolute',
+    zIndex: 2,
+    top: 0
   }
 });

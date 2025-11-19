@@ -1,4 +1,5 @@
 type theme = {
+  scheme: string,
   primary: string,
   secondary: string,
   accent: string,
@@ -24,7 +25,8 @@ type theme = {
   dangerBorder: string
 }
 
-export const lightTheme: theme = {
+export const light: theme = {
+  scheme: 'light',
   primary: '#F9FAFB',
   secondary: '#FFFFFF',
   accent: "#0055FF",
@@ -50,9 +52,10 @@ export const lightTheme: theme = {
   dangerBorder: '#FECACA',
 }
 
-export const darkTheme: theme = {
+export const dark: theme = {
   // primary: '#111827',
   // secondary: '#1F2937',
+  scheme: 'dark',
   primary: '#0e0f0f',
   secondary: '#151616',
   accent: '#3B82F6',
