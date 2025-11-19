@@ -13,8 +13,8 @@ export default function Empty({ icon, text }: EmptyProps) {
   const theme = useTheme()
   return (
     <View style={styles.container}>
-      <SymbolView style={[styles.icon, {}]} name={icon} size={85} tintColor={theme.grey200} />
-      <Text style={[styles.headerText, { color: theme.grey300 }]}>{text}</Text>
+      <SymbolView style={[styles.icon, {}]} name={icon} size={85} tintColor={theme.text} />
+      <Text style={[styles.headerText, { color: theme.text }]}>{text}</Text>
     </View>
   )
 }
@@ -26,9 +26,11 @@ const styles = StyleSheet.create({
     marginBottom: 35
   },
   headerText: {
-    fontSize: 15
+    fontSize: 15,
+    opacity: 0.2
   },
   icon: {
-    height: 90
+    height: 90,
+    opacity: 0.10
   }
 })
