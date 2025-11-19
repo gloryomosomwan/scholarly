@@ -6,8 +6,8 @@ import { getUpNextScheduleItems } from '@/utils/scheduleItem'
 import { useItemsWithinNextDay, useUpcomingTests, useCurrentTests } from '@/hooks/useDatabase'
 import { refresh } from '@/utils'
 
-import ScheduleItemElement from '@/components/ScheduleItemElement'
-import Empty from '../Empty'
+import Empty from '@/components/Empty'
+import UpcomingDateCard from '@/components/Dashboard/UpcomingDateCard'
 
 type UpcomingDatesSectionProps = {}
 
@@ -25,15 +25,10 @@ export default function UpcomingDatesSection({ }: UpcomingDatesSectionProps) {
   const upNextTests = upNextItems?.filter(item => item.type === 'test') // grab up next tests
   const nonUpNextTests = nonCurrentTests.filter(upcomingTest => !upNextTests?.some(upNextTest => upNextTest.id === upcomingTest.id)) // filter out tests that appear in up next section
 
-  const scheduleElements = nonUpNextTests.map((item) => {
-    const key = `${item.id}.${item.startDate}.${item.type}`
-    return <ScheduleItemElement item={item} key={key} />
-  })
-
   return (
     <View style={styles.container}>
       <Text style={[styles.headerText, { color: theme.text }]}>Upcoming Dates</Text>
-      {scheduleElements.length > 0 ? scheduleElements : <Empty icon='calendar' text='No upcoming dates' />}
+      {nonUpNextTests.length > 0 ? <UpcomingDateCard items={nonUpNextTests} /> : <Empty icon='calendar' text='No upcoming dates' />}
     </View>
   )
 }
