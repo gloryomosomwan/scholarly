@@ -19,7 +19,7 @@ export default function Index() {
   return (
     <View style={theme.scheme === 'light' ? styles.container : { overflow: 'hidden', paddingTop: paddingTop, flex: 1 }}>
       {theme.scheme === 'light' && <BlurView intensity={70} tint='light' style={[styles.blurContainer, { height: paddingTop, width: width, }]} />}
-      <ScrollView style={[styles.scrollContainer, { backgroundColor: theme.primary }]} contentInsetAdjustmentBehavior="automatic">
+      <ScrollView style={[styles.scrollContainer, { backgroundColor: theme.primary, paddingTop: 20 }]} contentInsetAdjustmentBehavior="automatic">
         <DashboardHeader />
         <CurrentlySection />
         <UpNextSection />
