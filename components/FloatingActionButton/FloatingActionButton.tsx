@@ -1,5 +1,5 @@
-import { Dimensions, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import { Dimensions, Pressable, SafeAreaView, StyleSheet, View } from 'react-native'
+import React from 'react'
 import Animated, { useSharedValue, useAnimatedStyle, interpolate, withTiming } from 'react-native-reanimated'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 
@@ -7,9 +7,9 @@ import { useTheme } from '@/hooks/useTheme'
 
 import Action from '@/components/FloatingActionButton/Action'
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-
 type PlusIconProps = {}
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export default function PlusIcon({ }: PlusIconProps) {
   const theme = useTheme()
@@ -27,7 +27,6 @@ export default function PlusIcon({ }: PlusIconProps) {
     const moveValue = interpolate(Number(isExpanded.value), [0, 1], [0, 2]);
     const translateValue = withTiming(moveValue);
     const rotateValue = isExpanded.value ? '45deg' : '0deg';
-
     return {
       transform: [
         { translateX: translateValue },
@@ -68,7 +67,7 @@ export default function PlusIcon({ }: PlusIconProps) {
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  container: {
     position: 'relative',
     height: 260,
     width: '100%',
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     top: 400,
     left: 100,
-    zIndex: 3 // CHECK: why does this need to be 3 for the Actions to be pressable?
+    zIndex: 2 // CHECK: why does this need to be 3 for the Actions to be pressable?
   },
   shadow: {
     shadowColor: '#171717',

@@ -1,27 +1,28 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet } from 'react-native'
 import React from 'react'
+import Animated, { SharedValue, useAnimatedStyle, withDelay, withSpring, withTiming } from 'react-native-reanimated'
+import { Route, router } from 'expo-router';
 
 import { useTheme } from '@/hooks/useTheme'
-import Animated, { SharedValue, useAnimatedStyle, withDelay, withSpring, withTiming } from 'react-native-reanimated'
-import { ExternalPathString, RelativePathString, Route, router } from 'expo-router';
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-
-type FABProps = {
+type ActionProps = {
   isExpanded: SharedValue<boolean>
   index: number
   text: string
   route: Route
 }
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
 const OFFSET = 60;
+
 const SPRING_CONFIG = {
   duration: 1200,
   overshootClamping: true,
   dampingRatio: 0.8,
 };
 
-export default function FAB({ isExpanded, index, text, route }: FABProps) {
+export default function Action({ isExpanded, index, text, route }: ActionProps) {
   const theme = useTheme()
   const animatedStyles = useAnimatedStyle(() => {
     const moveValue = isExpanded.value ? OFFSET * index : 0;
@@ -33,23 +34,20 @@ export default function FAB({ isExpanded, index, text, route }: FABProps) {
     return {
       transform: [
         { translateY: translateValue },
-        {
-          scale: withDelay(delay, withTiming(scaleValue)),
-        },
+        { scale: withDelay(delay, withTiming(scaleValue)) },
       ],
     };
   })
 
-
   return (
-    <AnimatedPressable style={[animatedStyles, styles.shadow, styles.button, { backgroundColor: theme.primary }]} onPress={() => router.navigate(route)}>
+    <AnimatedPressable style={[animatedStyles, styles.shadow, styles.container, { backgroundColor: theme.primary }]} onPress={() => router.navigate(route)}>
       <Animated.Text style={[styles.content, { color: theme.accent }]}>{text}</Animated.Text>
     </AnimatedPressable>
   )
 }
 
 const styles = StyleSheet.create({
-  button: {
+  container: {
     padding: 20,
     width: 'auto',
     height: 40,
