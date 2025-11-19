@@ -8,6 +8,7 @@ import UpNextSection from "@/components/Dashboard/UpNextSection";
 import CurrentlySection from "@/components/Dashboard/CurrentlySection";
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import UpcomingDatesSection from "@/components/Dashboard/UpcomingDatesSection";
+import FloatingActionButton from "@/components/FloatingActionButton";
 
 import { useTheme } from "@/hooks/useTheme";
 
@@ -19,6 +20,7 @@ export default function Index() {
   return (
     <View style={theme.scheme === 'light' ? styles.container : { overflow: 'hidden', paddingTop: paddingTop, flex: 1 }}>
       {theme.scheme === 'light' && <BlurView intensity={70} tint='light' style={[styles.blurContainer, { height: paddingTop, width: width, }]} />}
+      <FloatingActionButton />
       <ScrollView style={[styles.scrollContainer, { backgroundColor: theme.primary, paddingTop: 20 }]} contentInsetAdjustmentBehavior="automatic">
         <DashboardHeader />
         <CurrentlySection />
