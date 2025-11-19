@@ -5,7 +5,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 
 import { useTheme } from '@/hooks/useTheme'
 
-import Action from '@/components/Action'
+import Action from '@/components/FloatingActionButton/Action'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -13,10 +13,10 @@ type PlusIconProps = {}
 
 export default function PlusIcon({ }: PlusIconProps) {
   const theme = useTheme()
+
   const { height, width } = Dimensions.get('window')
   const tabBarHeight = useBottomTabBarHeight();
   const buttonDiameter = 60
-
   const isExpanded = useSharedValue(false);
 
   const handlePress = () => {
@@ -37,28 +37,25 @@ export default function PlusIcon({ }: PlusIconProps) {
   });
 
   return (
-    <View style={[styles.buttonContainer, { height: buttonDiameter, borderRadius: buttonDiameter / 2, width: buttonDiameter, top: height - tabBarHeight - (buttonDiameter + 20), left: width - (buttonDiameter + 18) }]}>
+    <View style={[styles.buttonContainer, { backgroundColor: theme.accent, height: buttonDiameter, borderRadius: buttonDiameter / 2, width: buttonDiameter, top: height - tabBarHeight - (buttonDiameter + 20), left: width - (buttonDiameter + 18) }]}>
       <AnimatedPressable
         onPress={handlePress}
-        style={[styles.shadow, mainButtonStyles.button]}>
-        <Animated.Text style={[plusIconStyle, mainButtonStyles.content]}>
+        style={[styles.shadow, styles.button]}>
+        <Animated.Text style={[plusIconStyle, styles.content]}>
           +
         </Animated.Text>
       </AnimatedPressable>
       <Action
         isExpanded={isExpanded}
         index={1}
-        buttonLetter={'M'}
+        text={'Task'}
+        route={'/task-form'}
       />
       <Action
         isExpanded={isExpanded}
         index={2}
-        buttonLetter={'W'}
-      />
-      <Action
-        isExpanded={isExpanded}
-        index={3}
-        buttonLetter={'S'}
+        text={'Event'}
+        route={'/event-form'}
       />
     </View>
     // <SafeAreaView onLayout={(ev) => {
@@ -94,15 +91,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
-});
-
-const mainButtonStyles = StyleSheet.create({
   button: {
     zIndex: 1,
     height: 56,
     width: 56,
     borderRadius: 100,
-    backgroundColor: '#b58df1',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

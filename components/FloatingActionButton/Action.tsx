@@ -3,13 +3,15 @@ import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
 import Animated, { SharedValue, useAnimatedStyle, withDelay, withSpring, withTiming } from 'react-native-reanimated'
+import { ExternalPathString, RelativePathString, Route, router } from 'expo-router';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 type FABProps = {
   isExpanded: SharedValue<boolean>
   index: number
-  buttonLetter: string
+  text: string
+  route: Route
 }
 
 const OFFSET = 60;
@@ -19,7 +21,7 @@ const SPRING_CONFIG = {
   dampingRatio: 0.8,
 };
 
-export default function FAB({ isExpanded, index, buttonLetter }: FABProps) {
+export default function FAB({ isExpanded, index, text, route }: FABProps) {
   const theme = useTheme()
   const animatedStyles = useAnimatedStyle(() => {
     const moveValue = isExpanded.value ? OFFSET * index : 0;
@@ -40,17 +42,17 @@ export default function FAB({ isExpanded, index, buttonLetter }: FABProps) {
 
 
   return (
-    <AnimatedPressable style={[animatedStyles, styles.shadow, styles.button]} onPress={() => console.log('pressed')}>
-      <Animated.Text style={styles.content}>{buttonLetter}</Animated.Text>
+    <AnimatedPressable style={[animatedStyles, styles.shadow, styles.button, { backgroundColor: theme.primary }]} onPress={() => router.navigate(route)}>
+      <Animated.Text style={[styles.content, { color: theme.accent }]}>{text}</Animated.Text>
     </AnimatedPressable>
   )
 }
 
 const styles = StyleSheet.create({
   button: {
-    width: 40,
+    padding: 20,
+    width: 'auto',
     height: 40,
-    backgroundColor: '#82cab2',
     position: 'absolute',
     borderRadius: 100,
     display: 'flex',
@@ -66,7 +68,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   content: {
-    color: '#f8f9ff',
     fontWeight: 500,
   },
 });
