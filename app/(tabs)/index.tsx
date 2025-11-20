@@ -10,6 +10,7 @@ import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import UpcomingDatesSection from "@/components/Dashboard/UpcomingDatesSection";
 
 import { useTheme } from "@/hooks/useTheme";
+import FloatingActionButton from "@/components/FloatingActionButton";
 
 export default function Index() {
   const theme = useTheme()
@@ -27,6 +28,7 @@ export default function Index() {
         <AssignmentSection />
         <TaskSection />
       </ScrollView>
+      <FloatingActionButton />
     </View>
   );
 }
