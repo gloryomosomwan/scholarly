@@ -8,7 +8,6 @@ import UpNextSection from "@/components/Dashboard/UpNextSection";
 import CurrentlySection from "@/components/Dashboard/CurrentlySection";
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import UpcomingDatesSection from "@/components/Dashboard/UpcomingDatesSection";
-import FloatingActionButton from "@/components/FloatingActionButton/FloatingActionButton";
 
 import { useTheme } from "@/hooks/useTheme";
 
@@ -28,7 +27,6 @@ export default function Index() {
         <AssignmentSection />
         <TaskSection />
       </ScrollView>
-      <FloatingActionButton />
     </View>
   );
 }
