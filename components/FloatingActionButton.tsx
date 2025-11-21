@@ -33,13 +33,13 @@ export default function FloatingActionButton({ }: FloatingActionButtonProps) {
   });
 
   return (
-    <SafeAreaView style={{ position: 'absolute', top: 500, left: 200 }}>
-      <View style={styles.mainContainer}>
-        <View style={styles.buttonContainer}>
+    <SafeAreaView style={{ position: 'absolute', top: 200, left: 100, height: 400, width: 200, backgroundColor: 'red' }}>
+      <View style={[styles.mainContainer, { backgroundColor: 'blue' }]}>
+        <View style={[styles.buttonContainer, { backgroundColor: 'yellow' }]}>
           <AnimatedPressable
             onPress={handlePress}
             style={[styles.shadow, styles.button]}>
-            <Animated.Text style={[plusIconStyle, styles.content]}>
+            <Animated.Text style={[plusIconStyle, styles.content, { backgroundColor: 'green' }]}>
               +
             </Animated.Text>
           </AnimatedPressable>
