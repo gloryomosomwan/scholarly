@@ -1,14 +1,13 @@
-import { Dimensions, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Pressable, SafeAreaView, StyleSheet, View } from 'react-native'
 import React from 'react'
-
-import { useTheme } from '@/hooks/useTheme'
 import Animated, { useSharedValue, useAnimatedStyle, interpolate, withTiming } from 'react-native-reanimated';
-import Action from './Action';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
-type FloatingActionButtonProps = {
+import { useTheme } from '@/hooks/useTheme'
 
-}
+import Action from '@/components/Action';
+
+type FloatingActionButtonProps = {}
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -51,17 +50,14 @@ export default function FloatingActionButton({ }: FloatingActionButtonProps) {
           <Action
             isExpanded={isExpanded}
             index={1}
-            buttonLetter={'M'}
+            text={'Event'}
+            href={{ pathname: '/event-form', params: { formType: 'general' } }}
           />
           <Action
             isExpanded={isExpanded}
             index={2}
-            buttonLetter={'W'}
-          />
-          <Action
-            isExpanded={isExpanded}
-            index={3}
-            buttonLetter={'S'}
+            text={'Task'}
+            href={{ pathname: '/task-form' }}
           />
         </View>
       </View>
