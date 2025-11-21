@@ -1,9 +1,10 @@
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
 import Animated, { useSharedValue, useAnimatedStyle, interpolate, withTiming } from 'react-native-reanimated';
 import Action from './Action';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 type FloatingActionButtonProps = {
 
@@ -14,6 +15,10 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 export default function FloatingActionButton({ }: FloatingActionButtonProps) {
   const theme = useTheme()
   const isExpanded = useSharedValue(false);
+
+  const { height, width } = Dimensions.get('window')
+  const tabBarHeight = useBottomTabBarHeight();
+  const buttonDiameter = 56
 
   const handlePress = () => {
     isExpanded.value = !isExpanded.value;
@@ -33,13 +38,13 @@ export default function FloatingActionButton({ }: FloatingActionButtonProps) {
   });
 
   return (
-    <SafeAreaView style={{ position: 'absolute', top: 200, left: 100, height: 400, width: 200, backgroundColor: 'red' }}>
-      <View style={[styles.mainContainer, { backgroundColor: 'blue' }]}>
-        <View style={[styles.buttonContainer, { backgroundColor: 'yellow' }]}>
+    <SafeAreaView style={{ position: 'absolute', top: height - tabBarHeight - (buttonDiameter / 2), right: 50 }}>
+      <View style={[styles.mainContainer, {}]}>
+        <View style={[styles.buttonContainer, {}]}>
           <AnimatedPressable
             onPress={handlePress}
-            style={[styles.shadow, styles.button]}>
-            <Animated.Text style={[plusIconStyle, styles.content, { backgroundColor: 'green' }]}>
+            style={[styles.shadow, styles.button, { height: buttonDiameter, width: buttonDiameter, backgroundColor: theme.accent }]}>
+            <Animated.Text style={[plusIconStyle, styles.content, {}]}>
               +
             </Animated.Text>
           </AnimatedPressable>
@@ -67,23 +72,20 @@ export default function FloatingActionButton({ }: FloatingActionButtonProps) {
 const styles = StyleSheet.create({
   button: {
     zIndex: 1,
-    height: 56,
-    width: 56,
     borderRadius: 100,
-    backgroundColor: '#b58df1',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
   content: {
-    fontSize: 24,
+    fontSize: 28,
     color: '#f8f9ff',
   },
   mainContainer: {
-    position: 'relative',
-    height: 260,
-    width: '100%',
-    display: 'flex',
+    // position: 'relative',
+    // height: 260,
+    // width: '100%',
+    // display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
