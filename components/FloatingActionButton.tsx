@@ -38,8 +38,8 @@ export default function FloatingActionButton({ }: FloatingActionButtonProps) {
         <View style={styles.buttonContainer}>
           <AnimatedPressable
             onPress={handlePress}
-            style={[styles.shadow, mainButtonStyles.button]}>
-            <Animated.Text style={[plusIconStyle, mainButtonStyles.content]}>
+            style={[styles.shadow, styles.button]}>
+            <Animated.Text style={[plusIconStyle, styles.content]}>
               +
             </Animated.Text>
           </AnimatedPressable>
@@ -64,7 +64,7 @@ export default function FloatingActionButton({ }: FloatingActionButtonProps) {
   )
 }
 
-const mainButtonStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   button: {
     zIndex: 1,
     height: 56,
@@ -79,9 +79,6 @@ const mainButtonStyles = StyleSheet.create({
     fontSize: 24,
     color: '#f8f9ff',
   },
-});
-
-const styles = StyleSheet.create({
   mainContainer: {
     position: 'relative',
     height: 260,
@@ -89,18 +86,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
-  },
-  button: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#82cab2',
-    position: 'absolute',
-    borderRadius: 100,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: -2,
-    flexDirection: 'row',
   },
   buttonContainer: {
     position: 'absolute',
@@ -113,9 +98,5 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -0.5, height: 3.5 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-  },
-  content: {
-    color: '#f8f9ff',
-    fontWeight: 500,
   },
 });

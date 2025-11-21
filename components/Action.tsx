@@ -2,7 +2,6 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import { useTheme } from '@/hooks/useTheme'
-import { index } from 'drizzle-orm/gel-core';
 import Animated, { useAnimatedStyle, withSpring, withDelay, withTiming, SharedValue } from 'react-native-reanimated';
 
 type ActionProps = {
@@ -49,14 +48,6 @@ export default function Action({ isExpanded, index, buttonLetter }: ActionProps)
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    position: 'relative',
-    height: 260,
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
   button: {
     width: 40,
     height: 40,
@@ -68,12 +59,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: -2,
     flexDirection: 'row',
-  },
-  buttonContainer: {
-    position: 'absolute',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
   },
   shadow: {
     shadowColor: '#171717',
