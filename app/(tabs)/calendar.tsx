@@ -12,6 +12,7 @@ import Agenda from "@/components/AgendaCalendar/Agenda";
 import TodayButton from "@/components/AgendaCalendar/TodayButton";
 
 import { useTheme } from "@/hooks";
+import FloatingActionButton from "@/components/FloatingActionButton";
 
 export default function App() {
   return (
@@ -64,6 +65,7 @@ const CalendarContent = () => {
         bottomSheetTranslationY={bottomSheetTranslationY}
         calendarBottom={calendarBottom}
       />
+      <FloatingActionButton />
     </View>
   );
 };

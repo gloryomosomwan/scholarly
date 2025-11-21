@@ -14,6 +14,7 @@ import SortPill from '@/components/TasksPage/SortPill';
 import { useTheme } from '@/hooks/useTheme';
 import { useAllTasks, useCourses, useTasksForToday } from '@/hooks/useDatabase';
 import { Task, PriorityOption, TaskSortOption, TaskFilterOption, Course } from '@/types';
+import FloatingActionButton from '@/components/FloatingActionButton';
 
 export default function Tab() {
   const insets = useSafeAreaInsets()
@@ -46,9 +47,6 @@ export default function Tab() {
       <View style={styles.header}>
         <Text style={[styles.headerText, { color: theme.text }]}>Tasks</Text>
         <View style={styles.buttonsContainer}>
-          <PressableOpacity style={styles.buttonContainer} onPress={() => router.navigate('/task-form')} testID='add task button'>
-            <SymbolView name='plus' />
-          </PressableOpacity>
           <TaskFilterMenu filterValue={filterValue} handleSetFilterBy={handleSetFilterBy} handleSetFilterValue={handleSetFilterValue} />
           <TaskSortMenu sortBy={sortBy} handleSelection={handleSortBy} />
         </View>
@@ -60,6 +58,7 @@ export default function Tab() {
       <ScrollView style={[styles.tasksContainer, {}]} contentInsetAdjustmentBehavior="automatic">
         {taskData.map((task) => <TaskCard key={task.id} task={task} />)}
       </ScrollView>
+      <FloatingActionButton />
     </View>
   );
 }

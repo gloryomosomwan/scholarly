@@ -3,7 +3,6 @@ import React from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import HeatmapButton from '@/components/AgendaCalendar/HeatmapButton';
-import AddEventButton from '@/components/AgendaCalendar/AddEventButton';
 
 import { useTheme } from '@/hooks'
 import { useCalendarStore } from '@/stores/calendar';
@@ -25,7 +24,6 @@ export default function Header() {
           <Text style={[styles.monthYearText, { color: subduedTextColor }]}>{selectedDate.toLocaleString('default', { year: 'numeric' })}</Text>
         </View>
         <HeatmapButton />
-        <AddEventButton />
       </View>
       <View style={styles.weekdayNamesContainer}>
         {daysOfWeek.map((day) => (
