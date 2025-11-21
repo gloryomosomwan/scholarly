@@ -51,7 +51,8 @@ export default function Action({ isExpanded, index, text, href }: ActionProps) {
 
 const styles = StyleSheet.create({
   button: {
-    width: 40,
+    width: 'auto',
+    paddingHorizontal: 8,
     height: 40,
     position: 'absolute',
     borderRadius: 100,
