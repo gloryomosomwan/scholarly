@@ -47,10 +47,6 @@
     npx expo start
    ```
 
-3. ???
-
-4. Profit
-
 ## Recurring Events
 
 ### Definitions
